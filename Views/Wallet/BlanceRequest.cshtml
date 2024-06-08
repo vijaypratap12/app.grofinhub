@@ -1,0 +1,274 @@
+﻿@{
+	ViewData["Title"] = "BlanceRequest";
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="box-body">
+
+	<!-- beneficiary start tab-->
+	<div class="" id="registerdv">
+		<div class="row">
+			<form method="post">
+				<div class="">
+
+					<div class="main-card mb-3 card">
+						<h3 class="my-5 new-title">Balance Request</h3>
+						<div class="card-body">
+
+							<div class="otherdiv">
+
+								<div class="row">
+									<div class="col-6" style="display:none;">
+										ID:
+										<input type="text" id="vid" name="id" class="form-control">
+										<input type="hidden" id="hdnstateres">
+									</div>
+									<div class="col-6 p-2">
+
+										<span style="color:red">*</span><label>Transaction Type</label>
+
+										<select class="form-control" id="txttxnType" onchange="BlanceRequest()">
+											<option value="0">--Select--</option>
+											<option value="credit">Credit (AEPS & MATM)</option>
+											<option value="debit">Debit(DMT Other Serives)</option>
+
+										</select>
+									</div>
+
+									<div class="col-6 p-2">
+
+										<span style="color:red">*</span><label>Amount</label>
+										<input type="text" placeholder="Enter Amount" required="" id="txtAmt" name="vendor_Name" class="form-control">
+
+									</div>
+
+
+								</div>
+
+
+								<div class="row txtTransfer">
+									<div class="col-6 p-2 ">
+										<span style="color:red">*</span><label>Transfer To</label>
+
+
+										<select class="form-control" id="txtTransfer">
+											<option value="0">--Select--</option>
+											<option value="Bank">Bank</option>
+											<option value="DMT">DMT</option>
+										</select>
+
+									</div>
+									<div class="col-xl-3 col-md-6 col-12 otherdivbtn" style="margin-top: 25px;">
+										<input type="button" id="BtnbTransfer" style="width:100%;" value="Submit" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="TransgerAmountForBank();">
+
+									</div>
+								</div>
+
+
+								<div class="row" id="hidtxtbox1">
+
+
+									<div class="col-6 p-2">
+										<span style="color:red">*</span><label>  Transaction ID:</label>
+										<input type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" class="form-control" placeholder="Enter TransactionID " id="txttransactionID" />
+									</div>
+
+									<div class="col-6 p-2">
+
+										<span style="color:red">*</span><label>  Deposited Date:</label>
+										<input type="date" id="txtDepositedDate" name="DOB" class="form-control">
+									</div>
+
+								</div>
+								<div class="row" id="hidetxtbox2">
+
+
+									<div class="col-6 p-2">
+
+										<div class="form-group">
+											<span style="color:red">*</span><label>Bank Name</label>
+											<input type="text" placeholder="Enter Bank Name" class="form-control" id="txtbankname" />
+										</div>
+
+									</div>
+
+									<div class="col-6 p-2">
+
+										<span style="color:red">*</span><label>Image</label>
+										<input type="file" id="images" class="form-control" />
+									</div>
+									<div class="col-xl-3 col-md-6 col-12 otherdivbtn">
+										<input type="button" id="savebutton" style="width:100%;" value="SAVE" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="insertBalaceRequest();">
+
+									</div>
+
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+
+
+
+
+			</form>
+
+		</div>
+	</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+<script>
+	$(document).ready(function () {
+		$(".txtTransfer").hide();
+	})
+	function insertBalaceRequest() {
+
+
+		if ($("#txttxnType").val() == '0') {
+			alert("Select Transaction Type !! ");
+			$("#txttxnType").focus();
+			return false;
+		}
+		if ($("#txttxnType").val() == '') {
+			alert("Select Transaction Type !! ");
+			$("#txttxnType").focus();
+			return false;
+		}
+		if ($("#txtAmt").val() == '') {
+			alert("Enter Amount    !! ");
+			$("#txtAmt").focus();
+			return false;
+		}
+		if ($("#txttransactionID").val() == '') {
+			alert("Enter TransactionID  !! ");
+			$("#txttransactionID").focus();
+			return false;
+		}
+		if ($("#txtDepositedDate").val() == '') {
+			alert("Select Deposited Date  !! ");
+			$("#txtDepositedDate").focus();
+			return false;
+		}
+		if ($("#txtbankname").val() == '') {
+			alert("Enter Bank Name  !! ");
+			$("#txtbankname").focus();
+			return false;
+		}
+		if ($("#images").val() == '') {
+			alert("Upload Image  !! ");
+			$("#images").focus();
+			return false;
+		}
+
+
+		debugger;
+		var TransactionType = $("#txttxnType").val();
+		var Amount = $("#txtAmt").val();
+		var TransactionID = $("#txttransactionID").val();
+		var DepositedDate = $("#txtDepositedDate").val();
+		var BankName = $("#txtbankname").val();
+		//var files = $("#images").get(0).files[0]);
+		var Fdata = new FormData();
+		Fdata.append("TransactionType", TransactionType);
+		Fdata.append("Amount", Amount);
+		Fdata.append("TransactionID", TransactionID);
+		Fdata.append("DepositedDate", DepositedDate);
+		Fdata.append("BankName", BankName);
+		Fdata.append("FileName", $("#images").get(0).files[0]);
+		$.ajax({
+			url: "/Wallet/InsertBalanceRequest",
+			type: "POST",
+			processData: false,
+			contentType: false,
+			data: Fdata,
+			success: function (r) {
+				debugger;
+
+				if (r != null) {
+					alert(r);
+					ResetRecord();
+				}
+				else {
+					alert("server Not found !");
+				}
+			},
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+				alert('Please Check values Entered by you !!!');
+				$("#showSpinner").hide();
+			}
+		});
+	}
+
+	function ResetRecord() {
+		$("#txtbankname").val("");
+		$("#txtDepositedDate").val("");
+		$("#txttransactionID").val("");
+		$("#txtAmt").val("");
+		$("#txttxnType").val("0");
+		$("#images").val("");
+
+	}
+
+
+	function BlanceRequest() {
+
+		if ($("#txttxnType").val() == "credit") {
+			$("#hidtxtbox1").hide();
+			$("#hidetxtbox2").hide();
+
+			$(".txtTransfer").show();
+
+		}
+
+		else {
+			$(".txtTransfer").hide();
+			$("#hidtxtbox1").show();
+			$("#hidetxtbox2").show();
+
+		}
+
+	}
+
+
+
+	function TransgerAmountForBank() {
+		debugger;
+
+		var objdata = {
+			TransactionType: $("#txttxnType").val(),
+			transferamt: $("#txtAmt").val(),
+			TransferTo:$("#txtTransfer").val()
+		}
+		$.ajax({
+			url: "/Wallet/Transferamount",
+			type: "POST",
+			data: objdata,
+			success: function (msg) {
+				alert(msg);
+				//location.reload();
+			},
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+				alert('Please Check values Entered by you !!!');
+				$("#showSpinner").hide();
+			}
+
+
+		});
+	}
+
+</script>
+
+

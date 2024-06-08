@@ -1,0 +1,153 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@using System.Data
+@model DataTable
+@{
+    ViewData["Title"] = "MainDashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<h1>MainDashboard</h1>*@
+<style>
+
+    img.logo-lg {
+        border-radius: 50%;
+        background-color: white;
+        width: 55px;
+        border: 1px solid #07638a;
+        padding: 5px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+
+    .box-body {
+        cursor: pointer;
+        text-align: center;
+    }
+
+    a.mb-0.font-size-18.text-center {
+        position: relative;
+        top: 7px;
+        text-decoration: none;
+        color: #006baf;
+        font-weight: 600;
+    }
+
+    /* .box-body {
+            cursor: pointer;
+        }
+    */
+</style>
+
+<div class="row">
+    <div class="col-12 ">
+        <div class="box q1 bg-gradient-primary overflow-hidden pull-up">
+            <div class="box-body pr-0 pl-lg-50 pl-15 py-0">
+                <div class="row align-items-center">
+                    <div class="col-12 col-lg-8">
+                        <h1 class="font-size-25 text-white">Dashboard</h1>
+                        <p class="text-white mb-0 font-size-20">
+                            ......
+                        </p>
+                    </div>
+                    <div class="col-12 col-lg-4"><img src="https://eduadmin-template.multipurposethemes.com/bs4/images/svg-icon/color-svg/custom-15.svg" alt="" class="JKK"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="app-main__inner">
+    <div class="row uii p-4">
+        <div class="col-xl-3 col-md-6 col-12">
+            <a href="/Admin/MemberList">
+                <div class="box q3 pull-up">
+                    <div class="box-body">
+                        <div class="dde rounded text-center">
+
+
+                            <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Admin/MemberList" class="mb-0 font-size-18 text-center">Total Partners : <b>@Model.Rows[0]["Total_Partner"]</b></a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+       
+        <div class="col-xl-3 col-md-6 col-12">
+            <a href="/Admin/complainReport">
+                <div class="box q3 pull-up">
+                    <div class="box-body">
+                        <div class="dde rounded text-center">
+
+
+                            <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Admin/complainReport" class="mb-0 font-size-18 text-center">Complain Reports: <b>@Model.Rows[0]["Total_Complain"]</b></a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+       @* <div class="col-xl-3 col-md-6 col-12">
+            <a href="#">
+                <div class="box q3 pull-up">
+                    <div class="box-body">
+                        <div class="dde rounded text-center">
+
+
+                            <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="#" class="mb-0 font-size-18 text-center"> Total Credit Balance : <b> @HttpContextAccessor.HttpContext.Session.GetString("CREDIT")  </b></a>
+
+                    </div>
+                </div>
+            </a>
+        </div>*@
+        <div class="col-xl-3 col-md-6 col-12">
+            <a href="/Admin/Mainwallert">
+                <div class="box q3 pull-up">
+                    <div class="box-body">
+                        <div class="dde rounded text-center">
+
+
+                            <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Admin/Mainwallert" class="mb-0 font-size-18 text-center">Remaining Credit Balance : <b>@ViewBag.CreditWallet</b> </a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+        @*<div class="col-xl-3 col-md-6 col-12">
+            <a href="#">
+                <div class="box q3 pull-up">
+                    <div class="box-body">
+                        <div class="dde rounded text-center">
+
+
+                            <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="#" class="mb-0 font-size-18 text-center"> Total Debit Balance : <b> @HttpContextAccessor.HttpContext.Session.GetString("DEBIT")  </b></a>
+
+                    </div>
+                </div>
+            </a>
+        </div>*@
+         <div class="col-xl-3 col-md-6 col-12">
+            <a href="/Admin/Mainwallert">
+                <div class="box q3 pull-up">
+                    <div class="box-body">
+                        <div class="dde rounded text-center">
+
+
+                            <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Admin/Mainwallert" class="mb-0 font-size-18 text-center">Remaining Debit Balance : <b>@ViewBag.DebitWallet</b></a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

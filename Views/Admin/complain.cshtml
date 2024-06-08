@@ -1,0 +1,343 @@
+﻿@using System.Data
+@model clsAllClasses
+@{
+    ViewData["Title"] = "complain";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .datetd {
+        min-width: 103px;
+    }
+
+    .card-body {
+        flex: 1 1 auto !important;
+        min-height: 1px !important;
+        padding: 10px !important;
+        margin-top: 14px !important;
+    }
+</style>
+<script src="~\grofin\ckeditor\ckeditor.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#divnewentry').hide();
+        $('#opendiv').hide();
+        $('input[type="radio"]').click(function () {
+            debugger
+            var inputValue = $(this).attr("value");
+            if (inputValue == "") {
+                $('#divnewentry').hide();
+                $('#opendiv').hide();
+            }
+            else if (inputValue == "Pending" || inputValue == "Approved") {
+                $('#divnewentry').hide();
+                $('#opendiv').show();
+                binddivtable(inputValue);
+            }
+            else if (inputValue == "New") {
+                $('#divnewentry').show();
+                $('#opendiv').hide();
+            }
+            else {
+                $('#divnewentry').hide();
+                $('#opendiv').hide();
+            }
+        });
+    });
+
+
+    //function binddivtable() {
+    //    var id = $('#txttxnType1 option:selected').val();
+    function binddivtable(ID) {
+        debugger;
+        var data = new FormData;
+
+        data.append("Status", ID);
+
+        $.ajax({
+            url: "/Admin/complain",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (view) {
+                if (view != null && view != "") {
+                    //alert("of")
+                    $("#divDetails").html($(view).find("#divDetails"))
+                    // var js = jQuery.noConflict(true)
+                    $('#example3').DataTable({
+                        dom: 'Bfrtip',
+                        //     pageLength: 5,
+                        lengthMenu: [[5, 10, 20, 50, 100, -1], [5, 10, 20, 50, 100, 'All']],
+
+                        buttons: [
+                            'pageLength',
+                            {
+                                extend: 'excelHtml5', footer: true,
+                            },
+                            { extend: 'csvHtml5', footer: true },
+                            {
+                                extend: 'pdfHtml5', footer: true, orientation: 'landscape',
+
+                                pageSize: 'LEGAL',
+                                text: '<i class="fa fa-file-pdf-o"> PDF</i>',
+                                titleAttr: 'PDF'
+                            }
+                        ]
+
+                    });
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+
+
+        });
+    }
+</script>
+
+
+<form class=" border p-3" method="post" enctype="multipart/form-data" asp-action="complain">
+    <div class="app-main__inner">
+        <div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="main-card mb-3 card">
+                        <div class="card card-warning p-4">
+                            <div class="card-header1">
+                                <h3 class="card-title new-title"> Complain</h3>
+                            </div>
+
+                            <div class="col-lg-12">
+
+                                <div class="card-body">
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            Open:<input type="radio" id="Pending" name="checkrdo" value="Pending">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            Close:<input type="radio" id="Approved" name="checkrdo" value="Approved">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            New:<input type="radio" id="New" name="checkrdo" value="New">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-12" id="divnewentry">
+
+                                <div class="card-body">
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Issue</label>
+                                                <input type="text" class="form-control" id="txtTitle" placeholder="Enter Title" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Service</label>
+                                                <select class="form-control" id="ddlservice">
+                                                    <option value="0">--Select Services--</option>
+                                                    @if (Model.dt1 != null && Model.dt1.Rows.Count > 0)
+                                                    {
+                                                        @foreach (DataRow dr in Model.dt1.Rows)
+                                                        {
+                                                            <option value="@dr["PK_Id"]"> @dr["Name"] </option>
+                                                        }
+                                                    }
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Transection ID</label>
+                                                <input type="text" class="form-control" id="txttid" placeholder="Enter Title" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Transection Date</label>
+                                                <input type="date" class="form-control" id="txtdate" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>Descirption</label>
+                                                <textarea class="form-control" id="txtdescription" rows="10" cols="50" placeholder="Description"></textarea>
+
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                    <input type="button" value="submit" onclick="InserRecord()" class="btn btn-primary" />
+                                    <br />
+                                    <br />
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-12" id="opendiv">
+                                <div class="row" style="margin-left: 17px;display:none">
+                                    <div class="col-2 p-2">
+                                        <label>Status</label>
+                                        <select class="form-control" id="txttxnType1" name="status">
+                                            <option value="0">--Select--</option>
+                                            <option value="Pending">Open</option>
+                                            <option value="Approved">Closed</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                @*<input type="submit" value="submit" class="btn btn-primary" />*@
+
+                                @*<br />*@
+                                <div style="overflow-x:auto;" class="p-0" id="divDetails">
+                                    <table id="example3" class="my  table table-bordered table-hover " style="width:100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Sr.</th>
+                                                <th> Service</th>
+                                                <th> Title</th>
+                                                <th>Description </th>
+                                                <th> Date</th>
+                                                <th>CloseDate</th>
+                                                <th>CloseStatus</th>
+                                                <th>Transaction Id</th>
+                                                <th>Transaction Date</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model != null && Model.dt2.Rows.Count > 0)
+                                            {
+                                                int i = 1;
+                                                foreach (System.Data.DataRow item in Model.dt2.Rows)
+                                                {
+                                                    <tr>
+                                                        <td>@(i++)</td>
+                                                        <td>@item["Name"] </td>
+                                                        <td>@item["Title"] </td>
+                                                        <td>@item["Description"] </td>
+                                                        <td class="datetd">@item["CreatedDate"] </td>
+                                                        <td>@item["CloseDate"]</td>
+                                                        <td>@item["CloseStatus"]</td>
+                                                        <td>@item["TransectionId"]</td>
+                                                        <td>@item["Transectiondate"]</td>
+                                                        <td>
+                                                            @if (item["status"].ToString() == "Approved")
+                                                            {
+                                                                <i class="btn btn-success" )">Solved</i>
+                                                            }
+
+                                                            else
+                                                            {
+                                                                <i class="btn btn-danger" )">Pending</i>
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    //$(document).ready(function () {
+    //    $('#divnewentry').hide();
+    //    $('#opendiv').hide();
+    //});
+
+    function InserRecord() {
+        debugger;
+        if ($("#txtTitle").val() == '') {
+            alert("Please enter Title !");
+            $("#txtTitle").focus();
+
+            return false;
+        }
+
+        if ($("#ddlservice").val() == '0') {
+            alert("Please select Services !");
+            $("#ddlservice").focus();
+            return false;
+        }
+        if ($("#txttid").val() == '') {
+            alert("Please enter Transection ID !");
+            $("#txttid").focus();
+
+            return false;
+        }
+        if ($("#txtdate").val() == '') {
+            alert("Please enter Transection Date !");
+            $("#txtdate").focus();
+
+            return false;
+        }
+
+        if ($("#txtdescription").val() == '') {
+            alert("Please enter Description !");
+            $("#txtdescription").focus();
+            return false;
+        }
+
+
+        var dataobj = {
+            Description: $("#txtdescription").val(),
+            Title: $("#txtTitle").val(),
+            serviceId: $("#ddlservice").val(),
+            TransactionId: $("#txttid").val(),
+            Transactiondate: $("#txtdate").val(),
+        };
+        $.ajax({
+            url: "/Admin/UsercomplainDetailsSave",
+            type: "POST",
+            data: dataobj,
+            success: function (r) {
+                debugger;
+                console.log(r);
+                if (r.code == 1) {
+                    alert(r.message);
+
+                    $("#txtdescription").val('');
+                    $("#txtTitle").val('');
+                    $("#ddlservice").val('0');
+                }
+                else {
+                    alert(r.message);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        });
+    }
+
+
+</script>
+
+
+

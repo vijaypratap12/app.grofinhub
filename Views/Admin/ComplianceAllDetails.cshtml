@@ -1,0 +1,756 @@
+﻿@{
+    ViewData["Title"] = "ComplianceAllDetails";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model SportsBattle.Models.DocDetailsApiRes
+
+<section class="content">
+    <div class="">
+
+
+        <form>
+            <div class="">
+
+                <div class="2">
+
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title new-title">@ViewBag.Type</h3>
+                        </div>
+
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-sm-6">
+
+                                    <div class="form-group">
+                                        <label>Mobile No.:	 </label>
+                                        <input type="text" maxlength="10" value="@Model.Mobileno" class="form-control" onkeypress="return numeric(event);" placeholder="Enter Mobile No" id="txtmobile" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Name:	 </label>
+                                        <input type="text" class="form-control" placeholder="Enter Name" id="txtname" value="@Model.Name" />
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Monthly Income:
+                                        </label>
+                                        <input type="number" maxlength="10" class="form-control" placeholder="Enter Income" id="txtincome" value="@Model.Income" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    Email:
+                                    <input type="email" class="form-control" value="@Model.Email" placeholder="Enter Email Id" id="txtemail" />
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Address:
+                                        </label>
+                                        <input type="text" class="form-control" placeholder="Enter Address" id="txtaddress" value="@Model.Address" />
+                                    </div>
+                                </div>
+                                @*<div class="col-sm-3">
+                                Bill No:
+                                <input type="text" class="form-control" placeholder="Enter Bill Id" id="txtbillno" value="@Model.Billno" />
+                                </div>
+                                *@
+                                @if (ViewBag.Type != "Customer Lead")
+                                {
+                                    <div class="col-sm-3">
+
+                                        <div class="form-group">
+                                            <label>Aadhaar No.:	 </label>
+                                            <input type="number" class="form-control" placeholder="Enter Adhar No..." id="txtadharno" value="@Model.Aadharno" />
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-3">
+                                        Aadhaar Pic Front:
+
+                                        @*<select class="form-control" id="ddlmode" required name="Pipe">
+                                    <option value="0" disabled selected>-- Select Operator --</option>
+                                    <option value="online">online</option>
+                                    <option value="offline">offline</option>
+                                    @*<option value="0" disabled selected>-- Select Operator --</option>
+                                    <option value="true">YES</option>
+                                    <option value="false">NO</option>
+
+                                    </select>*@
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" placeholder="Select Adhar Front.." id="adharpicfront" />
+                                        @if (Model.AdharPicFront != null && Model.AdharPicFront != "")
+                                        {
+                                            <a target="_blank" href="@Model.AdharPicFront">Show File</a>
+                                        }
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        Aadhaar Pic Back:
+
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" placeholder="Select Adhar Back.." id="adharpicback" />
+                                        @if (Model.AdharPicBack != null && Model.AdharPicBack != "")
+                                        {
+                                            <a target="_blank" href="@Model.AdharPicBack">Show File</a>
+                                        }
+                                    </div>
+
+
+
+
+
+                                    <div class="col-sm-3">
+
+                                        <div class="form-group">
+                                            <label>Pan No:	 </label>
+                                            <input type="text" class="form-control" placeholder="Enter Pan No.." id="txtpanno" value="@Model.Panno" />
+                                            <label style="color:red" id="msgpan"></label>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-3">
+                                        Pan Documents:
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" placeholder="Enter ad2" id="panpicfront" />
+                                        @if (Model.PanPicFront != null && Model.PanPicFront != "")
+                                        {
+                                            <a target="_blank" href="@Model.PanPicFront">Show File</a>
+                                        }
+                                    </div>
+
+                                    @*<div class="col-sm-3">
+                                        Pan Pic Back:
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" placeholder="Enter ad3" id="panpicback" />
+                                        @if (Model.PanPicBack != null && Model.PanPicBack != "")
+                                        {
+                                            <a target="_blank" href="@Model.PanPicBack">Show File</a>
+                                        }
+                                    </div>*@
+
+
+
+
+
+
+                                    <div class="col-sm-3">
+
+                                        <div class="form-group">
+                                            <label>Additional Detail 1:	 </label>
+                                            <input type="text" class="form-control" placeholder="Additional Detail 1" id="txtad1" value="@Model.Ad1" />
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-3">
+                                        <label>
+                                            Additional Documents 1:
+                                        </label>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" placeholder="Enter Bill Amount" id="ad1picfront" />
+                                        @if (Model.Ad1PicFront != null && Model.Ad1PicFront != "")
+                                        {
+                                            <a target="_blank" href="@Model.Ad1PicFront">Show File</a>
+                                        }
+                                    </div>
+
+                                   @* <div class="col-sm-3">
+                                        <label> Ad1 Pic Back:</label>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" placeholder="Enter Bill Net Amount" id="ad1picback" />
+                                        @if (Model.Ad1PicBack != null && Model.Ad1PicBack != "")
+                                        {
+                                            <a target="_blank" href="@Model.Ad1PicBack">Show File</a>
+                                        }
+                                    </div>*@
+
+
+
+
+
+
+                                    <div class="col-sm-3">
+
+                                        <div class="form-group">
+                                            <label>Additional Detail 2:	 </label>
+                                            <input type="text" class="form-control" placeholder="Additional Detail 2" id="txtad2" value="@Model.Ad2" />
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-3">
+                                        <label>
+                                            Additional Documents 1:
+                                        </label>
+                                        @* <select class="form-control" id="txtacceptdatepay" required name="Pipe">
+                                    <option value="0" disabled selected>-- Select Operator --</option>
+                                    <option value="true">YES</option>
+                                    <option value="false">NO</option>
+
+                                    </select>*@
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" id="ad2picfront" />
+                                        @if (Model.Ad2PicFront != null && Model.Ad2PicFront != "")
+                                        {
+                                            <a target="_blank" href="@Model.Ad2PicFront">Show File</a>
+                                        }
+                                    </div>
+
+                                   @* <div class="col-sm-3">
+                                        <label>
+                                            Ad2 Pic Back:
+                                        </label>
+                                        <select class="form-control" id="txtacceptpartpay" required name="Pipe">
+                                    <option value="0" disabled selected>-- Select Operator --</option>
+                                    <option value="true">YES</option>
+                                    <option value="false">NO</option>
+
+                                    </select>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" placeholder="Enter Accept Part Pay" id="ad2picback" />
+                                        @if (Model.Ad2PicBack != null && Model.Ad2PicBack != "")
+                                        {
+                                            <a target="_blank" href="@Model.Ad2PicBack">Show File</a>
+                                        }
+
+                                    </div>*@
+
+
+
+
+
+                                    <div class="col-sm-3">
+
+                                        <div class="form-group">
+                                            <label>Additional Detail 3:	 </label>
+                                            <input type="text" class="form-control" placeholder="Additional Detail 3" id="txtad3" value="@Model.Ad3" />
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-sm-3">
+                                        <label>
+                                            Additional Documents 3:
+                                        </label>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" id="ad3picfront" />
+                                        @if (Model.Ad3PicFront != null && Model.Ad3PicFront != "")
+                                        {
+                                            <a target="_blank" href="@Model.Ad3PicFront">Show File</a>
+                                        }
+                                    </div>
+
+                                  @*  <div class="col-sm-3">
+                                        <label>
+                                            Ad3 Pic Back:
+                                        </label>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" id="ad3picback" />
+                                        @if (Model.Ad3PicBack != null && Model.Ad3PicBack != "")
+                                        {
+                                            <a target="_blank" href="@Model.Ad3PicBack">Show File</a>
+                                        }
+                                    </div>*@
+
+                                    <!--AD4-->
+
+
+
+
+                                    <div class="col-sm-3">
+
+                                        <div class="form-group">
+                                            <label>Additional Detail 4:	 </label>
+                                            <input type="text" class="form-control" placeholder="Additional Detail 4 " id="txtad4" value="@Model.Ad4" />
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-3">
+                                        <label>
+                                            Additional Documents 4:
+                                        </label>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" id="ad4picfront" />
+                                        @if (Model.Ad4PicFront != null && Model.Ad4PicFront != "")
+                                        {
+                                            <a target="_blank" href="@Model.Ad4PicFront">Show File</a>
+                                        }
+                                    </div>
+
+                                   @* <div class="col-sm-3">
+                                        <label>
+                                            Ad4 Pic Back:
+                                        </label>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" id="ad4picback" />
+                                        @if (Model.Ad4PicBack != null && Model.Ad4PicBack != "")
+                                        {
+                                            <a target="_blank" href="@Model.Ad4PicBack">Show File</a>
+                                        }
+                                    </div>
+*@
+
+                                    <!--AD5-->
+
+
+
+
+                                    <div class="col-sm-3">
+
+                                        <div class="form-group">
+                                            <label>Additional Detail 5:	 </label>
+                                            <input type="text" class="form-control" placeholder="Additional Detail 5" id="txtad5" value="@Model.Ad5" />
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-3">
+                                        <label>
+                                            Additional Documents 5:
+                                        </label>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" id="ad5picfront" />
+                                        @if (Model.Ad5PicFront != null && Model.Ad5PicFront != "")
+                                        {
+                                            <a target="_blank" href="@Model.Ad5PicFront">Show File</a>
+                                        }
+                                    </div>
+
+                                   @* <div class="col-sm-3">
+                                        <label>
+                                            Ad5 Pic Back:
+                                        </label>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" id="ad5picback" />
+                                        @if (Model.Ad5PicBack != null && Model.Ad5PicBack != "")
+                                        {
+                                            <a target="_blank" href="@Model.Ad5PicBack">Show File</a>
+                                        }
+                                    </div>
+*@
+
+                                    <!--AD6-->
+
+
+
+
+                                    <div class="col-sm-3">
+
+                                        <div class="form-group">
+                                            <label>Additional Detail 6:	 </label>
+                                            <input type="text" class="form-control" placeholder="Additional Detail 6" id="txtad6" value="@Model.Ad6" />
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-3">
+                                        <label>
+                                           Additional Documents 6:
+                                        </label>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" id="ad6picfront" />
+                                        @if (Model.Ad6PicFront != null && Model.Ad6PicFront != "")
+                                        {
+                                            <a target="_blank" href="@Model.Ad6PicFront">Show File</a>
+                                        }
+                                    </div>
+
+                                   @* <div class="col-sm-3">
+                                        <label>
+                                            Ad6 Pic Back:
+                                        </label>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" id="ad6picback" />
+                                        @if (Model.Ad6PicBack != null && Model.Ad6PicBack != "")
+                                        {
+                                            <a target="_blank" href="@Model.Ad6PicBack">Show File</a>
+                                        }
+
+                                    </div>
+*@
+
+
+                                    <!--AD7-->
+
+
+
+
+                                   @* <div class="col-sm-3">
+
+                                        <div class="form-group">
+                                            <label>Ad7:	 </label>
+                                            <input type="text" class="form-control" placeholder="Enter Ad7" id="txtad7" value="@Model.Ad7" />
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-3">
+                                        <label>
+                                            Ad7 Pic Front:
+                                        </label>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" id="ad7picfront" />
+                                        @if (Model.Ad7PicFront != null && Model.Ad7PicFront != "")
+                                        {
+                                            <a target="_blank" href="@Model.Ad7PicFront">Show File</a>
+                                        }
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <label>
+                                            Ad7 Pic Back:
+                                        </label>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" id="ad7picback" />
+                                        @if (Model.Ad7PicBack != null && Model.Ad7PicBack != "")
+                                        {
+                                            <a target="_blank" href="@Model.Ad7PicBack">Show File</a>
+                                        }
+                                    </div>
+
+
+                                    <!--AD8-->
+
+
+
+
+                                    <div class="col-sm-3">
+
+                                        <div class="form-group">
+                                            <label>Ad8:	 </label>
+                                            <input type="text" class="form-control" placeholder="Enter Ad8" id="txtad8" value="@Model.Ad8" />
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-3">
+                                        <label>
+                                            Ad8 Pic Front:
+                                        </label>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" id="ad8picfront" />
+                                        @if (Model.Ad8PicFront != null && Model.Ad8PicFront != "")
+                                        {
+                                            <a target="_blank" href="@Model.Ad8PicFront">Show File</a>
+                                        }
+
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <label>
+                                            Ad8 Pic Back:
+                                        </label>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" id="ad8picback" />
+                                        @if (Model.Ad8PicBack != null && Model.Ad8PicBack != "")
+                                        {
+                                            <a target="_blank" href="@Model.Ad8PicBack">Show File</a>
+                                        }
+                                    </div>
+
+
+                                    <!--AD9-->
+
+
+
+
+                                    <div class="col-sm-3">
+
+                                        <div class="form-group">
+                                            <label>Ad9:	 </label>
+                                            <input type="text" class="form-control " placeholder="Enter Ad9" id="txtad9" value="@Model.Ad9" />
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-3">
+                                        <label>
+                                            Ad9 Pic Front:
+                                        </label>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control " id="ad9picfront" />
+                                        @if (Model.Ad9PicFront != null && Model.Ad9PicFront != "")
+                                        {
+                                            <a target="_blank" href="@Model.Ad9PicFront">Show File</a>
+                                        }
+
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <label>
+                                            Ad9 Pic Back:
+                                        </label>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control " id="ad9picback" />
+                                        @if (Model.Ad9PicBack != null && Model.Ad9PicBack != "")
+                                        {
+                                            <a target="_blank" href="@Model.Ad9PicBack">Show File</a>
+                                        }
+                                    </div>
+
+
+                                    <!--AD10-->
+
+
+
+
+                                    <div class="col-sm-3">
+
+                                        <div class="form-group">
+                                            <label>Ad10:	 </label>
+                                            <input type="text" class="form-control" placeholder="Enter Ad10" id="txtad10" value="@Model.Ad10" />
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-3">
+                                        <label>
+                                            Ad10 Pic Front:
+                                        </label>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" id="ad10picfront" />
+                                        @if (Model.Ad10PicFront != null && Model.Ad10PicFront != "")
+                                        {
+                                            <a target="_blank" href="@Model.Ad10PicFront">Show File</a>
+                                        }
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <label>
+                                            Ad10 Pic Back:
+                                        </label>
+                                        <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" id="ad10picback" />
+                                        @if (Model.Ad10PicBack != null && Model.Ad10PicBack != "")
+                                        {
+                                            <a target="_blank" href="@Model.Ad10PicBack">Show File</a>
+                                        }
+                                    </div>*@
+
+                                }
+
+
+                                <button type="button" id="btnSearch" class="btn btn-primary waves-effect waves-light" onclick="QueryDTHRechargecheck()">SAVE </button>
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+        </form>
+
+
+    </div>
+
+</section>
+<script>
+
+    debugger;
+    function QueryDTHRechargecheck() {
+
+        if ($('#txtmobile').val() == "") {
+            alert('Please Enter Mobile No.');
+            $('#txtmobile').focus();
+            return;
+        }
+        if ($('#txtmobile').val().length != "10") {
+            alert('Please Enter valid Mobile No.');
+            $('#txtmobile').focus();
+            return;
+        }
+        //if ($('#ddlmode').val() == "0") {
+        //    alert('Select Mode');
+        //    $('#ddlmode').focus();
+        //    return;
+        //}
+        //if ($('#txtamount').val() == "") {
+        //    alert('Enter Amount');
+        //    $('#txtamount').focus();
+        //    return;
+        //}
+        //if ($('#txtad1').val() == "") {
+        //    alert('Enter Ad1');
+        //    $('#txtad1').focus();
+        //    return;
+        //}
+        //if ($('#txtad2').val() == "") {
+        //    alert('Enter Ad2');
+        //    $('#txtad2').focus();
+        //    return;
+        //}
+        //if ($('#txtad3').val() == "") {
+        //    alert('Enter Ad3 ');
+        //    $('#txtad3').focus();
+        //    return;
+        //}
+        //if ($('#txtbillno').val() == "") {
+        //    alert('Enter Bill No.');
+        //    $('#txtbillno').focus();
+        //    return;
+        //}
+        //if ($('#txtbillamount').val() == "") {
+        //    alert('Enter Bill Amount');
+        //    $('#txtbillamount').focus();
+        //    return;
+        //}
+        //if ($('#txtbillnetamount').val() == "") {
+        //    alert('Enter Bill Net Amount');
+        //    $('#txtbillnetamount').focus();
+        //    return;
+        //}
+        //if ($('#txtbilldate').val() == "") {
+        //    alert('Enter Bill Date');
+        //    $('#txtbilldate').focus();
+        //    return;
+        //}
+        //if ($('#txtacceptdatepay').val() == "0") {
+        //    alert('Select accept Date Pay');
+        //    $('#txtacceptdatepay').focus();
+        //    return;
+        //}
+        //if ($('#txtacceptpartpay').val() == "0") {
+        //    alert('Select Accept Part Pay');
+        //    $('#txtacceptpartpay').focus();
+        //    return;
+        //}
+        //if ($('#txtcellno').val() == "") {
+        //    alert('Enter Cell No.');
+        //    $('#txtcellno').focus();
+        //    return;
+        //}
+        //if ($('#txtduefrom').val() == "") {
+        //    alert('Enter Due Date From');
+        //    $('#txtduefrom').focus();
+        //    return;
+        //}
+        //if ($('#txtdueto').val() == "") {
+        //    alert('Enter Due Date');
+        //    $('#txtdueto').focus();
+        //    return;
+        //}
+        //if ($('#txtvalidationid').val() == "") {
+        //    alert('Enter VAlidation Id.');
+        //    $('#txtvalidationid').focus();
+        //    return;
+        //}
+        //if ($('#txtbillid').val() == "") {
+        //    alert('Enter Bill Id.');
+        //    $('#txtbillid').focus();
+        //    return;
+        //}
+
+        debugger;
+        var data = new FormData;
+        if ('@ViewBag.Type' != 'Customer Lead') {
+            data.append("AdharPicFront", $("#adharpicfront").get(0).files[0]);
+            data.append("AdharPicBack", $("#adharpicback").get(0).files[0]);
+            data.append("Panno", $("#txtpanno").val());
+            data.append("PanPicFront", $("#panpicfront").get(0).files[0]);
+            @*data.append("PanPicBack", $("#panpicback").get(0).files[0]);*@
+            data.append("Ad1", $("#txtad1").val());
+            data.append("Ad1PicFront", $("#ad1picfront").get(0).files[0]);
+            data.append("Ad1PicBack", $("#ad1picback").get(0).files[0]);
+            data.append("Ad2", $("#txtad2").val());
+            data.append("Ad2PicFront", $("#ad2picfront").get(0).files[0]);
+            data.append("Ad2PicBack", $("#ad2picback").get(0).files[0]);
+            data.append("Ad3", $("#txtad3").val());
+            data.append("Ad3PicFront", $("#ad3picfront").get(0).files[0]);
+            data.append("Ad3PicBack", $("#ad3picback").get(0).files[0]);
+            data.append("Ad4", $("#txtad4").val());
+            data.append("Ad4PicFront", $("#ad4picfront").get(0).files[0]);
+            data.append("Ad4PicBack", $("#ad4picback").get(0).files[0]);
+
+            data.append("Ad5", $("#txtad5").val());
+            data.append("Ad5PicFront", $("#ad5picfront").get(0).files[0]);
+            data.append("Ad5PicBack", $("#ad5picback").get(0).files[0]);
+
+            data.append("Ad6", $("#txtad6").val());
+            data.append("Ad6PicFront", $("#ad6picfront").get(0).files[0]);
+            data.append("Ad6PicBack", $("#ad6picback").get(0).files[0]);
+
+           @* data.append("Ad7", $("#txtad7").val());
+            data.append("Ad7PicFront", $("#ad7picfront").get(0).files[0]);
+            data.append("Ad7PicBack", $("#ad7picback").get(0).files[0]);
+
+            data.append("Ad8", $("#txtad8").val());
+            data.append("Ad8PicFront", $("#ad8picfront").get(0).files[0]);
+            data.append("Ad8PicBack", $("#ad8picback").get(0).files[0]);
+
+            //var a9 = $(".txtAd9").val()
+            //var a9f = $(".Ad9picfront").get(0).files[0]
+
+            data.append("Ad9", $("#txtad9").val());
+            data.append("Ad9PicFront", $("#ad9picfront").get(0).files[0]);
+            data.append("Ad9PicBack", $("#ad9picback").get(0).files[0]);
+
+            data.append("Ad10", $("#txtad10").val());
+            data.append("Ad10PicFront", $("#ad10picfront").get(0).files[0]);
+            data.append("Ad10PicBack", $("#ad10picback").get(0).files[0]);*@
+            data.append("Adharno", $("#txtadharno").val());
+        }
+        data.append("Mobile", $("#txtmobile").val());
+        data.append("Email", $("#txtemail").val());
+        data.append("BillNo", $("#txtbillno").val());
+        data.append("DocType", '@ViewBag.TypeSaveDbB');
+        data.append("name", $("#txtname").val());
+        data.append("address", $("#txtaddress").val());
+        data.append("income", $("#txtincome").val());
+
+        $("#showSpinner").show();
+
+        $.ajax({
+            url: "/Admin/SaveComplianceAllDetails",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (msg) {
+                if (msg == "DATA SAVE SUCCESSFULL") {
+                    alert(msg);
+                    location.reload();
+                }
+                else {
+                    alert(msg);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+
+
+        });
+    }
+
+
+    $('#txtmobile').keyup(function () {
+        this.value = this.value.replace(/[^0-9\.]/g, '');
+    });
+
+
+    $(document).ready(function () {
+
+        $("#txtpanno").change(function () {
+            var inputvalues = $(this).val();
+            var regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+            if (!regex.test(inputvalues)) {
+                $("#txtpanno").val("");
+    @*	alert("invalid PAN no");*@
+                    $("#msgpan").text("invalid PAN no");
+                return regex.test(inputvalues);
+            }
+            else {
+                $("#msgpan").text("");
+            }
+        });
+
+    });
+
+
+</script>
+
+
+@*<h3>ComplianceAllDetails</h3>*@
+

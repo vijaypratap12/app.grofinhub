@@ -1,0 +1,298 @@
+﻿@{
+    ViewData["Title"] = "GetMemberDocuments";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<h1>GetMemberDocuments</h1>*@
+
+
+@model DataTable
+@using System.Data
+
+
+
+
+
+<style>
+    h3 {
+        display: inline;
+    }
+
+    thead {
+        font-size: 12px;
+    }
+
+    .card {
+        border-radius: 10px;
+        box-shadow: 0px 2px 5px 0px rgba(19, 23, 38, 0.05);
+        margin-bottom: 30px !important;
+        padding: 17px;
+    }
+
+</style>
+
+
+
+<div class="col-md-12">
+
+    <div class="card card-warning" id="outerdv">
+
+        <div style="overflow-x:auto;" class="p-0" id="outertbl">
+            <table id="example3" class="my   table table-striped  table-bordered table-hover ">
+                <thead class="bg-primary">
+                    <tr>
+                        <th style="min-width:70px;">Action</th>
+                        <th>Partner Id</th>
+                        <th>Name</th>
+                        <th>Mobile</th>
+                        <th>Bill No.</th>
+                        <th>EntryDate</th>
+                        <th>Aadhaar No.</th>
+                        <th>Aadhaar Pic Front</th>
+                        <th>Aadhaar Pic Back</th>
+                        <th>Pan No.</th>
+                        <th>Pan Pic Front</th>
+                        <th>Ad1 </th>
+                        <th>Ad1 Pic Front</th>
+                        <th>Ad2 </th>
+                        <th>Ad2 Pic Front</th>
+                        <th>Ad3 </th>
+                        <th>Ad3 Pic Front</th>
+                        <th>Ad4 </th>
+                        <th>Ad4 Pic Front</th>
+                        <th>Ad5 </th>
+                        <th>Ad5 Pic Front</th>
+                        <th>Ad6 </th>
+                        <th>Ad6 Pic Front</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @{
+
+                        if (Model != null)
+                        {
+                            if (Model.Rows.Count > 0)
+                            {
+                                int i = 1;
+                                foreach (DataRow item in Model.Rows)
+                                {
+                                    <tr>
+                                       
+                                        @if(item["Action_Status"].ToString() == "A")
+                                        {
+                                            <td><span style="font-weight:bold;color:green;">Approved</span>  <span>@item["Action_date"]</span></td>
+                                        }
+                                        else if (item["Action_Status"].ToString() == "R")
+                                        {
+                                            <td><span style="font-weight:bold;color:red;">Rejected</span>  <span>@item["Action_date"]</span></td>
+                                        }
+                                        else
+                                        {
+                                            <td><i onclick='updateDocDetailsApproveReject(@item["id"],"A")' class=" fa fa-check bg-success p-2 rounded-pill" style="font-size:24px"></i> <i onclick='updateDocDetailsApproveReject(@item["id"],"R")' class="fa fa-close bg-danger p-2 rounded-pill ms-2" style="font-size:24px"></i></td>
+                                        }
+
+
+                                        <td>@item["Userid"]</td>
+                                        <td>@item["Name"]</td>
+                                        <td>@item["Mobileno"]</td>
+                                        @*<td>@item["Email"]</td>*@
+                                        @*<td></td>*@
+
+                                        @*<td>@item["DocType"]</td>*@
+                                        <td>@item["Billno"]</td>
+                                        @*<td></td>
+                        <td></td>
+                        <td></td>*@
+                                        <td>@item["EntryDates"]</td>
+                                        <td>@item["AadharNo"]</td>
+                                        @if (item["AadharPicFront"].ToString() != "")
+                                        {
+                                            <td><a href='@item["AadharPicFront"]' target="_blank">Show Image</a></td>
+                                        }
+                                        else
+                                        {
+                                            <td>N/A</td>
+                                        }
+                                        @if (item["AadharPicBack"].ToString() != "" && item["AadharPicBack"] != null)
+                                        {
+                                            <td><a href='@item["AadharPicBack"]' target="_blank">Show Image</a></td>
+                                        }
+                                        else
+                                        {
+                                            <td>N/A</td>
+                                        }
+
+                                        <td>@item["PanNo"]</td>
+
+                                        @if (item["PanPicFront"].ToString() != "")
+                                        {
+                                            <td><a href='@item["PanPicFront"]' target="_blank">Show Image</a></td>
+                                        }
+                                        else
+                                        {
+                                            <td>N/A</td>
+                                        }
+                                        <td>@item["Ad1"]</td>
+
+                                        @if (item["Ad1PicFront"].ToString() != "")
+                                        {
+                                            <td><a href='@item["Ad1PicFront"]' target="_blank">Show Image</a></td>
+                                        }
+                                        else
+                                        {
+                                            <td>N/A</td>
+                                        }
+                                        <td>@item["Ad2"]</td>
+
+                                        @if (item["Ad2PicFront"].ToString() != "")
+                                        {
+                                            <td><a href='@item["Ad2PicFront"]' target="_blank">Show Image</a></td>
+                                        }
+                                        else
+                                        {
+                                            <td>N/A</td>
+                                        }
+                                        <td>@item["Ad3"]</td>
+
+                                        @if (item["Ad3PicFront"].ToString() != "")
+                                        {
+                                            <td><a href='@item["Ad3PicFront"]' target="_blank">Show Image</a></td>
+                                        }
+                                        else
+                                        {
+                                            <td>N/A</td>
+                                        }
+                                        
+                                        <td>@item["Ad4"]</td>
+
+                                        @if (item["Ad4PicFront"].ToString() != "")
+                                        {
+                                            <td><a href='@item["Ad4PicFront"]' target="_blank">Show Image</a></td>
+                                        }
+                                        else
+                                        {
+                                            <td>N/A</td>
+                                        }
+                                        <td>@item["Ad5"]</td>
+
+                                        @if (item["Ad5PicFront"].ToString() != "")
+                                        {
+                                            <td><a href='@item["Ad5PicFront"]' target="_blank">Show Image</a></td>
+
+                                        }
+                                        else
+                                        {
+                                            <td>N/A</td>
+                                        }
+                                        <td>@item["Ad6"]</td>
+
+
+                                        @if (item["Ad6PicFront"].ToString() != "")
+                                        {
+                                            <td><a href='@item["Ad6PicFront"]' target="_blank">Show Image</a></td>
+
+                                        }
+                                        else
+                                        {
+                                            <td>N/A</td>
+                                        }
+                                    </tr>
+                                    i++;
+                                }
+                            }
+
+                        }
+
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    var js = jQuery.noConflict(true)
+    js(document).ready(function () {
+
+        js("#example3").DataTable({
+            pageLenght: 5,
+            lengthMenu: [[5, 10, 50, 100, -1], [5, 10, 50, 100, "All"]]
+
+        });
+    })
+
+
+
+
+    function updateDocDetailsApproveReject(id,status) {
+        debugger;
+        
+        $.post("/Manager/UpdateDocDetailsApproveReject", {Status: status, PId:id},function(res){
+            alert(res)
+            location.reload();
+            })
+
+    }
+
+
+    function searchRecord() {
+        debugger;
+        var dataobj = {
+            FromDate: $("#txtFromDate").val(),
+            ToDate: $("#txtTodate").val(),
+        };
+        $.ajax({
+            url: "/Admin/GetMemberDocumentsbyFilter",
+            type: "POST",
+
+            data: dataobj,
+            success: function (view) {
+                if (view != null && view != "") {
+                    //alert("of")
+                    $("#outerdv").html($(view).find("#outertbl"))
+                    // var js = jQuery.noConflict(true)
+                    $('#example3').DataTable({
+                        dom: 'Bfrtip',
+                        //     pageLength: 5,
+                        lengthMenu: [[5, 10, 20, 50, 100, -1], [5, 10, 20, 50, 100, 'All']],
+
+                        buttons: [
+                            'pageLength',
+                            {
+                                extend: 'excelHtml5', footer: true,
+                            },
+                            { extend: 'csvHtml5', footer: true },
+                            {
+                                extend: 'pdfHtml5', footer: true, orientation: 'landscape',
+
+                                pageSize: 'LEGAL',
+                                text: '<i class="fa fa-file-pdf-o"> PDF</i>',
+                                titleAttr: 'PDF'
+                            }
+                        ]
+
+                    });
+
+
+
+
+                }
+                //alert(msg);
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+
+
+        });
+    }
+
+</script>
+

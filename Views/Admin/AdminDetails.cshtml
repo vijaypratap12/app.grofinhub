@@ -1,0 +1,220 @@
+﻿@model SportsBattle.Models.clsHomePageDetails
+@{
+    ViewData["Title"] = "AdminDetails";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="app-main__inner">
+    <div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <div class="row">
+
+
+                            <div class="col-lg-5">
+
+                                <div class="text-center">
+                                    <div class="col-md-12 col-lg-12 col-xl-12">
+                                        <div class="card-hover-shadow profile-responsive card-border border-success mb-3 card">
+                                            <form asp-controller="Admin" asp-action="AdminDetails" method="post">
+
+                                                <div class="dropdown-menu-header">
+                                                    <div class="dropdown-menu-header-inner bg-success">
+                                                        <div class="menu-header-content">
+                                                            <div class="avatar-icon-wrapper btn-hover-shine mb-2 avatar-icon-xl">
+                                                                <div class="avatar-icon rounded">
+                                                                    <img src="../assets/images/avatars/1.jpg" alt="Avatar 6">
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <h5 class="menu-header-title">Admin Details</h5>
+                                                                <h6 class="menu-header-subtitle">.................</h6>
+                                                            </div>
+                                                            <div class="menu-header-btn-pane pt-2">
+                                                                <div role="group" class="btn-group text-center">
+                                                                    <div class="nav">
+                                                                        <a href="#tab-2-eg1" data-toggle="tab" class="active btn btn-dark">Social Media</a>
+                                                                        @*<a href="#tab-2-eg2" data-toggle="tab" class="btn btn-dark mr-1 ml-1">Tab 2</a>
+                                                    <a href="#tab-2-eg3" data-toggle="tab" class="btn btn-dark">Tab 3</a>*@
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="p-0 card-body">
+                                                    <div class="tab-content">
+                                                        <div class="tab-pane active show" id="tab-2-eg1">
+                                                            <ul class="list-group list-group-flush">
+                                                                <li class="list-group-item">
+                                                                    <div class="widget-content p-0">
+                                                                        <div class="widget-content-wrapper">
+
+
+
+                                                                            <input type="text" asp-for="WhatsappNo" id="txtWhatsappNo" class="form-control" placeholder="Whatsapp No" />
+
+
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li class="list-group-item">
+                                                                    <div class="widget-content p-0">
+                                                                        <div class="widget-content-wrapper">
+
+
+                                                                            <input type="text" asp-for="WhatsappLink" class="form-control" placeholder="Whatsapp Link" />
+
+
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+
+                                                                <li class="list-group-item">
+                                                                    <div class="widget-content p-0">
+                                                                        <div class="widget-content-wrapper">
+
+
+
+                                                                            <input type="text" asp-for="YouTubeLink" class="form-control" placeholder="YouTube Link" />
+
+
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li class="list-group-item">
+                                                                    <div class="widget-content p-0">
+                                                                        <div class="widget-content-wrapper">
+
+
+                                                                            <input type="text" asp-for="FacebookLink" class="form-control" placeholder="Facebook Link" />
+
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li class="list-group-item">
+                                                                    <div class="widget-content p-0">
+                                                                        <div class="widget-content-wrapper">
+
+
+
+                                                                            <input type="text" asp-for="TelegramLink" class="form-control" placeholder="Telegram Link" />
+
+
+
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li class="list-group-item">
+                                                                    <div class="widget-content p-0">
+                                                                        <div class="widget-content-wrapper">
+
+
+
+                                                                            <input type="text" asp-for="InstagramLink" class="form-control" placeholder="Instagram Link" />
+
+
+
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+
+
+
+
+
+
+
+
+
+                                                            </ul>
+                                                        </div>
+                                                        <div class="tab-pane" id="tab-2-eg2">
+                                                            <ul class="list-group list-group-flush">
+                                                                <a href="javascript:void(0);" class="disabled list-group-item">Cras justo odio</a>
+                                                                <a href="javascript:void(0);" class="list-group-item">Dapibus ac facilisis in</a>
+                                                                <a href="javascript:void(0);" class="list-group-item">Morbi leo risus</a>
+                                                                <a href="javascript:void(0);" class="list-group-item">Porta ac consectetur ac</a>
+                                                                <a href="javascript:void(0);" class="list-group-item">Vestibulum at eros</a>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="tab-pane" id="tab-2-eg3">
+                                                            <div class="p-3">
+                                                                <p>With supporting text below as a natural lead-in to additional content.</p>
+                                                                <p class="mb-0">
+                                                                    Lorem Ipsum has been the industry's standard dummy text ever since
+                                                                    the 1500s, when an unknown printer took a galley of type and scrambled.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-center d-block card-footer">
+                                                    @*<button class="mr-2 text-danger btn btn-link btn-sm">Cancel</button>*@
+                                                    <button class="btn-shadow-primary btn btn-primary btn-lg" onclick="UpdateDetails()">Update Details</button>
+                                                </div>
+
+                                            </form>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <hr>
+                            </div>
+
+
+
+                            <div class="col-lg-7">  
+                                    @if (Model.dt != null)
+                                    {
+                                        int i = 1;
+
+                                        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sr.</th>
+                                                    <th>Login Id</th>
+                                                    <th>Ip Address</th>
+                                                    <th>Browser Name</th>
+                                                    <th>OS Name</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (System.Data.DataRow item in Model.dt.Rows)
+                                                {
+
+                                                    <tr>
+                                                        <td>  @Convert.ToInt32(i++)</td>
+                                                        <td>  @item["LoginId"]  </td>
+                                                        <td> @item["IpAddress"] </td>
+                                                        <td> @item["BrowserName"] </td>
+                                                        <td> @item["OSName"] </td>
+                                                        <td> @item["Date"] </td>
+                                                    </tr>
+                                                    i = i + 1;
+                                                }
+
+                                            </tbody>
+
+
+
+                                        </table>
+
+                                    } 
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

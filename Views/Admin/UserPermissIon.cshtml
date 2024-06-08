@@ -1,0 +1,587 @@
+﻿@{
+    ViewData["Title"] = "UserPermissIon";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<h3>User PermissIon</h3>*@
+
+@model DataTable
+@using System.Data
+<style>
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+    }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+    input:checked + .slider {
+        background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+    /*  div {
+              /*  div {
+                    overflow: auto;
+                    width: 100%;
+                    height: 200px;
+                }*/
+
+    td,
+    th {
+        border: 1px solid #000;
+        width: 100px;
+    }
+
+    th {
+        background-color: red;
+    }
+
+    table {
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+        background-color: grey;
+    }
+
+        td:first-child + td {
+            position: sticky;
+            left: 110px;
+            z-index: 1;
+            background-color: grey;
+        }
+
+            td:first-child + td + td {
+                position: sticky;
+                left: 220px;
+                z-index: 1;
+                background-color: grey;
+            }
+
+    thead tr th {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+        position: sticky;
+        top: 0;
+    }
+
+    /*td:first-child, th:first-child, td:first-child + td, th:first-child + th {
+                    z-index: 2;
+                    background-color: red;
+                }*/
+</style>
+
+<div class="">
+    <div class="">
+        <div class="card card-warning ">
+            <div class="card-header">
+                <h4 class="card-title new-title">  Member List Report</h4>
+            </div>
+            <div class="card-body div1" id="upterofoutertbl">
+                <div style="overflow-x:auto;" id="outertbl">
+                    <table id="example3" class="my  table table-bordered table-hover" style="width:100%;">
+                        <thead>
+                            <tr>
+                                @*<th>SR.NO.</th>*@
+                                <th>Partner Id</th>
+                                <th>Partner Name</th>
+                                <th>Role</th>
+                                <th>DMT</th>
+                                <th>AEPS </th>
+                                <th>M-ATM </th>
+                                <th>BBPS</th>
+                                <th>MOBILE RECHARGE </th>
+                                <th>DTH</th>
+                                <th>ELECTRICITY</th>
+                                <th>FASTAG </th>
+                                <th style="display:none">WATER BILL</th> @*remove*@
+                                <th style="display:none">MUNCIPALITY </th>@*remove*@
+                                <th>LIC PREMIUM</th>
+                                <th>PAN</th>
+                                <th>EPFO</th>
+                                <th>LPG</th>
+                                <th>IRCTC</th>
+                                <th>FLIGHT</th>
+                                <th>HOTEL</th>
+                                <th>BUS</th>
+                                <th>HOLIDAYS BOOKING</th>
+                                <th>SAVING ACCOUNT</th>
+                                <th>CURRENT ACCOUNT</th>
+                                <th>DEMAT ACCOUNT</th>
+                                <th>LEAD</th>
+                                <th>PAY & UTILITY</th>
+                                <th>COMPLIANCE REPORT</th>
+                                <th>FINANCE REPORT</th>
+                                <th>INVESTMENT REPORT</th>
+                                <th>INSURANCE REPORT</th>
+                                <th>OTHER SERVICES</th>
+                                <th>WALLET</th>
+                                <th>MEMBER DOCUMENT</th>
+                                <th>LEAD REPORT</th>
+                                <th>COMPLAINT REPORT</th>
+                                <th>TRANSACTION REPORT</th>
+                                <th>TRAINING</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+
+                            @{
+
+                                if (Model != null)
+                                {
+                                    if (Model.Rows.Count > 0)
+                                    {
+                                        int i = 1;
+                                        foreach (DataRow item in Model.Rows)
+                                        {
+                                            <tr>
+
+
+                                                <td>@item["userid"] </td>
+                                                <td> @item["Name"]</td>
+                                                <td> @item["RoleName"]</td>
+                                                @if (item["DMT"].ToString().ToLower() == "true")
+                                                {
+                                                    <td>
+
+                                                        <input type="checkbox" checked onclick="managePermission('DMT','@item["userid"]')" />
+
+
+
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td>
+                                                        <input type="checkbox" onclick="managePermission('DMT','@item["userid"]')" />
+
+
+                                                    </td>
+                                                }
+
+                                                @if (item["AEPS"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('AEPS','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('AEPS','@item["userid"]')" /></td>
+                                                }
+
+                                                @if (item["MATM"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('MATM','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('MATM','@item["userid"]')" /></td>
+                                                }
+
+                                                @if (item["BBPS"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('BBPS','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('BBPS','@item["userid"]')" /></td>
+                                                }
+
+                                                @if (item["RECHARGE"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('RECHARGE','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('RECHARGE','@item["userid"]')" /></td>
+                                                }
+
+                                                @if (item["DTH"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('DTH','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('DTH','@item["userid"]')" /></td>
+                                                }
+
+                                                @if (item["ELECTRICITY"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('ELECTRICITY','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('ELECTRICITY','@item["userid"]')" /></td>
+                                                }
+
+                                                @if (item["FASTAG"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('FASTAG','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('FASTAG','@item["userid"]')" /></td>
+                                                }
+
+                                                @if (item["WATER_BILL"].ToString().ToLower() == "true")
+                                                {
+                                                    <td style="display:none"><input type="checkbox" checked onclick="managePermission('WATER_BILL','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="display:none"><input type="checkbox" onclick="managePermission('WATER_BILL','@item["userid"]')" /></td>
+                                                }
+
+                                                @if (item["MUNCIPALITY"].ToString().ToLower() == "true")
+                                                {
+                                                    <td style="display:none"><input type="checkbox" checked onclick="managePermission('MUNCIPALITY','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="display:none"><input type="checkbox" onclick="managePermission('MUNCIPALITY','@item["userid"]')" /></td>
+                                                }
+
+                                                @if (item["LIC"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('LIC','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('LIC','@item["userid"]')" /></td>
+                                                }
+
+                                                @if (item["PAN"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('PAN','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('PAN','@item["userid"]')" /></td>
+                                                }
+
+                                                @if (item["EPFO"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('EPFO','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('EPFO','@item["userid"]')" /></td>
+                                                }
+
+                                                @if (item["LPG"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('LPG','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('LPG','@item["userid"]')" /></td>
+                                                }
+
+                                                @if (item["IRCTC"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('IRCTC','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('IRCTC','@item["userid"]')" /></td>
+                                                }
+
+                                                @if (item["FLIGHT"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('FLIGHT','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('FLIGHT','@item["userid"]')" /></td>
+                                                }
+
+
+                                                @if (item["HOTEL"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('HOTEL','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('HOTEL','@item["userid"]')" /></td>
+                                                }
+
+                                                @if (item["BUS"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('BUS','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('BUS','@item["userid"]')" /></td>
+                                                }
+
+                                                @if (item["HOLIDAYS_BOOKING"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('HOLIDAYS_BOOKING','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('HOLIDAYS_BOOKING','@item["userid"]')" /></td>
+                                                }
+                                                @*other service*@
+                                                @if (item["SAVINGACCOUNT"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('SAVINGACCOUNT','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('SAVINGACCOUNT','@item["userid"]')" /></td>
+                                                }
+
+                                                @if (item["CURRENTACCOUNT"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('CURRENTACCOUNT','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('CURRENTACCOUNT','@item["userid"]')" /></td>
+                                                }
+
+
+                                                @if (item["DEMATACCOUNT"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('DEMATACCOUNT','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('DEMATACCOUNT','@item["userid"]')" /></td>
+                                                }
+
+
+                                                @if (item["LEAD"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('LEAD','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('LEAD','@item["userid"]')" /></td>
+                                                }
+                                                @if (item["PAYUTILITY"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('PAYUTILITY','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('PAYUTILITY','@item["userid"]')" /></td>
+                                                }
+                                                @if (item["COMPLIANCE"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('COMPLIANCE','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('COMPLIANCE','@item["userid"]')" /></td>
+                                                }
+                                                @if (item["FINANCE"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('FINANCE','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('FINANCE','@item["userid"]')" /></td>
+                                                }
+                                                @if (item["INVESTMENT"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('INVESTMENT','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('INVESTMENT','@item["userid"]')" /></td>
+                                                }
+                                                @if (item["INSURANCE"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('INSURANCE','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('INSURANCE','@item["userid"]')" /></td>
+                                                }
+                                                @if (item["OTHERSERVICES"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('OTHERSERVICES','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('OTHERSERVICES','@item["userid"]')" /></td>
+                                                }
+                                                @if (item["WALLET"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('WALLET','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('WALLET','@item["userid"]')" /></td>
+                                                }
+                                                @if (item["MEMBER_DOCUMENT"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('MEMBER_DOCUMENT','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('MEMBER_DOCUMENT','@item["userid"]')" /></td>
+                                                }
+                                                @if (item["LEAD"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('LEAD','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('LEAD','@item["userid"]')" /></td>
+                                                }
+                                                @if (item["COMPLAINT"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('COMPLAINT','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('COMPLAINT','@item["userid"]')" /></td>
+                                                }
+                                                @if (item["TRANSACTION_REPORT"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('TRANSACTION_REPORT','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('TRANSACTION_REPORT','@item["userid"]')" /></td>
+                                                }
+                                                @if (item["TRAINING"].ToString().ToLower() == "true")
+                                                {
+                                                    <td><input type="checkbox" checked onclick="managePermission('TRAINING','@item["userid"]')" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input type="checkbox" onclick="managePermission('TRAINING','@item["userid"]')" /></td>
+                                                }
+
+                                            </tr>
+
+                                            i++;
+                                        }
+                                    }
+
+                                }
+
+                            }
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    var js = jQuery.noConflict(true)
+    js(document).ready(function () {
+
+
+        //js("#example3").DataTable();
+        var table = js('#example3').DataTable({
+            pageLength: 5,
+            lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todos']]
+        })
+    })
+
+    function managePermission(menu, id) {
+        debugger;
+        //if (!(confirm("Are You Sure  Want This!!"))) {
+        //    location.reload();
+        //    return false;
+
+        //}
+        var data = new FormData;
+
+        data.append("id", id);
+        data.append("menu", menu);
+
+        $.ajax({
+            url: "/Admin/ManagePermission",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (msg) {
+                //location.reload();
+                //debugger;
+                //alert(msg);
+                //var htmlnew=r;
+                //var js = jQuery.noConflict(true)
+                //js("#example3").DataTable();
+                //$('#upterofoutertbl').html($(r).find('#outertbl'));
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+
+
+        });
+    }
+
+
+</script>
+
+

@@ -1,0 +1,889 @@
+﻿@{
+    ViewData["Title"] = "UserFullDetails";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="app-main__inner">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="main-card mb-3 card">
+
+                @if (Model.dtDetails.Rows.Count > 0 || Model.dtDetails != null)
+                {
+                    <div class="card-header-tab card-header">
+                        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                            <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
+                            Table Full View
+                        </div>
+                    </div>
+                    <div class="row col-md-12">
+                        <div class="col-sm-4 col-md-4 col-xl-4">
+                            <div class="card-shadow-primary card-border mb-3 profile-responsive card">
+                                <div class="dropdown-menu-header">
+                                    <div class="dropdown-menu-header-inner bg-alternate">
+                                        <div class="menu-header-image opacity-2" style="background-image: url('assets/images/dropdown-header/abstract1.jpg');"></div>
+                                        <div class="menu-header-content btn-pane-right">
+                                            <div class="avatar-icon-wrapper mr-3 avatar-icon-xl btn-hover-shine">
+                                                <div class="avatar-icon rounded">
+                                                    <img src="../assets/images/avatars/1.jpg" alt="Avatar 5">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <h5 class="menu-header-title">@Model.dtDetails.Rows[0]["UserId"]</h5>
+                                                <h5 class="menu-header-subtitle"> @Model.dtDetails.Rows[0]["Name"] - @Model.dtDetails.Rows[0]["MobileNo"]</h5>
+                                            </div>
+                                            <div class="menu-header-btn-pane">
+                                                <button type="button" class="btn btn-success">Transaction</button>
+                                                <button type="button" class="btn btn-danger">Refferals</button>
+                                                <button type="button" class="btn btn-success">Tables</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <div class="widget-content p-0">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left center-elem mr-2">
+                                                            <i class="pe-7s-user text-muted fsize-2"></i>
+                                                        </div>
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">Total Match Played</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-heading"> <span><b class="text-success">@Model.dtDetails.Rows[0]["TotalMatchPlayed"]</b></span></div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left center-elem mr-2">
+                                                            <i class="pe-7s-user text-muted fsize-2"></i>
+                                                        </div>
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">Total Win</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-heading"> <span><b class="text-success">@Model.dtDetails.Rows[0]["totalwin"]</b></span></div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left center-elem mr-2">
+                                                            <i class="pe-7s-user text-muted fsize-2"></i>
+                                                        </div>
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">
+                                                                Total Loss
+                                                            </div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-heading"> <span><b class="text-success">@Model.dtDetails.Rows[0]["totalloss"]</b></span></div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left center-elem mr-2">
+                                                            <i class="pe-7s-user text-muted fsize-2"></i>
+                                                        </div>
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">
+                                                                Pending Matches
+                                                            </div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-heading"> <span><b class="text-success">@Model.dtDetails.Rows[0]["pendingmatches"]</b></span></div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left center-elem mr-2">
+                                                            <i class="pe-7s-user text-muted fsize-2"></i>
+                                                        </div>
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">
+                                                                pending matches
+                                                            </div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-heading"> <span><b class="text-success">@Model.dtDetails.Rows[0]["Amount"]</b></span></div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+
+
+
+                                                <li class="list-group-item">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left center-elem mr-2">
+                                                            <i class="pe-7s-user text-muted fsize-2"></i>
+                                                        </div>
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">Balance</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-heading"> <span><b class="text-success">@Model.dtDetails.Rows[0]["Amount"]</b></span></div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left center-elem mr-2">
+                                                            <i class="pe-7s-user text-muted fsize-2"></i>
+                                                        </div>
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">Total Balance</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-heading"> <span><b class="text-success">@Model.dtDetails.Rows[0]["TotalAmount"]</b></span></div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left center-elem mr-2">
+                                                            <i class="pe-7s-user text-muted fsize-2"></i>
+                                                        </div>
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">Used Balance</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-heading"> <span><b class="text-success">@Model.dtDetails.Rows[0]["UsedAmount"]</b></span></div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left center-elem mr-2">
+                                                            <i class="pe-7s-user text-muted fsize-2"></i>
+                                                        </div>
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">Winning Amount</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-heading"> <span><b class="text-success">@Model.dtDetails.Rows[0]["WinningAmount"]</b></span></div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left center-elem mr-2">
+                                                            <i class="pe-7s-user text-muted fsize-2"></i>
+                                                        </div>
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">Deposit Amount</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-heading"> <span><b class="text-success">@Model.dtDetails.Rows[0]["DepositAmount"]</b></span></div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-8 col-md-8 col-xl-8">
+
+                            <div class="mb-3 text-center">
+                                <div role="group" class="btn-group-sm nav btn-group">
+                                    <a data-toggle="tab" href="#tab-AllTransactions" class="btn-shadow active btn btn-primary">All Transactions</a>
+                                    <a data-toggle="tab" href="#tab-PendingTable" class="btn-shadow  btn btn-primary">PendingTable</a>
+                                    <a data-toggle="tab" href="#tab-RunningTable" class="btn-shadow  btn btn-primary">RunningTable</a>
+                                    <a data-toggle="tab" href="#tab-ComplatedTable" class="btn-shadow  btn btn-primary">ComplatedTable</a>
+                                    <a data-toggle="tab" href="#tab-CancelledTable" class="btn-shadow  btn btn-primary">CancelledTable</a>
+                                    <a data-toggle="tab" href="#tab-Payment" class="btn-shadow  btn btn-primary">Payment</a>                                            <a data-toggle="tab" href="#tab-Referrals" class="btn-shadow  btn btn-primary">Referrals</a>
+                                </div>
+                            </div>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab-AllTransactions" role="tabpanel">
+                                    <p>
+                                        @if (Model.dtTransactionHistory != null)
+                                        {
+                                            int i = 1;
+                                            <div class="table-responsive">
+                                                <table class="align-middle text-truncate mb-0 table table-borderless table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center">S.N.</th>
+
+                                                            <th class="text-center">Name</th>
+                                                            <th class="text-center">Txn Id</th>
+                                                            <th class="text-center">Amount</th>
+                                                            <th class="text-center">Type</th>
+                                                            <th class="text-center">Msg</th>
+                                                            <th class="text-center">Status</th>
+                                                            <th class="text-center">Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (System.Data.DataRow item in Model.dtTransactionHistory.Rows)
+                                                        {
+                                                            <tr>
+                                                                <td class="text-center text-muted"># @Convert.ToInt32(i)</td>
+                                                                <td>
+                                                                    <div class="widget-content p-0">
+                                                                        <div class="widget-content-wrapper">
+                                                                            <div class="widget-content-left mr-3">
+                                                                                <div class="widget-content-left">
+                                                                                    <img width="40" class="rounded-circle" src="@item["ProfilePic"]" alt="">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="widget-content-left flex2">
+                                                                                <div class="widget-heading">  @item["Name"] (@item["UserId"])</div>
+                                                                                <div class="widget-subheading opacity-7">@item["MobileNo"]</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-center">@item["TxtId"]</td>
+                                                                <td class="text-center" style="width: 150px;">
+                                                                    <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">@item["Amount"]</button>
+
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">@item["Type"]</button>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">@item["Remark"]</button>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <div class="badge badge-warning">@item["Status"]</div>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    @item["Date"]
+                                                                </td>
+
+                                                            </tr>
+                                                            i = i + 1;
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+
+                                        }
+                                    </p>
+                                </div>
+                                <div class="tab-pane" id="tab-PendingTable" role="tabpanel">
+                                    <p>
+                                        @if (Model != null && Model.dtPendingTable != null)
+                                        {
+                                            int i = 1;
+
+                                            <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr.</th>
+                                                        <th>Table</th>
+
+                                                        <th>Action</th>
+                                                        <th>Amount</th>
+                                                        <th>Match Type</th>
+                                                        <th>Date & Time</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (System.Data.DataRow item in Model.dtPendingTable.Rows)
+                                                    {
+                                                        <tr>
+                                                            <td>@Convert.ToInt32(i)</td>
+                                                            <td>
+
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <div class="widget-content-left">
+                                                                                <img width="42" class="rounded" src="@item["ProfilePic"]" alt="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <a asp-controller="Player" asp-action="UserFullDetails" asp-route-UserId="@item["UserId"]">
+                                                                                <div class="widget-heading"> @item["UserId"]</div>
+                                                                            </a>
+
+                                                                            <div class="widget-subheading">@item["Name"]</div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </td>
+
+                                                            <td> <a asp-controller="Player" asp-action="TableFullView" asp-route-type="@item["ChallengeId"]" class="mb-2 mr-2 btn btn-primary active">View Details</a> </td>
+                                                            <td>@item["EntryFee"]</td>
+                                                            <td>@item["GameType"]</td>
+                                                            <td>@item["ChallengeCreationTime"]</td>
+
+                                                        </tr>
+                                                    }
+                                            </table>
+
+                                        }
+                                    </p>
+                                </div>
+                                <div class="tab-pane" id="tab-RunningTable" role="tabpanel">
+                                    <p>
+                                        @if (Model != null && Model.dtRunningTable != null)
+                                        {
+                                            int i = 1;
+
+                                            <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr.</th>
+                                                        <th>Match Id</th>
+                                                        <th>Table</th>
+                                                        <th>Game</th>
+                                                        <th>Action</th>
+                                                        <th>Amount</th>
+                                                        <th>Match Type</th>
+                                                        <th>Date & Time</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (System.Data.DataRow item in Model.dtRunningTable.Rows)
+                                                    {
+                                                        <tr>
+                                                            <td>@Convert.ToInt32(i)</td>
+                                                            <td><div class="badge badge-danger ml-2">@item["ChallengeID"]</div> </td>
+                                                            <td>
+
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <div class="widget-content-left">
+                                                                                <img width="42" class="rounded" src="@item["FirstPlayerPic"]" alt="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading"> @item["FirstPlayerID"]</div>
+                                                                            <div class="widget-subheading">@item["FirstPlayerName"]</div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <img style="height:50px;" src="~/Upload/Images/vs.jpg" />
+
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <div class="widget-content-left">
+                                                                                <img width="42" class="rounded" src="@item["SecPlayerPic"]" alt="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading"> @item["SecPlayerID"]</div>
+                                                                            <div class="widget-subheading">@item["SecPlayerName"]</div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </td>
+                                                            <td>
+
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <div class="widget-content-left">
+                                                                                <img width="42" class="rounded" src="@item["FirstPlayerPic"]" alt="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading"> @item["FirstPlayerID"]</div>
+                                                                            <div class="badge badge-pill badge-info ml-2">@item["FristResultStatus"]</div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <div class="widget-content-left">
+                                                                                <img width="42" class="rounded" src="@item["SecPlayerPic"]" alt="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading"> @item["SecPlayerID"]</div>
+                                                                            <div class="badge badge-pill badge-info ml-2">@item["SecResultStatus"]</div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </td>
+                                                            <td> <a asp-controller="Player" asp-action="TableFullView" asp-route-type="@item["ChallengeId"]" class="mb-2 mr-2 btn btn-primary active">View Details</a> </td>
+                                                            <td>@item["EntryFee"]</td>
+                                                            <td>@item["GameType"]</td>
+                                                            <td>@item["ChallengeCreationTime"]</td>
+
+                                                        </tr>
+                                                    }
+                                            </table>
+
+                                        }
+                                    </p>
+                                </div>
+                                <div class="tab-pane" id="tab-ComplatedTable" role="tabpanel">
+                                    <p>
+                                        @if (Model != null && Model.dtComplatedTable != null)
+                                        {
+                                            int i = 1;
+
+                                            <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr.</th>
+                                                        <th>Table</th>
+                                                        <th>Game</th>
+                                                        <th>Action</th>
+                                                        <th>Amount</th>
+                                                        <th>Match Type</th>
+                                                        <th>Date & Time</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (System.Data.DataRow item in Model.dtComplatedTable.Rows)
+                                                    {
+                                                        <tr>
+                                                            <td>@Convert.ToInt32(i)</td>
+                                                            <td>
+
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <div class="widget-content-left">
+                                                                                <img width="42" class="rounded" src="@item["FirstPlayerPic"]" alt="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading"> @item["FirstPlayerID"]</div>
+                                                                            <div class="widget-subheading">@item["FirstPlayerName"]</div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <img style="height:50px;" src="~/Upload/Images/vs.jpg" />
+
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <div class="widget-content-left">
+                                                                                <img width="42" class="rounded" src="@item["SecPlayerPic"]" alt="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading"> @item["SecPlayerID"]</div>
+                                                                            <div class="widget-subheading">@item["SecPlayerName"]</div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </td>
+                                                            <td>
+
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <div class="widget-content-left">
+                                                                                <img width="42" class="rounded" src="@item["FirstPlayerPic"]" alt="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading"> @item["FirstPlayerID"]</div>
+                                                                            <div class="badge badge-pill badge-info ml-2">@item["FristResultStatus"]</div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <div class="widget-content-left">
+                                                                                <img width="42" class="rounded" src="@item["SecPlayerPic"]" alt="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading"> @item["SecPlayerID"]</div>
+                                                                            <div class="badge badge-pill badge-info ml-2">@item["SecResultStatus"]</div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </td>
+                                                            <td> <a asp-controller="Player" asp-action="TableFullView" asp-route-type="@item["ChallengeId"]" class="mb-2 mr-2 btn btn-primary active">View Details</a> </td>
+                                                            <td>@item["EntryFee"]</td>
+                                                            <td>@item["GameType"]</td>
+                                                            <td>@item["ChallengeCreationTime"]</td>
+
+                                                        </tr>
+                                                        i = i + 1;
+                                                    }
+                                            </table>
+
+                                        }
+                                    </p>
+                                </div>
+
+                                <div class="tab-pane" id="tab-CancelledTable" role="tabpanel">
+                                    <p>
+                                        @if (Model != null && Model.dtCancelledTable != null)
+                                        {
+                                            int i = 1;
+
+                                            <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr.</th>
+                                                        <th>Table</th>
+                                                        <th>Game</th>
+                                                        <th>Action</th>
+                                                        <th>Amount</th>
+                                                        <th>Match Type</th>
+                                                        <th>Date & Time</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (System.Data.DataRow item in Model.dtCancelledTable.Rows)
+                                                    {
+                                                        <tr>
+                                                            <td>@Convert.ToInt32(i)</td>
+                                                            <td>
+
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <div class="widget-content-left">
+                                                                                <img width="42" class="rounded" src="@item["FirstPlayerPic"]" alt="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading"> @item["FirstPlayerID"]</div>
+                                                                            <div class="widget-subheading">@item["FirstPlayerName"]</div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <img style="height:50px;" src="~/Upload/Images/vs.jpg" />
+
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <div class="widget-content-left">
+                                                                                <img width="42" class="rounded" src="@item["SecPlayerPic"]" alt="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading"> @item["SecPlayerID"]</div>
+                                                                            <div class="widget-subheading">@item["SecPlayerName"]</div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </td>
+                                                            <td>
+
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <div class="widget-content-left">
+                                                                                <img width="42" class="rounded" src="@item["FirstPlayerPic"]" alt="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading"> @item["FirstPlayerID"]</div>
+                                                                            <div class="badge badge-pill badge-info ml-2">@item["FristResultStatus"]</div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <div class="widget-content-left">
+                                                                                <img width="42" class="rounded" src="@item["SecPlayerPic"]" alt="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading"> @item["SecPlayerID"]</div>
+                                                                            <div class="badge badge-pill badge-info ml-2">@item["SecResultStatus"]</div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </td>
+                                                            <td> <a asp-controller="Player" asp-action="TableFullView" asp-route-type="@item["ChallengeId"]" class="mb-2 mr-2 btn btn-primary active">View Details</a> </td>
+                                                            <td>@item["EntryFee"]</td>
+                                                            <td>@item["GameType"]</td>
+                                                            <td>@item["ChallengeCreationTime"]</td>
+
+                                                        </tr>
+                                                        i = i + 1;
+                                                    }
+                                            </table>
+
+                                        }
+                                    </p>
+                                </div>
+
+                                <div class="tab-pane" id="tab-Payment" role="tabpanel">
+                                    <p>
+
+                                        <div class="form-group mb-3">
+                                            <label>Wallet Type</label>&nbsp;&nbsp;&nbsp;
+                                            <input type="radio" name="amount_type" value="add" checked="">&nbsp;&nbsp;&nbsp;Deposit&nbsp;&nbsp;&nbsp;
+                                            <input type="radio" name="amount_type" value="win">&nbsp;&nbsp;&nbsp;Winning&nbsp;&nbsp;&nbsp;
+                                            @*<input type="radio" name="amount_type" value="bouns">&nbsp;&nbsp;&nbsp;Bouns&nbsp;&nbsp;&nbsp;*@
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label>Amount</label>
+                                            <input type="Number" id="Amount" class="form-control" placeholder="Amount" name="Amount" required="" aria-required="true">
+
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label>Type</label>&nbsp;&nbsp;&nbsp;
+                                            <input type="radio" name="type" value="debit">&nbsp;&nbsp;&nbsp;Debit&nbsp;&nbsp;&nbsp;
+                                            <input type="radio" name="type" value="credit" checked="">&nbsp;&nbsp;&nbsp;Credit
+
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label>Message</label>
+                                            <textarea class="form-control" name="msg" id="msg" required="" aria-required="true"></textarea>
+                                        </div>
+                                        <div class="form-group mb3">
+                                            <button type="submit" class="btn btn-danger waves-effect waves-light text-center" onclick="AddPayment()">Submit</button>
+                                        </div>
+
+
+                                    </p>
+                                </div>
+
+                                <div class="tab-pane" id="tab-Referrals" role="tabpanel">
+                                    <p>
+                                        @if (Model != null && Model.dtReferrals != null)
+                                        {
+                                            int i = 1;
+
+                                            <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr.</th>
+                                                        <th>  User Id</th>
+                                                        <th> View</th>
+                                                        <th>  User Name</th>
+                                                        <th> Image</th>
+                                                        <th>Date & Time</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (System.Data.DataRow item in Model.dtReferrals.Rows)
+                                                    {
+                                                        <tr>
+                                                            <td>@Convert.ToInt32(i)</td>
+                                                            <td> <button type="button" class="btn btn-success" onclick="getRefferalDetails( '@item["UserId"]','@item["ReferralId"]')">View Details</button></td>
+                                                            <td>@item["UserId"]</td>
+                                                            <td>         <div class="widget-subheading">@item["Name"]</div></td>
+                                                            <td>
+
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <div class="widget-content-left">
+                                                                                <img width="42" class="rounded" src="@item["ProfilePic"]" alt="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="widget-content-left">
+                                                                            <div class="widget-heading"> @item["MobileNo"]</div>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>@item["EntryDate"]</td>
+
+                                                        </tr>
+                                                        i = i + 1;
+                                                    }
+                                            </table>
+
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Details</h5>
+                <button type="button" onclick="ModelHide()" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">
+                    <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Sr.</th>
+                                <th>From User</th>
+                                <th>Amount</th>
+                                <th>To User</th>
+                                <th>Date & Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="divModel">
+                        </tbody>
+                    </table>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="ModelHide()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+    function AddPayment() 
+    {
+        if ($("#Amount").val() == "") {
+            alert("Please Enter Amount!!!");
+            $("#Amount").focus();
+            return;
+        }
+        if ($("#msg").val() == "") {
+            alert("Please Fill Remark!!!");
+            $("#msg").focus();
+            return;
+        }
+        if (confirm("are you sure want to add payment.") == true) {
+            $.ajax({
+                url: '/Player/AddPayment',
+                method: 'post',
+                data: { UserID: getParameterByName('UserId'), amount_type: $('input[name="amount_type"]:checked').val(), Amount: $('#Amount').val(), type: $('input[name="type"]:checked').val(), msg: $('#msg').val() },
+                success: function (r) {
+                    $("#showSpinner").hide();
+                    if (r.Status = '1') {
+                        alert('Payement Added Successfully...');
+                        location.reload();
+                    }
+                    else {
+                        alert("something went wrong");
+                    }
+                }
+            })
+        }
+
+
+    }
+
+    function getRefferalDetails(FromUserId, ToUserId) {
+        $("#exampleModal").show();
+
+        var html = 'Record not found';
+        $.ajax({
+            url: '/Player/GetRefferalDetails',
+            method: 'post',
+            data: { FromUserId: FromUserId, ToUserId: ToUserId },
+            success: function (r) {
+                $.each(r, function (i, value) {
+                    html += '<tr><td>i</td><td> <div class="widget-content p-0"><div class="widget-content-wrapper">';
+                    html += '<div class="widget-content-left mr-3">';
+                    html += ' <div class="widget-content-left"><img width="42" class="rounded" src="' + value.fromProfilePic + '" alt=""></div></div>';
+                    html += '<div class="widget-content-left">';
+                    html += '  <div class="widget-heading"> ' + value.fromUserId + '</div>';
+                    html += '     <div class="widget-subheading">' + value.fromUserName + '</div>';
+                    html += '</div>  </div> </div></td>';
+                    html += '<td>' + value.refferalCommissionAmount + '</td><td>';
+                    html += '<div class="widget-content p-0">';
+                    html += '<div class="widget-content-wrapper">';
+                    html += '<div class="widget-content-left mr-3">';
+                    html += '   <div class="widget-content-left">';
+                    html += '<img width="42" class="rounded" src="' + value.toProfilePic + '" alt=""> </div>  </div>';
+                    html += '<div class="widget-content-left">';
+                    html += ' <div class="widget-heading">' + value.toUserName + '</div>';
+                    html += '</div> </div> </div>  </td>  <td>' + value.date + ' </td>  </tr>';
+                })
+                $("#divModel").html(html);
+            }
+
+
+        })
+    } function ModelHide() {
+        $("#exampleModal").hide();
+    }
+</script>
+

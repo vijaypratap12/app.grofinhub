@@ -1,0 +1,143 @@
+﻿
+@{
+    ViewData["Title"] = "LicPayReport";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model DataTable 
+@using System.Data;
+
+
+<div class="col-md-12">
+    <div class="card card-warning " >
+        <div class="card-header">
+            <h3 class="card-title"> Lic Bill Pay Report</h3>
+        </div>
+
+        <form method="post" action="/Admin/LicPayReport">
+            <div class="row">
+
+                <div class="col-sm-4">
+
+                    <div class="form-group">
+                        <label>FormDate</label>
+                        <input type="date" class="form-control" name="FormDate" />
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+
+                    <div class="form-group">
+                        <label>ToDate</label>
+                        <input type="date" class="form-control" name="ToDate" />
+                    </div>
+                </div>
+
+                <div class="col-sm-4" style="margin-top: 27px;">
+
+                    <div class="form-group">
+                        <input type="submit" value="Search" class="btn btn-primary " />
+                    </div>
+                </div>
+
+            </div>
+        </form>
+        <div class="card-body">
+            <div style="overflow-x:auto;">
+                <table id="example3" class="my  table table-bordered table-hover pt-4" style="width:100%;" >
+                    <thead class="bg-primary">
+                        <tr>
+                            <th>Sr.No.</th>
+                            <th>Bill Number </th>
+                            <th>Mode</th>
+                            <th>Amount</th>
+                           
+                            <th>Email </th>
+                            <th>Ad2 </th>
+                            <th>Ad3 </th>
+                            <th>ReferenceID </th>
+
+                            <th>Latitude</th>
+                            <th>Longitude</th>
+                            <th>Bill number</th>
+                            <th>Bill Amount</th>
+                            <th>Bill Date</th>
+                            <th>Accept Payment</th>
+                            <th>Cell Number</th>
+                            <th>Akcknowledge No:</th>
+                            <th>Entry Date</th>
+                            <th>Type</th>
+
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @{
+
+                            if (Model != null)
+                            {
+                                if (Model.Rows.Count > 0)
+                                {
+                                    int i = 1;
+                                    foreach (DataRow item in Model.Rows)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>@item["Canumber"]</td>
+                                            <td>@item["mode"]</td>
+                                            <td>@item["amount"]</td>
+
+                                            <td>@item["ad1"]</td>
+                                            <td>@item["ad2"]</td>
+                                            <td>@item["ad3"]</td>
+                                            <td>@item["referenceId"]</td>
+                                            <td>@item["latitude"]</td>
+                                            <td>@item["longitude"]</td>
+                                            <td>@item["billnumber"]</td>
+                                            <td>@item["billamount"]</td>
+                                            <td>@item["billdate"]</td>
+                                            <td>@item["acceptpayment"]</td>
+                                            <td>@item["cellnumber"]</td>
+                                            <td>@item["ackno"]</td>
+                                            
+                                            <td>@item["entrydate"]</td>
+                                            <td>@item["type"]</td>
+                                          
+
+
+
+
+                                            @* <td>
+                            <a href="#" onclick="GetDetailsForEdit('@item["RecruitmentID"]')"><span class="badge bg-success">Edit</span></a>
+                            </td> *@
+                         
+
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+
+                            }
+
+                        }
+                           
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    var js=jQuery.noConflict(true)
+    js(document).ready(function(){
+
+        js("#example3").DataTable();
+    })
+
+
+
+
+
+</script>

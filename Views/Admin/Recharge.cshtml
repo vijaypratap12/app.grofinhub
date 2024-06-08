@@ -1,0 +1,1042 @@
+﻿@{
+    ViewData["Title"] = "Recharge";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<h1>Recharge</h1>
+*@
+@using System.Data
+@model DataTable
+
+<style>
+
+
+    .card {
+        border-radius: 10px;
+        box-shadow: 0px 2px 5px 0px rgba(19, 23, 38, 0.05);
+        margin-bottom: 10px !important;
+    }
+
+    .wraperplan {
+        min-width: 120px;
+        max-height: 450px;
+        overflow-y: scroll;
+    }
+
+    body {
+        padding: 10px;
+    }
+
+    #exTab1 .tab-content {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    #exTab2 h3 {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    /* remove border radius for the tab */
+
+    #exTab1 .nav-pills > li > a {
+        border-radius: 0;
+    }
+
+    /* change border radius for the tab , apply corners on top*/
+
+    #exTab3 .nav-pills > li > a {
+        border-radius: 4px 4px 0 0;
+    }
+
+    #exTab3 .tab-content {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    ul#myTab {
+        display: flex;
+        width: 100%;
+    }
+
+    .tab-pane {
+        padding: 18px;
+    }
+
+    nav#myTab {
+        display: block !important;
+    }
+
+    .tab-content {
+        width: 100%;
+        background: #fff;
+    }
+    .box-header{
+        padding:0px !important;
+    }
+</style>
+
+<script type="text/javascript" language="javascript">
+    function numeric(e) {
+        var unicode = e.charCode ? e.charCode : e.keyCode;
+        if (unicode == 8 || unicode == 9 || (unicode >= 48 && unicode <= 57)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+
+
+
+
+
+
+    function QueryRechargecheck() {
+
+        if ($('#txtPhone1rech').val() == "") {
+            alert('Enter Phone No.');
+            $('#txtPhone1').focus();
+            return;
+        }
+
+
+        var data = new FormData;
+
+        data.append("amount", $("#ddlplan").val());
+        data.append("operator", $("#ddloperator :selected").attr("idval"));
+        data.append("canumber", $("#txtPhone1rech").val());
+        //alert($("#ddloperator :selected").attr("idval"))
+
+
+        $("#showSpinner").show();
+
+        $.ajax({
+            url: "/Admin/DoMobileRecharge",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (r) {
+                if (r != null) {
+                    // console.log(r)
+                    alert(r.message)
+                    if (r.response_code == "1")
+                        location.reload();
+                }
+                else {
+                    alert('Server not Responding !!!');
+                    $("#showSpinner").hide();
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+
+
+
+        });
+    }
+
+    function bildrsddlpan(rs) {
+        $("#ddlplan").val(rs);
+        $("#btnSearchdorecharge").removeAttr("disabled");
+        $(window).scrollTop(0);
+    }
+
+
+    function QueryDTHRechargecheckBrowsPlan() {
+        debugger;
+
+        var data = new FormData;
+
+        data.append("circle", $("#ddlcircle").val());
+        data.append("op", $("#ddloperator").val());
+
+
+        $("#showSpinner").show();
+
+        $.ajax({
+            url: "/Admin/DTHBrjowsPlan",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (r) {
+                debugger;
+                console.log(r)
+                //var dt=eval(r)
+                var dt = jQuery.parseJSON(r);
+                //console.log(dt.info.TOPUP)
+                $("#tbl_plan").empty();
+                $("#ddlplan").empty();
+
+                $("#tbl_combo_plan").empty();
+                $("#tbl_sms_plan").empty();
+                $("#tbl_talktime_plan").empty();
+                $("#tbl_2g_plan").empty();
+                $("#tbl_3g4g_plan").empty();
+                $("#tbl_fulltalktime_plan").empty(); 
+
+                $("#ddlplan").append("<option value='0' disabled selected>-- Select Plan --</option>")
+                if (dt != "" && dt != "") {
+                    var allplan = dt.info;
+                    var fttplan = allplan.FULLTT;
+                    var plan2g = allplan['2G'];
+                    var plan3g4g = allplan['3G/4G'];
+                    var plan1 = allplan.TOPUP;
+                    var plansms = allplan.SMS;
+                    var plan2 = allplan.COMBO;
+                    var Roaming = allplan.Romaing;
+                    //bind tbl plan
+
+                    if (plan3g4g != null && plan3g4g != "") {
+                        //alert("hjnjh")
+                        $("#tbl_plan").append("<tr class='tr' ><th>3G/4G</th></tr>")
+                        for (var item of plan3g4g) {
+                            $("#tbl_plan").append("<table onclick='bildrsddlpan(" + item.rs + ")' class='table m-3 border shadow'><tr ><th> ₹</th><th >Validity</th><th >desc </th></tr>    <tr  ><td  > " + item.rs + "</td><td >  " + item.validity + "</td><td> " + item.desc + " </td></tr> </table>")
+                        }
+
+                    }
+                    if (fttplan != null && fttplan != "") {
+                        //alert("hjnjh")
+                        $("#tbl_plan").append("<tr class='tr' ><th>FULL TALKTIME</th></tr>")
+                        for (var item of fttplan) {
+                            $("#tbl_plan").append("<table onclick='bildrsddlpan(" + item.rs + ")' class='table m-3 border shadow'><tr ><th> ₹</th><th >Validity</th><th >desc </th></tr>    <tr  ><td  > " + item.rs + "</td><td >  " + item.validity + "</td><td> " + item.desc + " </td></tr> </table>")
+                        }
+
+                    }
+
+                    if (plan1 != null && plan1 != "") {
+                        //alert("hjnjh")
+                        $("#tbl_plan").append("<tr class='tr' ><th>TOP UP </th></tr>")
+                        for (var item of plan1) {
+                            $("#tbl_plan").append("<table onclick='bildrsddlpan(" + item.rs + ")' class='table m-3 border shadow'><tr ><th> ₹</th><th >Validity</th><th >desc </th></tr>    <tr  ><td  > " + item.rs + "</td><td >  " + item.validity + "</td><td> " + item.desc + " </td></tr> </table>")
+                        }
+                    }
+                    if (plan2 != null && plan2 != "") {
+                        //alert("hjnjh")
+                        $("#tbl_plan").append("<tr class='tr' ><th>COMBO PACK </th></tr>")
+                        for (var item of plan2) {
+                            $("#tbl_plan").append("<table onclick='bildrsddlpan(" + item.rs + ")' class='table m-3 border shadow'><tr ><th> ₹</th><th >Validity</th><th >desc </th></tr>    <tr  ><td  > " + item.rs + "</td><td >  " + item.validity + "</td><td> " + item.desc + " </td></tr> </table>")
+                        }
+                    }
+                    if (plansms != null && plansms != "") {
+                        //alert("hjnjh")
+                        $("#tbl_plan").append("<tr class='tr' ><th>SMS PACK </th></tr>")
+                        for (var item of plansms) {
+                            $("#tbl_plan").append("<table onclick='bildrsddlpan(" + item.rs + ")' class='table m-3 border shadow'><tr ><th> ₹</th><th >Validity</th><th >desc </th></tr>    <tr  ><td  > " + item.rs + "</td><td >  " + item.validity + "</td><td> " + item.desc + " </td></tr> </table>")
+                        }
+                    }
+                    if (plan2g != null && plan2g != "") {
+                        //alert("hjnjh")
+                        $("#tbl_plan").append("<tr class='tr' ><th>2G PACK </th></tr>")
+                        for (var item of plan2g) {
+                            $("#tbl_plan").append("<table onclick='bildrsddlpan(" + item.rs + ")' class='table m-3 border shadow'><tr ><th> ₹</th><th >Validity</th><th >desc </th></tr>    <tr  ><td  > " + item.rs + "</td><td >  " + item.validity + "</td><td> " + item.desc + " </td></tr> </table>")
+                        }
+                    }
+
+                    // new start
+                    if (fttplan != null && fttplan != "") {
+                        //alert("hjnjh")
+                        //$("#tbl_fulltalktime_plan").append("<tr><th>FULL TALKTIME</th></tr>")
+                        for (var item of fttplan) {
+                            $("#tbl_fulltalktime_plan").append("<table onclick='bildrsddlpan(" + item.rs + ")' class='table m-3 border shadow'><tr ><th> ₹</th><th >Validity</th><th >desc </th></tr>    <tr  ><td  > " + item.rs + "</td><td >  " + item.validity + "</td><td> " + item.desc + " </td></tr> </table>")
+                        }
+
+                    }
+
+                    if (plan3g4g != null && plan3g4g != "") {
+                        //alert("hjnjh")
+                        // $("#tbl_3g4g_plan").append("<tr><th>3G/4G</th></tr>")
+                        for (var item of plan3g4g) {
+                            $("#tbl_3g4g_plan").append("<table onclick='bildrsddlpan(" + item.rs + ")' class='table m-3 border shadow'><tr ><th> ₹</th><th >Validity</th><th >desc </th></tr>    <tr  ><td  > " + item.rs + "</td><td >  " + item.validity + "</td><td> " + item.desc + " </td></tr> </table>")
+                        }
+
+                    }
+                    if (plan2g != null && plan2g != "") {
+                        //alert("hjnjh")
+                        //$("#tbl_2g_plan").append("<tr><th>2G PACK </th></tr>")
+                        for (var item of plan2g) {
+                            $("#tbl_2g_plan").append("<table onclick='bildrsddlpan(" + item.rs + ")' class='table m-3 border shadow'><tr ><th> ₹</th><th >Validity</th><th >desc </th></tr>    <tr  ><td  > " + item.rs + "</td><td >  " + item.validity + "</td><td> " + item.desc + " </td></tr> </table>")
+                        }
+                    }
+                    if (plan1 != null && plan1 != "") {
+                        //alert("hjnjh")
+                        //$("#tbl_talktime_plan").append("<tr><th>TOP UP </th></tr>")
+                        for (var item of plan1) {
+                            $("#tbl_talktime_plan").append("<table onclick='bildrsddlpan(" + item.rs + ")' class='table m-3 border shadow'><tr ><th> ₹</th><th >Validity</th><th >desc </th></tr>    <tr  ><td  > " + item.rs + "</td><td >  " + item.validity + "</td><td> " + item.desc + " </td></tr> </table>")
+
+                           // $("#tbl_talktime_plan").append("<tr onclick='bildrsddlpan(" + item.rs + ")' class1='border' style='min-width:120px;min-height:100px;'><td class1='px-5 py-3'> ₹ " + item.rs + "</td><td class1='px-5 py-3'> <b>Validity</b> : " + item.validity + "</td><td class1='px-4 py-3'> " + item.desc + " </td></tr> ")
+                        }
+                    }
+                    if (plansms != null && plansms != "") {
+                        //alert("hjnjh")
+                        $("#tbl_sms_plan").append("<tr  class='tr' ><th>SMS PACK </th></tr>")
+                        for (var item of plansms) {
+                            $("#tbl_sms_plan").append("<table onclick='bildrsddlpan(" + item.rs + ")' class='table m-3 border shadow'><tr ><th> ₹</th><th >Validity</th><th >desc </th></tr>    <tr  ><td  > " + item.rs + "</td><td >  " + item.validity + "</td><td> " + item.desc + " </td></tr> </table>")
+                        }
+                    }
+                    if (plan2 != null && plan2 != "") {
+                        
+                        for (var item of plan2) {
+                            $("#tbl_combo_plan").append("<table onclick='bildrsddlpan(" + item.rs + ")' class='table m-3 border shadow'><tr ><th> ₹</th><th >Validity</th><th >desc </th></tr>    <tr  ><td  > " + item.rs + "</td><td >  " + item.validity + "</td><td> " + item.desc + " </td></tr> </table>")
+                        }
+                    }
+                    if (Roaming != null && Roaming != "") {
+                        for (var item of Roaming) {
+                            $("#tbl_comRoaming").append("<table onclick='bildrsddlpan(" + item.rs + ")' class='table m-3 border shadow'><tr ><th> ₹</th><th >Validity</th><th >desc </th></tr>    <tr  ><td  > " + item.rs + "</td><td >  " + item.validity + "</td><td> " + item.desc + " </td></tr> </table>")
+                        }
+                    }
+                    //new end
+
+
+
+                    $(".tr").attr("class", "card p-2")
+                    $("#plandvhideshow").show()
+                }
+                else {
+                    $("#tbl_plan").append("<table class='table m-3 border shadow'><tr >No Record Found</tr> </table>")
+                    alert('Server not Responding !!!');
+                    $("#showSpinner").hide();
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+
+
+        });
+    }
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+    <div class="col-12 ">
+        <div class="box q1 bg-gradient-primary overflow-hidden pull-up">
+            <div class="box-body pr-0 pl-lg-50 pl-15 py-0">
+                <div class="row align-items-center">
+                    <div class="col-12 col-lg-8">
+                        <h3 class="font-size-25 text-white">Recharge</h3>
+
+                    </div>
+                    @*  <div class="col-12 col-lg-4"><img src="https://eduadmin-template.multipurposethemes.com/bs4/images/svg-icon/color-svg/custom-15.svg" alt="" class="JKK"></div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Tab-->
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="myTab" role="tablist">
+
+    <div class="box-header">
+        <ul class="nav nav-tabs customtab nav-justified" role="tablist">
+
+
+            <li class="nav-item">
+                <button class="nav-link active" id="recharge-tab" data-bs-toggle="tab" data-bs-target="#recharge" type="button" role="tab" aria-controls="Benificiary" aria-selected="false"> Recharge</button>
+            </li>
+
+            <li class="nav-item">
+                <button class="nav-link" id="status-tab" data-bs-toggle="tab" data-bs-target="#checkstatus" type="button" role="tab" aria-controls="Refund" aria-selected="false">Recharge History</button>
+            </li>
+
+        </ul>
+    </div>
+
+
+    <div class="tab-content" id="myTabContent">
+
+        <div class="tab-pane fade show active" id="recharge" role="tabpanel" aria-labelledby="home-tab">
+
+            <section class="content" id="dorechargedv">
+                <div class="container-fluid">
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            <div class="">
+                                @* <div class="card-header">
+                                <h3 class="card-title"> Recharge</h3>
+                                </div>*@
+
+
+                                <!-- brows Plan start -->
+
+                                <div class="row">
+
+                                   
+                                        <div class="col-md-3 mb-3">
+
+                                            <div class="form-group">
+                                                <label>Phone No:	 </label>
+                                                <input type="text" class="form-control" placeholder="Enter Phone No" maxlength="10" id="txtPhone1rech" onkeypress="return numeric(event);" onchange="phonenumberlength();"  onkeyup="checkHLR()"/>
+                                                <span id="txtPhone1rechmsg" style="color:red;display:none;"> </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 mb-2">
+
+
+                                            <label>  Circle:</label>
+                                            <select class="form-control" onchange="QueryDTHRechargecheckBrowsPlan()" id="ddlcircle" required name="Pipe">
+                                                <option value="0" disabled selected>-- Select Circle --</option>
+                                                @foreach (DataRow dr in ViewBag.rechargeplan.Rows)
+                                                {
+                                                    <option value="@dr["name"]"> @dr["name"] </option>
+                                                }
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3 mb-2">
+
+                                            <label> Operator:</label>
+
+                                            <select class="form-control" onchange="QueryDTHRechargecheckBrowsPlan()" id="ddloperator" required name="Pipe">
+                                                <option value="0" disabled selected>-- Select Operator --</option>
+                                                @if (Model != null && Model.Rows.Count > 0)
+                                                {
+                                                    foreach (DataRow dr in Model.Rows)
+                                                    {
+                                                        
+                                                        if (@dr["category"].ToString() != "DTH")
+                                                        {
+                                                            <option value="@dr["name"]" idval="@dr["id"]"> @dr["name"] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @dr["category"] </option>
+                                                        }
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+
+
+
+                                        <div class="col-md-3 mb-2">
+
+                                            <label>Plan:</label>
+
+                                            <input type="text" class="form-control" id="ddlplan" required name="Pipe" />
+
+                                        </div>
+
+
+
+                                        <div class="col-md-3 p-3">
+                                            <button type="button" id="btnSearchdorecharge" disabled class="btn btn-primary waves-effect waves-light" onclick="QueryRechargecheck()">Do Recharge </button>
+
+
+                                        </div>
+
+                                       
+                                       
+
+
+                                    
+
+                                    <div class="col-md-12  border" style="display:block;" id="plandvhideshow">
+                                        <div class="box-header">
+                                            <ul class="nav nav-tabs customtab nav-justified" role="tablist">
+
+                                                <li class="nav-item ">
+                                                    <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#allplan" type="button" role="tab" aria-controls="home" aria-selected="false">All</button>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <button class="nav-link" id="ftt-tab" data-bs-toggle="tab" data-bs-target="#fulltakltime" type="button" role="tab" aria-controls="Benificiary" aria-selected="false">Full Talktime</button>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <button class="nav-link" id="3g4g-tab" data-bs-toggle="tab" data-bs-target="#plan3g4g" type="button" role="tab" aria-controls="Refund" aria-selected="false">3G/4G</button>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <button class="nav-link " id="2g-tab" data-bs-toggle="tab" data-bs-target="#plan2g" type="button" role="tab" aria-controls="TransactionStatus" aria-selected="true">2G</button>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <button class="nav-link " id="talktime-tab" data-bs-toggle="tab" data-bs-target="#takltime" type="button" role="tab" aria-controls="TransactionStatus" aria-selected="true">Talktime</button>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <button class="nav-link " id="sms-tab" data-bs-toggle="tab" data-bs-target="#sms" type="button" role="tab" aria-controls="TransactionStatus" aria-selected="true">SMS</button>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <button class="nav-link " id="combo-tab" data-bs-toggle="tab" data-bs-target="#combo" type="button" role="tab" aria-controls="TransactionStatus" aria-selected="true">Combo</button>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <button class="nav-link " id="combo-tab" data-bs-toggle="tab" data-bs-target="#Roaming" type="button" role="tab" aria-controls="TransactionStatus" aria-selected="true">Roaming</button>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+
+                                        <div class="box-body">
+                                            <!-- Tab panes -->
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="allplan" role="tabpanel">
+                                                    <div class="col-md-12 wraperplan">
+
+
+
+                                                        <div class="table table-bordered" id="tbl_plan">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane wraperplan" id="fulltakltime" role="tabpanel">
+                                                    <table id="tbl_fulltalktime_plan">
+                                                    </table>
+                                                </div>
+                                                <div class="tab-pane wraperplan" id="plan3g4g" role="tabpanel">
+                                                    <table id="tbl_3g4g_plan">
+                                                    </table>
+                                                </div>
+                                                <div class="tab-pane wraperplan" id="plan2g" role="tabpanel">
+                                                    <table id="tbl_2g_plan">
+                                                    </table>
+                                                </div>
+                                                <div class="tab-pane wraperplan" id="takltime" role="tabpanel">
+                                                    <div id="tbl_talktime_plan">
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane wraperplan" id="sms" role="tabpanel">
+                                                    <table id="tbl_sms_plan">
+                                                    </table>
+                                                </div>
+                                                <div class="tab-pane wraperplan" id="combo" role="tabpanel">
+                                                    <table id="tbl_combo_plan">
+                                                    </table>
+                                                </div>
+                                                 <div class="tab-pane wraperplan" id="roaming" role="tabpanel">
+                                                    <table id="tbl_comRoaming">
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" style="display:none;">
+                        <div class="card card-warning">
+                            <div class="card-header">
+                                <div class="card-tools">
+                                </div>
+
+                                <div class="card-body">
+                                    <div style="overflow-x:auto;">
+
+                                        <table id="example3" class="my  table table-bordered table-responsive table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th rowspan="2" colspan="2">Sr.No.</th>
+                                                    <th>Customer Name</th>
+                                                    <th>NextRechargeDate</th>
+                                                    <th>Planname</th>
+                                                    <th>Monthly Recharge</th>
+                                                    <th>Balance</th>
+                                                    <th>Message</th>
+
+
+                                                </tr>
+
+                                            </thead>
+
+                                        </table>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+        <div class="tab-pane fade" id="checkstatus" role="tabpanel" aria-labelledby="profile-tab">
+
+            <section class="content" id="checkstatusdv">
+                <div class="container-fluid">
+                    <div class="card-body border ">
+                        <div class="card-header">
+                            <h4 class="new-title">Status Enquiry</h4>
+                        </div>
+
+
+                        <div class="card-body">
+
+                        <div class="col-sm-12 border p-2">
+                            @*<div class="card-header alert alert-primary ">*@
+                            <h4 class="text-center">Bill History</h4>
+
+                            <table id="example3" class="my  table table-bordered table-hover" style="width:100%;">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>Status</th>
+                                        <th>Reference Id :</th>
+                                        <th>Mobile No :</th>
+                                        <th>Amount :</th>
+                                        <th>Recharge Date:</th>
+                                        <th>Aknowledge No :</th>
+
+
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+
+
+                                    @if (ViewBag.RechargeRefId != null && ViewBag.RechargeRefId.Rows.Count > 0)
+                                    {
+                                        foreach (DataRow item in ViewBag.RechargeRefId.Rows)
+                                        {
+                                            <tr>
+
+
+                                                <td>
+                                                    <i class="btn btn-warning" onclick="checkEnquiryStatus('@item["refid"]')">View</i>
+                                                </td>
+
+                                                <td>@item["refid"]</td>
+                                                <td>@item["MobileNo"]</td>
+
+
+                                                <td>@item["amount"]</td>
+                                                <td>@item["date"]</td>
+                                                <td>@item["ackno"]</td>
+                                            </tr>
+
+
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                          
+
+                        </div>
+                      
+                        </div>
+
+
+                            <div class="row" style="display:none;"> 
+                                  @* <h4 class="text-center" id="resmsg"></h4>*@
+                                        @*<div class="col-sm-6 p-3">
+                                            <span style="color:red">*</span> <label>
+                                                Reference Id :
+                                            </label>
+                                            <input id="txtrefid" type="text" placeholder="enter ReferenceId.." class="form-control" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" id="btnSearch" class="btn btn-primary btn-block " onclick="checkEnquiryStatus()">Check Status </button>
+
+                                        </div>*@
+                            <span style="color: blue;"> click to Reference no for more detail</span>
+
+
+                            <div class="col-sm-12">
+
+                                <div class="wraperplan border p-2 row">
+                                    @if (ViewBag.RechargeRefId != null && ViewBag.RechargeRefId.Rows.Count > 0)
+                                    {
+                                        foreach (DataRow item in ViewBag.RechargeRefId.Rows)
+                                        {
+                                            <div class=" card p-3 col-sm-6 "  onclick="checkEnquiryStatus('@item["refid"]')">
+
+
+                                                <table class="table table-bordered">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>Reference Id :</th>
+                                                            <td style="color: blue;"><u> @item["refid"]</u></td>
+
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th>Mobile No :</th>
+                                                            <td>  @item["MobileNo"]</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Amount :</th>
+                                                            <td> @item["Amount"]</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Recharge Date :</th>
+                                                            <td>  @item["date"]</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Acknowedge No :</th>
+                                                            <td>  @item["ackno"]</td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+
+
+
+
+
+
+                                              @*  <div class=" row ">
+                                                    <div class="col-sm-5"><label>Reference Id : </label></div><div class="col-sm-7"><span> @item["refid"]</span></div>
+                                                </div>
+
+                                                <div class=" row ">
+                                                    <div class="col-sm-5"><label>MobileNo : </label></div><div class="col-sm-7">
+                                                        <span> @item["MobileNo"]</span>
+                                                    </div>
+                                                </div>
+                                                <div class=" row ">
+                                                    <div class="col-sm-5"><label>Amount : </label></div><div class="col-sm-7">
+                                                        <span> @item["Amount"]</span>
+                                                    </div>
+                                                </div>
+                                                <div class=" row ">
+                                                    <div class="col-sm-5"><label>Recharge Date : </label></div><div class="col-sm-7">
+                                                        <span> @item["date"]</span>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class=" row ">
+                                                    <div class="col-sm-5"><label> Aknowledge No : </label></div><div class="col-sm-7">
+                                                        <span> @item["ackno"]</span>
+                                                    </div>
+                                                </div>*@
+
+                                            </div>
+                                        }
+
+                                    }
+                                </div>
+                            </div>
+
+                                    </div>
+
+
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                      
+                      
+
+
+               
+
+
+
+            </div>
+    </section>
+    
+
+
+
+</nav>
+<!--Tab End-->
+<!--Modal-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h4 style="text-align:center">Trandaction History</h4>
+                <div class="row" style="">
+
+                    <div class="col-md-12">
+
+                        <div class="">
+
+
+                            <div class="card-body border  ">
+
+
+
+
+
+
+
+                                <div class="row" >
+                                    <div class="card-header alert alert-primary">
+                                        <h3 class="text-center" id="resmsg"></h3>
+
+
+                                    </div>
+                                    <div class="card card-warning" id="ddldivbox" style="display:none;">
+                                        <div class="card-header">
+
+                                            <div class="card-tools">
+                                            </div>
+
+                                            <div class="card-body">
+                                                <div class="border p-4">
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>MobileNO:</lable></div>
+                                                        <div class="col-sm-6"> <span id="ddlMobileNo"></span></div>
+
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>Operator Name</lable></div>
+                                                        <div class="col-sm-6"> <span id="ddloperatorname"></span></div>
+
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>Amount:</lable></div>
+                                                        <div class="col-sm-6"> <span id="ddlamount"></span></div>
+
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>ReferenceID:</lable></div>
+                                                        <div class="col-sm-6"> <span id="ddlReferenceID"></span></div>
+
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>OperatorId:</lable></div>
+                                                        <div class="col-sm-6"> <span id="ddlOperatorId"></span></div>
+
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>Date Added:</lable></div>
+                                                        <div class="col-sm-6"> <span id="ddldateadded"></span></div>
+
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>Date Refunded:</lable></div>
+                                                        <div class="col-sm-6"> <span id="ddldaterefunded"></span></div>
+
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>refunded</lable></div>
+                                                        <div class="col-sm-6"> <span id="ddlrefunded"></span></div>
+
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>TDS</lable></div>
+                                                        <div class="col-sm-6"> <span id="ddltds"></span></div>
+
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>Refund Transaction ID</lable></div>
+                                                        <div class="col-sm-6"> <span id="ddlrefundtxnid"></span></div>
+
+
+
+                                                    </div>
+                                                </div>
+
+                                                <br>
+
+
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<!--end Modal-->
+
+
+
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+       // $("#ddldivbox").hide()
+        console.log('operatorlist')
+        console.log('@ViewBag.OperatorList')
+
+    })
+    function chackStatesHideShow() {
+        $("#checkstatusdv").show()
+        $("#dorechargedv").hide()
+    }
+    function doRechargeHideShow() {
+        $("#checkstatusdv").hide()
+        $("#dorechargedv").show()
+    }
+
+    function checkEnquiryStatus(refid) {
+        //if ($("#txtrefid").val() == "") {
+        //    $("#txtrefid").focus();
+        //    alert("Enter Reference Id !!")
+        //    return;
+        //}
+        var dataobj = new FormData;
+
+        //dataobj.append("referenceid", $("#txtrefid").val());
+        dataobj.append("referenceid", refid);
+
+        $("#showSpinner").show();
+        $.ajax({
+            url: "/Admin/DoRechargeStatesEnquiry",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: dataobj,
+            success: function (r) {
+                 debugger;
+                console.log(r)
+                if (r == "Something Went Wrong!!" || r == "Enter Reference Number!!") {
+                    $("#resmsg").text(r)
+                }
+                else {
+                    var res = jQuery.parseJSON(r);
+                    console.log('res')
+                    console.log(res)
+                    if (res != null) {
+                        $("#exampleModal").modal('show');
+                        $("#resmsg").text(res.message)
+                        $("#ddlMobileNo").text(res.data.canumber);
+                        $("#ddloperatorname").text(res.data.operatorname);
+                        $("#ddlReferenceID").text(res.data.refid);
+                        $("#ddldateadded").text(res.data.dateadded);
+                        $("#ddlOperatorId").text(res.data.operatorid);
+                        $("#ddldaterefunded").text(res.data.daterefunded);
+                        $("#ddlrefunded").text(res.data.refunded);
+                        $("#ddlamount").text(res.data.amount);
+                        $("#ddlrefundtxnid").text(res.data.refundtxnid);
+                        $("#ddltds").text(res.data.tds);
+                        $("#ddldivbox").show();
+
+                        debugger;
+                        if (res.data.status == "1") {
+                            $("#resmsg").text(res.message);
+                            $("#resmsg").css("color", "white")
+                        }
+
+                        else {
+                            $("#resmsg").text(res.message);
+                            $("#resmsg").css("color", "red")
+                        }
+
+                    }
+                    $("#txtrefid").val("")
+                }
+                //console.log(res)
+
+                $("#showSpinner").hide();
+            },
+            error: function () {
+                alert("Error Occured !!!")
+                $("#showSpinner").hide();
+            }
+        })
+    }
+    function setRefIdTxt(id) {
+        $("#txtrefid").val(id)
+    }
+
+
+    function checkHLR() {
+        var mobnumber = $("#txtPhone1rech").val()
+        if (mobnumber.length == 10) {
+
+            $.post("/Admin/CheckHLR", { number: mobnumber, type: "mobile" }, function (data) {
+                //alert(data)
+                debugger;
+                //console.log(res)
+                var res = jQuery.parseJSON(data)
+                console.log(res)
+                if (res.response_code == "1") {
+                    console.log(res.info)
+                    $("#ddloperator").val(res.info.operator).trigger("change")
+                    $("#ddlcircle").val(res.info.circle).trigger("change")
+                     $("#txtPhone1rechmsg").hide()
+                }
+                else{
+                    $("#txtPhone1rechmsg").text(res.message)
+                    $("#txtPhone1rechmsg").show()
+                    //alert(res.message)
+                }
+            });
+
+        }
+    }
+
+    $(document).ready(function () {
+        $('select').select2();
+    });
+</script>

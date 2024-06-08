@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Grofinhub", "Grofinhub.csproj", "{C079DE95-2BDE-4361-A49D-BD51F2AFCA28}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C079DE95-2BDE-4361-A49D-BD51F2AFCA28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C079DE95-2BDE-4361-A49D-BD51F2AFCA28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C079DE95-2BDE-4361-A49D-BD51F2AFCA28}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{C079DE95-2BDE-4361-A49D-BD51F2AFCA28}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {642B042C-3667-4399-BA29-39E6152795E0}
+	EndGlobalSection
+EndGlobal

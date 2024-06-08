@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewData["Title"] = "PANReportnew";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
+
+
+</head>
+
+
+@model DataTable
+@using System.Data
+
+<div class="col-md-12">
+    <div class="card card-warning ">
+        <div class="card-header">
+            <h6 class="card-title">PAN List</h6>
+        </div>
+
+        <form method="post" action="/admin/PANReportnew?typee=PAN">
+
+            <div class="card-body">
+
+                <div class="row">
+
+
+                    <div class="col-sm-3">
+                        <div id="innerblock">
+                            <label>Partner</label>
+                            @Html.DropDownList("PartnerID", ViewBag.Partner, "Select Partner", new { @class = "form-control"})
+                            @*<select class="form-control" id="ddlblock"><option>Select Block</option></select>
+                            *@
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+
+                        <div class="form-group">
+                            <label>FormDate</label>
+                            <input type="date" class="form-control" name="FormDate" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+
+                        <div class="form-group">
+                            <label>ToDate</label>
+                            <input type="date" class="form-control" name="ToDate" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3" style="margin-top: 27px;">
+
+                        <div class="form-group">
+                            <input type="submit" value="Search" class="btn btn-primary " />
+                        </div>
+                    </div>
+
+                </div>
+                <div style="overflow-x:auto;">
+                    <table id="example3" class="my  table table-bordered table-hover" style="width:100%;">
+                        <thead class="bg-primary">
+                            <tr>
+                                @*<th>Sr.No.</th>*@
+                                <th>Partner ID</th>
+                                <th>Customer Name</th>
+                                <th>ackno</th>
+                                <th>ReferenceID</th>
+                                <th>Transaction Id</th>
+                                <th>Mode</th>
+                                <th>Mobile No </th>
+
+                                <th>Transaction Date </th>
+                                @*<th>OperatorID</th>*@
+                                <th>Status</th>
+                                @*<th>Remark</th>*@
+                                <th>Amount</th>
+                                <th>Commission Amount</th>
+                                <th>TDS</th>
+                                <th>Amount Deducted</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @{
+
+                                if (Model != null)
+                                {
+                                    if (Model.Rows.Count > 0)
+                                    {
+                                        int i = 1;
+                                        foreach (DataRow item in Model.Rows)
+                                        {
+                                            <tr>
+                                                @*<td>@i</td>*@
+                                                <td>@i</td>
+                                                <td>@item["entryby"]</td>
+                                                <td></td>
+                                                <td>@item["ackno"]</td>
+                                                <td>@item["ReferenceID"]</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>@item["MobileNo"]</td>
+                                                <td>@item["EntryDate"]</td>
+                                                @*<td>@item["OperatorID"]</td>*@
+                                                @if (item["Status"].ToString().ToLower() == "true")
+                                                {
+                                                    <td style="color:white ;"><span style="background-color:forestgreen;" class="rounded">success</span></td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="color:white ;"><span style="background-color:red;" class="rounded">failed</span></td>
+                                                }
+
+                                                @*<td>@item["Message"]</td>*@
+                                                @* <td>
+                                <a href="#" onclick="GetDetailsForEdit('@item["RecruitmentID"]')"><span class="badge bg-success">Edit</span></a>
+                                </td>
+                                *@
+                                                <td>@item["Amount"]</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            i++;
+                                        }
+                                    }
+
+                                }
+
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+
+
+</div>
+
+<script>
+    var js = jQuery.noConflict(true)
+    js(document).ready(function () {
+
+        js("#example3").DataTable();
+    })
+
+
+
+
+
+</script>
+
+

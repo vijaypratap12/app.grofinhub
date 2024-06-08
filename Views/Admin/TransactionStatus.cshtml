@@ -1,0 +1,218 @@
+﻿@{
+    ViewData["Title"] = "TransactionStatus";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h5 class="m-0">Transaction Status</h5>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/Admin/Dashboard">Dashboard</a></li>
+
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <h3 class="card-title">Transaction Status </h3>
+                    </div>
+
+                    <div class="card-body ">
+                        <p class="text-center h4 text-danger" id="pmsg"></p>
+                        <div class="row">
+
+
+
+                            <div class="col-sm-3">
+
+                                <div class="form-group">
+                                    <label>Reference ID	 </label>
+                                    <input type="text" class="form-control" placeholder="Enter Reference ID	" id="txtRefeID" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" id="btnSearch" class="btn btn-primary waves-effect waves-light" onclick="showTransactionstatus()">Search</button>
+
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</section>
+
+<div class="col-md-12">
+    <div class="card card-warning">
+        <div class="card-header">
+
+
+            <div class="card-tools">
+            </div>
+
+            <div class="card-body">
+                <div style="overflow-x:auto;">
+
+                    <table id="example3" class="my  table table-bordered table-hover">
+                        <thead>
+                            <tr>
+
+                                <th>Amount </th>
+                                <th>Acount No </th>
+
+                                <th>Customercharge </th>
+                                <th>refundtxnid</th>
+
+                                <th>UTR</th>
+                                <th>GST</th>
+                                <th>TDS</th>
+                                <th>ReferenceID</th>
+                                <th>Discount</th>
+                                <th>Date Founded</th>
+
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        @*          <tbody>
+                        @{
+                        if (Model.dt != null)
+                        {
+                        if (Model.dt.Rows.Count > 0)
+                        {
+                        int i = 1;
+                        foreach (DataRow item in Model.dt.Rows)
+                        {
+                        <tr>
+                        <td>@i</td>
+                        <td>@item["clientCode"]</td>
+                        <td>@item["ClientName"]</td>
+                        <td>@item["PhoneNo"]</td>
+                        <td>@item["State_Name"]</td>
+                        <td>@item["Cityname"]</td>
+                        <td>@item["WebSite"]</td>
+                        <td>@item["HeadOffice"]</td>
+                        <td>@item["Pincode"]</td>
+                        <td>@item["Address2"]</td>
+                        <td>@item["Remark"]</td>
+
+                        <td>
+                        <a href="#" onclick="GetDetailsForEdit('@item["clientCode"]')"><span class="badge bg-success">Edit</span></a>
+                        </td>
+
+                        @*   <td>
+                        <a href="#" onclick="DeleteItemHeadDetails('@item["SrNo"]')"><span class="badge bg-danger">Delete</span></a>
+                        </td>
+                        *@
+                        @*   </tr>
+                        i++;
+                        }
+                        }
+
+                        }
+                        }
+
+                        </tbody>*@
+                    </table>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+<script type="text/javascript" language="javascript">
+    //function numeric(e) {
+    //    var unicode = e.charCode ? e.charCode : e.keyCode;
+    //    if (unicode == 8 || unicode == 9 || (unicode >= 48 && unicode <= 57)) {
+    //        return true;
+    //    }
+    //    else {
+    //        return false;
+    //    }
+    //}
+
+    function showTransactionstatus() {
+        if ($("#txtRefeID").val().trim() == "") {
+            alert("Please enter ReferenceID")
+            return false;
+        }
+
+        var data = new FormData;
+        data.append("RefeID", $("#txtRefeID").val());
+        $("#showSpinner").show();
+
+        $.ajax({
+            url: "/Admin/TransactionPost",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (data) {
+                debugger;
+                console.log(data);
+                if (data.strId == "1") {
+                    $("#example3").show();
+                    var employeeTable = $('#example3 tbody');
+                    employeeTable.empty();
+                    $.each(data.dtlist, function (index, emp) {
+                        debugger;
+                        employeeTable.append('<tr><td>' + emp.amount + '</td><td>'
+                            + emp.account + '</td><td>' + emp.customercharge + '</td><td>' + emp.refundtxnid
+                            + '</td><td>' + emp.utr + '</td><td>' + emp.gst + '</td><td>' + emp.tds
+                            + '</td><td>' + emp.referenceid + '</td><td>'
+                            + emp.discount + '</td><td>' + emp.daterefunded + '</td></tr>');
+                    });
+                    $("#pmsg").hide();
+                }
+                else if (data.strId == "0")
+                {
+                    var obj = $.parseJSON(data.msg)
+                    //console.log(obj)
+                    $("#pmsg").text(obj.message);
+                }
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+
+
+        });
+    }
+
+
+
+
+
+
+
+</script>

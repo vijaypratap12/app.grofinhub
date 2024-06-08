@@ -1,0 +1,277 @@
+﻿
+@{
+    ViewData["Title"] = "Finance";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+
+    img.logo-lg {
+        border-radius: 50%;
+        background-color: white;
+        width: 55px;
+        border: 1px solid #07638a;
+        padding: 5px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+
+    .box-body {
+        cursor: pointer;
+        text-align: center;
+      
+    }
+
+
+
+    a.mb-0.font-size-18.text-center {
+        position: relative;
+        top: 7px;
+        text-decoration: none;
+        color: #006baf;
+        font-weight: 600;
+    }
+
+
+    .box-body {
+    padding: 1rem 1.5rem;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    border-radius: 10px;
+    height: 100px;
+}
+
+
+
+
+
+    .modal-header {
+        background: #0059cf;
+        color: white;
+        border-radius: 0px;
+    }
+
+    .box-body {
+        cursor: pointer;
+    }
+
+    #my-div {
+        /* background-color: #f00;
+                width: 200px;
+                height: 200px;*/
+    }
+
+    a.fill-div {
+        display: block;
+        height: 100%;
+        width: 100%;
+        text-decoration: none;
+    }
+</style>
+
+<script>
+    $("#bcount").click(function () {
+        location.reload();
+    });
+</script>
+
+@*Total Battery Count POP UP Start*@
+
+<!-- Modal -->
+
+
+<div class="row">
+    <div class="col-12 ">
+        <div class="box q1 bg-gradient-primary overflow-hidden pull-up">
+            <div class="box-body pr-0 pl-lg-50 pl-15 py-0">
+                <div class="row align-items-center">
+                    <div class="col-12 col-lg-8">
+                        <h1 class="font-size-25 text-white">Finance</h1>
+                        <p class="text-white mb-0 font-size-20">
+                            ......
+                        </p>
+                    </div>
+                    <div class="col-12 col-lg-4"><img src="https://eduadmin-template.multipurposethemes.com/bs4/images/svg-icon/color-svg/custom-15.svg" alt="" class="JKK"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="app-main__inner">
+    <div>
+
+
+        <div class="row uii">
+          @*  <div class="col-12">
+                <div class="box q2 no-shadow mb-20 bg-transparent">
+                    <div class="box-header no-border px-0">
+                        <h4 class="box-title"> Quick menu's </h4>
+                        <ul class="box-controls pull-right d-md-flex d-none">
+                            <li>
+                                 <button class="btn btn-primary-light px-10">View All</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>*@
+            <div class="col-xl-3 col-md-6 col-12 fill-div ">
+                @*<a href="/admin/ComplianceAllDetails?para=HOMEL&paraPage=Home Loan">*@
+                <a href="#" data-toggle="modal" data-target="#exampleModalCenter" onclick="openSetModal('/admin/ComplianceAllDetails?para=HOMEL&paraPage=Home Loan','Home Loan','https://www.google.com/')">
+                    <div class="box q3 pull-up fill-div">
+                        <div class="box-body fill-div">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                            </div>
+                            <a href="#" data-toggle="modal" data-target="#exampleModalCenter" onclick="openSetModal('/admin/ComplianceAllDetails?para=HOMEL&paraPage=Home Loan','Home Loan','https://www.google.com/')" class="mb-0 font-size-18 text-center fill-div"> Home Loan </a>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                @*<a href="/admin/ComplianceAllDetails?para=BUSIL&paraPage=Business Loan">*@
+                <a href="#" data-toggle="modal" data-target="#exampleModalCenter" onclick="openSetModal('/admin/ComplianceAllDetails?para=BUSIL&paraPage=Business Loan','Business Loan','https://www.google.com/')">
+                    <div class="box q3 pull-up fill-div">
+                        <div class="box-body fill-div">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                <div> <img src="~/images/Pay.png" class="logo-lg" /></div>
+                            </div>
+                            <a href="#" data-toggle="modal" data-target="#exampleModalCenter" onclick="openSetModal('/admin/ComplianceAllDetails?para=BUSIL&paraPage=Business Loan','Business Loan','https://www.google.com/')" class="mb-0 font-size-18 text-center fill-div"> Business Loan </a>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                @*<a href="/admin/ComplianceAllDetails?para=PERSOL&paraPage=Personal Loan">*@
+                <a href="#" data-toggle="modal" data-target="#exampleModalCenter" onclick="openSetModal('/admin/ComplianceAllDetails?para=PERSOL&paraPage=Personal Loan','Personal Loan','https://www.google.com/')">
+                    <div class="box q3 pull-up fill-div">
+                        <div class="box-body fill-div">
+                            <div class="dde rounded text-center fill-div">
+
+
+                            <div> <img src="~/images/atm.png" class="logo-lg" /></div>
+                        </div>
+                            <a href="#" data-toggle="modal" data-target="#exampleModalCenter" onclick="openSetModal('/admin/ComplianceAllDetails?para=PERSOL&paraPage=Personal Loan','Personal Loan','https://www.google.com/')" class="mb-0 font-size-18 text-center fill-div"> Personal Loan </a>
+
+                    </div>
+                </div></a>
+            </div>
+
+
+
+            
+
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                @*<a href="/admin/ComplianceAllDetails?para=PROPERL&paraPage=Laon Againest Property">*@
+                <a href="#" data-toggle="modal" data-target="#exampleModalCenter" onclick="openSetModal('/admin/ComplianceAllDetails?para=PROPERL&paraPage=Laon Againest Property','Laon Againest Property','https://www.google.com/')">
+                    <div class="box q3 pull-up fill-div">
+                        <div class="box-body fill-div">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                <div> <img src="~/images/BBPS.png" class="logo-lg" /></div>
+                            </div>
+                            <a href="#" data-toggle="modal" data-target="#exampleModalCenter" onclick="openSetModal('/admin/ComplianceAllDetails?para=PROPERL&paraPage=Laon Againest Property','Laon Againest Property','https://www.google.com/')" class="mb-0 font-size-18 text-center fill-div"> Laon Againest Property </a>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+
+
+        </div>
+
+
+    </div>
+
+    <div class="row uii">
+        @*<div class="col-12">
+            <div class="box q2 no-shadow mb-20 bg-transparent">
+                <div class="box-header no-border px-0">
+                    <h4 class="box-title">Utility</h4>
+                    <ul class="box-controls pull-right d-md-flex d-none">
+                        <li>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>*@
+
+
+        <div class="col-xl-3 col-md-6 col-12 fill-div">
+            @*<a href="/admin/ComplianceAllDetails?para=CCAPPLY&paraPage=Created Card Apply">*@
+            <a href="#" data-toggle="modal" data-target="#exampleModalCenter" onclick="openSetModal('/admin/ComplianceAllDetails?para=CCAPPLY&paraPage=Created Card Apply','Created Card Apply','https://www.google.com/')">
+                <div class="box q3 pull-up fill-div">
+                    <div class="box-body fill-div">
+                        <div class="dde rounded text-center fill-div">
+
+
+                            <div> <img src="~/images/RECHARGE.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="#" data-toggle="modal" data-target="#exampleModalCenter" onclick="openSetModal('/admin/ComplianceAllDetails?para=CCAPPLY&paraPage=Created Card Apply','Created Card Apply','https://www.google.com/')" class="mb-0 font-size-18 text-center fill-div"> Created Card Apply </a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+        </div>
+
+      <!-- modal start-->
+    <!-- Button trigger modal -->
+   
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">FINANCE</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                    <div class="col-sm-6">
+                            <a id="auploadedocument"><button type="button" class="btn btn-primary form-control">UPLOAD DOCUMENTS</button></a>
+                        </div>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-5" style="display:none">
+                            <a id="aopenwebsite"> <button type="button" class="btn btn-primary form-control">OPEN WEBSITE</button></a>
+                    </div>
+                    </div>
+                </div>
+               @* <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>*@
+            </div>
+        </div>
+    </div>
+      <!-- modal end-->
+<script>
+    function openSetModal(url,txt,weburl)
+    {
+            $("#exampleModalLongTitle").text(txt)
+            $("#auploadedocument").attr("href", url)
+                            $("#aopenwebsite").attr("href",weburl)
+                    $("#aopenwebsite").attr("target", "_blank")
+    }
+</script>       

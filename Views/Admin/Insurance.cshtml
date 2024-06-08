@@ -1,0 +1,212 @@
+﻿
+@{
+    ViewData["Title"] = "Insurance";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<style>
+
+    img.logo-lg {
+        border-radius: 50%;
+        background-color: white;
+        width: 55px;
+        border: 1px solid #07638a;
+        padding: 5px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+
+    .box-body {
+        cursor: pointer;
+        text-align: center;
+        
+    }
+
+
+
+    a.mb-0.font-size-18.text-center {
+        position: relative;
+        top: 7px;
+        text-decoration: none;
+        color: #006baf;
+        font-weight: 600;
+    }
+
+
+
+
+
+
+
+    .modal-header {
+        background: #0059cf;
+        color: white;
+        border-radius: 0px;
+    }
+
+    .box-body {
+        cursor: pointer;
+    }
+
+    .box-body {
+        padding: 1rem 1.5rem;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        border-radius: 10px;
+        height: 100px;
+    }
+
+
+</style>
+
+<script>
+    $("#bcount").click(function () {
+        location.reload();
+    });
+</script>
+
+
+<div class="row">
+    <div class="col-12 ">
+        <div class="box q1 bg-gradient-primary overflow-hidden pull-up">
+            <div class="box-body pr-0 pl-lg-50 pl-15 py-0">
+                <div class="row align-items-center">
+                    <div class="col-12 col-lg-8">
+                        <h2 class="font-size-25 text-white">Insurance</h2>
+                    </div>
+                    <div class="col-12 col-lg-4"><img src="https://eduadmin-template.multipurposethemes.com/bs4/images/svg-icon/color-svg/custom-15.svg" alt="" class="JKK"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="app-main__inner">
+    <div>
+
+
+        <div class="row uii">
+            <div class="col-12">
+                <div class="box q2 no-shadow mb-20 bg-transparent">
+                    <div class="box-header no-border px-0">
+                        <h4 class="box-title"> Quick menu's </h4>
+                        <ul class="box-controls pull-right d-md-flex d-none">
+                            <li>
+                                @*   <button class="btn btn-primary-light px-10">View All</button>*@
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12">
+                @*<a href="/admin/ComplianceAllDetails?para=LIFEINS&paraPage=Life Insurance">*@
+                <a href="#" data-toggle="modal" data-target="#exampleModalCenter" onclick="openSetModal('/admin/ComplianceAllDetails?para=LIFEINS&paraPage=Life Insurance','Life Insurance','https://www.google.com/')">
+                    <div class="box q3 pull-up">
+                        <div class="box-body">
+                            <div class="dde rounded text-center">
+
+
+                                <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                            </div>
+                            <a href="#" class="mb-0 font-size-18 text-center"> Life Insurance </a>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+
+            <div class="col-xl-3 col-md-6 col-12">
+                @*<a href="/admin/ComplianceAllDetails?para=HEALINS&paraPage=Health Insurarnce">*@
+                <a href="#" data-toggle="modal" data-target="#exampleModalCenter" onclick="openSetModal('/admin/ComplianceAllDetails?para=HEALINS&paraPage=Health Insurarnce','Health Insurarnce','https://www.google.com/')">
+                    <div class="box q3 pull-up">
+                        <div class="box-body">
+                            <div class="dde rounded text-center">
+
+
+                                <div> <img src="~/images/Pay.png" class="logo-lg" /></div>
+                            </div>
+                            <a href="#" class="mb-0 font-size-18 text-center"> Health Insurarnce </a>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="col-xl-3 col-md-6 col-12">
+                @*<a href="/admin/ComplianceAllDetails?para=VEHINS&paraPage=Vehicle Insurance">*@
+                <a href="#" data-toggle="modal" data-target="#exampleModalCenter" onclick="openSetModal('/admin/ComplianceAllDetails?para=VEHINS&paraPage=Vehicle Insurance','Vehicle Insurance','https://www.google.com/')">
+                <div class="box q3 pull-up">
+                    <div class="box-body">
+                        <div class="dde rounded text-center">
+
+
+                            <div> <img src="~/images/atm.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="#" class="mb-0 font-size-18 text-center"> Vehicle Insurance </a>
+
+                    </div>
+                </div></a>
+            </div>
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">FINANCE</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <a id="auploadedocument"><button type="button" class="btn btn-primary form-control">UPLOAD DOCUMENTS</button></a>
+                        </div>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-5" style="display:none">
+                            <a id="aopenwebsite"> <button type="button" class="btn btn-primary form-control">OPEN WEBSITE</button></a>
+                        </div>
+                    </div>
+                </div>
+                @* <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+                </div>*@
+            </div>
+        </div>
+    </div>
+    <!-- modal end-->
+    <script>
+        function openSetModal(url, txt, weburl) {
+            $("#exampleModalLongTitle").text(txt)
+            $("#auploadedocument").attr("href", url)
+            $("#aopenwebsite").attr("href", weburl)
+            $("#aopenwebsite").attr("target", "_blank")
+        }
+    </script>
+
+
+
+
+

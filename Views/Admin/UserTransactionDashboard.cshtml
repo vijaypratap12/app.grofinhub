@@ -1,0 +1,218 @@
+﻿@{
+    ViewData["Title"] = "UserTransactionDashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<h1>UserTransactionDashboard</h1>*@
+
+<style>
+
+    img.logo-lg {
+        border-radius: 50%;
+        background-color: white;
+        width: 55px;
+        border: 1px solid #07638a;
+        padding: 5px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+
+    .box-body {
+        cursor: pointer;
+        text-align: center;
+    }
+
+
+
+    a.mb-0.font-size-18.text-center {
+        position: relative;
+        top: 7px;
+        text-decoration: none;
+        color: #006baf;
+        font-weight: 600;
+    }
+
+
+
+
+
+
+
+    .modal-header {
+        background: #0059cf;
+        color: white;
+        border-radius: 0px;
+    }
+
+    .box-body {
+        cursor: pointer;
+    }
+
+    #my-div {
+        /* background-color: #f00;
+                                width: 200px;
+                                height: 200px;*/
+    }
+
+    a.fill-div {
+        display: block;
+        height: 100%;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .box-body {
+        padding: 1rem 1.5rem;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        border-radius: 10px;
+        height: 100px;
+    }
+
+</style>
+@*<h4>TransactionReportDashBoard</h4>*@
+
+
+
+<div class="app-main__inner">
+    <br />
+    <div class="pt-5">
+        <div class="row">
+
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                <a href="/Admin/UserTaransactionReport">
+                    <div class="box q3 pull-up fill-div">
+                        <div class="box-body fill-div">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                            </div>
+                            <a href="/Admin/UserTaransactionReport" class="mb-0 font-size-18 text-center fill-div">TRANSACTION REPORT </a>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                <a href="/Admin/UserRechargeReport?typee=mobile">
+                    <div class="box q3 pull-up fill-div">
+                        <div class="box-body fill-div">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                            </div>
+                            <a href="/Admin/UserRechargeReport?typee=mobile" class="mb-0 font-size-18 text-center fill-div">  RECHARGE HISTORY </a>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                <a href="/Admin/UserLicPayReport">
+                    <div class="box q3 pull-up fill-div">
+                        <div class="box-body fill-div">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                            </div>
+                            <a href="/Admin/UserLicPayReport " class="mb-0 font-size-18 text-center fill-div">  LIC History </a>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                <a href="/Admin/UserPayBillReport">
+                    <div class="box q3 pull-up fill-div">
+                        <div class="box-body fill-div">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                            </div>
+                            <a href="/Admin/UserPayBillReport" class="mb-0 font-size-18 text-center fill-div">  PAY BILL  History </a>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                <a href="/Admin/UserBeneficiaryReport">
+                    <div class="box q3 pull-up fill-div">
+                        <div class="box-body fill-div">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                            </div>
+                            <a href="/Admin/UserBeneficiaryReport" class="mb-0 font-size-18 text-center fill-div">  Beneficiary Report </a>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                <a href="/Admin/UserDTHReport?typee=DTH">
+                    <div class="box q3 pull-up fill-div">
+                        <div class="box-body fill-div">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                            </div>
+                            <a href="/Admin/UserDTHReport?typee=DTH" class="mb-0 font-size-18 text-center fill-div">  DTH Report </a>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                <a href="/Admin/UserPANReport?typee=PAN">
+                    <div class="box q3 pull-up fill-div">
+                        <div class="box-body fill-div">
+                            <div class="dde rounded text-center fill-div">
+                                <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                            </div>
+                            <a href="/Admin/UserPANReport?typee=PAN" class="mb-0 font-size-18 text-center fill-div">  PAN Report </a>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                <a href="/Admin/UserLeadReport">
+                    <div class="box q3 pull-up fill-div">
+                        <div class="box-body fill-div">
+                            <div class="dde rounded text-center fill-div">
+                                <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                            </div>
+                            <a href="/Admin/UserLeadReport" class="mb-0 font-size-18 text-center fill-div">  Lead Report </a>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

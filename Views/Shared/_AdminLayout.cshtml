@@ -1,0 +1,1220 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+
+
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from demo.dashboardpack.com/architectui-html-pro/apps-chat.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Aug 2022 05:58:06 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Content-Language" content="en">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+
+	<meta name="msapplication-tap-h ighlight" content="no">
+
+
+	<title> Grofinhub </title>
+
+	<link href="~/css/bootstrap.css" rel="stylesheet" />
+	<script src="~/js/bootstrap.js"></script>
+	<!-- Vendors Style-->
+	<link rel="stylesheet" href="../css/vendors_css.css">
+
+	<!-- Style-->
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/skin_color.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	@*<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />*@
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+	<!-- start my datatable new-->
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css" />
+
+	@*<link href="~/bootstrap-datatable/css/buttons.bootstrap4.min.css" rel="stylesheet" />
+	<link href="~/bootstrap-datatable/css/datatables.bootstrap4.min.css" rel="stylesheet" />*@
+	<!-- end my datatable new-->
+	@*<link href="../assets/CSS/main.d810cf0ae7f39f28f336.css" rel="stylesheet" />*@
+
+	<style>
+		.sidebar-menu li a {
+			text-decoration: none;
+		}
+
+		h6.namegg {
+			color: #fff;
+			padding: 7px 10px;
+			font-weight: normal;
+			margin: 20px 15px 10px 15px;
+			/* border-bottom: 1px solid  #eeeeee3d; */
+			background: #eeeeee21;
+			border-left: 3px solid;
+		}
+
+
+
+
+
+		h6.namegg {
+			position: relative;
+			display: block;
+			background: #3890b3;
+			color: white;
+			width: 300px;
+			padding: 10px;
+			text-decoration: none;
+			margin-bottom: 5px;
+		}
+		
+
+		.arrow {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+		}
+
+			.arrow::before,
+			.arrow::after {
+				position: relative;
+				content: '';
+				display: block;
+				width: 10px;
+				height: 1px;
+				background: white;
+				transition: 0.3s ease-in-out;
+			}
+
+			.arrow::before {
+				transform: rotate(45deg);
+			}
+
+			.arrow::after {
+				left: 6px;
+				top: -1px;
+				transform: rotate(-45deg);
+			}
+
+
+		.toggle-btn {
+			background: #13749a;
+		}
+
+			.toggle-btn.active .arrow::before {
+				transform: rotate(-45deg);
+			}
+
+			.toggle-btn.active .arrow::after {
+				transform: rotate(45deg);
+			}
+
+		.theme-primary .dt-buttons .dt-button {
+			background-color: #aa366f;
+			font-weight: bold;
+		}
+
+		.dataTables_wrapper .dataTables_paginate .paginate_button {
+			padding: 0em 0em;
+		}
+
+
+		.dataTables_wrapper .dataTables_paginate .paginate_button {
+			padding: 0em 0em;
+		}
+
+
+
+
+		.select2-container--default .select2-results > .select2-results__options {
+			max-height: 400px;
+			min-height: 400px;
+			overflow-y: auto;
+		}
+	</style>
+
+
+
+
+
+
+	<!--Start DatatTable-->
+	@*<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet" />*@
+	<!--End Datatable-->
+	@if (HttpContextAccessor.HttpContext.Session.GetString("Role") == null)
+	{
+		<script>
+			window.location.href = '/Account/Login'
+		</script>
+	}
+
+</head>
+
+<body class="hold-transition light-skin sidebar-mini theme-primary fixed">
+	
+	<div class="wrapper">
+		<div id="loader"></div>
+		<header class="main-header">
+			<div class="d-flex align-items-center logo-box justify-content-start">
+				<a href="#" class="waves-effect waves-light nav-link  d-md-inline-block mx-10 push-btn bg-transparent" data-toggle="push-menu" role="button">
+					<span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+				</a>
+				<!-- Logo -->
+				<a href="#" class="logo">
+					<!-- logo-->
+					<div class="logo-lg">
+						<span class="light-logo"><img src="../images/logo-dark-text.png" alt="logo"></span>
+						<span class="dark-logo"><img src="../images/logo-light-text.png" alt="logo"></span>
+					</div>
+				</a>
+			</div>
+			<!-- Header Navbar -->
+			<nav class="navbar navbar-static-top">
+				<!-- Sidebar toggle button-->
+				<div class="app-menu">
+					<ul class="header-megamenu nav">
+						<!--<li class="btn-group nav-item d-md-none">
+							<a href="#" class="waves-effect waves-light nav-link push-btn" data-toggle="push-menu" role="button">
+								<span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+							</a>
+						</li>-->
+						<li class="btn-group nav-item d-lg-inline-flex d-none">
+							<a href="#" data-provide="fullscreen" class="waves-effect waves-light nav-link full-screen" title="Full Screen">
+								<i class="icon-Expand-arrows"><span class="path1"></span><span class="path2"></span></i>
+							</a>
+						</li>
+						<li class="btn-group nav-item d-lg-inline-flex d-none" onclick="history.back()">
+							@* <a href="#" class="waves-effect waves-light nav-link ps-3" style="background:#ffffff; border-radius:10px;" title="Full Screen">
+							<i class="icon-Right-arrows"><span class="path1"></span><span class="path2"></span></i>
+
+							<input type="button" value="Go back" class="fs-4" onclick="history.back()">
+							</a>
+							*@
+							<a href="#" class="btn btn-info">
+								@*<span class="glyphicon glyphicon-arrow-left"   ></span> Left*@
+								<i class="glyphicon glyphicon-arrow-left"></i>
+								@* <input  type="button"   value="Go back" class="fs-4" onclick="history.back()">*@
+							</a>
+
+						</li>
+					</ul>
+				</div>
+				<!--Wecome User start -->
+				<div class="navbar-custom-menu r-side">
+					<label class="fw-bold">WELCOME !  </label> <label class="fw-bold"> @HttpContextAccessor.HttpContext.Session.GetString("Name")</label> <label> (@HttpContextAccessor.HttpContext.Session.GetString("UserId"))</label>
+				</div>
+				<div class="navbar-custom-menu r-side">
+					<label></label> <label class="fw-bold"> </label>
+				</div>
+				@if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "1" || HttpContextAccessor.HttpContext.Session.GetString("Role") == "2")
+				{
+					<div class="navbar-custom-menu r-side">
+						<label></label> <label class="fw-bold bg-light p-2 bg-primary rounded">  Credit Wallet : @HttpContextAccessor.HttpContext.Session.GetString("CREDIT") </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   <label class="fw-bold bg-light p-2 bg-primary rounded "> Debit Wallet : @HttpContextAccessor.HttpContext.Session.GetString("DEBIT")</label>
+					</div>
+				}
+				<!--Wecome User end -->
+				<div class="navbar-custom-menu r-side">
+					<ul class="nav navbar-nav">
+
+						<!-- Notifications -->
+						<li class="dropdown notifications-menu  " style="display:none;">
+							<a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown" title="Notifications">
+								<i class="icon-Lock"><span class="path1"></span><span class="path2"></span></i>
+							</a>
+							<ul class="dropdown-menu animated bounceIn">
+
+								<li class="header">
+									<div class="p-20">
+										<div class="flexbox">
+											<div>
+												<h4 class="mb-0 mt-0"> Change Password </h4>
+											</div>
+
+										</div>
+									</div>
+								</li>
+
+								<li>
+									<!-- inner menu: contains the actual data -->
+									<ul class="menu sm-scrol">
+
+										<li>
+											<div class="widget-chart">
+												<div class="widget-chart-content">
+
+													<input type="Password" id="txtOldPassword" class="form-control form-group" placeholder="Enter old password" />
+													<input type="password" id="txtNewPassword" class="form-control  form-group" placeholder="Enter new password" />
+													<input type="password" id="txtConfirmPassword" class="form-control  form-group" placeholder="Enter confirm password" />
+
+
+												</div>
+												<div class="widget-chart-wrapper">
+													<div id="dashboard-sparkline-carousel-3-pop"></div>
+												</div>
+											</div>
+										</li>
+										<li class="nav-item-divider mt-0 nav-item"></li>
+										<li class="nav-item-btn text-center nav-item">
+											<button class="btn-shine btn-wide btn-pill btn btn-warning btn-sm" onclick="ChangePassword()">
+												<i class="fa fa-cog fa-spin mr-2"></i> Change Password
+											</button>
+										</li>
+
+									</ul>
+								</li>
+
+							</ul>
+						</li>
+
+
+
+
+
+						<!-- User Account-->
+						<li class="dropdown user user-menu">
+							<a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown" title="User">
+								<i class="icon-User"><span class="path1"></span><span class="path2"></span></i>
+							</a>
+							<ul class="dropdown-menu animated flipInX">
+								<li class="user-body">
+									<a class="dropdown-item" href="/Admin/Profile"><i class="ti-user text-muted mr-2"></i> My Account </a>
+									<a class="dropdown-item" href="#" onclick="showmodal()"><i class="ti-user text-muted mr-2"></i> Change Password </a>
+									<a class="dropdown-item" href="#"><i class="ti-wallet text-muted mr-2"></i> Rewards </a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" asp-controller="Account" asp-action="Logout"> <i class="ti-lock text-muted mr-2"></i> Logout</a>
+
+								</li>
+							</ul>
+						</li>
+
+
+					</ul>
+				</div>
+			</nav>
+		</header>
+
+		<aside class="main-sidebar">
+			<!-- sidebar-->
+			<section class="sidebar position-relative">
+				<div class="multinav">
+					<div class="multinav-scroll" style="height: 100%;">
+						<!-- sidebar menu-->
+						<ul class="sidebar-menu" data-widget="tree">
+							@if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "1")
+							{
+								<li class="header">
+									<a href="/Admin/MainDashboard">
+										<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+										<span>Dashboard</span>
+
+									</a>
+								</li>
+							}
+							else if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "2")
+							{
+								<li class="header">
+									<a href="/Admin/Dashboard">
+										<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+										<span>Dashboard</span>
+
+									</a>
+								</li>
+							}
+							else if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "3")
+							{
+								<li class="header">
+									<a href="/Manager/Dashboard">
+										<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+										<span>Dashboard</span>
+
+									</a>
+								</li>
+							}
+
+
+
+
+                            @if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "2")
+                            {
+								@await Component.InvokeAsync("ArticleCarousel")
+                            }
+							@if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "4")
+							{
+
+								<li class="treeview">
+									<a href="#">
+										<i class="icon-Layoutf-4-blocks "><span class="path1"></span><span class="path2"></span></i>
+										<span>SERVICES </span>
+										<span class="pull-right-container">
+											<i class="fa fa-angle-right pull-right"></i>
+										</span>
+									</a>
+									<ul class="treeview-menu">
+										<li>
+											<a href="/Admin/OtherServic">
+												<i class="icon-Layout-4-blocks">
+													<span class="path1">
+													</span><span class="path2"></span>
+												</i> Other Service
+											</a>
+										</li>
+									</ul>
+
+								</li>
+							}
+							else @if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "3")
+							{
+								@await Component.InvokeAsync("ArticleCarousel")
+							}
+
+
+							@if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "1")
+							{
+
+								<li class="treeview">
+									<a href="#">
+										<i class="icon-Layoutf-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+										<span>MEMBER</span>
+										<span class="pull-right-container">
+											<i class="fa fa-angle-right pull-right"></i>
+										</span>
+									</a>
+									<ul class="treeview-menu">
+
+										<li>
+											<a href="/Admin/MemberList">
+
+												<i class="icon-Layout-4-blocks">
+
+													<span class="path1">
+													</span><span class="path2"></span>
+												</i> Member List
+											</a>
+										</li>
+
+
+
+
+
+										<li>
+											<a href="/Admin/SetMemberAccess">
+												<i class="icon-Layout-4-blocks">
+													<span class="path1">
+													</span><span class="path2"></span>
+												</i>NEW MEMBER ALLOTMENT
+											</a>
+										</li>
+
+
+										<li>
+											<a href="/Admin/MemberKYC">
+
+												<i class="icon-Layout-4-blocks">
+
+													<span class="path1">
+													</span><span class="path2"></span>
+												</i> Member KYC
+											</a>
+										</li>
+
+
+
+										<li>
+											<a href="/Admin/userpermission">
+												<i class="icon-Layout-4-blocks">
+													<span class="path1">
+													</span><span class="path2"></span>
+												</i> PAY & UTILITY PERMISSION
+											</a>
+										</li>
+
+										<li>
+											<a href="/Admin/GetMemberDocuments">
+												<i class="icon-Layout-4-blocks">
+													<span class="path1">
+													</span><span class="path2"></span>
+												</i>Member Documents
+											</a>
+										</li>
+
+										<li>
+											<a href="/Admin/complainReport">
+												<i class="icon-Layout-4-blocks">
+													<span class="path1">
+													</span><span class="path2"></span>
+												</i>Complain Report
+											</a>
+										</li>
+
+									</ul>
+
+								</li>
+
+							}
+							@*else if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "3")
+							{
+
+								<li class="treeview">
+									<a href="#">
+										<i class="icon-Layoutf-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+										<span>MEMBER</span>
+										<span class="pull-right-container">
+											<i class="fa fa-angle-right pull-right"></i>
+										</span>
+									</a>
+									<ul class="treeview-menu">
+
+										<li>
+											<a href="/Admin/GetMemberDocuments">
+												<i class="icon-Layout-4-blocks">
+													<span class="path1">
+													</span><span class="path2"></span>
+												</i>Member Documents
+											</a>
+										</li>
+										<li>
+											<a href="/Admin/complainReport">
+												<i class="icon-Layout-4-blocks">
+													<span class="path1">
+													</span><span class="path2"></span>
+												</i>Complain Report
+											</a>
+										</li>
+									</ul>
+
+								</li>
+							}*@
+							@if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "1")
+							{
+								<li class="treeview">
+									<a href="#">
+										<i class="icon-Layoutf-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+										<span>Wallet</span>
+										<span class="pull-right-container">
+											<i class="fa fa-angle-right pull-right"></i>
+										</span>
+									</a>
+									<ul class="treeview-menu">
+
+										<li>
+											<a href="/Admin/Mainwallert">
+												<i class="icon-Layout-4-blocks">
+													<span class="path1">
+													</span><span class="path2"></span>
+												</i> Wallet
+											</a>
+										</li>
+
+
+										<li>
+											<a href="/Wallet/RequestedWallet">
+												<i class="icon-Layout-4-blocks">
+													<span class="path1">
+													</span><span class="path2"></span>
+												</i> Fund Request
+											</a>
+										</li>
+										<li>
+											<a href="/admin/PartnerWallet">
+												<i class="icon-Layout-4-blocks">
+													<span class="path1">
+													</span><span class="path2"></span>
+												</i>Partner Wallet
+											</a>
+										</li>
+
+
+
+									</ul>
+
+								</li>
+
+								<li class="">
+									<a href="/Admin/TransactionReportDashBoard">
+										<i class=" "><span class="path1"></span><span class="path2"></span></i>
+										<span id="btnclick">TRANSACTION REPORT</span>
+										<span class="pull-right-container">
+
+										</span>
+									</a>
+								</li>
+							}
+
+							@if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "1")
+							{
+								<li class="treeview " style="display:none;">
+									<a href="#">
+										<i class="icon-Layoutf-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+										<span> Wallet Transaction </span>
+										<span class="pull-right-container">
+											<i class="fa fa-angle-right pull-right"></i>
+										</span>
+									</a>
+									<ul class="treeview-menu ">
+										<li>
+											<a href="#">
+												<i class="icon-Layout-4-blocks">
+													<span class="path1">
+													</span><span class="path2"></span>
+												</i>Admin Transaction
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<i class="icon-Layout-4-blocks">
+													<span class="path1">
+													</span><span class="path2"></span>
+												</i> User Transaction
+											</a>
+										</li>
+
+									</ul>
+
+								</li>
+
+							}
+
+
+
+							else if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "2")
+							{
+								<li class="treeview ">
+									<a href="#">
+										<i class="icon-Layoutf-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+										<span> Wallet </span>
+										<span class="pull-right-container">
+											<i class="fa fa-angle-right pull-right"></i>
+										</span>
+									</a>
+									<ul class="treeview-menu ">
+
+										<li>
+											<a href="/Wallet/BlanceRequest">
+												<i class="icon-Layout-4-blocks">
+													<span class="path1">
+													</span><span class="path2"></span>
+												</i>Fund Request
+											</a>
+										</li>
+										<li>
+											<a href="/Wallet/UserWalletHistory">
+												<i class="icon-Layout-4-blocks">
+													<span class="path1">
+													</span><span class="path2"></span>
+												</i>  Wallet Transaction
+											</a>
+										</li>
+
+
+
+                                    </ul>
+
+                                </li>
+
+                            }
+                          @*  else if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "3")
+                            {
+                            @await Component.InvokeAsync("ArticleCarousel")
+                            }
+                            *@@if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "1")
+                            {
+                                <li class="treeview ">
+                                    <a href="#">
+                                        <i class="icon-Layoutf-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+                                        <span> Training </span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-right pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu ">
+                                        @if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "1")
+                                        {
+
+                                            <li>
+                                                <a href="/Admin/Video">
+                                                    <i class="icon-Layout-4-blocks">
+                                                        <span class="path1">
+                                                        </span><span class="path2"></span>
+                                                    </i>Upload Video
+                                                </a>
+                                            </li>
+
+                                        }
+
+                                        else
+                                        {
+                                            <li>
+                                                <a href="/Admin/VideoLink">
+                                                    <i class="icon-Layout-4-blocks">
+                                                        <span class="path1">
+                                                        </span><span class="path2"></span>
+                                                    </i> Video Link
+                                                </a>
+                                            </li>
+                                        }
+
+                                    </ul>
+
+                                </li>
+                            }
+
+
+
+                            @if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "1")
+                            {
+
+                                <li class="">
+                                    <a href="/Admin/Commission">
+                                        <i class=" "><span class="path1"></span><span class="path2"></span></i>
+                                        <span id="btnclick">Commission</span>
+                                        <span class="pull-right-container">
+
+                                        </span>
+                                    </a>
+                                </li>
+
+                            }
+
+
+
+
+
+							@if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "2")
+							{
+								<li class="">
+									<a href="/Admin/complain">
+										<i class="icon-Layoutf-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+										<span> Complain </span>
+
+									</a>
+
+
+								</li>
+								<li class="">
+									<a href="/Admin/UserTransactionDashboard">
+										<i class="icon-Layoutf-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+										<span>Report  </span>
+
+									</a>
+
+								</li>
+							}
+
+							@if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "2")
+							{
+								<li class="" style="display:none">
+									<a href="#">
+										<i class="icon-Layoutf-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+										<span> Report </span>
+
+									</a>
+
+
+								</li>
+							}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						</ul>
+					</div>
+				</div>
+			</section>
+			<div class="sidebar-footer" style="display:none;">
+				<a href="javascript:void(0)" class="link" data-toggle="tooltip" title="" data-original-title="Settings" aria-describedby="tooltip92529"><span class="icon-Settings-2"></span></a>
+				<a href="mailbox.html" class="link" data-toggle="tooltip" title="" data-original-title="Email"><span class="icon-Mail"></span></a>
+				<a href="javascript:void(0)" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><span class="icon-Lock-overturning"><span class="path1"></span><span class="path2"></span></span></a>
+			</div>
+		</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<div class="content-wrapper">
+			<div class="container-full">
+				<section class="content yui">
+
+
+
+
+
+
+
+
+
+
+					@RenderBody()
+
+
+
+
+
+
+
+
+
+
+
+				</section>
+				<!-- /.content -->
+			</div>
+		</div>
+
+		<!-- /.content-wrapper -->
+		<footer class="main-footer">
+			<div class="pull-right d-none d-sm-inline-block">
+				<ul class="nav nav-primary nav-dotted nav-dot-separated justify-content-center justify-content-md-end">
+
+					<li class="nav-item">
+						Design & Developed by	<a class="nav-link" href="https://sigmasoftwares.org"><strong>  SigmaIT Software Designers Pvt. Ltd. </strong></a>
+					</li>
+				</ul>
+			</div>
+			@*  &copy; 2023 *@<a href="#"> GrofinHub </a>.@* All Rights Reserved.*@
+		</footer>
+
+
+		<div class="control-sidebar-bg"></div>
+
+	</div>
+	<!-- ./wrapper -->
+	<!-- Vendor JS -->
+	<script src="../js/vendors.min.js"></script>
+	<script src="../js/pages/chat-popup.js"></script>
+	<script src="../assets/icons/feather-icons/feather.min.js"></script>
+
+	<script src="../assets/vendor_components/apexcharts-bundle/dist/apexcharts.js"></script>
+
+	<!-- EduAdmin App -->
+	<script src="../js/template.js"></script>
+	<script src="../js/pages/dashboard4.js"></script>
+
+	@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script type="text/javascript" src="../assets/scripts/main.d810cf0ae7f39f28f336.js"></script>*@
+
+
+	<!-- start my datatable new-->
+	@*    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+	<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>*@
+
+	<script src="~/bootstrap-datatable/js/jquery.datatables.min.js"></script>
+	<script src="~/bootstrap-datatable/js/buttons.bootstrap4.min.js"></script>
+	<script src="~/bootstrap-datatable/js/buttons.colvis.min.js"></script>
+	<script src="~/bootstrap-datatable/js/buttons.html5.min.js"></script>
+	<script src="~/bootstrap-datatable/js/buttons.print.min.js"></script>
+	<script src="~/bootstrap-datatable/js/datatables.bootstrap4.min.js"></script>
+	<script src="~/bootstrap-datatable/js/datatables.buttons.min.js"></script>
+	<script src="~/bootstrap-datatable/js/jszip.min.js"></script>
+	<script src="~/bootstrap-datatable/js/pdfmake.min.js"></script>
+	<script src="~/bootstrap-datatable/js/vfs_fonts.js"></script>
+	<!-- end my datatable new-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<script>
+
+		$(document).ready(function () {
+			$('#example3').DataTable({
+				dom: 'Bfrtip',
+				//     pageLength: 5,
+				lengthMenu: [[5, 10, 20, 50, 100, -1], [5, 10, 20, 50, 100, 'All']],
+
+				buttons: [
+					'pageLength',
+					{
+						extend: 'excelHtml5', footer: true,
+					},
+					{ extend: 'csvHtml5', footer: true },
+					{
+						extend: 'pdfHtml5', footer: true, orientation: 'landscape',
+
+						pageSize: 'LEGAL',
+						text: '<i class="fa fa-file-pdf-o"> PDF</i>',
+						titleAttr: 'PDF'
+					}
+				]
+
+			});
+
+
+
+
+		});
+
+		$(document).ready(function () {
+			BindPendingCount();
+			$(".hidemenu").hide();
+		})
+
+		function BindPendingCount() {
+			$.ajax({
+				url: "/Admin/BindPendingCount",
+				type: "POST",
+				data: {},
+				success: function (r) {
+					var rr = JSON.parse(JSON.stringify(r));
+					$(".totalGamePending").html(rr.totalGamePending)
+					$(".totalWithdraPending").html(rr.totalWithdraPending)
+				},
+				error: function (XMLHttpRequest, textStatus, errorThrown) {
+					alert('Please Check values Entered by you !!!');
+
+				}
+			});
+		}
+
+
+		function ChangePassword() {
+			if ($("#txtOldPassword").val() == "") {
+				alert("Please Enter Old Password");
+				$("#txtOldPassword").focus();
+				return;
+			}
+			if ($("#txtNewPassword").val() == "") {
+				alert("Please Enter New Password");
+				$("#txtNewPassword").focus();
+				return;
+			}
+			if ($("#txtConfirmPassword").val() == "") {
+				alert("Please Enter Confirm Password");
+				$("#txtConfirmPassword").focus();
+				return;
+			}
+			if ($("#txtConfirmPassword").val() != $("#txtNewPassword").val()) {
+				alert("Confirm Password Should be Same as New Password");
+				$("#txtConfirmPassword").val('');
+				$("#txtConfirmPassword").focus();
+				return;
+			}
+			var dataobject = {
+				OldPassword: $("#txtOldPassword").val(),
+				NewPassword: $("#txtNewPassword").val()
+			}
+			$.ajax({
+				url: "@Url.Action("PasswordChange", "Admin")",
+				type: "POST",
+				data: dataobject,
+				dataType: "json",
+				success: function (data) {
+					debugger;
+					if (data.flag == "1") {
+						// alert("Password Successfully Changed, Please Login again.");
+						alert(data.message);
+						window.location.href = "../Account/Login";
+					}
+					else if (data.flag == "0") {
+						// alert("Old Password did not match !");
+						alert(data.message);
+					}
+					else {
+						alert("Password Could not be Changed.");
+					}
+				},
+				error: function (data) {
+					alert(data);
+				}
+			});
+		}
+		$(".fa fa-angle-right pull-right").click(function () {
+			$(".hidemenu").toggle();
+
+		});
+		$('.toggle-btn').on('click', function () {
+			$(this).toggleClass('active')
+		});
+
+		function setDt() {
+			$('#example3').DataTable({
+				dom: 'Bfrtip',
+				//     pageLength: 5,
+				lengthMenu: [[5, 10, 20, 50, 100, -1], [5, 10, 20, 50, 100, 'All']],
+
+				buttons: [
+					'pageLength',
+					{
+						extend: 'excelHtml5', footer: true,
+					},
+					{ extend: 'csvHtml5', footer: true },
+					{
+						extend: 'pdfHtml5', footer: true, orientation: 'landscape',
+
+						pageSize: 'LEGAL',
+						text: '<i class="fa fa-file-pdf-o"> PDF</i>',
+						titleAttr: 'PDF'
+					}
+				]
+
+			});
+
+
+
+		}
+
+	</script>
+
+	<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" style="width: 460px;
+    height: 349px;">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" style="    width: 415px;">
+
+					<ul class="@*dropdown-menu animated bounceIn show*@">
+
+						<li class="header">
+							<div class="p-20">
+								<div class="flexbox">
+									<div>
+										<h4 class="mb-0 mt-0"> Change Password </h4>
+									</div>
+
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<!-- inner menu: contains the actual data -->
+							<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;">
+								<ul class="menu sm-scrol" style="overflow: hidden; width: auto; height: 250px;">
+
+									<li>
+										<div class="widget-chart">
+											<div class="widget-chart-content">
+
+												<input type="Password" id="txtOldPassword" class="form-control form-group" placeholder="Enter old password">
+												<input type="password" id="txtNewPassword" class="form-control  form-group" placeholder="Enter new password">
+												<input type="password" id="txtConfirmPassword" class="form-control  form-group" placeholder="Enter confirm password">
+
+
+											</div>
+											<div class="widget-chart-wrapper">
+												<div id="dashboard-sparkline-carousel-3-pop"></div>
+											</div>
+										</div>
+									</li>
+									<li class="nav-item-divider mt-0 nav-item"></li>
+									<li class="nav-item-btn text-center nav-item">
+										<button class="btn-shine btn-wide btn-pill btn btn-warning btn-sm" onclick="ChangePassword()">
+											<i class="fa fa-cog fa-spin mr-2"></i> Change Password
+										</button>
+									</li>
+
+								</ul><div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 250px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+							</div>
+						</li>
+
+					</ul>
+
+
+
+
+					<div class="modal-footer">
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal Comming soon -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel"></h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+
+						<h1 style="text-align:center;color:forestgreen">Coming soon</h1>
+					</div>
+					<div class="modal-footer">
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+</body>
+
+
+
+</html>
+
+
+
+
+<script>
+
+
+	function showmodal() {
+		$("#exampleModal2").modal('show');
+	}
+	$(document).ready(function () {
+		//$('#autoclose-datepicker').datepicker({
+		//    autoclose: true,
+		//    todayHighlight: true
+		//});
+
+		$('.single-select').select2();
+
+		$('.multiple-select').select2();
+
+		//multiselect start
+
+		$('#my_multi_select1').multiSelect();
+		$('#my_multi_select2').multiSelect({
+			selectableOptgroup: true
+		});
+
+		$('#my_multi_select3').multiSelect({
+			selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
+			selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
+			afterInit: function (ms) {
+				var that = this,
+					$selectableSearch = that.$selectableUl.prev(),
+					$selectionSearch = that.$selectionUl.prev(),
+					selectableSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
+					selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
+
+				that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+					.on('keydown', function (e) {
+						if (e.which === 40) {
+							that.$selectableUl.focus();
+							return false;
+						}
+					});
+
+				that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+					.on('keydown', function (e) {
+						if (e.which == 40) {
+							that.$selectionUl.focus();
+							return false;
+						}
+					});
+			},
+			afterSelect: function () {
+				this.qs1.cache();
+				this.qs2.cache();
+			},
+			afterDeselect: function () {
+				this.qs1.cache();
+				this.qs2.cache();
+			}
+		});
+
+		$('.custom-header').multiSelect({
+			selectableHeader: "<div class='custom-header'>Selectable items</div>",
+			selectionHeader: "<div class='custom-header'>Selection items</div>",
+			selectableFooter: "<div class='custom-header'>Selectable footer</div>",
+			selectionFooter: "<div class='custom-header'>Selection footer</div>"
+		});
+
+
+
+	});
+	$(document).ready(function () {
+		//  $('.cal').datepicker();
+
+	})
+	function BindDDL(data, id) {
+
+		var option = "";
+		if (data != null) {
+			for (var i = 0; i < data.length; i++) {
+				option += "<option value='" + data[i].Value + "'>" + data[i].Text + "</option>";
+			}
+			$('#' + id).html(option);
+		}
+
+	}
+</script>
+
+<script type="text/javascript">
+
+	function isNumberKey(evt, id) {
+		try {
+			var charCode = (evt.which) ? evt.which : event.keyCode;
+
+			if (charCode == 46) {
+				var txt = document.getElementById(id).value;
+				if (!(txt.indexOf(".") > -1)) {
+
+					return true;
+				}
+			}
+			if (charCode > 31 && (charCode < 48 || charCode > 57))
+				return false;
+
+			return true;
+		} catch (w) {
+			alert(w);
+		}
+	}
+
+
+
+
+	function isNumber(evt) {
+		evt = (evt) ? evt : window.event;
+		var charCode = (evt.which) ? evt.which : evt.keyCode;
+		if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+			return false;
+		}
+		return true;
+	}
+</script>
+
+<script>
+
+
+</script>
+<link href="~/assets/vendor_components/select2/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+

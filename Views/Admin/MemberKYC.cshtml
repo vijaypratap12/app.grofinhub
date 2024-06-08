@@ -1,0 +1,658 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+
+
+@using System.Data
+@model DataTable
+@{
+    ViewData["Title"] = "MemberKYC";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<h1>MemberKYC</h1>*@
+
+<script>
+
+
+    @*Vishwajeet*@
+        function Getagentdetails(id) {
+            debugger;
+            $("#txtparteridvj").val(id)
+            var data = new FormData();
+            data.append("Partnerid", id)
+
+            $("#showSpinner").show();
+
+            $.ajax({
+                url: "/Admin/getagentkycdetails",
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function (s) {
+
+
+                    if (s != '0') {
+                        s = eval(s);
+                        $.each(s, function (k, v) {
+                            //$('input[name="txtparteridvj"]').val(v.PartnerId);
+                            $('input[name="txtbankholdernamevj"]').val(v.BankHolderName);
+                            $('input[name="txtbankaccountnovj"]').val(v.BankAccountNo);
+                            $('input[name="txtifsccodevj"]').val(v.IFSCCode);
+                            $('input[name="txtbanknamevj"]').val(v.BankName);
+                            $('input[name="txtAadharvj"]').val(v.AadhaarNo);
+                            $('input[name="txtPanvj"]').val(v.PanNo);
+                        });
+                    }
+                }
+            });
+        }
+    function updateKYCDetails() {
+        debugger;
+        var data = new FormData();
+        data.append("Partnerid", $("#txtparteridvj").val())
+        data.append("Bankname", $("#txtbanknamevj").val())
+        data.append("Bankholdername", $("#txtbankholdernamevj").val())
+        data.append("Bankaccountno", $("#txtbankaccountnovj").val())
+        data.append("Ifsccode", $("#txtifsccodevj").val())
+        data.append("AadhaarNo", $("#txtAadharvj").val())
+        data.append("PanNo", $("#txtPanvj").val())
+
+        $("#showSpinner").show();
+
+        $.ajax({
+            url: "/Admin/UpdateKYCDetails",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (msg) {
+
+                alert(msg);
+                location.reload();
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+
+
+        });
+
+    }
+
+    function deleteagentdetail(id) {
+        debugger;
+        var data = new FormData();
+        data.append("Partnerid", id)
+
+        $("#showSpinner").show();
+
+        $.ajax({
+            url: "/Admin/deletekycdetail",
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (msg) {
+
+                alert(msg);
+                location.reload();
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        });
+    }
+    @*Vishwajeet*@
+
+
+
+        function setParterId(id) {
+            debugger;
+            $("#txtparterid").val(id)
+        }
+
+
+
+    function saveKYCDetails() {
+        debugger;
+        var data = new FormData();
+        data.append("Partnerid", $("#txtparterid").val())
+        data.append("Bankname", $("#txtbankname").val())
+        data.append("Bankholdername", $("#txtbankholdername").val())
+        data.append("Bankaccountno", $("#txtbankaccountno").val())
+        data.append("Ifsccode", $("#txtifsccode").val())
+        //data.append("Aadharpicfront", $("#aadharpicfrontfile").get(0).files[0])
+        //data.append("Aadharpicback", $("#aadharpicbackfile").get(0).files[0])
+        //data.append("Panpicfront", $("#panpicfronfile").get(0).files[0])
+        //data.append("Panpicback", $("#panpicbackfile").get(0).files[0])
+        data.append("AadhaarNo", $("#txtAadhar").val())
+        data.append("PanNo", $("#txtPan").val())
+
+        $("#showSpinner").show();
+
+        $.ajax({
+            url: "/Admin/SaveUpdateKYCDetails",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (msg) {
+
+                alert(msg);
+                location.reload();
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+
+
+        });
+
+    }
+    function userOnboarding(agentid, mobile) {
+
+        var dataobj = { Mobile: mobile, Merchantcode: agentid, is_new: '0' };
+        $.get("/Admin/UserOnbloarding", dataobj, function (res) {
+            //var data=eval(res)
+
+            console.log('onboarding ');
+            console.log(res.msgbody);
+            // $("#onboarding_modal_msg_p").text(res.message);
+            // $("#open_redirect_url_onboarding_btn").hide();
+            //$("#onboardingmodal").attr("style", "display:block;padding-right:17px;");
+            //$("#onboardingmodal").attr("class", "modal fade show");
+            if (res.status == "true" && res.response_code == "1") {
+                //$("#onboarding_modal_form").attr("action", res.redirecturl)
+                //$("#open_redirect_url_onboarding_btn").show();
+                window.location.href = res.redirecturl;
+            }
+            else {
+                alert(res.message)
+            }
+
+        })
+    }
+    function closeOnboardmodal() {
+        $("#onboardingmodal").attr("class", "modal fade ");
+        $("#onboardingmodal").hide();
+    }
+</script>
+
+
+
+<style>
+
+    td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+        background-color: grey;
+    }
+
+        td:first-child + td {
+            position: sticky;
+            left: 60px;
+            z-index: 1;
+            background-color: grey;
+        }
+
+            td:first-child + td + td {
+                position: sticky;
+                left: 160px;
+                z-index: 1;
+                background-color: grey;
+            }
+</style>
+
+<div class="">
+    <div class="">
+        <div class="card card-warning ">
+            <div class="card-header">
+                <h4 class="card-title new-title">  Member KYC</h4>
+            </div>
+            <form method="post" action="/admin/MemberKYC">
+                <div class="col-sm-12">
+                    <div class="row">
+
+
+                        <div class="col-sm-4">
+
+                            <div class="form-group">
+                                <label>UserId</label>
+                                <input type="text" class="form-control" name="UserID" />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+
+                            <div class="form-group">
+                                <label>FormDate</label>
+                                <input type="date" class="form-control" name="FormDate" />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+
+                            <div class="form-group">
+                                <label>ToDate</label>
+                                <input type="date" class="form-control" name="ToDate" />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4" style="margin-top: 27px;">
+
+                            <div class="form-group">
+                                <input type="submit" value="Search" class="btn btn-primary " />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+            <div class="card-body" id="upterofoutertbl">
+                <div style="overflow-x:auto;" id="outertbl">
+                    <table id="example3" class="my  table table-bordered table-hover" style="width:100%;">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th>SN.</th>
+                                @*<th>KYC STATUS</th>*@
+                                <th>PARTNER ID</th>
+                                <th> PARTNER NAME</th>
+
+                                <th>MOBILE </th>
+
+                                <th>UPDATE_KYC</th>
+                                <th>Vendor Onboarding</th>
+
+                                <th>STATE</th>
+                                <th>DISTRICT </th>
+                                <th>BLOCKNAME </th>
+                                <th>ADDRESS</th>
+                                <th>Aadhaar No</th>
+                                <th>Pan NO</th>
+
+                                <th>DOB</th>
+                                <th>KYC Date</th>
+                                <th>ACCOUNT HOLDER NAME</th>
+                                <th>ACCOUNT NO</th>
+                                <th>IFSC CODE</th>
+                                <th>BANK NAME</th>
+                                @*<th>Aadhar Pic Front</th>
+                                <th>Aadhar Pic Back</th>
+                                <th>Pan Pic Front</th>
+                                <th>Pan Pic Back</th>*@
+
+
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @{
+
+                                if (Model != null)
+                                {
+                                    if (Model.Rows.Count > 0)
+                                    {
+                                        int i = 1;
+                                        foreach (DataRow item in Model.Rows)
+                                        {
+                                            <tr>
+                                                <td>@i</td>
+
+                                                <td>@item["Agentid"]</td>
+                                                <td>@item["Name"]</td>
+
+                                                <td>@item["Mobile"]</td>
+
+
+                                                @if (item["PartnerId"].ToString() != null && item["PartnerId"].ToString() != "")
+                                                {
+                                                    <td>
+                                                        @* <span class="fw-bold text-success">KYC Complete</span></td> *@
+                                                        @*<i class="btn btn-success">KYC Complete</i>*@
+                                                        <i class="btn btn-success" data-toggle="modal" data-target="#exampleModalvj" onclick="Getagentdetails('@item["Agentid"]')">EDIT</i>
+                                                        <i class="btn btn-danger" onclick="deleteagentdetail('@item["Agentid"]')">DELETE</i>
+                                                    </td>
+                                                }
+
+                                                else
+                                                {
+                                                //<td><span class="fw-bold text-danger">Not Complete</span></td>
+                                                    <td><i class="btn  btn-success fs-6 p-2" data-toggle="modal" data-target="#exampleModal" onclick="setParterId('@item["Agentid"]')">Update KYC</i></td>
+                                                }
+                                                <td><span class="btn btn-primary" onclick="userOnboarding('@item["Agentid"]','@item["Mobile"]')">Onboard </span></td>
+
+
+
+
+                                                <td>@item["StateName"]</td>
+                                                <td>@item["DistrictName"]</td>
+                                                <td>@item["BlockName"]</td>
+                                                <td>@item["Address"]</td>
+                                                <td>@item["AadhaarNo"]</td>
+                                                <td>@item["PanNo"]</td>
+
+                                                <td>@item["dobdate"]</td>
+                                                <td>@item["edate"]</td>
+
+                                                <td>@item["BankHolderName"]</td>
+                                                <td>@item["BankAccountNo"]</td>
+                                                <td>@item["IFSCCode"]</td>
+                                                <td>@item["BankName"]</td>
+
+
+                                                @*@if (item["Aadharpicfront"].ToString().ToUpper() != "N/A")
+                                {
+                                <td><a href='@item["Aadharpicfront"]' target="_blank">Show</a></td>
+                                }
+                                else
+                                {
+                                <td><a class="text-dark" href='#'>@item["Aadharpicfront"]</a></td>
+                                }
+                                @if (item["AadharpicBack"].ToString().ToUpper() != "N/A")
+                                {
+                                <td><a href='@item["AadharpicBack"]' target="_blank">Show</a></td>
+                                }
+                                else
+                                {
+                                <td><a class="text-dark" href='#'>@item["AadharpicBack"]</a></td>
+                                }
+                                @if (item["PanpicFront"].ToString().ToUpper() != "N/A")
+                                {
+                                <td><a href='@item["PanpicFront"]' target="_blank">Show</a></td>
+                                }
+                                else
+                                {
+                                <td><a class="text-dark" href='#'>@item["PanpicFront"]</a></td>
+                                }
+                                @if (item["PanpicBack"].ToString().ToUpper() != "N/A")
+                                {
+                                <td><a href='@item["PanpicBack"]' target="_blank">Show</a></td>
+                                }
+                                else
+                                {
+                                <td><a class="text-dark" href='#'>@item["PanpicBack"]</a></td>
+                                }
+
+
+
+                                *@
+
+
+
+                                                @* <td>
+                                <a href="#" onclick="GetDetailsForEdit('@item["RecruitmentID"]')"><span class="badge bg-success">Edit</span></a>
+                                </td>
+                                *@
+
+                                            </tr>
+                                            i++;
+                                        }
+                                    }
+
+                                }
+
+                            }
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- modal start-->
+@*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+*@
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">UPDATE KYC</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="row m-2">
+                    <div class="col-sm-4">
+                        <label>Partner ID</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" id="txtparterid" readonly class="form-control" placeholder="Enter Partner Id">
+                    </div>
+                </div>
+                <div class="row m-2">
+                    <div class="col-sm-4">
+                        <label>Account Holder Name</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" id="txtbankholdername" class="form-control" placeholder="Enter Bank Holder Name" onkeyup="this.value = this.value.toUpperCase();">
+                    </div>
+                </div>
+                <div class="row m-2">
+                    <div class="col-sm-4">
+                        <label>Bank Account No.</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" id="txtbankaccountno" class="form-control" placeholder="Enter Bank Account No" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                    </div>
+                </div>
+                <div class="row m-2">
+                    <div class="col-sm-4">
+                        <label>IFSC Code</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" id="txtifsccode" class="form-control" placeholder="Enter Bank IFSC Code" onkeyup="this.value = this.value.toUpperCase();">
+                    </div>
+                </div>
+                <div class="row m-2">
+                    <div class="col-sm-4">
+                        <label>Bank Name</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" id="txtbankname" onkeyup="this.value=this.value.toUpperCase();" class="form-control" placeholder="Enter Bank Name">
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                @*   <div class="row m-2" >
+                <div class="col-sm-4" >
+                <label>Aadhar pic front</label>
+                </div>
+                <div class="col-sm-8" >
+                <input type="file" id="aadharpicfrontfile" class="form-control">
+                </div>
+                </div>
+
+                <div class="row m-2" >
+                <div class="col-sm-4" >
+                <label>Aadhar pic Back</label>
+                </div>
+                <div class="col-sm-8" >
+                <input type="file" id="aadharpicbackfile" class="form-control">
+                </div>
+                </div>
+
+                <div class="row m-2" >
+                <div class="col-sm-4" >
+                <label>Pan pic Front</label>
+                </div>
+                <div class="col-sm-8" >
+                <input type="file" id="panpicfronfile" class="form-control">
+                </div>
+                </div>
+
+                <div class="row m-2" >
+                <div class="col-sm-4" >
+                <label>Pan pic Back</label>
+                </div>
+                <div class="col-sm-8" >
+                <input type="file" id="panpicbackfile" class="form-control">
+                </div>
+                </div>*@
+
+
+
+                <div class="row m-2" style="display:none">
+
+                    <div class="col-sm-4">
+                        <label>Aadhaar No</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" id="txtAadhar" placeholder="Enter Aadhaar" class="form-control">
+                    </div>
+                </div>
+                <div class="row m-2" style="display:none">
+
+                    <div class="col-sm-4">
+                        <label>Pan No</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" id="txtPan" placeholder="Enter Aadhaar" class="form-control">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload();">Close</button>
+                <button type="button" onclick="saveKYCDetails()" class="btn btn-success">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal end-->
+<!-- onboarding modal start-->
+@*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Small modal</button>*@
+
+<div class="modal modal1 fade bd-example-modal-sm " id="onboardingmodal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Onboarding</h5>
+                <button type="button" class="close" onclick="closeOnboardmodal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="onboarding_modal_msg_p"></p>
+                <form id="onboarding_modal_form" method="post" action="" target="_blank">
+                    @*    <button type="button" class="close" data-dismiss="modal" aria-label="Close">Close</button>*@
+                    <button type="submit" id="open_redirect_url_onboarding_btn" class="btn btn-success">Open URL</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- onboarding modal end-->
+<!-- Modal Vishwajeet -->
+<div class="modal fade" id="exampleModalvj" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelvj" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabelvj">Edit KYC</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="row m-2">
+                    <div class="col-sm-4">
+                        <label>Partner ID</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" id="txtparteridvj" readonly class="form-control" placeholder="Enter Partner Id">
+                    </div>
+                </div>
+                <div class="row m-2">
+                    <div class="col-sm-4">
+                        <label>Account Holder Name</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" name="txtbankholdernamevj" id="txtbankholdernamevj" class="form-control" placeholder="Enter Bank Holder Name" onkeyup="this.value = this.value.toUpperCase();">
+                    </div>
+                </div>
+                <div class="row m-2">
+                    <div class="col-sm-4">
+                        <label>Bank Account No.</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" name="txtbankaccountnovj" id="txtbankaccountnovj" class="form-control" placeholder="Enter Bank Account No" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                    </div>
+                </div>
+                <div class="row m-2">
+                    <div class="col-sm-4">
+                        <label>IFSC Code</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" name="txtifsccodevj" id="txtifsccodevj" class="form-control" placeholder="Enter Bank IFSC Code" onkeyup="this.value = this.value.toUpperCase();">
+                    </div>
+                </div>
+                <div class="row m-2">
+                    <div class="col-sm-4">
+                        <label>Bank Name</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" name="txtbanknamevj" id="txtbanknamevj" onkeyup="this.value=this.value.toUpperCase();" class="form-control" placeholder="Enter Bank Name">
+                    </div>
+                </div>
+
+                <div class="row m-2" style="display:none">
+
+                    <div class="col-sm-4">
+                        <label>Aadhaar No</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" name="txtAadharvj" id="txtAadharvj" placeholder="Enter Aadhaar" class="form-control">
+                    </div>
+                </div>
+                <div class="row m-2" style="display:none">
+
+                    <div class="col-sm-4">
+                        <label>Pan No</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" name="txtPanvj" id="txtPanvj" placeholder="Enter Aadhaar" class="form-control">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload();">Close</button>
+                <button type="button" onclick="updateKYCDetails()" class="btn btn-success">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal Vishwajeet end-->

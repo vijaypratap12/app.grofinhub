@@ -1,0 +1,134 @@
+﻿@{
+    ViewData["Title"] = "UserBeneficiaryReport";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<style>
+    .card-header:first-child {
+        border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+        margin-bottom: -65px;
+    }
+</style>
+@model DataTable
+@using System.Data
+
+<div class="col-md-12">
+    <div class="card card-warning ">
+        <div class="card-header">
+            <h3 class="card-title new-title"> Beneficiary Report</h3>
+        </div>
+
+        <form method="post" action="/admin/UserBeneficiaryReport">
+
+
+            <div class="card-body">
+
+
+
+
+                <div class="row">
+
+
+
+
+                    <div class="col-sm-4">
+
+                        <div class="form-group">
+                            <label>FormDate</label>
+                            <input type="date" class="form-control" name="FormDate" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+
+                        <div class="form-group">
+                            <label>ToDate</label>
+                            <input type="date" class="form-control" name="ToDate" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4" style="margin-top: 27px;">
+
+                        <div class="form-group">
+                            <input type="submit" value="Search" class="btn btn-primary " />
+                        </div>
+                    </div>
+
+                </div>
+                <div style="overflow-x:auto;" class="p-0">
+                    <table id="example3" class="my  table table-bordered table-responsive table-hover" style="width:100%;">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th>Sr.No.</th>
+                                <th>Agent ID</th>
+                                <th>Name</th>
+                                <th>Code </th>
+                                <th>Mobile No</th>
+                                <th>Bank ID</th>
+                                <th>Acount No</th>
+                                <th>IFSC CODE </th>
+                                <th>GST CODE</th>
+                                <th>Entry Date </th>
+                                <th>DOB</th>
+                                <th>Address </th>
+                                <th>Pincode </th>
+
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @{
+
+                                if (Model != null)
+                                {
+                                    if (Model.Rows.Count > 0)
+                                    {
+                                        int i = 1;
+                                        foreach (DataRow item in Model.Rows)
+                                        {
+                                            <tr>
+                                                <td>@i</td>
+                                                <td>@item["Agentid"]</td>
+                                                <td>@item["benename"]</td>
+                                                <td>@item["BenificaryCode"]</td>
+                                                <td>@item["mobile"]</td>
+                                                <td>@item["bankid"]</td>
+                                                <td>@item["accno"]</td>
+                                                <td>@item["ifsccode"]</td>
+                                                <td>@item["gst_state"]</td>
+                                                <td>@item["EntryDate"]</td>
+                                                <td>@item["dob"]</td>
+                                                <td>@item["address"]</td>
+                                                <td>@item["pincode"]</td>
+                                            </tr>
+                                            i++;
+                                        }
+                                    }
+
+                                }
+
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    var js = jQuery.noConflict(true)
+    js(document).ready(function () {
+
+        js("#example3").DataTable();
+    })
+
+
+
+
+
+</script>

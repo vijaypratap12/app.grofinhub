@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewData["Title"] = "AllTransaction";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="app-main__inner">
+    <div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h5 class="card-title">From Date</h5>
+                                <input type="text" id="FromDate" class="form-control" data-toggle="datepicker" />
+                            </div>
+                            <div class="col-sm-3">
+                                <h5 class="card-title">To Date</h5>
+                                <input id="ToDate" type="text" class="form-control" data-toggle="datepicker" />
+                            </div> 
+                            <div class="col-sm-3">
+                                <h5 class="card-title">Type</h5>
+                                <select class="form-control" id="ddlType" >
+                                    <option value="AllTransactions"> All Transactions </option>
+                                    <option value="AddMoneyTransaction"> Add Money Transaction</option>
+                                    <option value="MannualTransaction"> Mannual Transaction</option>
+                                    <option value="WithdraMoneyTransaction">Withdraw Money Transaction</option>
+                                    <option value="TableTransactionHistory">Table Transaction History</option> 
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <input style="margin-top: 31px;" type="submit" class="btn btn-alternate" value="Search" onclick="SearchData()" />
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card-body">
+                <div class="card mb-3">
+                    <div class="card-header-tab card-header"> 
+                        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                            <i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>
+                            Players
+                        </div>
+                    </div>
+                    <div id="divId"> 
+                        <div class="card-body">
+                            @if (Model != null && Model.dtDetails != null)
+                            {
+                                int i = 1; 
+                                <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr.</th>
+                                            <th>User Details</th>
+                                            <th>Transaction Id</th>
+                                            <th>Challenge Id</th>
+                                            <th>Closing Balance</th>
+                                            <th>Amount</th>
+                                            <th>Total Amount</th>
+                                            <th>Payment Type</th>
+                                            <th>msg</th>
+                                            <th>Status</th>
+                                            <th>Date</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (System.Data.DataRow item in Model.dtDetails.Rows)
+                                        {
+                                        <tr>
+                                            <td>@Convert.ToInt32(i)</td>
+                                            <td>
+                                                <div class="widget-content p-0">
+                                                    <div class="widget-content-wrapper">
+
+                                                        <div class="widget-content-left mr-3">
+                                                            <div class="widget-content-left">
+                                                                <img width="42" class="rounded" src="@item["" +
+                                                    "ProfilePic"]" alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="widget-content-left">
+                                                            <a asp-controller="Player" asp-action="UserFullDetails" asp-route-UserId="@item["UserID"]">
+                                                                <div class="widget-heading"> @item["UserID"]</div>
+                                                            </a>
+                                                            <div class="widget-subheading">@item["Name"]</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>@item["TxtId"]</td>
+                                            <td>@item["ChallengeID"]</td>
+                                            <td>@item["BeforeAmount"]</td>
+                                            <td>@item["Amount"]</td>
+                                            <td>@item["AfterAmount"]</td>
+                                            <td>@item["Type"]</td>
+                                            <td>@item["Remark"]</td>
+                                            <td><div class="badge badge-danger ml-2">@item["Status"]</div> </td>
+                                            <td>@item["EntryDate"]</td> 
+                                        </tr>
+                                            i = i + 1;
+                                        }
+                                </table> 
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function SearchData() 
+    { 
+        $.ajax({
+            url: "/Withdraw/AllTransaction",
+            type: "POST",
+            data: { FromDate: $("#FromDate").val(), ToDate: $("#ToDate").val(), Status: $("#ddlType").val() },
+            success: function (r) {
+                $('#divId').html($(r).find('#divId').html())
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+            }
+        });
+    }
+</script>
+

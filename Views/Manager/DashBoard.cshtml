@@ -1,0 +1,646 @@
+﻿
+@{
+    ViewData["Title"] = "DashBoard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<h1>DashBoard</h1>*@
+
+<style>
+
+    img.logo-lg {
+        border-radius: 50%;
+        background-color: white;
+        width: 55px;
+        border: 1px solid #07638a;
+        padding: 5px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+
+    .box-body {
+        cursor: pointer;
+        text-align: center;
+    }
+
+
+
+    a.mb-0.font-size-18.text-center {
+        position: relative;
+        top: 7px;
+        text-decoration: none;
+        color: #006baf;
+        font-weight: 600;
+    }
+
+    #my-div {
+        /* background-color: #f00;
+                            width: 200px;
+                            height: 200px;*/
+    }
+
+    a.fill-div {
+        display: block;
+        height: 100%;
+        width: 100%;
+        text-decoration: none;
+    }
+
+
+
+
+
+
+    .modal-header {
+        background: #0059cf;
+        color: white;
+        border-radius: 0px;
+    }
+
+    .box-body {
+        cursor: pointer;
+    }
+
+
+
+    .box-body {
+        padding: 1rem 1.5rem;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        border-radius: 10px;
+        height: 100px;
+    }
+
+</style>
+
+<script>
+    $("#bcount").click(function () {
+        location.reload();
+    });
+</script>
+
+<div class="row">
+    <div class="col-12 ">
+        <div class="box q1 bg-gradient-primary overflow-hidden pull-up">
+            <div class="box-body pr-0 pl-lg-50 pl-15 py-0">
+                <div class="row align-items-center">
+                    <div class="col-12 col-lg-8">
+                        <h1 class="font-size-25 text-white">Compliance</h1>
+                        <p class="text-white mb-0 font-size-20">
+                            ......
+                        </p>
+                    </div>
+                    <div class="col-12 col-lg-4"><img src="https://eduadmin-template.multipurposethemes.com/bs4/images/svg-icon/color-svg/custom-15.svg" alt="" class="JKK"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="app-main__inner">
+
+
+
+    <div class="row uii">
+        <div class="col-12">
+            <div class="box q2 no-shadow mb-20 bg-transparent">
+                <div class="box-header no-border px-0">
+                    <h4 class="box-title"> Quick menu's </h4>
+                    <ul class="box-controls pull-right d-md-flex d-none">
+                        <li>
+                            @*   <button class="btn btn-primary-light px-10">View All</button>*@
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 col-12 fill-div">
+            <a href="/Manager/GetMemberDocuments?Type=BS">
+                <div class="box q3 pull-up fill-div">
+                    <div class="box-body fill-div">
+                        <div class="dde rounded text-center fill-div">
+
+
+                            <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Manager/GetMemberDocuments?Type=BS" class="mb-0 font-size-18 text-center fill-div"> Business Startup </a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+
+        <div class="col-xl-3 col-md-6 col-12 fill-div">
+            <a href="/Manager/GetMemberDocuments?Type=ITR fill-div">
+                <div class="box q3 pull-up fill-div">
+                    <div class="box-body fill-div">
+                        <div class="dde rounded text-center fill-div">
+
+
+                            <div> <img src="~/images/Pay.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Manager/GetMemberDocuments?Type=ITR" class="mb-0 font-size-18 text-center fill-div"> Income Tax Returns (ITR) </a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="col-xl-3 col-md-6 col-12 fill-div">
+            <a href="/Manager/GetMemberDocuments?Type=CR">
+                <div class="box q3 pull-up fill-div">
+                    <div class="box-body fill-div">
+                        <div class="dde rounded text-center fill-div">
+
+
+                            <div> <img src="~/images/atm.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Manager/GetMemberDocuments?Type=CR" class="mb-0 font-size-18 text-center fill-div"> Company Registration </a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="col-xl-3 col-md-6 col-12 fill-div">
+            <a href="/Manager/GetMemberDocuments?Type=TNR">
+                <div class="box q3 pull-up fill-div">
+                    <div class="box-body fill-div">
+                        <div class="dde rounded text-center fill-div">
+
+
+                            <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Manager/GetMemberDocuments?Type=TNR" class="mb-0 font-size-18 text-center fill-div"> Trust/NGO/Registration </a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+
+
+    </div>
+
+
+</div>
+
+<div class="app-main__inner">
+
+
+
+    <div class="row uii">
+        <div class="col-12">
+            @* <div class="box q2 no-shadow mb-20 bg-transparent">
+            <div class="box-header no-border px-0">
+            <h4 class="box-title"> Quick menu's </h4>
+            <ul class="box-controls pull-right d-md-flex d-none">
+            <li>
+            <button class="btn btn-primary-light px-10">View All</button>
+            </li>
+            </ul>
+            </div>
+            </div>*@
+        </div>
+        
+
+        <div class="col-xl-3 col-md-6 col-12 fill-div">
+            <a href="/Manager/GetMemberDocuments?Type=TR">
+                <div class="box q3 pull-up fill-div">
+                    <div class="box-body fill-div">
+                        <div class="dde rounded text-center fill-div">
+
+
+                            <div> <img src="~/images/Pay.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Manager/GetMemberDocuments?Type=TR" class="mb-0 font-size-18 text-center fill-div"> Trade Mark Registration </a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="col-xl-3 col-md-6 col-12 fill-div">
+            <a href="/Manager/GetMemberDocuments?Type=MSUR">
+                <div class="box q3 pull-up fill-div">
+                    <div class="box-body fill-div">
+                        <div class="dde rounded text-center fill-div">
+
+
+                            <div> <img src="~/images/atm.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Manager/GetMemberDocuments?Type=MSUR" class="mb-0 font-size-18 text-center fill-div"> MSME/Udayan Registration </a>
+
+                    </div>
+                </div>
+        </div>
+
+
+
+        <div class="col-xl-3 col-md-6 col-12 fill-div">
+            <a href="/Manager/GetMemberDocuments?Type=CL">
+                <div class="box q3 pull-up fill-div">
+                    <div class="box-body fill-div">
+                        <div class="dde rounded text-center fill-div">
+
+
+                            <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Manager/GetMemberDocuments?Type=CL" class="mb-0 font-size-18 text-center fill-div"> Contractor Licesce </a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+
+        <div class="col-xl-3 col-md-6 col-12 fill-div">
+            <a href="/Manager/GetMemberDocuments?Type=FSSAI">
+                <div class="box q3 pull-up fill-div">
+                    <div class="box-body fill-div">
+                        <div class="dde rounded text-center fill-div">
+
+
+                            <div> <img src="~/images/atm.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Manager/GetMemberDocuments?Type=FSSAI" class="mb-0 font-size-18 text-center fill-div"> FSSAI License </a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+
+    </div>
+
+
+</div>
+
+
+<div class="app-main__inner">
+
+
+
+    <div class="row uii">
+        <div class="col-12">
+            @* <div class="box q2 no-shadow mb-20 bg-transparent">
+            <div class="box-header no-border px-0">
+            <h4 class="box-title"> Quick menu's </h4>
+            <ul class="box-controls pull-right d-md-flex d-none">
+            <li>
+            <button class="btn btn-primary-light px-10">View All</button>
+            </li>
+            </ul>
+            </div>
+            </div>*@
+        </div>
+
+
+
+
+        <div class="col-xl-3 col-md-6 col-12 fill-div">
+            <a href="/Manager/GetMemberDocuments?Type=PSARA">
+                <div class="box q3 pull-up fill-div">
+                    <div class="box-body fill-div">
+                        <div class="dde rounded text-center fill-div">
+
+
+                            <div> <img src="~/images/Pay.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Manager/GetMemberDocuments?Type=PSARA" class="mb-0 font-size-18 text-center fill-div">PSARA License </a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="col-xl-3 col-md-6 col-12 fill-div">
+            <a href="/Manager/GetMemberDocuments?Type=CMA">
+                <div class="box q3 pull-up fill-div fill-div">
+                    <div class="box-body fill-div">
+                        <div class="dde rounded text-center fill-div">
+
+
+                            <div> <img src="~/images/atm.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Manager/GetMemberDocuments?Type=CMA" class="mb-0 font-size-18 text-center fill-div"> CMA Report </a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="col-xl-3 col-md-6 col-12 fill-div">
+            <a href="/Manager/GetMemberDocuments?Type=ACC">
+                <div class="box q3 pull-up fill-div">
+                    <div class="box-body fill-div">
+                        <div class="dde rounded text-center fill-div">
+
+
+                            <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Manager/GetMemberDocuments?Type=ACC" class="mb-0 font-size-18 text-center fill-div"> Accounting </a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+
+
+        <div class="col-xl-3 col-md-6 col-12 fill-div">
+            <a href="/Manager/GetMemberDocuments?Type=GRR">
+                <div class="box q3 pull-up fill-div">
+                    <div class="box-body fill-div">
+                        <div class="dde rounded text-center fill-div">
+
+
+                            <div> <img src="~/images/Pay.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Manager/GetMemberDocuments?Type=GRR" class="mb-0 font-size-18 text-center fill-div"> GST Registration & Return </a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+
+
+    </div>
+
+
+</div>
+<div class="app-main__inner">
+
+
+
+    <div class="row uii">
+        @* <div class="col-12">
+        <div class="box q2 no-shadow mb-20 bg-transparent">
+        <div class="box-header no-border px-0">
+        <h4 class="box-title"> Quick menu's </h4>
+        <ul class="box-controls pull-right d-md-flex d-none">
+        <li>
+        <button class="btn btn-primary-light px-10">View All</button>
+        </li>
+        </ul>
+        </div>
+        </div>
+        </div>*@
+
+
+
+
+
+
+        <div class="col-xl-3 col-md-6 col-12 fill-div">
+            <a href="/Manager/GetMemberDocuments?Type=PFLR">
+                <div class="box q3 pull-up fill-div">
+                    <div class="box-body fill-div">
+                        <div class="dde rounded text-center fill-div">
+
+
+                            <div> <img src="~/images/atm.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Manager/GetMemberDocuments?Type=PFLR" class="mb-0 font-size-18 text-center fill-div"> Partnership Firm/LLP Registration </a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+        @*
+
+        <div class="col-xl-3 col-md-6 col-12">
+        <a href="#">
+        <div class="box q3 pull-up">
+        <div class="box-body">
+        <div class="dde rounded text-center">
+
+
+        <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+        </div>
+        <a href="#" class="mb-0 font-size-18 text-center"> Life Insurance </a>
+
+        </div>
+        </div>
+        </a>
+        </div>
+
+
+
+        <div class="col-xl-3 col-md-6 col-12">
+        <a href="#">
+        <div class="box q3 pull-up">
+        <div class="box-body">
+        <div class="dde rounded text-center">
+
+
+        <div> <img src="~/images/Pay.png" class="logo-lg" /></div>
+        </div>
+        <a href="#" class="mb-0 font-size-18 text-center"> Health Insurarnce </a>
+
+        </div>
+        </div>
+        </a>
+        </div>
+
+
+        <div class="col-xl-3 col-md-6 col-12">
+        <a href="#">
+        <div class="box q3 pull-up" >
+        <div class="box-body">
+        <div class="dde rounded text-center">
+
+
+        <div> <img src="~/images/atm.png" class="logo-lg" /></div>
+        </div>
+        <a href="#" class="mb-0 font-size-18 text-center"> Vehicle Insurance </a>
+
+        </div>
+        </div>
+        </a>
+        </div>
+
+
+        *@
+
+
+
+
+        @*    </div>
+
+
+        </div>
+
+
+        <div class="app-main__inner">
+
+
+
+        <div class="row uii">*@
+        @* <div class="col-12">
+        <div class="box q2 no-shadow mb-20 bg-transparent">
+        <div class="box-header no-border px-0">
+        <h4 class="box-title"> Quick menu's </h4>
+        <ul class="box-controls pull-right d-md-flex d-none">
+        <li>
+        <button class="btn btn-primary-light px-10">View All</button>
+        </li>
+        </ul>
+        </div>
+        </div>
+        </div>*@
+
+
+
+
+        <div class="col-xl-3 col-md-6 col-12 fill-div">
+            <a href="/Manager/GetMemberDocuments?Type=SR">
+                <div class="box q3 pull-up fill-div">
+                    <div class="box-body fill-div">
+                        <div class="dde rounded text-center fill-div">
+
+
+                            <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Manager/GetMemberDocuments?Type=SR" class="mb-0 font-size-18 text-center fill-div"> Shop Registration </a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+
+        <div class="col-xl-3 col-md-6 col-12 fill-div">
+            <a href="/Manager/GetMemberDocuments?Type=PFESI">
+                <div class="box q3 pull-up fill-div">
+                    <div class="box-body fill-div">
+                        <div class="dde rounded text-center fill-div">
+
+
+                            <div> <img src="~/images/Pay.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Manager/GetMemberDocuments?Type=PFESI" class="mb-0 font-size-18 text-center fill-div"> PF/ESI  Registration</a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="col-xl-3 col-md-6 col-12 fill-div">
+            <a href="/Manager/GetMemberDocuments?Type=PFESI=IEL">
+                <div class="box q3 pull-up fill-div">
+                    <div class="box-body fill-div">
+                        <div class="dde rounded text-center fill-div">
+
+
+                            <div> <img src="~/images/atm.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Manager/GetMemberDocuments?Type=PFESI=IEL" class="mb-0 font-size-18 text-center fill-div"> Import/Export License </a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-xl-3 col-md-6 col-12 fill-div">
+            <a href="/Manager/GetMemberDocuments?Type=RERA">
+                <div class="box q3 pull-up fill-div">
+                    <div class="box-body fill-div">
+                        <div class="dde rounded text-center fill-div">
+
+
+                            <div> <img src="~/images/atm.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Manager/GetMemberDocuments?Type=RERA" class="mb-0 font-size-18 text-center fill-div"> RERA License </a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-xl-3 col-md-6 col-12 fill-div">
+            <a href="/Manager/GetMemberDocuments?Type=PROJR">
+                <div class="box q3 pull-up fill-div ">
+                    <div class="box-body fill-div">
+                        <div class="dde rounded text-center fill-div">
+
+
+                            <div> <img src="~/images/atm.png" class="logo-lg" /></div>
+                        </div>
+                        <a href="/Manager/GetMemberDocuments?Type=PROJR" class="mb-0 font-size-18 text-center fill-div"> Project Report </a>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+</div>
+<div class="app-main__inner">
+
+
+
+    <div class="row uii">
+        <div class="col-12">
+            @* <div class="box q2 no-shadow mb-20 bg-transparent">
+            <div class="box-header no-border px-0">
+            <h4 class="box-title"> Quick menu's </h4>
+            <ul class="box-controls pull-right d-md-flex d-none">
+            <li>
+            <button class="btn btn-primary-light px-10">View All</button>
+            </li>
+            </ul>
+            </div>
+            </div>*@
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+

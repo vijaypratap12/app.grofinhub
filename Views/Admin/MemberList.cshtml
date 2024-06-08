@@ -1,0 +1,313 @@
+﻿@{
+    ViewData["Title"] = "MemberList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<h3>MemberList</h3>*@
+
+@model DataTable
+@using System.Data
+
+
+
+<style>
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 58px;
+        height: 27px;
+    }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 19px;
+            width: 19px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+    input:checked + .slider {
+        background-color: #066091;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+    h6.namegg i {
+        transform: rotate(-88deg);
+        margin: 1px 10px;
+        /* padding-top: 17px; */
+        /* padding-left: 0; */
+    }
+
+    .ssarow {
+        transform: rotate(88deg);
+        margin: 1px 10px;
+        /* padding-top: 17px; */
+        /* padding-left: 0; */
+    }
+</style>
+
+<div class="">
+    <div class="">
+        <div class="card card-warning ">
+            <div class="mt-4 mx-4 card-title" style="display:none">
+                <div class=" fw-bold fs-4 col-sm-12 card-title">  Member List Report</div>
+                <div class="row ">
+
+                    <div class="col-sm-4"> <label>State</label>@*  <select class="form-control"><option>Select State</option></select>*@ @Html.DropDownList("State", ViewBag.State, "Select State", new { @class = "form-control",@id="ddlstate",onchange="changeState()" })</div>
+                    <div class="col-sm-4" id="outerdisctict">
+                        <div id="innerdistrict">
+                            <label id="blbdistrict">District</label>
+                            @Html.DropDownList("District", ViewBag.District, "Select District", new { @class = "form-control",@id="ddldistrict" ,onchange="changeDistrict()" })
+
+                            @*  <select class="form-control" id="ddldistrict"><option>Select District</option></select>*@
+                        </div>
+                    </div>
+                    <div class="col-sm-4" id="outerblock">
+                        <div id="innerblock">
+                            <label>Block</label>
+                            @Html.DropDownList("Block", ViewBag.Block, "Select Block", new { @class = "form-control",@id="ddlblock",onchange="changeBlock()" })
+                            @*<select class="form-control" id="ddlblock"><option>Select Block</option></select>
+                            *@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" id="upterofoutertbl">
+                <div style="overflow-x:auto;" id="outertbl">
+                    <table id="example3" class="my  table table-bordered table-hover" style="width:100%;">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th>ACTION</th>
+                                <th>SR.NO.</th>
+                                <th>PARTNER ID</th>
+                                <th style="min-width:130px;">NAME</th>
+                                <th>MOBILE </th>
+
+                                <th style="min-width:130px;">STATE</th>
+                                <th>DISTRICT </th>
+                                <th style="min-width:130px;">BLOCK</th>
+                                <th style="min-width:130px;">ADDRESS</th>
+
+                                <th>Account Activation Date</th>
+                                @* <th>ADHAR CARD </th>
+                                <th>PAN CARD </th>*@
+                                @* <th>QUALIFICATION </th>
+                                <th>ASSOC COM</th>
+                                <th style="min-width:90px;">ASSOC COM AGENT</th>
+
+                                <th style="min-width:100px;">DOB</th>
+
+                                <th>ASSOCIATE MUTUALE</th>
+                                <th style="min-width:100px;">ENTRY DATE</th>
+                                *@
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @{
+
+                                if (Model != null)
+                                {
+                                    if (Model.Rows.Count > 0)
+                                    {
+                                        int i = 1;
+                                        foreach (DataRow item in Model.Rows)
+                                        {
+                                            <tr>
+                                                @if (@item["Active"].ToString() == "1")
+                                                {
+
+                                                    <td>
+                                                        <label class="switch">
+                                                            <input type="checkbox" id="user_@item["id"]" checked onclick="ActiveDeactive(@item["id"])">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </td>
+                                                }
+                                                else
+                                                {
+
+                                                    <td>
+                                                        <label class="switch">
+                                                            <input type="checkbox" id="user_@item["id"]" onclick="ActiveDeactive                        (@item["id"])">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </td>
+                                                }
+                                                <td>@i</td>
+                                                <td>@item["Agentid"]</td>
+                                                <td>@item["Name"]</td>
+                                                <td>@item["Mobile"]</td>
+
+                                                <td>@item["StateName"]</td>
+                                                <td>@item["DistrictName"]</td>
+                                                <td>@item["BlockName"]</td>
+                                                <td>@item["Address"]</td>
+                                                <td>@item["edate"]</td>
+                                                @*<td>@item["AadharCard"]</td>
+                                <td>@item["PanCard"]</td>*@
+
+
+                                                @* <td>@item["QaulificationName"]</td>
+
+                                <td>@item["AssociateCompany"]</td>
+                                <td>@item["AssociateCompanyAgent"]</td>
+
+                                <td>@item["dobdate"]</td>
+
+                                <td>@item["AssociateMutual"]</td>
+
+
+
+                                *@
+
+
+
+
+
+
+
+
+
+                                                @* <td>
+                                <a href="#" onclick="GetDetailsForEdit('@item["RecruitmentID"]')"><span class="badge bg-success">Edit</span></a>
+                                </td>
+                                *@
+
+                                            </tr>
+                                            i++;
+                                        }
+                                    }
+
+                                }
+
+                            }
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    //var js = jQuery.noConflict(true)
+    //js(document).ready(function () {
+
+
+    //    //js("#example3").DataTable();
+    //    var table = js('#example3').DataTable({
+    //        pageLength: 5,
+    //        lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]
+    //    })
+    //})
+
+
+
+
+    function ActiveDeactive(id) {
+        debugger;
+        if (!(confirm("Are You Sure !!"))) {
+            location.reload();
+            return false;
+
+        }
+        var data = new FormData;
+
+        data.append("id", id);
+
+        $.ajax({
+            url: "/Admin/MemberList",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (msg) {
+                //debugger;
+                alert(msg);
+                //var htmlnew=r;
+                //var js = jQuery.noConflict(true)
+                //js("#example3").DataTable();
+                //$('#upterofoutertbl').html($(r).find('#outertbl'));
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+
+
+        });
+    }
+    function changeState() {
+        $.get("/Admin/MemberList", { State: $("#ddlstate").val() }, function (result) {
+            $("#upterofoutertbl").html($(result).find("#outertbl"));
+            setDt();
+            $("#outerdisctict").html($(result).find("#innerdistrict"));
+            $("#outerblock").html($(result).find("#innerblock"));
+        })
+    }
+
+    function changeDistrict() {
+        $.get("/Admin/MemberList", { State: $("#ddlstate").val(), District: $("#ddldistrict").val() }, function (result) {
+            $("#upterofoutertbl").html($(result).find("#outertbl"));
+            setDt();
+            $("#outerblock").html($(result).find("#innerblock"));
+
+        })
+    }
+    function changeBlock() {
+        $.get("/Admin/MemberList", { State: $("#ddlstate").val(), District: $("#ddldistrict").val(), Block: $("#ddlblock").val() }, function (result) {
+            $("#upterofoutertbl").html($(result).find("#outertbl"));
+            setDt();
+
+        })
+    }
+
+
+</script>
+

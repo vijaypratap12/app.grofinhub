@@ -1,0 +1,814 @@
+﻿@model RootAEPS;
+@{
+    ViewData["Title"] = "AEPS";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+
+
+    .card {
+        border-radius: 10px;
+        box-shadow: 0px 2px 5px 0px rgba(19, 23, 38, 0.05);
+        margin-bottom: 10px !important;
+    }
+
+    .wraperplan {
+        min-width: 120px;
+        max-height: 450px;
+        overflow-y: scroll;
+    }
+
+    body {
+        padding: 10px;
+    }
+
+    #exTab1 .tab-content {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    #exTab2 h3 {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    /* remove border radius for the tab */
+
+    #exTab1 .nav-pills > li > a {
+        border-radius: 0;
+    }
+
+    /* change border radius for the tab , apply corners on top*/
+
+    #exTab3 .nav-pills > li > a {
+        border-radius: 4px 4px 0 0;
+    }
+
+    #exTab3 .tab-content {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    ul#myTab {
+        display: flex;
+        width: 100%;
+    }
+
+    .tab-pane {
+        padding: 18px;
+    }
+
+    nav#myTab {
+        display: block !important;
+    }
+
+    .tab-content {
+        width: 100%;
+        background: #fff;
+    }
+
+    .yui .box {
+        margin: 0 !important;
+    }
+
+   .box-header {
+    color: #172b4c;
+    display: block;
+    padding: 0.5rem 0rem !important;
+    position: relative;
+    border-bottom: 1px solid rgba(72, 94, 144, 0.16);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+</style>
+
+<div class="row">
+    <div class="col-12 ">
+        <div class="box q1 bg-gradient-primary overflow-hidden pull-up">
+            <div class="box-body pr-0 pl-lg-50 pl-15 py-0">
+                <div class="row align-items-center">
+                    <div class="col-12 col-lg-8">
+                        <h3 class="font-size-25 text-white text-center">AEPS</h3>
+
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Tab-->
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="myTab" role="tablist">
+    <section>
+    <div class="box-header">
+        <ul class="nav nav-tabs customtab nav-justified" role="tablist">
+
+                <li class="nav-item">
+                    <button class="nav-link active" id="status-tab" data-bs-toggle="tab" data-bs-target="#checkstatus" type="button" role="tab" aria-controls="Refund" aria-selected="false">Withdraw</button>
+                </li>
+            <li class="nav-item">
+                <button class="nav-link " id="recharge-tab" data-bs-toggle="tab" data-bs-target="#recharge" type="button" role="tab" aria-controls="Benificiary" aria-selected="false"> Enquiry</button>
+            </li>
+
+           
+            <li class="nav-item">
+                <button class="nav-link" id="ministatement-tab" data-bs-toggle="tab" data-bs-target="#ministatement" type="button" role="tab" aria-controls="mimistatement" aria-selected="false">MiniStatement</button>
+            </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="transaction-tab" data-bs-toggle="tab" data-bs-target="#transaction" type="button" role="tab" aria-controls="transaction" aria-selected="false">Withdrawl Status</button>
+                </li>
+
+                <li class="nav-item">
+                    <button class="nav-link" id="adhaarpay-tab" data-bs-toggle="tab" data-bs-target="#adhaarpay" type="button" role="tab" aria-controls="adhaarpay" aria-selected="false">Adhaar Pay</button>
+                </li>
+
+                <li class="nav-item">
+                    <button class="nav-link" id="adhaarpaytransaction-tab" data-bs-toggle="tab" data-bs-target="#adhaarpaytransaction" type="button" role="tab" aria-controls="adhaarpaytransaction" aria-selected="false">@*Adhaar Pay*@ Transaction Status</button>
+                </li>
+        </ul> 
+    </div>
+
+    </section>
+    <div class="tab-content" id="myTabContent">
+
+        <div class="tab-pane fade " id="recharge" role="tabpanel" aria-labelledby="home-tab">
+
+            <section class="content" id="dorechargedv">
+                <div class="container-fluid">
+                    <div class="col-md-12">
+
+                        <div id="enquerydv">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+
+                                    <div class="row">
+
+                                        <div class="col-4">
+                                            <span style="color:red"></span><label>Mobile Number :</label>
+                                            <input type="text" id="enquirymobileno" placeholder="Enter Mobile Number... " required name="mobilenumber"  class="form-control" />
+
+                                        </div>
+                                        
+                                        <div class="col-4">
+                                            <span style="color:red"></span><label>Adhaar Number :</label>
+                                            <input type="number" id="enquiryadhaarno" placeholder="Enter Adhaar Number... " required name="adhaarnumber" class="form-control" />
+
+                                        </div>
+                                        <div class="col-4">
+                                            <span style="color:red"></span><label>Bank :</label>
+                                           <select class="form-control" id="enquiryddlbankid">
+                                                <option value="0">Select Bank</option>
+                                                @foreach (DatumAEPS item in Model.banklist.data)
+                                                {
+                                                    <option value="@item.iinno">@item.bankName</option>
+                                                }
+                                            </select>
+
+
+                                        </div>
+                                        <div class="col-4">
+                                            <span style="color:red"></span><label>Remarks :</label>
+                                            <input type="text" id="enquiryremark" placeholder="Enter requestremarks... " required name="requestremarks" class="form-control" />
+
+                                        </div>
+                                        <div class="  col-4">
+                                            <br/>
+                                            <input type="button" id="enquerybutton" style="width:100%;" value="ENQUERY" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="enquery()" />
+
+                                        </div>
+                                </div>
+
+
+
+
+                            </div>
+
+                             
+                        </div>
+
+                        
+                            <br />
+
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </section>
+
+        </div>
+        <div class="tab-pane fade show active" id="checkstatus" role="tabpanel" aria-labelledby="profile-tab">
+
+            <section class="content" id="checkstatusdv">
+                <div class="container-fluid">
+                    <div class="col-md-12">
+
+                        <div id="withdroldv">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+
+                                    <div class="row">
+
+                                        <div class="col-4">
+                                            <span style="color:red"></span><label>Mobile Number :</label>
+                                            <input type="text" id="withdrowlmobileno" placeholder="Enter Mobile Number... " required name="mobilenumber" class="form-control" />
+
+                                        </div>
+
+                                        <div class="col-4">
+                                            <span style="color:red"></span><label>Adhaar Number :</label>
+                                            <input type="text" id="withdrowladhaarno" placeholder="Enter Adhaar Number... " required name="adhaarnumber" class="form-control" />
+
+                                        </div>
+                                        <div class="col-4">
+                                            <span style="color:red"></span><label>amount :</label>
+                                            <input type="number" id="withdrowlamount" placeholder="Enter amount... " required name="is_iris" class="form-control" />
+
+                                        </div>
+                                        <div class="col-4">
+                                            <span style="color:red"></span><label>Bank :</label>
+                                           
+                                            <select class="form-control" id="withdrowlddlbankid">
+                                                <option>Select Bank</option>
+                                                @foreach (DatumAEPS item in Model.banklist.data)
+                                                {
+                                                    <option value="@item.iinno">@item.bankName</option>
+                                                }
+                                            </select>
+
+                                        </div>
+                                        <div class="col-4">
+                                            <span style="color:red"></span><label>Remark :</label>
+                                            <input type="text" id="withdrowlremark" placeholder="Enter requestremarks... " required name="requestremarks" class="form-control" />
+
+                                        </div>
+
+                                        <div class="col-4">
+                                            <br/>
+                                            <input type="button" id="withdrowbtn" style="width:100%;" value="WITHDROW" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="withdraw()" />
+
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+                                 
+                            </div>
+
+
+                            <br />
+
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+        </div>
+        <div class="tab-pane fade" id="ministatement" role="tabpanel" aria-labelledby="profile-tab">
+
+            <section class="content" id="ministatementdv">
+                <div class="container-fluid">
+                     <div class="col-md-12">
+
+                        <div id="statementdv">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+
+                                    <div class="row">
+
+                                        <div class="col-4">
+                                            <span style="color:red"></span><label>Mobile Number :</label>
+                                            <input type="text" id="ministatmetnmobileno" placeholder="Enter Mobile Number... " required name="mobilenumber" class="form-control" />
+
+                                        </div>
+                                        
+                                        <div class="col-4">
+                                            <span style="color:red"></span><label>Adhaar Number :</label>
+                                            <input type="text" id="ministatmentadhaarno" placeholder="Enter Adhaar Number... " required name="adhaarnumber" class="form-control" />
+
+                                        </div>
+                                        <div class="col-4">
+                                            <span style="color:red"></span><label>Bank :</label>
+                                           
+                                            <select class="form-control" id="ministatmentddlbackid">
+                                                <option>Select Bank</option>
+                                                @foreach (DatumAEPS item in Model.banklist.data)
+                                                {
+                                                    <option value="@item.iinno">@item.bankName</option>
+                                                }
+                                            </select>
+
+                                        </div>
+                                        <div class="col-4">
+                                            <span style="color:red"></span><label>requestremarks :</label>
+                                            <input type="text" id="ministatmentremark" placeholder="Enter requestremarks... " required name="requestremarks" class="form-control" />
+
+                                        </div>
+
+                                        <div class="col-4">
+                                            <br/>
+                                            <input type="button" id="ministatmentbtn" style="width:100%;" value="STATEMENT" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="miniStatement()" />
+
+                                        </div>
+                                </div>
+
+
+
+
+                            </div>
+
+
+
+                            @*<div class=" col-12">
+                                    <input type="button" id="ministatmentbtn" style="width:100%;" value="STATEMENT" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="miniStatement()" />
+
+                            </div>*@
+                        </div>
+
+                        
+                            <br />
+
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+        </div>
+
+        <div class="tab-pane fade" id="transaction" role="tabpanel" aria-labelledby="profile-tab">
+
+            <section class="content" id="transactiondv">
+                <div class="container-fluid">
+                     <div class="col-md-12">
+
+                        <div id="statementdv">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+
+                                    <div class="row">
+
+                                    
+                                </div>
+
+
+
+
+                            </div>
+
+
+                             
+                        </div>
+
+                        
+                            <br />
+
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+        </div>
+   
+          <div class="tab-pane fade" id="adhaarpay" role="tabpanel" aria-labelledby="adhaarpay-tab">
+
+            <section class="content" id="adhaarpaydv">
+                <div class="container-fluid">
+                     
+                    <div class="col-md-12">
+
+                        <div id="withdroldv">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+
+                                    <div class="row">
+
+                                        <div class="col-4">
+                                            <span style="color:red"></span><label>Mobile Number :</label>
+                                            <input type="text" id="adhaarpaymobileno" placeholder="Enter Mobile Number... " required name="mobilenumber" class="form-control" />
+
+                                        </div>
+
+                                        <div class="col-4">
+                                            <span style="color:red"></span><label>Adhaar Number :</label>
+                                            <input type="text" id="adhaarpayadhaarno" placeholder="Enter Adhaar Number... " required name="adhaarnumber" class="form-control" />
+
+                                        </div>
+                                        <div class="col-4">
+                                            <span style="color:red"></span><label>amount :</label>
+                                            <input type="number" id="adhaarpayamount" placeholder="Enter amount... " required name="is_iris" class="form-control" />
+
+                                        </div>
+                                        <div class="col-4">
+                                            <span style="color:red"></span><label>Bank :</label>
+
+                                            <select class="form-control" id="adhaarpayddlbackid">
+                                                <option value="0">Select Bank</option>
+                                                @foreach (DatumAEPS item in Model.banklist.data)
+                                                {
+                                                    <option value="@item.iinno">@item.bankName</option>
+                                                }
+                                            </select>
+
+                                        </div>
+                                        <div class="col-4">
+                                            <span style="color:red"></span><label>Remark :</label>
+                                            <input type="text" id="adhaarpayremark" placeholder="Enter requestremarks... " required name="requestremarks" class="form-control" />
+
+                                        </div>
+
+                                        <div class="col-4">
+                                            <br />
+                                            <input type="button" id="adhaarpaybtn" style="width:100%;" value="PAY NOW" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="adhaarPay()" />
+
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                            </div>
+
+
+                            <br />
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+   
+        <div class="tab-pane fade" id="adhaarpaytransaction" role="tabpanel" aria-labelledby="adhaarpay-tab">
+
+            <section class="content" id="adhaarpaytransactiondv">
+                <div class="container-fluid">
+
+                    <div class="col-md-12">
+
+                        <div id="withdroldv">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+
+
+
+                                </div>
+
+
+                            </div>
+
+
+                            <br />
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+        
+        <div style="display:none;">
+                                            <input type="text" id="txtcurrentlocation" placeholder="Location" />
+                                            <input type="text" id="lat" placeholder="lat" />
+                                            <input type="text" id="lon" placeholder="lon" />
+                                        </div>
+
+    </div>
+    @*</section>*@
+
+
+
+
+</nav>
+<!--Tab End-->
+
+<script>
+    $(document).ready(function () {
+        debugger;
+        var x = $("#txtcurrentlocation")
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.val("Geolocation is not supported by this browser.");
+        }
+        function showPosition(position) {
+            $("#lat").val(position.coords.latitude)
+            $("#lon").val(position.coords.longitude)
+        }
+         
+    })
+
+    function enquery() {
+        
+        if ($("#lat").val() == "" && $("#lon").val()=="")
+        {
+            alert('Please On GPS !!');
+            return;
+        }
+        if ($("#enquirymobileno").val() == "") {
+            alert('Enter Mobile No !!');
+            $("#enquirymobileno").focus()
+            return;
+        }
+        if ($("#enquiryadhaarno").val() == "") {
+            alert('Enter Adhaar No !!');
+            $("#enquiryadhaarno").focus()
+            return;
+        }
+        if ($("#enquiryddlbankid").val() == "0") {
+            alert('Please Select Bank !!');
+            $("#enquiryddlbankid").focus()
+            return;
+        }
+        if ($("#enquiryremark").val() == "") {
+            alert('Please Enter Remark!!');
+            $("#enquiryremark").focus()
+            return;
+        }
+        var dataobj = new FormData;
+
+        dataobj.append("latitude", $("#lat").val());
+        dataobj.append("longitude", $("#lon").val());
+        dataobj.append("mobilenumber", $("#enquirymobileno").val());
+        dataobj.append("adhaarnumber", $("#enquiryadhaarno").val());
+        dataobj.append("nationalbankidentification", $("#enquiryddlbankid").val());
+        dataobj.append("requestremarks", $("#enquiryremark").val());
+        //dataobj.append("data", $("#txtrefid").val()); 
+        dataobj.append("is_iris", 'No');
+
+        $("#showSpinner").show();
+        $.ajax({
+            url: "/AEPS/Enquiry",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: dataobj,
+            success: function (r) {
+                r=jQuery.parseJSON(r)
+    console.log(r)
+    if(r.response_code=='1')
+    {
+                    alert(r.message)
+    }
+    else if (r.response_code!='undefined')
+    {
+                    alert(r.message)
+    }
+    else
+    {
+        alert(r)
+    }
+                $("#showSpinner").hide();
+            },
+            error: function () {
+                alert("Error Occured !!!")
+                $("#showSpinner").hide();
+            }
+        })
+    }
+    function withdraw() {
+        
+        if ($("#lat").val() == "" && $("#lon").val() == "") {
+            alert('Please On GPS !!');
+            return;
+        }
+        if ($("#withdrowlmobileno").val() == "") {
+            alert('Enter Mobile No !!');
+            $("#withdrowlmobileno").focus()
+            return;
+        }
+        if ($("#withdrowladhaarno").val() == "") {
+            alert('Enter Adhaar No !!');
+            $("#withdrowladhaarno").focus()
+            return;
+        }
+        if ($("#withdrowlamount").val() == "") {
+            alert('Please Enter Amount !!');
+            $("#withdrowlamount").focus()
+            return;
+        }
+        if ($("#withdrowlddlbankid").val() == "0") {
+            alert('Please Select Bank!!');
+            $("#withdrowlddlbankid").focus()
+            return;
+        }
+        if ($("#withdrowlremark").val() == "") {
+            alert('Please Enter Remark!!');
+            $("#withdrowlremark").focus()
+            return;
+        }
+        var dataobj = new FormData;
+
+        dataobj.append("latitude", $("#lat").val());
+        dataobj.append("longitude", $("#lon").val());
+        dataobj.append("mobilenumber", $("#withdrowlmobileno").val());
+        dataobj.append("adhaarnumber", $("#withdrowladhaarno").val());
+        dataobj.append("nationalbankidentification", $("#withdrowlddlbankid").val());
+        dataobj.append("requestremarks", $("#withdrowlremark").val());
+        dataobj.append("amount", $("#withdrowlamount").val());
+        //dataobj.append("data", $("#txtrefid").val());
+        dataobj.append("is_iris", 'No');
+
+        $("#showSpinner").show();
+        $.ajax({
+            url: "/AEPS/Withdraw",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: dataobj,
+            success: function (r) {
+               r=jQuery.parseJSON(r)
+    console.log(r)
+    if(r.response_code=='1')
+    {
+                    alert(r.message)
+    }
+    else if (r.response_code!='undefined')
+    {
+                    alert(r.message)
+    }
+    else
+    {
+        alert(r)
+    }
+                $("#showSpinner").hide();
+            },
+            error: function () {
+                alert("Error Occured !!!")
+                $("#showSpinner").hide();
+            }
+        })
+    }
+    function miniStatement() {
+
+        if ($("#lat").val() == "" && $("#lon").val() == "") {
+            alert('Please On GPS !!');
+            return;
+        }
+        if ($("#ministatmetnmobileno").val() == "") {
+            alert('Enter Mobile No !!');
+            $("#ministatmetnmobileno").focus()
+            return;
+        }
+        if ($("#ministatmentadhaarno").val() == "") {
+            alert('Enter Adhaar No !!');
+            $("#ministatmentadhaarno").focus()
+            return;
+        }
+        if ($("#ministatmentddlbackid").val() == "0") {
+            alert('Please Select Bank !!');
+            $("#ministatmentddlbackid").focus()
+            return;
+        }
+        if ($("#ministatmentremark").val() == "") {
+            alert('Please Enter Remark!!');
+            $("#ministatmentremark").focus()
+            return;
+        }
+        var dataobj = new FormData;
+
+        dataobj.append("latitude", $("#lat").val());
+        dataobj.append("longitude", $("#lon").val());
+        dataobj.append("mobilenumber", $("#ministatmetnmobileno").val());
+        dataobj.append("adhaarnumber", $("#ministatmentadhaarno").val());
+        dataobj.append("nationalbankidentification", $("#ministatmentddlbackid").val());
+        dataobj.append("requestremarks", $("#ministatmentremark").val());
+        //dataobj.append("data", $("#txtrefid").val());
+        dataobj.append("is_iris", 'No');
+
+        $("#showSpinner").show();
+        $.ajax({
+            url: "/AEPS/MiniStatement",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: dataobj,
+            success: function (r) {
+        r=jQuery.parseJSON(r)
+    console.log(r)
+    if(r.response_code=='1')
+    {
+                    alert(r.message)
+    }
+    else if (r.response_code!='undefined')
+    {
+                    alert(r.message)
+    }
+    else
+    {
+        alert(r)
+    }
+                $("#showSpinner").hide();
+            },
+            error: function () {
+                alert("Error Occured !!!")
+                $("#showSpinner").hide();
+            }
+        })
+    }
+
+    function adhaarPay() {
+
+        if ($("#lat").val() == "" && $("#lon").val() == "") {
+            alert('Please On GPS !!');
+            return;
+        }
+        if ($("#adhaarpaymobileno").val() == "") {
+            alert('Enter Mobile No !!');
+            $("#adhaarpaymobileno").focus()
+            return;
+        }
+        if ($("#adhaarpayadhaarno").val() == "") {
+            alert('Enter Adhaar No !!');
+            $("#adhaarpayadhaarno").focus()
+            return;
+        }
+        if ($("#adhaarpayamount").val() == "") {
+            alert('Enter Amount !!');
+            $("#adhaarpayamount").focus()
+            return;
+        }
+        if ($("#adhaarpayddlbackid").val() == "0") {
+            alert('Please Select Bank !!');
+            $("#adhaarpayddlbackid").focus()
+            return;
+        }
+        if ($("#adhaarpayremark").val() == "") {
+            alert('Please Enter Remark!!');
+            $("#adhaarpayremark").focus()
+            return;
+        }
+        var dataobj = new FormData;
+
+        dataobj.append("latitude", $("#lat").val());
+        dataobj.append("longitude", $("#lon").val());
+        dataobj.append("mobilenumber", $("#adhaarpaymobileno").val());
+        dataobj.append("adhaarnumber", $("#adhaarpayadhaarno").val());
+        dataobj.append("nationalbankidentification", $("#adhaarpayddlbackid").val());
+        dataobj.append("requestremarks", $("#adhaarpayremark").val());
+        dataobj.append("amount", $("#adhaarpayamount").val());
+        //dataobj.append("data", $("#txtrefid").val());
+        dataobj.append("is_iris", 'false');
+
+        $("#showSpinner").show();
+        $.ajax({
+            url: "/AEPS/AdharPay",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: dataobj,
+            success: function (r) {
+                r = jQuery.parseJSON(r)
+                console.log(r)
+                if (r.response_code == '1') {
+                    alert(r.message)
+                }
+                else if (r.response_code != 'undefined') {
+                    alert(r.message)
+                }
+                else {
+                    alert(r)
+                }
+                $("#showSpinner").hide();
+            },
+            error: function () {
+                alert("Error Occured !!!")
+                $("#showSpinner").hide();
+            }
+        })
+    }
+    $(document).ready(function () {
+        $('select').select2();
+    });
+
+</script>

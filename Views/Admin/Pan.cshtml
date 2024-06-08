@@ -1,0 +1,970 @@
+﻿@{
+    ViewData["Title"] = "Pan";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using System.Data
+
+
+
+
+<style>
+
+    .card {
+        border-radius: 10px;
+        box-shadow: 0px 2px 5px 0px rgba(19, 23, 38, 0.05);
+        margin-bottom: 10px !important;
+    }
+
+    .wraperplan {
+        min-width: 120px;
+        max-height: 310px;
+        overflow-y: scroll;
+        max-width: 391px;
+    }
+
+    /* check box */
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+    h6.namegg i {
+        transform: rotate(-88deg);
+        margin: 1px 10px;
+        /* padding-top: 17px; */
+        /* padding-left: 0; */
+    }
+
+    .ssarow {
+        transform: rotate(88deg);
+        margin: 1px 10px;
+        /* padding-top: 17px; */
+        /* padding-left: 0; */
+    }
+
+
+    /*  End check box */
+
+
+    .q3 {
+        border: 1px solid #b8cdeb;
+        background: linear-gradient(3deg, white, #ffffff);
+        height: 255px;
+        margin-top: 10px;
+        /*background: white;*/
+    }
+
+
+    body {
+        padding: 10px;
+    }
+
+    #exTab1 .tab-content {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    #exTab2 h3 {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    /* remove border radius for the tab */
+
+    #exTab1 .nav-pills > li > a {
+        border-radius: 0;
+    }
+
+    /* change border radius for the tab , apply corners on top*/
+
+    #exTab3 .nav-pills > li > a {
+        border-radius: 4px 4px 0 0;
+    }
+
+    #exTab3 .tab-content {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    ul#myTab {
+        display: flex;
+        width: 100%;
+    }
+
+    .tab-pane {
+        padding: 18px;
+    }
+
+    nav#myTab {
+        display: block !important;
+    }
+
+    .tab-content {
+        width: 100%;
+        background: #fff;
+    }
+
+    .box-body p {
+        color: black !important;
+    }
+</style>
+
+
+<div class="row">
+    <div class="col-12 ">
+        <div class="box q1 bg-gradient-primary overflow-hidden pull-up">
+            <div class="box-body pr-0 pl-lg-50 pl-15 py-0">
+                <div class="row align-items-center">
+                    <div class="col-12 col-lg-8">
+                        <h1 class="font-size-25 text-white">Pan</h1>
+                        @*<p class="text-white mb-0 font-size-20">
+                        ......
+                        </p>*@
+                    </div>
+                    @*  <div class="col-12 col-lg-4"><img src="https://eduadmin-template.multipurposethemes.com/bs4/images/svg-icon/color-svg/custom-15.svg" alt="" class="JKK"></div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Tab-->
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="myTab" role="tablist">
+
+
+    <ul class="nav nav-tabs customtab nav-justified" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#demo" type="button" role="tab" aria-controls="home" aria-selected="true">Pan</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#demo1" type="button" role="tab" aria-controls="profile" aria-selected="false">Check Status</button>
+        </li>
+        @*<li class="nav-item" role="presentation">
+
+
+
+        </li>*@
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="demo" role="tabpanel" aria-labelledby="home-tab">
+            <div class="row">
+
+                @*  <form method="post">*@
+                <div class="col-md-12">
+
+                    <div id="pandv">
+                        <div class="main-card mb-3 card">
+                            <div class="card-body">
+
+                                <div class="row">
+
+                                    <div class="col-6">
+                                        <span style="color:red"></span><label>First Name :</label>
+                                        <input type="text" id="txtfname" placeholder="Enter First Name... " required name="vendor_Name" class="form-control" />
+
+                                    </div>
+                                    <div class="col-6">
+
+                                        <span style="color:red"></span><label> Middle Name :</label>
+                                        <input type="text" id="txtmname" required name="DOB" class="form-control" placeholder="Middle Name" />
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-6 p-3">
+
+                                        <span style="color:red">*</span><label> Last Name :</label>
+                                        <input type="text" id="txtlastname" placeholder="Enter Verified Code" required name="vendor_Name" class="form-control" placeholde="Enter Last Name" />
+
+                                    </div>
+                                    <div class="col-6 p-3">
+
+                                        <span style="color:red">*</span><label>Email :</label>
+
+                                        <input type="email" id="txtemail" placeholder="Enter Email ID " required name="vendor_Name" class="form-control" />
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+
+
+                                    <div class="col-6 ">
+                                        <span style="color:red">*</span><label>Mode :</label>
+                                        <select class="form-control" id="ddlmode" required name="Txntype">
+                                            <option value="0" disabled selected>-- Select Mode --</option>
+                                            <option value="P" id="IMPS">Physical Pan </option>
+                                            <option value="E" id="NEFT">Electronic Pan</option>
+                                        </select>
+
+                                    </div>
+                                    @* <div class="col-6 p-3">
+                                 gender:
+                                        <input type="text" id="txtgender" placeholder="Enter gender Show On Pan " required class="form-control" name="Pincode" />
+                                        *@
+                                        @*<select class="form-control" id="txtgender" required name="Txntype">
+                                        <option value="0" disabled selected>-- Select Gender --</option>
+                                        <option value="MALE" id="IMPS">MALE</option>
+                                        <option value="FEMALE" id="NEFT">FEMALE</option>
+                                        <option value="OTHER" id="NEFT">OTHER</option>
+
+
+                                        </select>*@
+                                        @*<p id="pcode">Please Put gst_state</p><br />
+                                        <span style="color:red;">Note : </span><span>If Gender = 'M', then title = 1 (i.e. Shri), 2. if Gender = 'F', then title should be 2 (i.e. Smt.) or 3 (Kumari), 3. if Gender = 'T' then title should be 1 or 2 or 3</span>
+
+                                    </div>*@
+                                </div>
+                                <div class="row">
+
+
+                                    <div class="col-6">
+                                        @*refid
+                                        :
+                                        <input type="text" id="vid" name="id" class="form-control" />*@
+                                        @* <select class="form-control" id="Pipe" required name="Pipe">
+                                        <option value="0" disabled selected>-- Select Pipe --</option>
+                                        <option value="bank1" id="bank1">bank1</option>
+                                        <option value="bank2" id="bank2"> bank2</option>
+
+                                        <option value="bank3" id="bank3"> bank3</option>
+                                        </select>*@
+
+
+                                        <span style="color:red">*</span><label>Gender :</label>
+                                        @* <input type="text" id="txtgender" placeholder="Enter gender Show On Pan " required class="form-control" name="Pincode" />
+                                        *@
+                                        <select class="form-control" id="txtgender" onchange="SetTitle()" required name="Txntype">
+                                            <option value="0" disabled selected>-- Select Gender --</option>
+                                            <option value="M" id="MALE">MALE</option>
+                                            <option value="F" id="FEMALE">FEMALE</option>
+                                            <option value="T" id="OTHER">OTHER</option>
+
+
+                                        </select>
+                                        @*<p id="pcode">Please Put gst_state</p>*@
+
+
+                                    </div>
+                                    <div class="col-6">
+                                        <span style="color:red">*</span><label>Title :</label>
+
+
+                                        <select class="form-control" id="txttitle" required name="Txntype">
+                                            <option value="0" disabled selected>-- Select Gender --</option>
+                                            <option value="1" id="IMPS">Shri</option>
+                                            <option value="2" id="NEFT">Smt.</option>
+                                            <option value="3" id="NEFT">Kumari</option>
+
+
+                                        </select>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+
+
+
+                        </div>
+
+
+
+                        <div class="col-xl-3 col-md-6 col-12">
+                            <input type="button" id="savebutton" style="width:100%;" value="SAVE" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="SaveRecord();" />
+
+                        </div>
+                    </div>
+
+                    <div class="q3" style="overflow:auto" id="showdatabox">
+                        <div class="box-body">
+                            @*   <span style="font-family:Impact;font-size:20px;">₹</span>   <span style="font-family:Impact;font-size:20px;">5512.00</span>*@
+                            <span style="font-size:20px;">Enc Data:</span> <p id="ddlencdata"></p>
+                            <span style="font-size:20px;">URL:</span><p class="copy_text" id="ddlUrl"> </p> <p id="msg"></p>
+                            <label><li class="fa fa-copy " onclick="copyText()"></li></label>
+
+                            <form method="post" action="" target="_blank" id="formseturl">
+                                <textarea name="encdata" style="display:none" id="txtencdataset"></textarea>
+                                <input type="submit" value="Go To URL" class="btn button mt-2 fs-5 center-elem bg-gradient-primary">
+                            </form>
+                        </div>
+
+                    </div>
+
+                    <div id="pantstatusdv" class="main-card mb-3 card p-4" style="display:none">
+                        @* <h4 class="text-center" id="resmsg"></h4>*@
+                        <div id="statusdv">
+
+                            <div class="row">
+                                <div class="col-sm-2">Name</div>
+                                <div class="col-sm-4" id="dvname"></div>
+                                <div class="col-sm-2">Amount</div>
+                                <div class="col-sm-4" id="dvamount"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">Acc no.</div>
+                                <div class="col-sm-4" id="dvacc"></div>
+                                <div class="col-sm-2">Added Date</div>
+                                <div class="col-sm-4" id="dvaddeddate"></div>
+                            </div>
+                        </div>
+
+
+                        <br />
+
+
+
+                    </div>
+                </div>
+                @*    </form>*@
+                <br /><br /><br /><br />
+                <div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="demo1" role="tabpanel" aria-labelledby="profile-tab">
+
+
+            @* <div class="row">
+
+            <div class="col-sm-2">Reference Id:</div>
+
+            <div class="col-sm-4">
+            </div>
+
+            </div>*@
+            <div class="row">
+                <form method="post">
+                    <div class="col-md-12">
+
+                        <div class="main-card mb-3 card">
+                            <div class="card-body">
+
+                                <div class="row">
+
+                                    <div class="col-sm-6 p-3">
+                                        <span style="color:red">*</span><label>Reference ID</label>
+                                        <input id="txtrefid" type="text" placeholder="Enter reference id" class="form-control" />
+                                    </div>
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-5"> <h2 class="" id="resmsg"></h2></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2 ">
+                                        <input name="flexRadioDefault" type="radio" onclick="trnsactionstatus();" />
+                                        <strong>Transaction status</strong>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input name="flexRadioDefault" type="radio" onclick="checkstatus();" />
+                                        <strong>Pan status</strong>
+                                    </div>
+                                </div>
+
+                                <button type="button" id="btntrans" class="btn btn-primary " onclick="checkEnquiryStatus()">Check Now </button>
+                                <button type="button" id="btnSearch" class="btn btn-primary " onclick="GetRecord()">Check Now  </button>
+
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="row">
+
+                            <div style="display:none;">
+                                <div class="col-sm-6  p-3">
+                                    <span style="color:red">*</span><label>Reference ID</label>
+                                    <input id="txtrefid" type="text" placeholder="Enter reference id" class="form-control" />
+
+
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <button type="button" id="btnSearch" class="btn mt-3 form-control btn-primary " onclick="checkEnquiryStatus()">Check Status </button>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 border p-2">
+                                <div class="card-header alert alert-primary ">
+                                    <h4 class="text-center">Bill History</h4>
+                                </div>
+                                <table id="example3" class="my  table table-bordered table-hover" style="width:100%;">
+                                    <thead class="bg-primary">
+                                        <tr>
+                                          @*  <th>Status</th>*@
+                                            <th>Reference Id :</th>
+                                            <th> Date :</th>
+                                            <th>Name :</th>
+                                            <th>Email:</th>
+                                           
+
+
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+
+
+                                        @if (ViewBag.RechargeRefId != null && ViewBag.RechargeRefId.Rows.Count > 0)
+                                        {
+                                            foreach (DataRow item in ViewBag.RechargeRefId.Rows)
+                                            {
+                                                <tr>
+
+
+                                                    <td>
+                                                        <i class="btn btn-primary" onclick="setRefIdTxt('@item["refid"]')">@item["refid"]</i>
+                                                    </td>
+
+                                                   @* <td onclick="setRefIdTxt('@item[refid]')">@item["refid"]</td>*@
+                                                    <td>@item["EntryDate"]</td>
+
+
+                                                    <td>@item["fname"]</td>
+                                                    <td>@item["email"]</td>
+                                                   
+
+                                                </tr>
+
+
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+
+
+
+
+
+
+
+                            </div>
+
+
+
+
+                        </div>
+
+
+
+                        <div class="border" style="display:none;">
+                            <div class="wraperplan border p-2">
+                                @if (ViewBag.RechargeRefId != null && ViewBag.RechargeRefId.Rows.Count > 0)
+                                {
+                                    foreach (DataRow item in ViewBag.RechargeRefId.Rows)
+                                    {
+                                        <div class=" card p-3 " onclick="setRefIdTxt('@item["refid"]')">
+
+
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Reference Id :</th>
+                                                        <td> @item["refid"]</td>
+
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th>Date:</th>
+                                                        <td>  @item["entrydate"]</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Name :</th>
+                                                        <td> @item["fname"]</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Email :</th>
+                                                        <td>  @item["email"]</td>
+
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            @*   <div class=" row ">
+                                    <div class="col-sm-5"><label>Reference Id : </label></div><div class="col-sm-7"><span> @item["refid"]</span></div>
+                                    </div>
+
+                                    <div class=" row ">
+                                    <div class="col-sm-5"><label> Date: </label></div><div class="col-sm-7">
+                                    <span> @item["entrydate"]</span>
+                                    </div>
+                                    </div>
+                                    <div class=" row ">
+                                    <div class="col-sm-5"><label>Name : </label></div><div class="col-sm-7">
+                                    <span> @item["fname"]</span>
+                                    </div>
+                                    </div>
+                                    <div class=" row ">
+                                    <div class="col-sm-5"><label>Email : </label></div><div class="col-sm-7">
+                                    <span> @item["email"]</span>
+                                    </div>
+                                    </div>*@
+                                        </div>
+                                    }
+
+                                }
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                </form>
+
+
+            </div>
+
+            @* <div class="row" style="display:none">
+            <form method="post">
+            <div class="col-md-12">
+
+            <div class="main-card mb-3 card">
+            <div class="card-body">
+
+            <div class="row">
+
+            <div class="col-sm-6 p-3">
+            <span style="color:red">*</span><label>RefId</label>
+            <input type="text" class="form-control" placeholder="Enter Reference Id.." id="txtrefid" />
+            </div>
+
+            </div>
+            <div class="col-sm-2">
+            <input type="button" id="savebutton" style="width:100%;" value="search" class="btn button fw-bold center-elem bg-primary" onclick="GetRecord();" />
+            </div>
+
+
+            </div>
+            </div>
+
+
+
+
+            </div>
+            </form>
+
+
+            </div>
+            *@
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+</nav>
+
+
+<!--Tab End-->
+
+
+
+
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#SubmitProject").click(function () {
+            if ($("#Validatetextbox").val() == "") {
+                alert("There is no value in textbox");
+            }
+        });
+    });
+</script>
+
+<script>
+
+
+    function SaveRecord() {
+
+
+        debugger;
+        //if ($("#txtfname").val() == "") {
+        //    alert("Enter First Name  !!!");
+        //    $("#txtfname").focus();
+        //    return;
+        //}
+
+        //if ($("#txtmname").val() == "") {
+        //    alert("Enter  Middle Name !!!");
+        //    $("#txtmname").focus();
+        //    return;
+        //}
+
+        if ($("#txtlastname").val() == "") {
+            alert("Enter Last Name !!!");
+            $("#txtlastname").focus();
+            return;
+        }
+
+        if ($("#txtemail").val() == "") {
+            alert("Enter Email !!!");
+            $("#txtemail").focus();
+            return;
+        }
+        if ($("#ddlmode").val() == "0") {
+            alert(" Please select Mode !!!");
+            $("#ddlmode").focus();
+            return;
+        }
+        if ($("#txtgender").val() == "0") {
+            alert("select  Gender !!!");
+            $("#txtgender").focus();
+            return;
+        }
+
+        if ($("#txttitle").val() == "0" || $("#txttitle").val() == "" || $("#txttitle").val() == null) {
+            alert("Please select Title !!!");
+            $("#txttitle").focus();
+            return;
+        }
+
+        var dataobject = {
+            firstname: $("#txtfname").val(),
+            title: $("#txttitle").val(),
+            middlename: $("#txtmname").val(),
+            lastname: $("#txtlastname").val(),
+            mode: $("#ddlmode").val(),
+            gender: $("#txtgender").val(),
+            email: $("#txtemail").val(),
+
+        };
+        $("#showSpinner").show();
+        $.ajax({
+            url: "/Admin/SavePamCardDetails",
+            type: "POST",
+            data: dataobject,
+            success: function (r) {
+                debugger;
+                console.log("ALL")
+                console.log(r)
+                console.log("MSg")
+                console.log(r.msg)
+                //alert(r.msg);
+                if (r.rescode == '1') {
+
+                    $("#ddlUrl").text(r.url);
+                    $("#ddlencdata").text(r.encdata );
+                    $("#showdatabox").show();
+                    //location.reload();
+                    $("#formseturl").attr("action", r.url);
+                    $("#txtencdataset").text(r.encdata);
+
+                    clearrecord();
+                }
+                else {
+                    alert(r.msg);
+                    $("#showSpinner").hide();
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        });
+    }
+    function SetTitle() {
+        if ($("#txtgender").val() == "M") {
+            //$("#txttitle").val("Shri").trigger("change");
+            //$("#txttitle").attr("readonly",true);
+            $("#txttitle").empty();
+            $("#txttitle").append("<option selected value='1' > Shri </option>");
+        }
+        else if ($("#txtgender").val() == "F") {
+            $("#txttitle").empty();
+            $("#txttitle").append("<option selected disabled  value='0' > -- Select Title -- </option>");
+            $("#txttitle").append("<option  value='2.' > Smt. </option>");
+            $("#txttitle").append("<option  value='3' > Kumari </option>");
+        }
+        else if ($("#txtgender").val() == "T") {
+            $("#txttitle").empty();
+            $("#txttitle").append("<option selected disabled  value='0' > -- Select Title -- </option>");
+            $("#txttitle").append("<option  value='1' > Shri </option>");
+            $("#txttitle").append("<option  value='2' > Smt. </option>");
+            $("#txttitle").append("<option  value='3' > Kumari </option>");
+        }
+    }
+
+
+
+</script>
+
+
+<script language="Javascript" type="text/javascript">
+
+    function onlyAlphabets(e, t) {
+        try {
+            if (window.event) {
+                var charCode = window.event.keyCode;
+            }
+            else if (e) {
+                var charCode = e.which;
+            }
+            else { return true; }
+            if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 32)
+                return true;
+            else
+                return false;
+        }
+        catch (err) {
+            alert(err.Description);
+        }
+    }
+
+</script>
+
+<script type="text/javascript" language="javascript">
+    function numeric(e) {
+        var unicode = e.charCode ? e.charCode : e.keyCode;
+        if (unicode == 8 || unicode == 9 || (unicode >= 48 && unicode <= 57)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+</script>
+
+
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $("#pantstatusdv").hide();
+        $("#statusdv").hide();
+        $("#btnSearch").hide();
+        $("#btntrans").hide();
+        $("#showdatabox").hide();
+    })
+    function numeric(e) {
+        var unicode = e.charCode ? e.charCode : e.keyCode;
+        if (unicode == 8 || unicode == 9 || (unicode >= 48 && unicode <= 57)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function tHideShow() {
+        $("#pandv").hide();
+        $("#pantstatusdv").show();
+        $("#resmsg").hide()
+
+    }
+    function pandvHideShow() {
+        $("#pantstatusdv").hide();
+        $("#pandv").show();
+
+    }
+
+
+    function checkEnquiryStatus() {
+        if ($("#txtrefid").val() == "") {
+            $("#txtrefid").focus();
+            alert("Enter Reference Id !!")
+            return;
+        }
+        var dataobj = new FormData;
+
+        dataobj.append("refid", $("#txtrefid").val());
+
+        $("#showSpinner").show();
+        $.ajax({
+            url: "/Admin/PanStatesEnquiry",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: dataobj,
+            success: function (r) {
+                // debugger;
+                console.log(r)
+                if (r == "Something Went Wrong!!" || r == "Enter Reference Number!!") {
+                    $("#resmsg").text(r)
+                }
+                else {
+                    var res = jQuery.parseJSON(r);
+                    console.log(res)
+                    $("#resmsg").text(res.message)
+                    $("#resmsg").show()
+                    if (res != null) {
+
+                        if (res.response_code != 0)
+                            $("#statusdv").show()
+                        $("#resmsg").text(res.message)
+                        $("#dvname").text(res.data.name)
+                        $("#dvamount").text(res.data.amount)
+                        $("#dvacc").text(res.data.ack_no)
+                        $("#dvaddeddate").text(res.data.addeddate)
+                        debugger;
+                        if (res.status == "true") {
+                            $("#resmsg").css("color", "green")
+
+                        }
+                        else {
+                            $("#resmsg").css("color", "red")
+                        }
+
+                    }
+                    $("#txtrefid").val("")
+                }
+                //console.log(res)
+
+                $("#showSpinner").hide();
+            },
+            error: function () {
+                alert("Error Occured !!!")
+                $("#showSpinner").hide();
+            }
+        })
+    }
+
+    function clearrecord() {
+        $("#txtfname").val('');
+        $("#txttitle").val('');
+        $("#txtmname").val('');
+        $("#txtlastname").val('');
+        $("#ddlmode").val('0');
+        $("#txtgender").val('0');
+        $("#txtemail").val('');
+    }
+
+
+
+</script>
+
+
+<script>
+
+    function GetRecord() {
+
+        if ($("#txtrefid").val() == "") {
+            alert("Enter Reference Id !!!");
+            $("#txtrefid").focus();
+            return;
+        }
+        var dataobject = {
+            refid: $("#txtrefid").val(),
+        };
+        $.ajax({
+            url: "/Admin/GetCheckPanStatus",
+            type: "POST",
+            data: dataobject,
+            success: function (r) {
+                console.log(r)
+                var obj = jQuery.parseJSON(r);
+                //console.log(obj)
+                if (obj.response_code == '1') {
+                    //alert(obj.message);
+                    $("#resmsg").text(obj.message)
+                    $("#resmsg").show()
+                    //location.reload();
+                    $("#showSpinner").hide();
+                }
+                else if (obj != "") {
+                    //alert(obj.message);
+                    $("#resmsg").text(obj.message)
+                    $("#resmsg").show()
+                    $("#showSpinner").hide();
+                }
+                else {
+                    alert('Server not Responding !!!');
+                    $("#showSpinner").hide();
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        });
+    }
+
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+@*<input type="text" class="copy_text" value="Hello World!">
+*@
+<script>
+    function copyText() {
+        debugger;
+        var copy = $('.copy_text').text();
+        $('.copy_text').select();
+        document.execCommand('copy');
+        $("#msg").text("copy successful");
+
+        //Swal.fire({
+        //    icon: 'success',
+        //    title: 'Text copied to clipboard',
+        //    text: copy,
+        //    showConfirmButton: false,
+        //    timer: 3000
+        //});
+
+    }
+
+
+    function checkstatus() {
+        $("#btnSearch").show();
+        $("#btntrans").hide();
+    }
+
+    function trnsactionstatus() {
+        $("#btntrans").show();
+        $("#btnSearch").hide();
+    }
+
+    function setRefIdTxt(id) {
+        $("#txtrefid").val(id);
+    }
+
+
+
+
+</script>
+

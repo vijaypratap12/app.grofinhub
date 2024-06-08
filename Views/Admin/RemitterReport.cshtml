@@ -1,0 +1,104 @@
+﻿@{
+    ViewData["Title"] = "RemitterReport";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
+ 
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.bootstrap5.min.css" />
+</head>
+
+
+
+@model DataTable
+@using System.Data
+
+<div class="col-md-12">
+    <div class="card card-warning ">
+        <div class="card-header">
+            <h3 class="card-title"> Remitter Report List</h3>
+        </div>
+        <div class="card-body">
+            <div style="overflow-x:auto;">
+                <table id="example3" class="my  table table-bordered table-hover" style="width:100%;">
+                    <thead class="bg-primary">
+                        <tr>
+                            <th>Sr.No.</th>
+                            <th>Firstname </th>
+                            <th>LastName</th>
+                            <th>Address</th>
+                            <th>Pincode</th>
+                            <th>OTP</th>
+                            <th>Date of Birth</th>
+                            <th>Entry Date </th>
+
+                            <th>Remitter Code</th>
+
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @{
+
+                            if (Model != null)
+                            {
+                                if (Model.Rows.Count > 0)
+                                {
+                                    int i = 1;
+                                    foreach (DataRow item in Model.Rows)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>@item["Firstname"]</td>
+                                            <td>@item["Lastname"]</td>
+                                            <td>@item["Address"]</td>
+
+                                            <td>@item["Pincode"]</td>
+                                            <td>@item["Otp"]</td>
+                                            <td>@item["dob"]</td>
+                                            <td>@item["EntryDate"]</td>
+                                            <td>@item["RemitterCode"]</td>
+
+
+
+
+                                            @* <td>
+                            <a href="#" onclick="GetDetailsForEdit('@item["RecruitmentID"]')"><span class="badge bg-success">Edit</span></a>
+                            </td>
+                            *@
+
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+
+                            }
+
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    var js=jQuery.noConflict(true)
+    js(document).ready(function(){
+
+        js("#example3").DataTable();
+    })
+
+
+
+
+
+</script>

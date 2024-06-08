@@ -1,0 +1,622 @@
+﻿
+@{
+    ViewData["Title"] = "EPFOKYC";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<style>
+
+   
+    .card {
+        border-radius: 10px;
+        box-shadow: 0px 2px 5px 0px rgba(19, 23, 38, 0.05);
+        margin-bottom: 10px !important;
+    }
+
+    /* .wraperplan {
+            min-width: 120px;
+            max-height: 310px;
+            overflow-y: scroll;
+        }*/
+
+    .wraperplan {
+        min-width: 120px;
+        max-height: 450px;
+        overflow-y: scroll;
+    }
+
+    body {
+        padding: 10px;
+    }
+
+    #exTab1 .tab-content {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    #exTab2 h3 {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    /* remove border radius for the tab */
+
+    #exTab1 .nav-pills > li > a {
+        border-radius: 0;
+    }
+
+    /* change border radius for the tab , apply corners on top*/
+
+    #exTab3 .nav-pills > li > a {
+        border-radius: 4px 4px 0 0;
+    }
+
+    #exTab3 .tab-content {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    ul#myTab {
+        display: flex;
+        width: 100%;
+    }
+
+    .tab-pane {
+        padding: 18px;
+    }
+
+    nav#myTab {
+        display: block !important;
+    }
+
+    .tab-content {
+        width: 100%;
+        background: #fff;
+    }
+</style>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="myTab" role="tablist">
+
+
+    <ul class="nav nav-tabs customtab nav-justified" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#demo" type="button" role="tab" aria-controls="home" aria-selected="true">Check Details</button>
+        </li>
+        @*<li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#demo1" type="button" role="tab" aria-controls="profile" aria-selected="false">LIC Bill Pay</button>
+        </li>*@
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#demo2" type="button" role="tab" aria-controls="contact" aria-selected="false"> Passbook </button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="demo" role="tabpanel" aria-labelledby="home-tab">
+
+            <section class="content">
+
+                <div class="row">
+                    <div class="">
+                        <div class="card card-warning padding">
+                            <div class="">
+                                <h3 class="card-title new-title">EPFO KYC</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+
+                                        <div class="form-group">
+                                            <label>UAN Number	 </label>
+                                            <input type="text" class="form-control" maxlength="12" placeholder="enter UAN Number" id="txtepfono" />
+
+                                        </div>
+                                        <button type="button" id="btnSearch" class="btn btn-primary waves-effect waves-light" onclick="return send_otp()">Show Details</button>
+
+                                    </div>
+                                    <div class="col-sm-1">
+                                    </div>
+                                    <div class="col-sm-8 card" id="showhidekycdetaildv" style="display:none;">
+                                        <div class="row p-3">
+                                            <div class="col-sm-2">client_id : </div>
+                                            <div class="col-sm-4"><span id="showspnclientid"></span></div>
+                                            <div class="col-sm-2">pf_uan : </div>
+                                            <div class="col-sm-4"><span id="showspnpf_uan"></span></div>
+                                        </div>
+                                        <div class="border p-3 my-3">
+                                            <label class="fw-bold">Kyc Details</label>
+                                            <div class="row">
+                                                <div class="col-sm-3">pan_number : </div>
+                                                <div class="col-sm-3"><span id="showspnpan_number"></span></div>
+                                                <div class="col-sm-2">aadhaar_number : </div>
+                                                <div class="col-sm-4"><span id="showspnaadhaar_number"></span></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">mobile_number : </div>
+                                                <div class="col-sm-3"><span id="showspnmobile_number"></span></div>
+                                                <div class="col-sm-2">email : </div>
+                                                <div class="col-sm-4"><span id="showspnemail"></span></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">full_name : </div>
+                                                <div class="col-sm-3"><span id="showspnfull_name"></span></div>
+
+                                                <div class="col-sm-2">doj_eps : </div>
+                                                <div class="col-sm-4"><span id="showspndoj_eps"></span></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">relation_type : </div>
+                                                <div class="col-sm-3"><span id="showspnrelation_type"></span></div>
+                                                <div class="col-sm-2">dob : </div>
+                                                <div class="col-sm-4"><span id="showspndob"></span></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">doj_epf : </div>
+                                                <div class="col-sm-3"><span id="showspndoj_epf"></span></div>
+                                                <div class="col-sm-3">relation_name : </div>
+                                                <div class="col-sm-3"><span id="showspnrelation_name"></span></div>
+                                            </div>
+                                        </div>
+                                        <div class="border p-3">
+                                            <label class="fw-bold">Bank Details</label>
+                                            <div class="row">
+                                                <div class="col-sm-2">account_number : </div>
+                                                <div class="col-sm-4"><span id="showspnaccount_number"></span></div>
+                                                <div class="col-sm-2">ifsc : </div>
+                                                <div class="col-sm-4"><span id="showspnifsc"></span></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-2">details : </div>
+                                                <div class="col-sm-4"><span id="showspnadetails"></span></div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </section>
+
+        </div>
+
+
+        <div class="tab-pane fade" id="demo2" role="tabpanel" aria-labelledby="contact-tab">
+
+  <section class="content">
+                <div class="row">
+                    <div class="">
+                        <div class="card card-warning padding">
+                            <div class="">
+                                <h3 class="card-title new-title">EPFO KYC</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+
+                                        <div class="form-group">
+                                            <label>UAN Number	 </label>
+                                            <input type="text" class="form-control" maxlength="12" placeholder="enter UAN Number" id="txtepfonopassbook" />
+
+                                        </div>
+                                        <button type="button" id="epfoKYCDownloadPassword" class="btn btn-primary waves-effect waves-light" onclick="epfoKYCDownloadPassword()">Show Details</button>
+
+                                    </div>
+                                     <div class="col-sm-9" id="showpassbookdv">
+                                         
+                                    </div>
+                                    @*<button style="display:none;;" onclick="printPDF()">Download Passbook</button>*@
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+
+        </div>
+    </div>
+
+</nav>
+
+
+@*<div class="row">
+        <div class="">
+            <div class="card card-warning padding">
+            <div class="">
+                    <h3 class="card-title new-title">EPFO KYC</h3>
+            </div>
+            <div class="card-body">
+                    <div class="row">
+                    <div class="col-sm-3">
+
+                        <div class="form-group">
+                                <label>UAN Number	 </label>
+                            <input type="text" class="form-control" maxlength="12" placeholder="enter UAN Number" id="txtepfono"  />
+
+                        </div>
+                            <button type="button" id="btnSearch" class="btn btn-primary waves-effect waves-light" onclick="return send_otp()">Show Details</button>
+
+                    </div>
+                    <div class="col-sm-1">
+
+                </div>
+                <div class="col-sm-8 card" id="showhidekycdetaildv" style="display:none;">
+                    <div class="row p-3">
+                                <div class="col-sm-2">client_id : </div>
+                                <div class="col-sm-4"><span id="showspnclientid"></span></div>
+                                <div class="col-sm-2">pf_uan : </div>
+                                <div class="col-sm-4"><span id="showspnpf_uan"></span></div>
+                    </div>
+                    <div class="border p-3 my-3">
+                                <label class="fw-bold">Kyc Details</label>
+                     <div class="row">
+                                <div class="col-sm-3">pan_number : </div>
+                                <div class="col-sm-3"><span id="showspnpan_number"></span></div>
+                                <div class="col-sm-2">aadhaar_number : </div>
+                                <div class="col-sm-4"><span id="showspnaadhaar_number"></span></div>
+                    </div>
+                            <div class="row">
+                                <div class="col-sm-3">mobile_number : </div>
+                                <div class="col-sm-3"><span id="showspnmobile_number"></span></div>
+                                <div class="col-sm-2">email : </div>
+                                <div class="col-sm-4"><span id="showspnemail"></span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">full_name : </div>
+                                <div class="col-sm-3"><span id="showspnfull_name"></span></div>
+                                
+                                 <div class="col-sm-2">doj_eps : </div>
+                                <div class="col-sm-4"><span id="showspndoj_eps"></span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">relation_type : </div>
+                                <div class="col-sm-3"><span id="showspnrelation_type"></span></div>
+                                <div class="col-sm-2">dob : </div>
+                                <div class="col-sm-4"><span id="showspndob"></span></div>
+                            </div>
+                             <div class="row">
+                                <div class="col-sm-3">doj_epf : </div>
+                                <div class="col-sm-3"><span id="showspndoj_epf"></span></div>
+                                    <div class="col-sm-3">relation_name : </div>
+                                    <div class="col-sm-3"><span id="showspnrelation_name"></span></div>
+                            </div>
+                            </div>
+                            <div class="border p-3">
+                                <label class="fw-bold">Bank Details</label>
+                            <div class="row">
+                                <div class="col-sm-2">account_number : </div>
+                                <div class="col-sm-4"><span id="showspnaccount_number"></span></div>
+                                <div class="col-sm-2">ifsc : </div>
+                                <div class="col-sm-4"><span id="showspnifsc"></span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">details : </div>
+                                <div class="col-sm-4"><span id="showspnadetails"></span></div>
+                                
+                            </div>
+                            </div>
+                </div>
+
+
+
+
+                </div>
+                   
+            </div>
+
+        </div>
+    </div>
+</div>
+ *@ 
+
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+             @*   <h5 class="modal-title " style="color:green;" >OTP</h5> <br />*@
+                <input type="hidden" id="ddlRefeID" />
+               @* <span><input type="text" id="ddlotp" readonly /></span>*@
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                <input type="text"  id="txtoto" class="form-control" placeholder="Enter OTP" /><br />
+               <p id="msg" style="color:red"></p>
+                </div>
+               
+                <div class="modal-footer">
+              
+                <input type="button" onclick="GetKycDetails()" class="btn btn-success" value="Submit" />
+                 
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+
+    //function printPDF()
+    //{
+    //    var pdfId = '#showpassbookdv'; 
+    //    $('#showpassbookdv').print();
+    //}
+
+    function printPDF() {
+        debugger;
+        var contents = $("#showpassbookdv").html();
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>Passbook</title>');
+        frameDoc.document.write('</head><body>' + $('style')[0].outerHTML);
+        //Append the external CSS file.
+         
+        frameDoc.document.write('<link href="https://app.grofinhub.com//css/style.css" rel="stylesheet" />');
+       
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+    };
+
+        function send_otp() {
+            debugger;
+        if($("#txtepfono").val()==''){
+            alert("Please enter EPFO NO ?");      
+            $("#txtepfono").focus();
+           
+            return false;
+        }
+        var dataobject = {
+            Epfo_number: $("#txtepfono").val(),     
+           
+        };   
+        $.ajax({
+            url: "/Admin/EPFOKYC_OTPSEND",
+            type: "POST",
+            data: dataobject,
+            success: function (r) {
+                debugger;
+                console.log(r)
+                if (r.strId == '1') {
+                   $("#ddlotp").val(r.otp)
+                    $("#ddlRefeID").val(r.refeID)
+                    $("#txtoto").val('');
+                    $("#msg").text('');
+                    $("#exampleModal").modal('show')
+                }
+                else {
+                    alert(r.msg);                  
+               }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        });
+    }
+
+
+    function GetKycDetails(){
+        if ($("#txtoto").val() == '') {
+            alert("Please enter OTP  ?");
+            $("#txtoto").focus();
+            return false;
+        }  
+        debugger
+        var dataobject = {
+            
+            otp: $("#txtoto").val(),
+        };
+        $.ajax({
+            url: "/Admin/KycDetailsGet",
+            type:"POST",
+            data: dataobject,
+            success: function (r) {
+                r = jQuery.parseJSON(r)
+                console.log(r)
+                debugger
+                if (r.statuscode == '200') {
+                    //window.location.reload(true);
+                    $("#showspnclientid").text(r.data.client_id);
+                    $("#showspnpf_uan").text(r.data.pf_uan);
+
+                    $("#showspnpan_number").text(r.data.kyc_details.pan_number);
+                    $("#showspnaadhaar_number").text(r.data.kyc_details.aadhaar_number);
+                    $("#showspnmobile_number").text(r.data.kyc_details.mobile_number);
+                    $("#showspnemail").text(r.data.kyc_details.email);
+                    $("#showspnfull_name").text(r.data.kyc_details.full_name);
+                    $("#showspnrelation_name").text(r.data.kyc_details.relation_name);
+                    $("#showspnrelation_type").text(r.data.kyc_details.relation_type);
+                    $("#showspndob").text(r.data.kyc_details.dob);
+                    $("#showspndoj_epf").text(r.data.kyc_details.doj_epf);
+                    $("#showspndoj_eps").text(r.data.kyc_details.doj_eps);
+
+                    $("#showspnaccount_number").text(r.data.kyc_details.bank_details.account_number);
+                    $("#showspnifsc").text(r.data.kyc_details.bank_details.ifsc);
+                    $("#showspnadetails").text(r.data.kyc_details.bank_details.details);
+
+
+                    $("#showhidekycdetaildv").show()
+                    $("#exampleModal").modal('hide')
+                    //$("#exampleModal").hide()
+                    //$(".modal-backdrop.show").css("opacity",0)
+                   
+                   
+                }
+                else{
+                    $("#msg").empty();
+                    $("#msg").append(r.message);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        })
+    }
+
+    $('#txtepfono').keyup(function () {
+        this.value = this.value.replace(/[^0-9\.]/g, '');
+    });
+
+
+
+
+    function epfoKYCDownloadPassword() {
+            debugger;
+        if($("#txtepfonopassbook").val()==''){
+            alert("Please enter EPFO NO !!");      
+            $("#txtepfonopassbook").focus();
+           
+            return false;
+        }
+        var dataobject = {
+            Epfo_number: $("#txtepfonopassbook").val(),
+
+        };   
+        $.ajax({
+            url: "/Admin/EpfoKYCDownloadPassword",
+            type: "POST",
+            data: dataobject,
+            success: function (r) {
+                debugger;
+                var res = jQuery.parseJSON(r);
+                console.log(res);
+                
+                if (res.statuscode == '200') {
+                    var resdata = res.data
+                    var rescompdata= resdata.companies[Object.keys(resdata.companies)[0]]
+                    var respassbookdata = resdata.companies[Object.keys(resdata.companies)[0]].passbook
+                    var divdata="";
+                    divdata += "<div class='row'>"
+
+                    divdata += "<div class='col-sm-4'> client id:</div>"
+                    divdata += "<div class='col-sm-8'>" + resdata.client_id + " </div>"
+
+                    divdata += "<div class='col-sm-4'> pf uan:</div>"
+                    divdata += "<div class='col-sm-8'>" + resdata.pf_uan + " </div>"
+
+                    divdata += "<div class='col-sm-4'> full name:</div>"
+                    divdata += "<div class='col-sm-8'>" + resdata.full_name + " </div>"
+
+                    divdata += "<div class='col-sm-4'> father name:</div>"
+                    divdata += "<div class='col-sm-8'>" + resdata.father_name + " </div>"
+
+                    divdata += "<div class='col-sm-4'> dob:</div>"
+                    divdata += "<div class='col-sm-8'>" + resdata.dob + " </div><hr/>"
+
+
+                    divdata += "<div class='col-sm-3'> company name:</div>"
+                    divdata += "<div class='col-sm-3'>" + rescompdata.company_name + " </div>"
+
+                    divdata += "<div class='col-sm-3'> establishment id:</div>"
+                    divdata += "<div class='col-sm-3'>" + rescompdata.establishment_id + " </div>"
+
+                    divdata += "<div class='col-sm-3'> employee total:</div>"
+                    divdata += "<div class='col-sm-3'>" + rescompdata.employee_total + " </div>"
+
+                    divdata += "<div class='col-sm-3'> employer total:</div>"
+                    divdata += "<div class='col-sm-3'>" + rescompdata.employer_total + " </div>"
+
+                    divdata += "<div class='col-sm-3'> pension total:</div>"
+                    divdata += "<div class='col-sm-3'>" + rescompdata.pension_total + " </div><hr/>"
+                    divdata+="</div><h4>Passbook</h4>"
+
+
+                    respassbookdata.forEach(function (data) {
+                        //alert(data.member_id)
+                        divdata+="<div class='row border'>"
+
+                       
+
+                        divdata += "<div class='col-sm-2'> Member Id:</div>"
+                        divdata += "<div class='col-sm-4' style='font-size: 13px;'>" + data.member_id + " </div>"
+
+                       divdata += "<div class='col-sm-3'> credit flag : </div>"
+                        divdata += "<div class='col-sm-3'>" + data.credit_debit_flag + " </div>"
+
+                        divdata += "<div class='col-sm-3'> doe epf : </div>"
+                        divdata += "<div class='col-sm-3'>" + data.doe_epf + " </div>"
+
+                        divdata += "<div class='col-sm-3'> doj epf : </div>"
+                        divdata += "<div class='col-sm-3'>" + data.doj_epf + " </div>"
+
+                        divdata += "<div class='col-sm-3' style='font-size: 13px;'> transaction category:</div>"
+                        divdata += "<div class='col-sm-3'>" + data.transaction_category + " </div>"
+
+                        divdata += "<div class='col-sm-3' style='font-size: 13px;'> transaction approved:</div>"
+                        divdata += "<div class='col-sm-3'>" + data.transaction_approved + " </div>"
+
+                        
+                          divdata += "<div class='col-sm-3'> office : </div>"
+                        divdata += "<div class='col-sm-3'>" + data.office + " </div>"
+
+                        divdata += "<div class='col-sm-3'> employee share : </div>"
+                        divdata += "<div class='col-sm-3'>" + data.employee_share + " </div>"
+
+                        divdata += "<div class='col-sm-3'> employer share : </div>"
+                        divdata += "<div class='col-sm-3'>" + data.employer_share + " </div>"
+
+                         divdata += "<div class='col-sm-3'> pension share : </div>"
+                        divdata += "<div class='col-sm-3'>" + data.pension_share + " </div>"
+
+                        divdata += "<div class='col-sm-3'> approved on:</div>"
+                        divdata += "<div class='col-sm-3'>" + data.approved_on + " </div>"
+
+                        divdata += "<div class='col-sm-3'> year : </div>"
+                        divdata += "<div class='col-sm-3'>" + data.year + " </div>"
+
+                        divdata += "<div class='col-sm-3'> month : </div>"
+                        divdata += "<div class='col-sm-3'>" + data.month + " </div>"
+
+                        divdata += "<div class='col-sm-3'> description : </div>"
+                        divdata += "<div class='col-sm-3'>" + data.description + " </div>"
+
+                        divdata += "<div style='display:none;' class='col-sm-3'><button class='form-control' onclick='printPDF()'>Download Passbook</button> </div></div>"
+                        
+                    })
+                    $("#showpassbookdv").html(divdata)
+                }
+                else {
+                    alert(res.message);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        });
+    }
+
+</script>
+                              

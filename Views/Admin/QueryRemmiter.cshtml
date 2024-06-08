@@ -1,0 +1,3358 @@
+﻿@using System.Data
+@model DataTable
+@{
+    ViewData["Title"] = "QueryRemmiter";
+     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    //Layout = null;
+}
+
+@*<h1>Query Remitter</h1>
+*@
+
+
+
+
+
+<style>
+
+    .select2-hidden-accessible {
+    border: 0 !important;
+    clip: rect(0 0 0 0) !important;
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: unset!important;
+    width: 1px !important;
+}
+    .wraperplan {
+        min-width: 120px;
+        max-height: 300px;
+        overflow-y: scroll;
+    }
+
+    .card {
+        border-radius: 10px;
+        box-shadow: 0px 2px 5px 0px rgba(19, 23, 38, 0.05);
+        margin-bottom: 10px !important;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $("#registerdv").hide();
+        $("#registerbenificiarydv").hide();
+        //$("#btnPennry").hide();
+        //$("#regisbene").hide();
+
+
+
+        // beneficiary tab
+        $("#remitterhideshowdv").hide()
+        $("#beneficiaryhideshowdv").show()
+        $("#remitterhideshowbtn").hide()
+        $("#beneficiaryhideshowbtn").show()
+        // Register Beneficiary & Rimitter
+        $("#remitterregisterhideshowbtn").hide()
+        $("#benificiaryregisterhideshowbtn").hide()
+
+
+        GetRemitterDetails();
+        GetBenifecairyDetails();
+
+
+
+        $("#IFSC").change(function () {
+            debugger;
+            // var inputvalues = $(this).val();
+            var inputvalues = $("#IFSC").val();
+
+            var reg = /[A-Z|a-z]{4}[0][a-zA-Z0-9]{6}$/;
+            if (inputvalues.match(reg)) {
+                $("#ErrorMessage").text("");
+                return true;
+            }
+            else {
+                $("#IFSC").val("");
+                $("#ErrorMessage").text("Please enter correct IFSC Code !!");
+                $("#IFSC").focus();
+                return false;
+            }
+        });
+    });
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<!-- new design start-->
+
+
+<div class="box">
+    <div class="box-header">
+        <ul class="nav nav-tabs customtab nav-justified" role="tablist">
+
+
+            @*<li class="nav-item">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="home" aria-selected="true">Query Remitter</button>
+            </li>*@
+            <li class="nav-item">
+                <button class="nav-link active" id="Benificiary-tab" data-bs-toggle="tab" data-bs-target="#contacts" type="button" role="tab" aria-controls="Benificiary" aria-selected="false"> Beneficiary</button>
+            </li>
+            @* <li class="nav-item">
+            <button class="nav-link" id="Transaction-tab" data-bs-toggle="tab" data-bs-target="#demo2" type="button" role="tab" aria-controls="Transaction" aria-selected="false"> Transaction</button>
+            </li>*@
+            <li class="nav-item">
+                <button class="nav-link" id="Refund-tab" data-bs-toggle="tab" data-bs-target="#demo3" type="button" role="tab" aria-controls="Refund" aria-selected="false"> Refund</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" id="TransactionStatus-tab" data-bs-toggle="tab" data-bs-target="#demo4" type="button" role="tab" aria-controls="TransactionStatus" aria-selected="false"> Transaction Status</button>
+            </li>
+        </ul>
+    </div>
+
+
+
+    <div class="box-body">
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane " id="messages" role="tabpanel">
+
+
+
+                @*<div class="card card-warning">
+                <div class="card-header">
+                <h3 class="card-title">Query Remitter</h3>
+                </div>
+
+                <div class="card-body ">
+
+                <div class="row">
+
+
+
+                <div class="col-sm-3">
+
+                <div class="form-group">
+                <label>Phone No:	 </label>
+                <input type="text" class="form-control" placeholder="Enter Phone No" maxlength="10" id="txtQueryRemmiterPhone1" onkeypress="return numeric(event);" onchange="phonenumberlength();">
+
+                </div>
+
+                <button type="button" id="btnSearch" class="btn btn-primary waves-effect waves-light" onclick="Queryremitercheck()">Search</button>
+
+                </div>
+                <div class="col-sm-1 "></div>
+                <div class="col-sm-5 border card p-4" id="querydetaisshow" style="display:none;">
+
+
+                <div class="row">
+                <div class="col-sm-5">
+                <lable>Name:</lable>
+                </div>
+                <div class="col-sm-5">
+                <span id="querynameshow"></span>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-sm-5">
+                <lable>Mobile:</lable>
+                </div>
+                <div class="col-sm-5">
+                <span id="querymobileshow"></span>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-sm-5">
+                <lable>Status:</lable>
+                </div>
+                <div class="col-sm-5">
+                <span id="querystatusshow"></span>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-sm-5">
+                <lable>Bank Status:</lable>
+                </div>
+                <div class="col-sm-5">
+                <span id="querybankstatusshow"></span>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-sm-5">
+                <lable>Bank 1 Limit:</lable>
+                </div>
+                <div class="col-sm-5">
+                <span id="querybank1limitshow"></span>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-sm-5">
+                <lable>Bank 2 Limit:</lable>
+                </div>
+                <div class="col-sm-5">
+                <span id="querybank2limitshow"></span>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-sm-5">
+                <lable>Bank 3 Limit:</lable>
+                </div>
+                <div class="col-sm-5">
+                <span id="querybank3limitshow"></span>
+                </div>
+                </div>
+
+                </div>
+                </div>
+
+
+                </div>
+
+                </div>
+                *@
+
+
+                <script type="text/javascript" language="javascript">
+                    function numeric(e) {
+                        var unicode = e.charCode ? e.charCode : e.keyCode;
+                        if (unicode == 8 || unicode == 9 || (unicode >= 48 && unicode <= 57)) {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+
+
+
+
+
+
+
+
+                    function Queryremitercheck() {
+
+                        var data = new FormData;
+
+                        data.append("mobile", $("#txtQueryRemmiterPhone1").val());
+                        data.append("bank3_flag", "NO");
+
+
+                        $("#showSpinner").show();
+
+                        $.ajax({
+                            url: "/Admin/QueryRemmiterPost",
+                            type: "POST",
+                            contentType: false,
+                            processData: false,
+                            data: data,
+                            success: function (r) {
+                                console.log(r)
+                                if (r.response_code == "1") {
+                                    var tbl = eval(r.data);
+                                    $("#showSpinner").hide();
+                                    //$("tbody").empty();
+                                    // $.each(tbldata, function (i, tbl) {
+                                    //$("tbody").append("<tr><td>1</td> <td>" + tbl.fname + "</td><td>" + tbl.lname + "</td>  <td>" + tbl.mobile + "</td>  <td>" + tbl.status + "</td>  <td>" + tbl.bank3_limit + "</td><td>" + tbl.bank3_status + "</td><td>" + tbl.bank2_limit + "</td><td>" + tbl.bank1_limit + "</td>  </tr>");
+                                    //})
+                                    $("#querynameshow").text(tbl.fname + " " + tbl.lname);
+                                    $("#querybankstatusshow").text(tbl.bank3_status);
+                                    $("#querystatusshow").text(tbl.status);
+                                    $("#querymobileshow").text(tbl.mobile);
+                                    $("#querybank3limitshow").text(tbl.bank3_limit);
+                                    $("#querybank2limitshow").text(tbl.bank2_limit);
+                                    $("#querybank1limitshow").text(tbl.bank1_limit);
+                                    $("#querydetaisshow").show();
+
+                                }
+                                else if (r.response_code == "2") {
+
+                                    $("#showSpinner").hide();
+                                    //window.location.href = "../Admin/RegisterRemmiter?Mobile=" + $("#txtQueryRemmiterPhone1").val() + "&stateresp=" + r.stateresp;
+                                    $("#querycheckdv").hide();
+                                    $("#registerdv").show();
+                                    $("#mobile").val($("#txtQueryRemmiterPhone1").val());
+
+
+                                    $("#fetchbenificiarydv").hide();
+                                }
+                                else if (r.response_code == "0") {
+                                    alert(r.message);
+                                    $("#showSpinner").hide();
+                                }
+                                else {
+                                    alert('Server not Responding !!!');
+                                    $("#showSpinner").hide();
+                                }
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alert('Please Check values Entered by you !!!');
+                                $("#showSpinner").hide();
+                            }
+
+
+                        });
+                    }
+
+                     function Queryremitercheck1() {
+                         debugger;
+                        var data = new FormData;
+
+                        data.append("mobile", $("#txtFetchBenificiaryPhone1").val());
+                        data.append("bank3_flag", "NO");
+
+
+                        $("#showSpinner").show();
+
+                        $.ajax({
+                            url: "/Admin/QueryRemmiterPost",
+                            type: "POST",
+                            contentType: false,
+                            processData: false,
+                            data: data,
+                            success: function (r) {
+                                console.log(r)
+                                if (r.response_code == "1") {
+                                    var tbl = eval(r.data);
+                                    //$("#showSpinner").hide();
+                                    ////$("tbody").empty();
+                                    //// $.each(tbldata, function (i, tbl) {
+                                    ////$("tbody").append("<tr><td>1</td> <td>" + tbl.fname + "</td><td>" + tbl.lname + "</td>  <td>" + tbl.mobile + "</td>  <td>" + tbl.status + "</td>  <td>" + tbl.bank3_limit + "</td><td>" + tbl.bank3_status + "</td><td>" + tbl.bank2_limit + "</td><td>" + tbl.bank1_limit + "</td>  </tr>");
+                                    ////})
+                                    //$("#querynameshow").text(tbl.fname + " " + tbl.lname);
+                                    //$("#querybankstatusshow").text(tbl.bank3_status);
+                                    //$("#querystatusshow").text(tbl.status);
+                                    $("#querymobileshow").text(tbl.mobile);
+                                    $("#mobile").text(tbl.mobile);
+                                    //$("#querybank3limitshow").text(tbl.bank3_limit);
+                                    //$("#querybank2limitshow").text(tbl.bank2_limit);
+                                    //$("#querybank1limitshow").text(tbl.bank1_limit);
+                                    //$("#querydetaisshow").show();
+                                    QueryLICBillInfocheck();
+
+                                }
+                                else if (r.response_code == "2") {
+
+                                    $("#showSpinner").hide();
+                                    //window.location.href = "../Admin/RegisterRemmiter?Mobile=" + $("#txtQueryRemmiterPhone1").val() + "&stateresp=" + r.stateresp;
+                                    $("#querycheckdv").hide();
+                                    $("#registerdv").show();
+                                    $("#mobile").val($("#txtQueryRemmiterPhone1").val());
+                                    $("#mobile").val($("#txtFetchBenificiaryPhone1").val());
+                                    
+                                    $("#showbenificiarydetails").hide();
+                                    $("#fetchbenificiarydv").hide();
+                                }
+                                else if (r.response_code == "0") {
+                                    alert(r.message);
+                                    $("#showSpinner").hide();
+                                }
+                                else {
+                                    alert('Server not Responding !!!');
+                                    $("#showSpinner").hide();
+                                }
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alert('Please Check values Entered by you !!!');
+                                $("#showSpinner").hide();
+                            }
+
+
+                        });
+                    }
+
+
+
+
+
+                </script>
+                @*
+                <div class="content-header">
+                <div class="container-fluid">
+                <div class="row mb-2">
+                <div class="col-sm-6">
+                <h5 class="m-0">Query Remitter</h5>
+                </div>
+                <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="/Admin/Dashboard">Dashboard</a></li>
+
+                </ol>
+                </div>
+                </div>
+                </div>
+                </div>
+                *@
+
+                <section class="content" id="querycheckdv">
+                    <div class="container-fluid">
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="card card-warning">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Query Remitter</h3>
+                                    </div>
+
+                                    <div class="card-body ">
+
+                                        <div class="row">
+
+
+
+                                            <div class="col-sm-3">
+                                                <!-- query remitter fatch  -->
+                                                @* <div class="form-group">
+                                                <label>Phone No:	 </label>
+                                                <input type="text" class="form-control" placeholder="Enter Phone No" maxlength="10" id="txtQueryRemmiterPhone1" onkeypress="return numeric(event);" onchange="phonenumberlength();" />
+
+                                                </div>*@
+
+                                                @* <button type="button" id="btnSearch" class="btn btn-primary waves-effect waves-light" onclick="Queryremitercheck()">Search</button>*@
+
+                                            </div>
+                                            <div class="col-sm-1 "></div>
+                                            @* <div class="col-sm-5 border card p-4" id="querydetaisshow" style="display:none;">
+
+
+                                            <div class="row">
+                                            <div class="col-sm-5">
+                                            <lable>Name:</lable>
+                                            </div>
+                                            <div class="col-sm-5">
+                                            <span id="querynameshow"></span>
+                                            </div>
+                                            </div>
+                                            <div class="row">
+                                            <div class="col-sm-5">
+                                            <lable>Mobile:</lable>
+                                            </div>
+                                            <div class="col-sm-5">
+                                            <span id="querymobileshow"></span>
+                                            </div>
+                                            </div>
+                                            <div class="row">
+                                            <div class="col-sm-5">
+                                            <lable>Status:</lable>
+                                            </div>
+                                            <div class="col-sm-5">
+                                            <span id="querystatusshow"></span>
+                                            </div>
+                                            </div>
+                                            <div class="row">
+                                            <div class="col-sm-5">
+                                            <lable>Bank Status:</lable>
+                                            </div>
+                                            <div class="col-sm-5">
+                                            <span id="querybankstatusshow"></span>
+                                            </div>
+                                            </div>
+                                            <div class="row">
+                                            <div class="col-sm-5">
+                                            <lable>Bank 1 Limit:</lable>
+                                            </div>
+                                            <div class="col-sm-5">
+                                            <span id="querybank1limitshow"></span>
+                                            </div>
+                                            </div>
+                                            <div class="row">
+                                            <div class="col-sm-5">
+                                            <lable>Bank 2 Limit:</lable>
+                                            </div>
+                                            <div class="col-sm-5">
+                                            <span id="querybank2limitshow"></span>
+                                            </div>
+                                            </div>
+                                            <div class="row">
+                                            <div class="col-sm-5">
+                                            <lable>Bank 3 Limit:</lable>
+                                            </div>
+                                            <div class="col-sm-5">
+                                            <span id="querybank3limitshow"></span>
+                                            </div>
+                                            </div>
+
+                                            </div>
+                                            *@
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="col-md-12">
+                        <div class="card card-warning">
+                        <div class="card-header">
+
+
+                        <div class="card-tools">
+                        </div>
+
+                        <div class="card-body">
+                        <div style="overflow-x:auto;">
+                        <table id="example3" class="my  table table-bordered table-responsive table-hover">
+                        <thead>
+                        <tr>
+                        <th>Sr.No.</th>
+                        <th>fname</th>
+                        <th>lname</th>
+                        <th>mobile</th>
+                        <th>status</th>
+                        <th>bank3_limit</th>
+                        <th>bank3_status</th>
+                        <th>bank2_limit</th>
+                        <th>bank1_limit</th>
+
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        @*     @{
+                        if (Model.dt != null)
+                        {
+                        if (Model.dt.Rows.Count > 0)
+                        {
+                        int i = 1;
+                        foreach (DataRow item in Model.dt.Rows)
+                        {
+                        <tr>
+                        <td>@i</td>
+                        <td>@item["clientCode"]</td>
+                        <td>@item["ClientName"]</td>
+                        <td>@item["PhoneNo"]</td>
+                        <td>@item["State_Name"]</td>
+                        <td>@item["Cityname"]</td>
+                        <td>@item["WebSite"]</td>
+                        <td>@item["HeadOffice"]</td>
+                        <td>@item["Pincode"]</td>
+                        <td>@item["Address2"]</td>
+                        <td>@item["Remark"]</td>
+
+                        <td>
+                        <a href="#" onclick="GetDetailsForEdit('@item["clientCode"]')"><span class="badge bg-success">Edit</span></a>
+                        </td>
+
+                        <td>
+                        <a href="#" onclick="DeleteItemHeadDetails('@item["SrNo"]')"><span class="badge bg-danger">Delete</span></a>
+                        </td>
+
+                        </tr>
+                        i++;
+                        }
+                        }
+
+                        }
+                        }
+
+                        </tbody>
+                        </table>
+
+
+                        </div>
+                        </div>
+
+                        </div>
+                        </div>
+
+
+                        </div>
+                        *@
+                    </div>
+
+                </section>
+
+
+                @*   <div class="container-fluid" id="registerdv">
+                <div class="row">
+                <form method="post">
+                <div class="col-md-12">
+                <h3 class="my-5">Add Register Remmiter</h3>
+                <div class="main-card mb-3 card">
+                <div class="card-body">
+
+
+                <div class="otherdiv">
+
+                <div class="row">
+                <div class="col-6" style="display:none;">
+                ID:
+                <input type="text" id="vid" name="id" class="form-control" />
+                <input type="hidden" id="hdnstateres" value="@ViewBag.Stateresp" />
+                </div>
+                <div class="col-6 p-2">
+
+                <span style="color:red">*</span><label>  First Name:</label>
+
+                <input type="text" id="fname" placeholder="Enter First Name" required name="vendor_Name" class="form-control" onkeypress="return onlyAlphabets(event,this);" />
+
+                </div>
+
+
+                <div class="col-6 p-2">
+
+                <span style="color:red">*</span><label>     Last Name:</label>
+
+
+                <input type="text" id="lname" placeholder="Enter Last Name" required name="vendor_Name" class="form-control" onkeypress="return onlyAlphabets(event,this);" />
+
+                </div>
+
+
+                </div>
+                <div class="row">
+                <div class="col-6 p-2">
+
+                <span style="color:red">*</span><label>  DOB:</label>
+
+
+                <input type="date" id="dob" required name="DOB" class="form-control" />
+                </div>
+                <div class="col-6 p-2">
+                <span style="color:red">*</span><label>  Mobile:</label>
+                <input type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" title="9867578970" placeholder="Enter 10 digit valid mobile number" maxlength="10" id="mobile" required name="Mobile_No" onkeypress="return numeric(event);" class="form-control" value="@ViewBag.Mobile" readonly />
+
+                </div>
+                </div>
+                <div class="row">
+
+
+                <div class="col-6 p-2">
+                <span style="color:red">*</span><label>   Address:</label>
+
+
+                <textarea id="address" placeholder="Enter  Address" required class="form-control" name="Address"></textarea>
+
+                </div>
+
+                <div class="col-6 p-2">
+
+                <span style="color:red">*</span><label>    PinCode:</label>
+                <input type="tel" id="Pincode" placeholder="Enter Pincode" pattern="[0-9]{6}" title="221001" maxlength="6" minlength="6" required class="form-control" name="Pincode" onkeypress="return isNumber(event)" />
+
+                </div>
+
+
+                </div>
+                </div>
+
+
+                <div class="row otpdiv">
+                <div class="col-md-6 p-2">
+
+                <span style="color:red">*</span><label>  OTP:</label>
+
+
+                <input type="tel" placeholder="Enter OTP" maxlength="6" minlength="6" id="txtotp" required name="OTP" onkeypress="return numeric(event);" class="form-control" />
+
+                </div>
+                </div>
+
+                </div>
+                </div>
+                </div>
+
+
+                <div class="col-xl-3 col-md-6 col-12 otherdivbtn">
+                <input type="button" id="savebutton" style="width:100%;" value="SAVE" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="SaveRecord();" />
+
+                </div>
+
+
+
+
+
+                </form>
+
+                </div>
+                </div>
+                *@
+                <script type="text/javascript" language="javascript">
+                    function numeric(e) {
+                        var unicode = e.charCode ? e.charCode : e.keyCode;
+                        if (unicode == 8 || unicode == 9 || (unicode >= 48 && unicode <= 57)) {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                </script>
+
+
+
+                <script language="Javascript" type="text/javascript">
+
+                    function onlyAlphabets(e, t) {
+                        try {
+                            if (window.event) {
+                                var charCode = window.event.keyCode;
+                            }
+                            else if (e) {
+                                var charCode = e.which;
+                            }
+                            else { return true; }
+                            if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 32)
+                                return true;
+                            else
+                                return false;
+                        }
+                        catch (err) {
+                            alert(err.Description);
+                        }
+                    }
+
+                </script>
+
+
+                <script type="text/javascript" language="javascript">
+                    function numeric(e) {
+                        var unicode = e.charCode ? e.charCode : e.keyCode;
+                        if (unicode == 8 || unicode == 9 || (unicode >= 48 && unicode <= 57)) {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                </script>
+
+                <script>
+
+                   
+                    //function SendOtp(){
+
+                    //      if ($("#fname").val() == "") {
+                    //            alert('Enter firstname');
+                    //            $("#fname").focus;
+                    //            return;
+                    //        }
+
+
+                    //        if ($("#lname").val() == "") {
+                    //            alert('Enter  lastname ');
+                    //            $("#lname").focus;
+                    //            return;
+                    //        }
+
+                    //          if ($("#dob").val() == "") {
+                    //            alert("Enter dob !!!");
+                    //            $("#dob").focus();
+                    //            return;
+                    //        }
+
+
+                    //        if ($("#mobile").val() == "") {
+                    //            alert("Enter mobile !!!");
+                    //            $("#mobile").focus();
+                    //            return;
+                    //        }
+
+
+                    //        if ($("#address").val() == "") {
+                    //            alert('Enter Address !!')
+                    //            $("#address").focus();
+                    //            return;
+                    //        }
+
+
+
+                    //        if ($("#Pincode").val() == "") {
+                    //            alert('Enter Pincode')
+                    //            $("#Pincode").focus();
+                    //            return;
+                    //        }
+                    //          var dataobject = {
+                    //               mobile: $("#mobile").val(),
+                    //            Action: "1"
+                    //        };
+                    //        $("#showSpinner").show();
+                    //        $.ajax({
+                    //            url: "/Admin/SendOtp",
+                    //            type: "POST",
+                    //            data: dataobject,
+                    //            success: function (r) {
+                    //                 if (r.strId =="1") {
+
+                    //        $(".otpdiv").show();
+                    //        $(".otherdivbtn").show();
+                    //        $(".otpdivbtn").hide();
+                    //        $(".otherdiv").hide();
+
+
+                    //                       $("#showSpinner").hide();
+                    //                }
+
+                    //                else {
+                    //                   $(".otpdiv").hide();
+                    //      $(".otherdivbtn").hide();
+                    //        $(".otpdivbtn").show();
+                    //        $(".otherdiv").show();
+                    //                    $("#showSpinner").hide();
+                    //                }
+                    //            },
+                    //            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    //                alert('Please Check values Entered by you !!!');
+                    //                $("#showSpinner").hide();
+                    //            }
+                    //        });
+
+
+
+                    //}
+
+
+                    function SaveRecord() {
+
+
+
+                        if ($("#fname").val() == "") {
+                            alert('Enter firstname');
+                            $("#fname").focus;
+                            return;
+                        }
+
+
+                        if ($("#lname").val() == "") {
+                            alert('Enter  lastname ');
+                            $("#lname").focus;
+                            return;
+                        }
+
+                        if ($("#dob").val() == "") {
+                            alert("Enter dob !!!");
+                            $("#dob").focus();
+                            return;
+                        }
+
+
+                        if ($("#mobile").val() == "") {
+                            alert("Enter mobile !!!");
+                            $("#mobile").focus();
+                            return;
+                        }
+
+
+                        if ($("#address").val() == "") {
+                            alert('Enter Address !!')
+                            $("#address").focus();
+                            return;
+                        }
+
+
+
+                        if ($("#Pincode").val() == "") {
+                            alert('Enter Pincode')
+                            $("#Pincode").focus();
+                            return;
+                        }
+
+                        if ($("#txtotp").val() == "") {
+                            alert('Enter OTP')
+                            $("#txtotp").focus();
+                            return;
+                        }
+
+                        debugger;
+                        var dataobject = {
+                            FirstName: $("#fname").val(),
+                            LastName: $("#lname").val(),
+                            OTP: $("#txtotp").val(),
+                            dob: $("#dob").val(),
+                            Verified: $("#Verified").val(),
+                            mobile: $("#mobile").val(),
+                            Address: $("#address").val(),
+                            gst_state: $("#ddlgst_statetransation_register_remitter").val(),
+                            Stateresp: $("#hdnstateres").val(),
+                            Bank3_flag: "No",
+                            Pincode: $("#Pincode").val(),
+                            Action: "1"
+                        };
+                        $("#showSpinner").show();
+
+                        $.ajax({
+                            url: "/Admin/SaveRecorddata",
+                            type: "POST",
+                            data: dataobject,
+                            success: function (r) {
+                                debugger;
+                                console.log(r)
+                                if (r.response_code == "1") {
+                                    //alert(r.msg);
+                                    //location.reload();
+                                    $("#txtQueryRemmiterPhone1").val($("#mobile").val());
+                                    Queryremitercheck();
+                                    $("#registerdv").hide();
+                                    //$("#querycheckdv").show();
+                                    $("#fetchbenificiarydv").show();
+                                }
+                                else if (r.response_code == 0) {
+                                    alert(r.msg);
+                                    $("#showSpinner").hide();
+                                }
+                                else {
+                                    alert('Server not Responding !!!');
+                                    $("#showSpinner").hide();
+                                }
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alert('Please Check values Entered by you !!!');
+                                $("#showSpinner").hide();
+                            }
+                        });
+                    }
+
+
+                    // $(document).ready(function() {
+                    //  $(".otpdiv").hide();
+                    //  $(".otherdivbtn").hide();
+                    //    $(".otpdivbtn").show();
+                    //    $(".otherdiv").show();
+                    //});
+                    function validateBankNumber() {
+                        debugger;
+                        var Confirmno = $('#ConfirmAccountNo').val();
+                        var acno = $('#AccountNo').val();
+                        if(Confirmno==""){
+                            $('#lblmsgError').css('display', 'none');
+                            $('#lblmsgCorrect').css('display', 'none');
+                            $('#hdnID').val(0);
+                        }
+                        else{
+                            if (Confirmno == acno) 
+                            {
+                                $('#lblmsgCorrect').css('display', 'block');
+                                $('#lblmsgError').css('display', 'none');
+                                 $('#hdnID').val(1);
+                            }
+                            else  
+                            {
+                                $('#lblmsgCorrect').css('display', 'none');
+                                $('#lblmsgError').css('display', 'block');
+                                 $('#hdnID').val(2);
+                            }
+                        }
+                      
+                    }
+
+
+                </script>
+
+
+
+
+
+            </div>
+            <div class="tab-pane active" id="contacts" role="tabpanel">
+
+                <!-- beneficiary start tab-->
+                @*<div class="container-fluid" id="registerdv">
+                <div class="row">
+                <form method="post">
+                <div class="col-md-12">
+                <h3 class="my-5">Add Register Remmiter</h3>
+                <div class="main-card mb-3 card">
+                <div class="card-body">
+
+
+                <div class="otherdiv">
+
+                <div class="row">
+                <div class="col-6" style="display:none;">
+                ID:
+                <input type="text" id="vid" name="id" class="form-control" />
+                <input type="hidden" id="hdnstateres" value="@ViewBag.Stateresp" />
+                </div>
+                <div class="col-6 p-2">
+
+                <span style="color:red">*</span><label>  First Name:</label>
+
+                <input type="text" id="fname" placeholder="Enter First Name" required name="vendor_Name" class="form-control" onkeypress="return onlyAlphabets(event,this);" />
+
+                </div>
+
+
+                <div class="col-6 p-2">
+
+                <span style="color:red">*</span><label>     Last Name:</label>
+
+
+                <input type="text" id="lname" placeholder="Enter Last Name" required name="vendor_Name" class="form-control" onkeypress="return onlyAlphabets(event,this);" />
+
+                </div>
+
+
+                </div>
+                <div class="row">
+                <div class="col-6 p-2">
+
+                <span style="color:red">*</span><label>  DOB:</label>
+
+
+                <input type="date" id="dob" required name="DOB" class="form-control" />
+                </div>
+                <div class="col-6 p-2">
+                <span style="color:red">*</span><label>  Mobile:</label>
+                <input type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" title="9867578970" placeholder="Enter 10 digit valid mobile number" maxlength="10" id="mobile" required name="Mobile_No" onkeypress="return numeric(event);" class="form-control" value="@ViewBag.Mobile"  />
+
+                </div>
+                </div>
+                <div class="row">
+
+
+                <div class="col-6 p-2">
+                <span style="color:red">*</span><label>   Address:</label>
+
+
+                <textarea id="address" placeholder="Enter  Address" required class="form-control" name="Address"></textarea>
+
+                </div>
+
+                <div class="col-6 p-2">
+
+                <span style="color:red">*</span><label>    PinCode:</label>
+                <input type="tel" id="Pincode" placeholder="Enter Pincode" pattern="[0-9]{6}" title="221001" maxlength="6" minlength="6" required class="form-control" name="Pincode" onkeypress="return isNumber(event)" />
+
+                </div>
+
+
+                </div>
+                </div>
+
+
+                <div class="row otpdiv">
+                <div class="col-md-6 p-2">
+
+                <span style="color:red">*</span><label>  OTP:</label>
+
+
+                <input type="tel" placeholder="Enter OTP" maxlength="6" minlength="6" id="txtotp" required name="OTP" onkeypress="return numeric(event);" class="form-control" />
+
+                </div>
+                </div>
+
+                </div>
+                </div>
+                </div>
+
+
+                <div class="col-xl-3 col-md-6 col-12 otherdivbtn">
+                <input type="button" id="savebutton" style="width:100%;" value="SAVE" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="SaveRecord();" />
+
+                </div>
+
+
+
+
+
+                </form>
+
+                </div>
+                </div>
+                *@
+                <script>
+
+
+                    function QueryLICBillInfocheck() {
+
+                        if ($('#txtFetchBenificiaryPhone1').val() == "") {
+                            alert('Enter Phone No.');
+                            $('#txtFetchBenificiaryPhone1').focus();
+                            return;
+                        }
+                        var url1 = "/Admin/GetBeneficiaryDetails"
+                        if ($('#txtFetchBenificiarybane').val() != "") {
+
+                            url1 = "/Admin/GetBeneficiaryDetailById"
+                        }
+
+                        var data = new FormData;
+
+                        data.append("beneid", $("#txtFetchBenificiarybane").val());
+                        data.append("mobile", $("#txtFetchBenificiaryPhone1").val());
+                        data.append("bank3_flag", "NO");
+
+
+                        $("#showSpinner").show();
+                        // debugger;
+                        $.ajax({
+                            //url: "/Admin/QueryDTHINFOPost",
+                            url: url1,
+                            type: "POST",
+                            contentType: false,
+                            processData: false,
+                            data: data,
+                            success: function (r) {
+                                console.log(r.dt)
+                                if (r.strId == "1") {
+                                    console.log(r.dt)
+                                    $("#showbenificiarydetails").html('')
+                                    $.each(r.dt, function (index, data) {
+                                        var bname = encodeURI(data.name)
+                                        $("#showbenificiarydetails").append("<div class='row border border-1 m-2 p-2'><div class='col-sm-10'><div class='row'><div class= 'col-sm-2' ><lable>Beneficiary Id:</lable></div><div class= 'col-sm-4' ><span> " + data.bene_id + " </span></div>     <div class='col-sm-2' ><lable>Name: </lable></div><div class='col-sm-4' ><span> " + data.name + " </span></div></div>        <div class='row'><div class='col-sm-2' ><lable>Bank Name: </lable></div><div class= 'col-sm-4' ><span > " + data.bankname + "</span></div><div class= 'col-sm-2' ><lable>Bank Id: </lable></div><div class='col-sm-4'><span >" + data.bankid + "</span></div></div>                <div class='row'><div class='col-sm-2'><lable>Ifsc:</lable></div><div class='col-sm-4'><span >" + data.ifsc + "</span></div><div class= 'col-sm-2' ><lable>Bank Type: </lable></div><div class='col-sm-4'><span id='fetchbeneficiary_banktype'>" + data.banktype + "</span></div></div>                   </div><div class='col-sm-2'>                                                                                                                                             <span><a class='m-1 btn btn-primary' onclick=TransferTransaction(" + data.bene_id + "," + data.bankid + "," + data.accno + ",'" + bname + "','" + data.banktype + "','" + data.verified + "') >Pay Now</a></span>                                                                                                                                           <span><a class='m-1 btn btn-danger' onclick='deletebeneRecor(" + data.bene_id + ")' >DELETE</a></span></div>    </div>")
+
+                                    })
+
+                                    // $("tbody").append(tbl)
+                                }
+                                else if (r.strId == "2") {
+
+                                    $("#showSpinner").hide();
+                                    //window.location.href = "../Admin/RegisterRemmiter?Mobile=" + $("#txtFetchBenificiaryPhone1").val() + "&stateresp=" + r.stateresp;
+                                    //window.location.href = "../Admin/RegisterBenificiary?Mobile=" + $("#txtFetchBenificiaryPhone1").val() + "&stateresp=" + r.stateresp;
+
+                                    $("#registerbenificiarydv").show();
+                                    $("#fetchbenificiarydv").hide();
+                                    $("#registermobilebeneficiary").val($('#txtFetchBenificiaryPhone1').val());
+
+
+
+                                }
+                                else {
+
+                                    alert(r.msg);
+                                    $("#registerbenificiarydv").show();
+                                    $("#showSpinner").hide();
+                                }
+                                
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                debugger;
+                                alert('Please Check values Entered by you !!!');
+                                $("#showSpinner").hide();
+                            }
+                        });
+                    }
+
+                    function deletebeneRecor(benid) {
+                        if ($('#txtFetchBenificiaryPhone1').val() == "") {
+                            alert('Enter Phone No.');
+                            $('#txtFetchBenificiaryPhone1').focus();
+                            return;
+                        }
+
+                        var data1 = new FormData;
+
+                        data1.append("mobile", $("#txtFetchBenificiaryPhone1").val());
+                        data1.append("bene_id", benid);
+                        $.ajax({
+                            //url: "/Admin/QueryDTHINFOPost",
+                            url: "/Admin/BeneficiaryDelete",
+                            type: "POST",
+                            contentType: false,
+                            processData: false,
+                            data: data1,
+                            success: function (r) {
+                                //debugger;
+                                //console.log(r)
+                                if (r.strId == "1") {
+                                    alert(r.msg)
+                                    QueryLICBillInfocheck();
+                                    // location.reload()
+                                }
+                                else {
+                                    alert(r.msg);
+                                    $("#showSpinner").hide();
+                                }
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                debugger;
+                                alert('Please Check values Entered by you !!!');
+                                $("#showSpinner").hide();
+                            }
+
+
+                        });
+
+
+
+                    }
+
+
+                    function TransferTransaction(benid, bankid, accno, benename, tnxtype, verified) {
+                       // debugger;
+                        //alert(benid)
+                        //alert(bankid)
+                        //alert(accno)
+                        //alert(benename)
+                       // alert("tr")
+                        benename = decodeURI(benename)
+                        $('#querydetaisshow').show();
+                        $("#transactiondv").show();
+                        $("#fetchbenificiarydv").hide();
+                        $("#txtbeneidfillauto").val(benid);
+                        $("#txtfillfetchbaneid").val(benid);
+                        $("#txtfillfetchaccno").val(accno);
+                        $("#txtfillfetchbenename").val(benename);
+                        $("#txtfillfetchbankname").val(bankid);
+                        $("#Txntype").val(tnxtype);
+                        $("#ddlVerifiedtransaction").val(verified);
+                        //alert(benid)
+                    }
+
+
+                </script>
+                <section class="">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-sm-12 border card p-4" id="querydetaisshow">
+
+
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <lable>Name:</lable>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="querynameshow"></span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <lable>Mobile:</lable>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="querymobileshow"></span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <lable>Status:</lable>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="querystatusshow"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-sm-2">
+                                        <lable>Bank Status:</lable>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="querybankstatusshow"></span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <lable>Bank 1 Limit:</lable>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="querybank1limitshow"></span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <lable>Bank 2 Limit:</lable>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="querybank2limitshow"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <lable>Bank 3 Limit:</lable>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="querybank3limitshow"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+              
+                <section class="content" id="fetchbenificiarydv">
+                    <div class="container-fluid">
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="card card-warning">
+                                    <div class="card-header">
+                                        <h5 class="card-title new-title"> <span id="showbanandremismg">Fetch Beneficiary</span></h5>
+                                    </div>
+
+                                    <div class="card-body ">
+
+                                        
+                                         
+                                        <!------------------------>
+                                        <div class="row" id="remitterhideshowdv">
+                                            <div class="col-sm-4">
+                                                <!-- query remitter mobile start-->
+                                                <div class="form-group">
+                                                    <label>Phone No:	 </label>
+                                                    <input type="text" class="form-control" placeholder="Enter Phone No" maxlength="10" id="txtQueryRemmiterPhone1" onkeypress="return numeric(event);" onchange="phonenumberlength();" />
+
+                                                </div>
+                                                <!-- query remitter mobile end-->
+                                            </div>
+
+
+
+                                        </div>
+                                        <div class="row" id="beneficiaryhideshowdv">
+
+                                            <div class="col-sm-3">
+
+                                                <div class="form-group">
+                                                    <label>  Phone No:	 </label>
+                                                    <input type="text" class="form-control" placeholder="Enter Phone No" maxlength="10" id="txtFetchBenificiaryPhone1" onkeypress="return numeric(event);" value="@ViewBag.RegMobile" onchange="phonenumberlength();" />
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-3">
+
+                                                <div class="form-group">
+                                                    <label> Beneficiary No: </label>
+                                                    <input type="text" class="form-control" placeholder="Enter Bill No" id="txtFetchBenificiarybane" onkeypress="return numeric(event);" onchange="DetailsByBaneId();" />
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <input type="radio" name="radiocheck" id="Remitter" onclick="remitterhideshowradio()" /> <strong style="padding-left: 2px;" for="Remitter">
+                                                    Remitter
+                                                </strong>
+                                                @*<strong for>Remitter</strong>*@
+                                                 <br/>
+                                                 <input type="radio" checked name="radiocheck" id="Beneficiary" onclick="beneficiaryhideshowradio()" />
+                                                <strong style="padding-left: 2px;" for="Beneficiary">
+                                                    Beneficiary
+                                                </strong>
+                                                 <br/>
+                                                <input type="radio" name="radiocheck" id="RegisterBeneficiary" onclick="registerBeneficiaryRadiobtn()" />
+                                                <strong style="padding-left: 2px;" for="RegisterBeneficiary">
+                                                    Register Beneficiary
+                                                </strong>
+                                            </div>
+                                           
+                                            <div class="col-sm-2">
+                                               
+                                                 @*<strong>Beneficiary</strong>*@
+                                            </div>
+                                            <br />
+                                            <div class="col-sm-2">
+                                                
+                                                @*<strong>Register Beneficiary</strong>*@
+                                            </div>
+                                        </div>
+                                        <button type="button" id="beneficiaryhideshowbtn" class="btn btn-primary waves-effect waves-light" onclick="Queryremitercheck1()"> Search </button>
+
+                                        <button type="button" id="remitterhideshowbtn" class="btn btn-primary waves-effect waves-light" onclick="Queryremitercheck()">Search</button>
+                                        <button type="button" id="remitterregisterhideshowbtn" class="btn btn-primary waves-effect waves-light" onclick="remitterregistshowbtn()">Register Remitter</button>
+                                        <button type="button" id="benificiaryregisterhideshowbtn" class="btn btn-primary waves-effect waves-light" onclick="benificiaryregisterbtn()">Register Beneficiary</button>
+                                        <br /> <br />
+                                        <div id="showbenificiarydetails"></div>
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+                        </  div>
+
+                        <!-- show benificiary detais end-->
+
+
+
+
+
+
+
+
+                    </div>
+
+                </section>
+                <!-- beneficiary start tab-->
+                <div class="container-fluid" id="registerdv">
+                    <div class="row">
+                        <form method="post">
+                            <div class="col-md-12">
+                                <h3 class="my-5">Add Register Remmiter</h3>
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body">
+
+
+                                        <div class="otherdiv">
+
+                                            <div class="row">
+                                                <div class="col-6" style="display:none;">
+                                                    ID:
+                                                    <input type="text" id="vid" name="id" class="form-control" />
+                                                    <input type="hidden" id="hdnstateres" value="@ViewBag.Stateresp" />
+                                                </div>
+                                                <div class="col-6 p-2">
+
+                                                    <label>First Name:</label>
+
+                                                    <input type="text" id="fname" placeholder="Enter First Name"  class="form-control" onkeypress="return onlyAlphabets(event,this);" />
+
+                                                </div>
+
+
+                                                <div class="col-6 p-2">
+
+                                                    <label>Last Name:</label>
+
+
+                                                    <input type="text" id="lname" placeholder="Enter Last Name"  class="form-control" onkeypress="return onlyAlphabets(event,this);" />
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 p-2">
+
+                                                    <span style="color:red">*</span><label>  DOB:</label>
+
+
+                                                    <input type="date" id="dob" required name="DOB" class="form-control" />
+                                                </div>
+                                                <div class="col-6 p-2">
+                                                    <span style="color:red">*</span><label>  Mobile:</label>
+                                                    <input type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" title="9867578970" placeholder="Enter 10 digit valid mobile number" maxlength="10" id="mobile" required name="Mobile_No" onkeypress="return numeric(event);" class="form-control" value="@ViewBag.Mobile" readonly />
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+
+                                                <div class="col-6 p-2">
+                                                    <span style="color:red">*</span><label>   Address:</label>
+
+
+                                                    <textarea id="address" placeholder="Enter  Address" required class="form-control" name="Address"></textarea>
+
+                                                </div>
+
+                                                <div class="col-6 p-2">
+
+                                                    <span style="color:red">*</span><label>    PinCode:</label>
+                                                    <input type="tel" id="Pincode" placeholder="Enter Pincode" pattern="[0-9]{6}" title="221001" maxlength="6" minlength="6" required class="form-control" name="Pincode" onkeypress="return isNumber(event)" />
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row otpdiv">
+                                            <div class="col-md-6 p-2">
+
+                                                <span style="color:red">*</span><label>  OTP:</label>
+
+
+                                                <input type="tel" placeholder="Enter OTP" maxlength="6" minlength="6" id="txtotp" required name="OTP" onkeypress="return numeric(event);" class="form-control" />
+
+                                            </div>
+                                            <div class="col-md-6 p-2">
+
+
+                                                <div class="form-group">
+                                                    <label>  Gst State:</label>
+                                                    <select id="ddlgst_statetransation_register_remitter" required name="vendor_Name" class="form-control">
+                                                        <option value="0">Select state</option>
+                                                        @if (ViewBag.GSTState != null && ViewBag.GSTState.Rows.Count > 0)
+                                                        {
+                                                            foreach (DataRow row in ViewBag.GSTState.Rows)
+                                                            {
+                                                                <option value="@row["GSTState_Id"]">@row["GSTState_Name"]</option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xl-3 col-md-6 col-12 otherdivbtn">
+                                <input type="button" id="savebutton" style="width:100%;" value="SAVE" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="SaveRecord();" />
+
+                            </div>
+
+
+
+
+
+                        </form>
+
+                    </div>
+                </div>
+
+                <!--Register beneficiary start -->
+
+                <div class="container " id="registerbenificiarydv">
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <h3 class="my-5"> Add  Register Beneficiary</h3>
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    <form method="post">
+                                        <div class="row">
+                                           @* <div class="col-6 p-2" style="display:none;">
+                                                ID:
+                                                <input type="text" id="vid" name="id" class="form-control" />
+                                            </div>*@
+                                            <div class="col-6 p-2">
+
+                                                <span style="color:red">*</span><label>Bank:</label>@* <input type="text" id="BankId" placeholder="Enter Bank Id" required name="vendor_Name" class="form-control" />*@
+                                                <select id="BankId" name="vendor_Name" class="form-control" style="width:100%;">
+                                                    <option>Select Bank</option>
+                                                    @if (Model != null && Model.Rows.Count > 0)
+                                                    {
+                                                        foreach (DataRow row in Model.Rows)
+                                                        {
+                                                            <option value="@row["BankCode"]">@row["BankName"]</option>
+                                                        }
+
+                                                    }
+                                                </select>
+                                            </div>
+
+                                            <div class="col-6 p-2">
+                                                <span style="color:red">*</span> <label> Beneficiary Name:</label>
+                                                <input type="text" id="Bankname" placeholder="Enter Beneficiary Name" required name="vendor_Name" class="form-control" onkeypress="return onlyAlphabets(event,this);" />
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-6 p-2">
+                                                <span style="color:red">*</span> <label>Account No</label>
+                                                <input type="password" id="AccountNo" placeholder="Enter Account No" required name="vendor_Name" class="form-control" onkeypress="return numeric(event);" onkeyup="validateBankNumber()" />
+
+                                            </div>
+                                            <div class="col-6 p-2">
+                                                <span style="color:red">*</span> <label>Confirm Account No</label>
+                                                <input type="text" id="ConfirmAccountNo" placeholder="Enter Account No" required name="vendor_Name" onkeypress="return numeric(event);" class="form-control" onkeyup="validateBankNumber()" />
+                                                <label id="lblmsgError" style="display:none; color:red ">Account number does not match<i class="fa fa-close" style="color:red"></i></label>
+                                                <label id="lblmsgCorrect" style="display:none; color:green ">Account number match<i class="fa fa-check" style="color:green"></i></label>
+                                                <input type="hidden" class="form-control" id="hdnID" />
+                                            </div>
+                                           
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-6 p-2">
+                                                <span style="color:red">*</span>  <label> IFSC Code:</label>
+                                                <input type="text" id="IFSC" placeholder="Enter IFSC Code" required name="vendor_Name" class="form-control" />
+                                                <label id="ErrorMessage" style="color:red"></label>
+                                            </div>
+                                            <div class="col-6 p-2">
+                                                <span style="color:red">*</span>   <label>DOB:</label>
+                                                <input type="date" id="registerdobbenificiary" required name="DOB" class="form-control" />
+                                            </div>
+                                           
+                                        </div>
+                                        <div class="row">
+
+                                             <div class="col-6 p-2">
+                                                <span style="color:red">*</span> <label
+                                                    >Mobile:</label>
+                                               <input type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" title="9867578970" placeholder="Enter 10 digit valid mobile number" maxlength="10" id="registermobilebeneficiary" required value="@ViewBag.RegMobile" name="Mobile_No" onkeypress="return numeric(event);" class="form-control" />
+                                                @* <p id="pmobile">Please Put 10 Digit Mobile No.</p>*@
+                                            </div>
+                                            <div class="col-6 p-2">
+                                                <span style="color:red">*</span>  <label>Address:</label>
+                                                <textarea id="txtregisteraddressbeneficiary" placeholder="Enter  Address" required class="form-control" name="Address"></textarea>
+                                                @*  <p id="paddress">Please Fill Address</p>*@
+                                            </div>
+
+                                          
+
+                                        </div>
+                                        <div class="row">
+                                              <div class="col-6 p-2">
+                                                <span style="color:red">*</span> <label>Gst State:</label>
+                                                @*                                <input type="tel" id="gst_state" placeholder="Enter gst_state" pattern="[0-9]{6}" title="221001" maxlength="6" minlength="6" required class="form-control" name="Pincode" onkeypress="return isNumber(event)" />*@
+                                                @*<p id="pcode">Please Put gst_state</p>*@
+
+                                                <select id="gst_state" required class="form-control" style="width:100%;">
+                                                    <option value="">Select State</option>
+                                                    @if (ViewBag.GSTState != null && ViewBag.GSTState.Rows.Count > 0)
+                                                    {
+                                                        foreach (DataRow row in ViewBag.GSTState.Rows)
+                                                        {
+                                                            <option value="@row["GSTState_Id"]">@row["GSTState_Name"]</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                            @*<div class="col-6 p-3">
+                                            <span style="color:red">*</span> <label> Verified:</label>
+
+                                            <select id="registerVerifiedbeneficiary" class="form-control">
+                                            <option value="0">NO</option>
+                                            <option value="1">YES</option>
+                                            </select>
+                                            </div>*@
+                                            <div class="col-6 p-3">
+                                                <span style="color:red">*</span>  <label>Pincode:</label>
+                                                <input type="text" id="txtPincodebeneficiary" placeholder="Enter Pincode " onkeypress="return numeric(event);" maxlength="6" required name="vendor_Name" class="form-control" />
+
+                                            </div>
+
+
+                                        </div>
+                                    </form>
+                                </div>
+
+
+                                @*  <div class="row">
+                                <div class="col-sm-2 ">
+
+                                <label>Penny Drop</label>
+
+                                </div>
+                                <div class="col-sm-1 ">
+
+
+                                <input type="radio" class="form-check-input" name="flexRadioDefault" onclick="pennydrop()">
+
+                                </div>
+
+                                <div class="col-sm-2">
+
+                                <label>Register Benificiary</label>
+
+                                </div>
+                                <div class="col-sm-1">
+                                <input type="radio" class="form-check-input" name="flexRadioDefault" onclick="registerBenificiary()" />
+                                </div>
+                                </div>*@
+
+
+                            </div>
+                            <div class="col-xl-3 col-md-6 col-12">
+                                <input type="button" id="regisbene" style="width:100%;" value="SAVE" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="SaveRecordbeneficiary();" />
+                                @* <input type="button" id="btnPennry" style="width:100%;" value="Penny" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="PennyDropApi();" />*@
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <script>
+
+
+                    function SaveRecordbeneficiary() {
+
+                        if ($("#txtName").val() == "") {
+                            alert("Enter Bank Name !!!");
+                            $("#txtName").focus();
+                            return;
+                        }
+
+
+                        if ($("#txtBranchName").val() == "") {
+                            alert("Enter Branch Name !!!");
+                            $("#txtBranchName").focus();
+                            return;
+                        }
+
+
+                        if ($("#BankId").val() == "") {
+                            alert('Enter BankId');
+                            $("#BankId").focus;
+                            return;
+                        }
+
+
+                        if ($("#Bankname").val() == "") {
+                            alert('Enter  Bankname ');
+                            $("#Bankname").focus;
+                            return;
+                        }
+
+
+                        if ($("#AccountNo").val() == "") {
+                            alert('Enter AccountNo !');
+                            $("#AccountNo").focus;
+                            return;
+
+                        }
+
+
+                        if ($("#IFSC").val() == "") {
+                            alert('Enter IFSC ');
+                            $("#IFSC").focus;
+                            return;
+                        }
+
+                        //if ($("#Ammount").val() == "") {
+                        //    alert("Enter Amount!!!");
+                        //    $("#Ammount").focus();
+                        //    return;
+                        //}
+
+
+                        if ($("#registerdobbenificiary").val() == "") {
+                            alert("Enter dob !!!");
+                            $("#registerdobbenificiary").focus();
+                            return;
+                        }
+
+                        //if ($("#registerVerifiedbeneficiary").val() == "") {
+                        //    alert("Enter Verified !!!");
+                        //    $("#registerVerifiedbeneficiary").focus();
+                        //    return;
+                        //}
+
+                        if ($("#registermobilebeneficiary").val() == "") {
+                            alert("Enter mobile !!!");
+                            $("#registermobilebeneficiary").focus();
+                            return;
+                        }
+
+                        if ($("#txtregisteraddressbeneficiary").val() == "") {
+                            alert('Enter Address !!')
+                            $("#txtregisteraddressbeneficiary").focus();
+                            return;
+                        }
+
+                        if ($("#gst_state").val() == "") {
+                            alert("Enter gst_state ")
+                            $("#gst_state").focus();
+                            return;
+                        }
+
+                        if ($("#txtPincodebeneficiary").val() == "") {
+                            alert('Enter Pincode')
+                            $("#txtPincodebeneficiary").focus();
+                            return;
+                        }
+                        if($('#hdnID').val()==0 ){
+                            alert('Please enter Confirm account number')
+                            $("#ConfirmAccountNo").focus();
+                            return;
+                        }
+                        if($('#hdnID').val()==2){
+                            alert('Please enter correct Confirm account number')
+                            $("#ConfirmAccountNo").focus();
+                            return;
+                        }
+
+                        var dataobject = {
+                            bankid: $("#BankId").val(),
+                            benename: $("#Bankname").val(),
+                            accno: $("#AccountNo").val(),
+                            ifsccode: $("#IFSC").val(),
+                            dob: $("#registerdobbenificiary").val(),
+                            mobile: $("#registermobilebeneficiary").val(),
+                            address: $("#txtregisteraddressbeneficiary").val(),
+                            gst_state: $("#gst_state").val(),
+                            //verified: $("#registerVerifiedbeneficiary").val(),
+                            verified: "0",
+
+                            pincode: $("#txtPincodebeneficiary").val(),
+
+
+
+                            //Ammount: $("#Ammount").val(),
+                            //dob: $("#dob").val(),
+                            //verified: $("#Verified").val(),
+                            //mobile: $("#mobile").val(),
+                            //Address: $("#address").val(),
+                            //gst_state: $("#gst_state").val(),
+                            //Pincode: $("Pincode").val(),
+                            //Action: "1"
+                        };
+                        $("#showSpinner").show();
+                        //alert("h")
+                        //debugger;
+                        $.ajax({
+                            url: "/Admin/BeneficiaryDetailInsert",
+                            type: "POST",
+                            data: dataobject,
+                            success: function (r) {
+                                if (r.strId == '0') {
+
+                                    alert(r.msg);
+
+                                }
+                                else if (r.strId == '1') {
+                                    debugger;
+                                    // remetter fetch and register start
+                                    //$("#txtQueryRemmiterPhone1").val($("#registermobilebeneficiary").val())
+                                    //Queryremitercheck()
+                                    // end
+                                    $("#registerbenificiarydv").hide();
+                                    $("#fetchbenificiarydv").show();
+
+                                    QueryLICBillInfocheck();
+
+                                }
+                                else {
+                                    debugger;
+                                    alert('Server not Responding !!!');
+                                    $("#showSpinner").hide();
+                                }
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alert('Please Check values Entered by you !!!');
+                                $("#showSpinner").hide();
+                            }
+                        });
+                    }
+
+
+                </script>
+
+                <script language="Javascript" type="text/javascript">
+
+                    function onlyAlphabets(e, t) {
+                        try {
+                            if (window.event) {
+                                var charCode = window.event.keyCode;
+                            }
+                            else if (e) {
+                                var charCode = e.which;
+                            }
+                            else { return true; }
+                            if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 32)
+                                return true;
+                            else
+                                return false;
+                        }
+                        catch (err) {
+                            alert(err.Description);
+                        }
+                    }
+
+
+
+
+                </script>
+
+                <!--Register Remmiter End -->
+                <!-- beneficiary  end-->
+                <!--transaction start-->
+                <div class="container-fluid" id="transactiondv" style="display:none;">
+                    <div class="row">
+                        <form method="post">
+                            <div class="col-md-12">
+
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body">
+                                        <h4 class="my-5" style="text-align:center;">   Transaction</h4>
+                                        <hr />
+                                        <div class="row">
+
+
+                                            <div class="col-6">
+                                                <input type="hidden" id="txtbeneidfillauto" />
+                                                <div class="form-group">
+                                                    <label>   Amount :</label>
+
+                                                    <input type="text" id="Ammount" placeholder="Enter Amount " name="vendor_Name" class="form-control" />
+
+                                                </div>
+
+
+
+
+
+
+                                            </div>
+
+                                            <div class="col-6">
+
+                                                <div class="form-group">
+                                                    <label>    DOB:</label>
+
+                                                    <input type="date" id="txtdobtransaction" required name="DOB" class="form-control" />
+                                                </div>
+                                            </div>
+                                            @* <div class="col-6">
+
+
+                                            <div class="form-group">
+                                            <label>Mobile:</label>
+
+                                            <input type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" title="9867578970" placeholder="Enter 10 digit valid mobile number" maxlength="10" id="txtmobiletransaction" required name="Mobile_No" onkeypress="return numeric(event);" class="form-control" />
+                                            <p id="pmobile">Please Put 10 Digit Mobile No.</p>
+                                            </div>
+
+                                            </div>*@
+
+                                        </div>
+                                        <div class="row" >
+
+                                            <div class="col-6" style="display:none">
+
+                                                <div class="form-group">
+                                                    <label>Pipe:</label>
+
+
+                                                    <select class="form-control" id="Pipe" required name="Pipe">
+                                                        <option value="0">-- Select Pipe --</option>
+                                                        <option value="bank1" id="bank1">bank1</option>
+                                                        <option value="bank2" id="bank2"> bank2</option>
+
+                                                        <option value="bank3" id="bank3"> bank3</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-6">
+
+                                                <div class="form-group">
+                                                    <label>  Gst State:</label>
+                                                    <select id="ddlgst_statetransation" required name="vendor_Name" style="width:100%" class="form-control">
+                                                        <option value="0">Select state</option>
+                                                        @if (ViewBag.GSTState != null && ViewBag.GSTState.Rows.Count > 0)
+                                                        {
+                                                            foreach (DataRow row in ViewBag.GSTState.Rows)
+                                                            {
+                                                                <option value="@row["GSTState_Id"]">@row["GSTState_Name"]</option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+
+                                                <div class="form-group">
+                                                    <label>  Pincode:</label>
+
+
+                                                    <input type="text" id="txtPincodeTransaction" placeholder="Enter Pincode " required name="vendor_Name" class="form-control" />
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-6" style="display:none;">
+
+                                                <div class="form-group">
+                                                    <label>      Verified:</label>
+
+
+                                                    <input type="text" id="ddlVerifiedtransaction" placeholder="Enter Verified Code" required name="vendor_Name" class="form-control" />
+                                                    @*<select id="ddlVerifiedtransaction" class="form-control">
+                                                    <option value="0">NO</option>
+                                                    <option value="1">YES</option>
+                                                    </select>*@
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-6">
+
+
+                                                <div class="form-group">
+                                                    <label>  Transaction Type:</label>
+                                                    <input type="text" id="Txntype" style="display:none;" />
+                                                    <select class="form-control" id="Txntype" style="width:100%" required name="Txntype">
+                                                    <option value="0">-- Select Txntype --</option>
+                                                    <option value="IMPS" id="IMPS">IMPS</option>
+                                                    <option value="NEFT" id="NEFT"> NEFT</option>
+
+
+                                                    </select>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+
+
+                                                <div class="form-group">
+                                                    <label>Address:</label>
+
+
+
+                                                    <textarea id="txtAddresstransaction" placeholder="Enter  Address" required class="form-control" name="txtAddresstransaction"></textarea>
+                                                    @* <p id="paddress">Please Fill Address</p>*@
+                                                </div>
+
+                                            </div>
+                                            <div class="col-3">
+                                                <label></label>
+                                                <input type="button" id="savebutton" style="width:100%;" value="SAVE" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="PennyDropVerificationy()" />
+
+                                            </div>
+                                            <div class="col-3">
+                                                <label></label>
+                                                <input type="button" id="backbutton" style="width:100%;" value="Back" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="BackRecordTransation();" />
+
+                                            </div>
+                                            @*  <div class="col-3">
+
+                                            <div class="form-group">
+                                            <label>  Gst State:</label>
+                                            <select id="ddlgst_statetransation" required name="vendor_Name" class="form-control">
+                                            <option value="0">Select state</option>
+                                            @if (ViewBag.GSTState != null && ViewBag.GSTState.Rows.Count > 0)
+                                            {
+                                            foreach (DataRow row in ViewBag.GSTState.Rows)
+                                            {
+                                            <option value="@row["GSTState_Id"]">@row["GSTState_Name"]</option>
+                                            }
+                                            }
+                                            </select>
+                                            </div>
+                                            </div>
+                                            *@
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                </div>
+                                <input type="hidden" id="txtfillfetchbaneid" />
+                                <input type="hidden" id="txtfillfetchaccno" />
+                                <input type="hidden" id="txtfillfetchbenename" />
+                                <input type="hidden" id="txtfillfetchbankname" />
+                                @*<div class="col-xl-3 col-md-3 col-6">
+                                <input type="button" id="savebutton" style="width:100%;" value="SAVE" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="PennyDropVerificationy()" />
+
+                                </div>
+                                <div class="col-xl-3 col-md-3 col-6">
+                                <input type="button" id="backbutton" style="width:100%;" value="Back" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="BackRecordTransation();" />
+
+                                </div>*@
+
+                            </div>
+
+
+
+
+
+                        </form>
+                    </div>
+
+
+                </div>
+
+                <!--transaction end-->
+
+
+
+
+
+
+            </div>
+
+        
+
+
+
+            <div class="tab-pane" id="demo2" role="tabpanel">
+            </div>
+
+            <div class="tab-pane" id="demo3" role="tabpanel">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-warning">
+                          
+                                <div class="card-body ">
+                                    <div class="row">
+                                        <div style="display:none;">
+                                        <div class="col-sm-4">
+
+                                            <div class="form-group">
+                                                <label>ReferenceID </label> <span style="color:red">*</span>
+                                                <input type="text" class="form-control" placeholder="ReferenceID" id="txtRefeID" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Acknowledge No <span style="color:red">*</span>: </label>
+                                                <input type="text" class="form-control" placeholder="Acknowledge No" id="txtackNo" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="new-mt">
+                                                <button type="button" id="btnSearch" class="btn btn-primary btn-block waves-effect waves-light" onclick="return send_otp()">Submit</button>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                        <table id="example3" class="my  table table-bordered table-hover" style="width:100%;">
+                                            <thead class="bg-primary">
+                                                <tr>
+                                                    <th>Status</th>
+                                                    <th>Reference Id :</th>
+                                                    <th>Recharge Date :</th>
+                                                    <th>Mobile :</th>
+                                                    <th>Amount :</th>
+                                                    <th>Aknowledge No :</th>
+
+
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+
+
+                                                @if (ViewBag.RechargeRefId != null && ViewBag.RechargeRefId.Rows.Count > 0)
+                                                {
+                                                    foreach (DataRow item in ViewBag.RechargeRefId.Rows)
+                                                    {
+                                                        <tr>
+
+
+                                                            <td>
+                                                                <i class="btn btn-warning" onclick="send_otp('@item["refid"]')">View</i>
+                                                            </td>
+
+                                                            <td>@item["refid"]</td>
+                                                            <td>@item["date"]</td>
+
+
+
+                                                            <td>@item["MobileNo"]</td>
+
+                                                            <td>@item["Amount"]</td>
+                                                            <td>@item["ackno"]</td>
+                                                        </tr>
+
+
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+
+
+
+
+
+                                        <div class=" col-sm-12" style="display:none;">
+                                            <span style="color: blue;"> click to Reference no for more detail</span>
+                                            <div class="wraperplan border p-2 row">
+                                                @if (ViewBag.RechargeRefId != null && ViewBag.RechargeRefId.Rows.Count > 0)
+                                                {
+                                                    foreach (DataRow item in ViewBag.RechargeRefId.Rows)
+                                                    {
+                                                        <div class="col-sm-6 card p-3 " @*onclick="setRefIdTxtRefund('@item["refid"]','@item["ackno"]')"*@>
+                                                            <table class="table table-bordered" onclick="send_otp('@item["refid"]','@item["ackno"]')">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th>Reference Id :</th>
+                                                                        @*<td> @item["refid"]</td>*@
+                                                                        <td style="color: blue;"><u> @item["refid"]</u></td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <th>Recharge Date :</th>
+                                                                        <td>  @item["date"]</td>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Mobile :</th>
+                                                                        <td> @item["MobileNo"]</td>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Amount :</th>
+                                                                        <td>  @item["Amount"]</td>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Acknowedge No :</th>
+                                                                        <td>  @item["ackno"]</td>
+
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+
+
+
+
+
+
+
+
+
+                                                            @*<div class=" row ">
+
+                                                                
+                                                                <div class="col-sm-5"><label>Reference Id : </label></div>
+                                                                <div class="col-sm-7"><span> @item["refid"]</span></div>
+                                                            </div>
+                                                            <div class=" row ">
+                                                                <div class="col-sm-5"><label>Recharge Date : </label></div><div class="col-sm-7">
+                                                                    <span> @item["date"]</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class=" row ">
+                                                                <div class="col-sm-5"><label>Mobile : </label></div><div class="col-sm-7">
+                                                                    <span> @item["MobileNo"]</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class=" row ">
+                                                                <div class="col-sm-5"><label> Amount: </label></div><div class="col-sm-7">
+                                                                    <span> @item["Amount"]</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class=" row ">
+                                                                <div class="col-sm-5"><label>Acknowedge No : </label></div><div class="col-sm-7">
+                                                                    <span id="acknowedgelblrefundotp"> @item["ackno"]</span>
+                                                                </div>
+                                                            </div>*@
+
+
+                                                        </div>
+                                                    }
+
+                                                }
+                                            </div>
+
+
+                                        </div>
+
+
+
+
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                @*   <h5 class="modal-title " style="color:green;" >OTP</h5> <br />*@
+
+                                <p id="msg" style="color:red"></p>
+                                <span><input type="text" id="ddlotp" readonly /></span>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+
+
+                                    @* <div class="col-sm-12">
+                                    <div class="from-group">
+                                    <span style="color:red"></span>
+                                    <input type="text" id="txtrefe" class="form-control" placeholder=" Enter ReferenceID" /><br />
+                                    </div>
+                                    </div>
+                                    *@
+                                    <div class="col-sm-6">
+                                        <div class="from-group">
+                                            <table>OTP<span style="color:red">*</span></table>
+                                            <input type="text" id="txtoto" class="form-control" placeholder="Enter OTP" /><br />
+                                        </div>
+                                    </div>
+
+                                    @* <div class="col-sm-6">
+                                    <div class="from-group">
+                                    <span style="color:red">*</span>
+                                    <input type="text" id="ackno" class="form-control" placeholder=" Enter Ackno" /><br />
+                                    </div>
+                                    </div>
+                                    *@
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+
+                                <input type="button" onclick="ClaimRefund()" class="btn btn-success" value="Submit" />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+
+
+
+
+                    function send_otp(refid,accid) {
+                        //if ($("#txtRefeID").val() == '') {
+                        //    alert('Please enter RefereceID !');
+                        //    $("#txtRefeID").focus();
+                        //    return false;
+                        //}
+
+                        //if ($("#txtackNo").val() == '') {
+                        //    alert('Please Ackno RefereceID !');
+                        //    $("#txtackNo").focus();
+                        //    return false;
+                        //}
+
+                        //debugger;
+                        //var objdata = {
+                        //    Referenceid: $("#txtRefeID").val(),
+                        //    Ackno: $("#txtackNo").val(),
+                        //};
+                        var objdata = {
+                            Referenceid: refid,
+                            Ackno: accid
+                        };
+                        $.ajax({
+                            url: "/Admin/Refund_opt",
+                            type: "post",
+                            data: objdata,
+                            success: function (r) {
+                                //$("#txtrefe").val('');
+                                //$("#txtoto").val('');
+                                //$("#ackno").val('');
+                                if (r.response_code == 1) {
+                                    //    $("#ddlotp").val(r.otp)
+                                    alert(r.message);
+                                    $("#exampleModal").modal('show');
+                                }
+                                else {
+                                    $("#ddlotp").hide();
+
+                                    alert(r.message);
+
+                                }
+
+                            }
+                        })
+                    }
+
+
+                    function ClaimRefund() {
+
+
+                        if ($("#txtRefeID").val() == '') {
+                            alert('Please enter RefereceID !');
+                            $("#txtRefeID").focus();
+                            return false;
+                        }
+
+                        if ($("#txtackNo").val() == '') {
+                            alert('Please enrter Ackno !');
+                            $("#txtackNo").focus();
+                            return false;
+                        }
+                        if ($("#txtoto").val() == '') {
+                            alert('Please enrter OTP !');
+                            $("#txtoto").focus();
+                            return false;
+                        }
+
+                        debugger;
+                        var objdata = {
+                            Referenceid: $("#txtRefeID").val(),
+                            Ackno: $("#txtackNo").val(),
+                            OTP: $("#txtoto").val()
+                        };
+                        $.ajax({
+                            url: "/Admin/Claim_Refund",
+                            type: "post",
+                            data: objdata,
+                            success: function (r) {
+                                console.log(r);
+                                if (r.response_code == 1) {
+                                    alert(r.message);
+                                }
+                                else {
+                                    alert(r.message);
+                                }
+
+                            }
+                        })
+                    }
+
+                    //$('#txtRefeID').keyup(function () {
+                    //    this.value = this.value.replace(/[^0-9\.]/g, '');
+                    //});
+
+                    $('#txtackNo').keyup(function () {
+                        this.value = this.value.replace(/[^0-9\.]/g, '');
+                    });
+
+                </script>
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+            <div class="tab-pane" id="demo4" role="tabpanel">
+
+
+                @* <div class="card card-warning">
+                <div class="card-header">
+                <h4 class="card-title">Fetch Benificiary4</h4>
+                </div>
+
+                <div class="card-body ">
+
+                <div class="row">
+
+
+
+                <div class="col-sm-3">
+
+                <div class="form-group">
+                <label>  Phone No:	 </label>
+                <input type="text" class="form-control" placeholder="Enter Phone No" maxlength="10" id="txtFetchBenificiaryPhone1" onkeypress="return numeric(event);" onchange="phonenumberlength();">
+
+                </div>
+                </div>
+
+                <div class="col-sm-3">
+
+                <div class="form-group">
+                <label> Bill No </label>
+                <input type="text" class="form-control" placeholder="Enter Bill No" id="txtFetchBenificiarybane" onkeypress="return numeric(event);" onchange="DetailsByBaneId();">
+
+                </div>
+                </div>
+
+
+
+
+
+                </div>
+                <button type="button" id="btnSearch" class="btn btn-primary waves-effect waves-light" onclick="QueryLICBillInfocheck()"> Search </button>
+
+
+                <br> <br>
+                <div id="showbenificiarydetails"></div>
+                </div>
+
+                </div>
+                *@
+
+
+                <section class="content">
+                    <div class="container-fluid">
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="card card-warning">
+                                    @* <div class="card-header">
+                                    <h5 class="card-title">Transaction Status </h5>
+                                    </div>*@
+
+                                    <div class="card-body ">
+
+                                        <div class="row">
+
+
+                                            <div style="display:none;">
+                                            <div class="col-md-6">
+                                              
+                                                <div class="form-group">
+                                                    <label>Reference ID	 </label>
+                                                    <input type="text" class="form-control" placeholder="Enter Reference ID	" id="txtRefeIDTransaction" />
+
+                                                </div>
+                                               
+
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="new-mt3">
+                                                <button type="button" id="btnSearch" class="btn form-control btn-primary waves-effect waves-light" onclick="showTransactionstatus()">Search</button>
+                                            </div>
+                                            </div>
+                                            </div>
+
+
+
+
+                                            <div class="col-md-12 border p-4">
+                                                <div class="card-header alert alert-primary ">
+                                                    <h4 class="text-center">Transaction History</h4>
+
+                                                </div>
+
+
+
+                                                <table id="example3" class="my  table table-bordered table-hover" style="width:100%;">
+                                                    <thead class="bg-primary">
+                                                        <tr>
+                                                            <th>Status</th>
+                                                            <th>Reference Id :</th>
+                                                            <th>Recharge Date :</th>
+                                                            <th>Mobile :</th>
+                                                            <th>Amount :</th>
+                                                            <th>Aknowledge No :</th>
+
+
+                                                        </tr>
+
+                                                    </thead>
+                                                    <tbody>
+
+
+                                                        @if (ViewBag.RechargeRefId != null && ViewBag.RechargeRefId.Rows.Count > 0)
+                                                        {
+                                                            foreach (DataRow item in ViewBag.RechargeRefId.Rows)
+                                                            {
+                                                                <tr>
+
+
+                                                                    <td>
+                                                                        <i class="btn btn-warning" onclick="showTransactionstatus('@item["refid"]')">View</i>
+                                                                    </td>
+
+                                                                    <td>@item["refid"]</td>
+                                                                    <td>@item["date"]</td>
+
+
+
+                                                                    <td>@item["MobileNo"]</td>
+
+                                                                    <td>@item["Amount"]</td>
+                                                                    <td>@item["ackno"]</td>
+                                                                </tr>
+
+
+                                                            }
+                                                        }
+                                                    </tbody>
+                                                </table>
+
+
+
+
+
+
+
+                                            @*    <p class="text-center h4 text-danger" id="pmsg"></p>
+                                                <span style="color: blue;"> click to Reference no for more detail</span>*@
+                                                <div class="wraperplan border p-2 row" style="display:none;">
+                                                    @if (ViewBag.RechargeRefId != null && ViewBag.RechargeRefId.Rows.Count > 0)
+                                                    {
+                                                        foreach (DataRow item in ViewBag.RechargeRefId.Rows)
+                                                        {
+                                                            <div class=" col-sm-6 card p-3 " @*onclick="setRefIdTxt('@item["refid"]')"*@>
+
+
+                                                                <table class="table table-bordered" onclick="showTransactionstatus('@item["refid"]')">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <th>Reference Id :</th>
+                                                                            <td style="color: blue;"><u> @item["refid"]</u></td>
+
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                            <th>Recharge Date :</th>
+                                                                            <td>  @item["date"]</td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>Mobile :</th>
+                                                                            <td> @item["MobileNo"]</td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>Amount :</th>
+                                                                            <td>  @item["Amount"]</td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>Acknowedge No :</th>
+                                                                            <td>  @item["ackno"]</td>
+
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                @*<div class=" row ">
+                                                                    <div class="col-sm-5"><label>Reference Id : </label></div><div class="col-sm-7"><span> @item["refid"]</span></div>
+                                                                </div>
+
+                                                                <div class=" row ">
+                                                                    <div class="col-sm-5"><label>Mobile : </label></div><div class="col-sm-7">
+                                                                        <span> @item["MobileNo"]</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class=" row ">
+                                                                    <div class="col-sm-5"><label> Amount: </label></div><div class="col-sm-7">
+                                                                        <span> @item["Amount"]</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class=" row ">
+                                                                    <div class="col-sm-5"><label>Recharge Date : </label></div><div class="col-sm-7">
+                                                                        <span> @item["date"]</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class=" row ">
+                                                                    <div class="col-sm-5"><label>STATUS: </label></div><div class="col-sm-7">
+                                                                        <span> @item["message"]</span>
+                                                                    </div>
+                                                                </div>*@
+
+
+                                                            </div>
+                                                        }
+
+                                                    }
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+
+
+                                    </div>
+
+
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+
+            </section>
+
+
+            <div class="col-md-12" style="display:none;">
+                <div class="card card-warning">
+                    <div class="card-header">
+
+
+                        <div class="card-tools">
+                        </div>
+
+                        <div class="card-body">
+                            <div style="overflow-x:auto;">
+
+                                <table id="example3" class="my  table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+
+                                            <th>Amount </th>
+                                            <th>Acount No </th>
+
+                                            <th>Customercharge </th>
+                                            <th>refundtxnid</th>
+
+                                            <th>UTR</th>
+                                            <th>GST</th>
+                                            <th>TDS</th>
+                                            <th>ReferenceID</th>
+                                            <th>Discount</th>
+                                            <th>Date Founded</th>
+
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    @*          <tbody>
+                                    @{
+                                    if (Model.dt != null)
+                                    {
+                                    if (Model.dt.Rows.Count > 0)
+                                    {
+                                    int i = 1;
+                                    foreach (DataRow item in Model.dt.Rows)
+                                    {
+                                    <tr>
+                                    <td>@i</td>
+                                    <td>@item["clientCode"]</td>
+                                    <td>@item["ClientName"]</td>
+                                    <td>@item["PhoneNo"]</td>
+                                    <td>@item["State_Name"]</td>
+                                    <td>@item["Cityname"]</td>
+                                    <td>@item["WebSite"]</td>
+                                    <td>@item["HeadOffice"]</td>
+                                    <td>@item["Pincode"]</td>
+                                    <td>@item["Address2"]</td>
+                                    <td>@item["Remark"]</td>
+
+                                    <td>
+                                    <a href="#" onclick="GetDetailsForEdit('@item["clientCode"]')"><span class="badge bg-success">Edit</span></a>
+                                    </td>
+
+                                    @*   <td>
+                                    <a href="#" onclick="DeleteItemHeadDetails('@item["SrNo"]')"><span class="badge bg-danger">Delete</span></a>
+                                    </td>
+                                    *@
+                                    @*   </tr>
+                                    i++;
+                                    }
+                                    }
+
+                                    }
+                                    }
+
+                                    </tbody>*@
+                                </table>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+            <script type="text/javascript" language="javascript">
+                //function numeric(e) {
+                //    var unicode = e.charCode ? e.charCode : e.keyCode;
+                //    if (unicode == 8 || unicode == 9 || (unicode >= 48 && unicode <= 57)) {
+                //        return true;
+                //    }
+                //    else {
+                //        return false;
+                //    }
+                //}
+
+                function showTransactionstatus(refid) {
+                    //if ($("#txtRefeIDTransaction").val().trim() == "") {
+                    //    alert("Please enter ReferenceID")
+                    //    $("#txtRefeIDTransaction").focus()
+                    //    return false;
+                    //}
+
+                    var data = new FormData;
+                    //data.append("RefeID", $("#txtRefeIDTransaction").val());
+                    data.append("RefeID", refid);
+                    $("#showSpinner").show();
+
+                    $.ajax({
+                        url: "/Admin/TransactionPost",
+                        type: "POST",
+                        contentType: false,
+                        processData: false,
+                        data: data,
+                        success: function (data) {
+                            debugger;
+                            console.log(data);
+                            if (data.strId == "1") {
+                                $("#example3").show();
+                                var employeeTable = $('#example3 tbody');
+                                employeeTable.empty();
+                                $.each(data.dtlist, function (index, emp) {
+                                    debugger;
+                                    employeeTable.append('<tr><td>' + emp.amount + '</td><td>'
+                                        + emp.account + '</td><td>' + emp.customercharge + '</td><td>' + emp.refundtxnid
+                                        + '</td><td>' + emp.utr + '</td><td>' + emp.gst + '</td><td>' + emp.tds
+                                        + '</td><td>' + emp.referenceid + '</td><td>'
+                                        + emp.discount + '</td><td>' + emp.daterefunded + '</td></tr>');
+                                });
+                                $("#pmsg").hide();
+                            }
+                            else if (data.strId == "0") {
+                                var obj = $.parseJSON(data.msg)
+                                console.log(obj)
+                                $("#pmsg").text(obj.message);
+                            }
+
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert('Please Check values Entered by you !!!');
+                            $("#showSpinner").hide();
+                        }
+
+
+                    });
+                }
+
+
+
+
+
+
+
+            </script>
+
+
+
+        </div>
+
+
+    </div>
+</div>
+</div>
+
+
+<!-- new design end-->
+<script>
+    function beneficiaryhideshowradio() {
+        $("#remitterhideshowdv").hide()
+        $("#querydetaisshow").show()
+        
+        $("#beneficiaryhideshowdv").show()
+        $("#remitterhideshowbtn").hide()
+        $("#beneficiaryhideshowbtn").show()
+        $("#showbenificiarydetails").show()
+        $("#showbanandremismg").text('Fetch Beneficiary')
+        $("#remitterregisterhideshowbtn").hide()
+        $("#benificiaryregisterhideshowbtn").hide()
+        $("#registerbenificiarydv").hide();
+    }
+
+    function remitterhideshowradio() {
+        $("#remitterhideshowdv").show()
+        $("#beneficiaryhideshowdv").hide()
+        $("#remitterhideshowbtn").show()
+        $("#beneficiaryhideshowbtn").hide()
+        $("#showbenificiarydetails").hide()
+        $("#showbanandremismg").text('Fetch Remitter')
+        $("#remitterregisterhideshowbtn").hide()
+        $("#benificiaryregisterhideshowbtn").hide()
+        // register beneficiary div
+        $("#registerbenificiarydv").hide();
+    }
+    function registerBeneficiaryRadiobtn() {
+        $("#beneficiaryhideshowbtn").hide()
+        $("#remitterhideshowbtn").hide()
+        $("#remitterregisterhideshowbtn").hide()
+        $("#benificiaryregisterhideshowbtn").show()
+
+        $("#remitterhideshowdv").show()
+        $("#beneficiaryhideshowdv").hide()
+
+        $("#showbanandremismg").text('Register Beneficiary')
+
+        $("#registerbenificiarydv").hide();
+        $("#registerdv").hide();
+    }
+    function registerRemitterRadiobtn() {
+        $("#beneficiaryhideshowbtn").hide()
+        $("#remitterhideshowbtn").hide()
+        $("#remitterregisterhideshowbtn").show()
+        $("#benificiaryregisterhideshowbtn").hide()
+
+        $("#remitterhideshowdv").show()
+        $("#beneficiaryhideshowdv").hide()
+
+        $("#showbanandremismg").text('Register Beneficiary')
+
+        $("#registerbenificiarydv").hide();
+        $("#registerdv").hide();
+    }
+</script>
+
+
+
+<!-- shani start-->
+<script>
+
+
+    function GetRemitterDetails() {
+        debugger;
+        var dataobj = {
+
+        };
+        $.ajax({
+            url: "/Admin/GetRemitterDetails",
+            type: "POST",
+            data: dataobj,
+            success: function (data) {
+                debugger;
+                console.log(data);
+                if (data != null) {
+                    $("#Pincode").val(data.pincode);
+                    $("#address").val(data.address);
+                    $("#dob").val(data.dob);
+
+                }
+                //else if (data.strId == "0") {
+                //    var obj = $.parseJSON(data.msg)
+
+                //    $("#pmsg").text(obj.message);
+                //}
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+
+
+        });
+    }
+
+
+
+    function GetBenifecairyDetails() {
+        debugger;
+        var dataobj = {
+
+        };
+        $.ajax({
+            url: "/Admin/GetRemitterDetails",
+            type: "POST",
+            data: dataobj,
+            success: function (data) {
+                debugger;
+                console.log(data);
+                if (data != null) {
+                    $("#txtPincodebeneficiary").val(data.pincode);
+                    $("#txtregisteraddressbeneficiary").val(data.address);
+                    $("#registerdobbenificiary").val(data.dob);
+                    $("#txtdobtransaction").val(data.dob);
+                    $("#txtAddresstransaction").val(data.address);
+                    $("#txtPincodeTransaction").val(data.pincode);
+
+                }
+                //else if (data.strId == "0") {
+                //    var obj = $.parseJSON(data.msg)
+
+                //    $("#pmsg").text(obj.message);
+                //}
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+
+
+        });
+    }
+
+
+
+    function setRefIdTxt(id) {
+        $("#txtRefeIDTransaction").val(id);
+    }
+
+    function setRefIdTxtRefund(id, ackno) {
+        $("#txtRefeID").val(id);
+        $("#txtackNo").val(ackno);
+    }
+
+
+
+    //function pennydrop() {
+    //    debugger;
+    //    $("#btnPennry").show();
+    //    $("#regisbene").hide();
+    //}
+
+    //function registerBenificiary() {
+    //    debugger;
+    //    $("#regisbene").show();
+    //    $("#btnPennry").hide();
+    //}
+
+
+
+
+
+    function PennyDropApi() {
+        debugger;
+
+        if ($("#txtName").val() == "") {
+            alert("Enter Bank Name !!!");
+            $("#txtName").focus();
+            return;
+        }
+
+
+        if ($("#txtBranchName").val() == "") {
+            alert("Enter Branch Name !!!");
+            $("#txtBranchName").focus();
+            return;
+        }
+
+
+        if ($("#BankId").val() == "") {
+            alert('Enter BankId');
+            $("#BankId").focus;
+            return;
+        }
+
+
+        if ($("#Bankname").val() == "") {
+            alert('Enter  Bankname ');
+            $("#Bankname").focus;
+            return;
+        }
+
+
+        if ($("#AccountNo").val() == "") {
+            alert('Enter AccountNo !');
+            $("#AccountNo").focus;
+            return;
+
+        }
+
+
+        if ($("#IFSC").val() == "") {
+            alert('Enter IFSC ');
+            $("#IFSC").focus;
+            return;
+        }
+
+
+
+
+        if ($("#registerdobbenificiary").val() == "") {
+            alert("Enter dob !!!");
+            $("#registerdobbenificiary").focus();
+            return;
+        }
+
+
+        if ($("#registermobilebeneficiary").val() == "") {
+            alert("Enter mobile !!!");
+            $("#registermobilebeneficiary").focus();
+            return;
+        }
+
+        if ($("#txtregisteraddressbeneficiary").val() == "") {
+            alert('Enter Address !!')
+            $("#txtregisteraddressbeneficiary").focus();
+            return;
+        }
+
+        if ($("#gst_state").val() == "") {
+            alert("Enter gst_state ")
+            $("#gst_state").focus();
+            return;
+        }
+
+        if ($("#txtPincodebeneficiary").val() == "") {
+            alert('Enter Pincode')
+            $("#txtPincodebeneficiary").focus();
+            return;
+        }
+
+
+        var dataobject = {
+            bankid: $("#BankId").val(),
+            benename: $("#Bankname").val(),
+            //accno: $("#AccountNo").val(),
+            accno: "57000100005499",
+            ifsccode: $("#IFSC").val(),
+            dob: $("#registerdobbenificiary").val(),
+            //mobile: $("#registermobilebeneficiary").val(),
+            mobile: $("#txtmobiletransaction").val(),
+            address: $("#txtregisteraddressbeneficiary").val(),
+            gst_state: $("#gst_state").val(),
+            verified: "0",
+
+            pincode: $("#txtPincodebeneficiary").val(),
+
+            bene_id: $("#txtbeneidfillauto").val()
+
+
+        };
+        $("#showSpinner").show();
+
+        $.ajax({
+            url: "/Admin/PennyDropVerificationy",
+            type: "POST",
+            data: dataobject,
+            success: function (r) {
+                //console.log(r);
+                var res = jQuery.parseJSON(r);
+                if (res.response_code == 1) {
+                    alert(r.msg);
+                }
+
+                else {
+                    debugger;
+                    alert(res.message);
+                    $("#showSpinner").hide();
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        });
+    }
+
+
+
+
+
+</script>
+
+
+
+
+
+<script>
+
+
+    function SaveRecordTransation() {
+        debugger;
+
+        //if ($("#Pipe").val() == "0") {
+        //    alert("Plese select  Pipe!!!");
+        //    $("#Pipe").focus();
+        //    return false;
+        //}
+
+        if ($("#Txntype").val() == '0') {
+            alert("Select Txntype !!!");
+            $("#Txntype").focus();
+            return false
+        }
+
+
+        if ($("#Ammount").val() == "") {
+            alert("Enter Amount!!!");
+            $("#Ammount").focus();
+            return false
+        }
+
+
+        if ($("#txtdobtransaction").val() == "") {
+            alert("Enter dob !!!");
+            $("#txtdobtransaction").focus();
+            return false;
+        }
+
+        if ($("#ddlVerifiedtransaction").val() == "") {
+            alert("Enter Verified !!!");
+            $("#ddlVerifiedtransaction").focus();
+            return false;
+        }
+
+        //if ($("#txtmobiletransaction").val() == "") {
+        //    alert("Enter mobile !!!");
+        //    $("#txtmobiletransaction").focus();
+        //    return false;
+        //}
+
+        if ($("#txtAddresstransaction").val() == "") {
+            alert('Enter Address !!')
+            $("#txtAddresstransaction").focus();
+            return false;
+        }
+
+        if ($("#ddlgst_statetransation").val() == "0") {
+            alert("Enter gst_state ")
+            $("#ddlgst_statetransation").focus();
+            return false;
+        }
+
+        if ($("#txtPincodeTransaction").val() == "") {
+            alert('Enter Pincode')
+            $("#txtPincodeTransaction").focus();
+            return;
+        }
+
+
+        var dataobject = {
+            Pipe: $("#Pipe").val(),
+            TxnType: $("#Txntype").val(),
+            Amount: $("#Ammount").val(),
+            Dob: $("#txtdobtransaction").val(),
+            Verified: $("#ddlVerifiedtransaction").val(),
+            mobile: $("#txtFetchBenificiaryPhone1").val(),
+            Address: $("#txtAddresstransaction").val(),
+            gst_state: $("#ddlgst_statetransation").val(),
+            Pincode: $("#txtPincodeTransaction").val(),
+            Bene_id: $("#txtbeneidfillauto").val(),
+        };
+        $("#showSpinner").show();
+        $.ajax({
+            url: "/Admin/InsertTransaction",
+            type: "POST",
+            data: dataobject,
+            success: function (r) {
+                if (r.response_code == "1") {
+                    alert(r.message);
+                    location.reload();
+
+                }
+                else {
+                    //alert('Server not Responding !!!');
+                    alert(r.message);
+                    $("#showSpinner").hide();
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        });
+    }
+
+
+    function BackRecordTransation() {
+        $("#transactiondv").hide();
+        $("#fetchbenificiarydv").show();
+        $("#txtbeneidfillauto").val('');
+    }
+
+
+    function PennyDropVerificationy() {
+        if ($("#Ammount").val() == "") {
+            alert("Enter Amount!!!");
+            $("#Ammount").focus();
+            return false
+        }
+
+
+        if ($("#txtdobtransaction").val() == "") {
+            alert("Enter dob !!!");
+            $("#txtdobtransaction").focus();
+            return false;
+        }
+
+        //if ($("#ddlVerifiedtransaction").val() == "") {
+        //    alert("Enter Verified !!!");
+        //    $("#ddlVerifiedtransaction").focus();
+        //    return false;
+        //}
+
+        //if ($("#txtmobiletransaction").val() == "") {
+        //    alert("Enter mobile !!!");
+        //    $("#txtmobiletransaction").focus();
+        //    return false;
+        //}
+
+        if ($("#txtAddresstransaction").val() == "") {
+            alert('Enter Address !!')
+            $("#txtAddresstransaction").focus();
+            return false;
+        }
+
+        if ($("#ddlgst_statetransation").val() == "0") {
+            alert("Enter gst_state ")
+            $("#ddlgst_statetransation").focus();
+            return false;
+        }
+
+        if ($("#txtPincodeTransaction").val() == "") {
+            alert('Enter Pincode')
+            $("#txtPincodeTransaction").focus();
+            return;
+        }
+
+        var dataobject = {
+            //Amount: $("#Ammount").val(),
+            address: $("#txtAddresstransaction").val(),
+            gst_state: $("#ddlgst_statetransation").val(),
+            pincode: $("#txtPincodeTransaction").val(),
+            //mobile: $("#txtmobiletransaction").val(),
+            mobile: $("#txtFetchBenificiaryPhone1").val(),
+
+            accno: $("#txtfillfetchaccno").val(),
+            bankid: $("#txtfillfetchbankname").val(),
+            benename: $("#txtfillfetchbenename").val(),
+            dob: $("#txtdobtransaction").val(),
+            bene_id: $("#txtfillfetchbaneid").val(),
+        }
+        $.ajax({
+            url: "/Admin/PennyDropVerificationy",
+            type: "POST",
+            data: dataobject,
+            success: function (r) {
+
+                var res = jQuery.parseJSON(r);
+                //console.log(res);
+                if (res.response_code == 1)
+                    SaveRecordTransation();
+                else {
+                    debugger;
+                    alert(res.message);
+                    $("#showSpinner").hide();
+                }
+                //SaveRecordTransation();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        });
+    }
+    function benificiaryregisterbtn() {
+        if ($("#txtQueryRemmiterPhone1").val() == "") {
+            alert("Enter Mobile No.")
+            $("#txtQueryRemmiterPhone1").focus();
+            return;
+        }
+
+        $("#registermobilebeneficiary").val($("#txtQueryRemmiterPhone1").val());
+        $("#registerdv").hide();
+        $("#registerbenificiarydv").show();
+        // hide main div
+        $("#fetchbenificiarydv").hide();
+    }
+    function remitterregistshowbtn() {
+        if ($("#txtQueryRemmiterPhone1").val() == "") {
+            alert("Enter Mobile No.")
+            $("#txtQueryRemmiterPhone1").focus();
+            return;
+        }
+        $("#mobile").val($("#txtQueryRemmiterPhone1").val());
+        $("#registerbenificiarydv").hide();
+        $("#registerdv").show();
+
+    }
+
+ 
+</script>
+<script>
+         $(document).ready(function () {
+         $('select').select2();
+   
+    });
+
+        </script>

@@ -1,0 +1,372 @@
+﻿@model SportsBattle.Models.clsPlayer
+@{
+    ViewData["Title"] = "TableFullView";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="app-main__inner">
+    <div class="row">
+        <div class="col-md-12">
+
+
+            @if (Model.dtDetails.Rows.Count > 0 || Model.dtDetails != null)
+            {<div class="main-card mb-3 card">
+                <div class="card-header-tab card-header">
+                    <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                        <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
+                        Table Full View
+                    </div>
+                </div>
+                <div class="no-gutters row">
+                    <div class="col-md-12 col-lg-4">
+                        <ul class="list-group list-group-flush">
+                            <li class="bg-transparent list-group-item">
+                                <div class="widget-content p-0">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">Table ID</div>
+                                            </div>
+                                            <div class="widget-content-right">
+                                                <div class="widget-numbers text-success">@Model.dtDetails.Rows[0]["ChallengeId"]</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="bg-transparent list-group-item">
+                                <div class="widget-content p-0">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">Table Type</div>
+
+                                            </div>
+                                            <div class="widget-content-right">
+                                                <div class="widget-numbers text-primary">@Model.dtDetails.Rows[0]["GameType"]</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-12 col-lg-4">
+                        <ul class="list-group list-group-flush">
+                            <li class="bg-transparent list-group-item">
+                                <div class="widget-content p-0">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">Table Amount</div>
+
+                                            </div>
+                                            <div class="widget-content-right">
+                                                <div class="widget-numbers text-danger">@Model.dtDetails.Rows[0]["EntryFee"]</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="bg-transparent list-group-item">
+                                <div class="widget-content p-0">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">Room Code</div>
+
+                                            </div>
+                                            <div class="widget-content-right">
+                                                <div class="widget-numbers text-warning">@Model.dtDetails.Rows[0]["RoomCode"]</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-12 col-lg-4">
+                        <ul class="list-group list-group-flush">
+                            <li class="bg-transparent list-group-item">
+                                <div class="widget-content p-0">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">Table Status</div>
+                                            </div>
+                                            <div class="widget-content-right">
+                                                <div class="widget-numbers text-success">@Model.dtDetails.Rows[0]["ChallengeStatus"]</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="bg-transparent list-group-item">
+                                <div class="widget-content p-0">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">Table Create Date & Time</div>
+
+                                            </div>
+                                            <div class="widget-content-right">
+                                                <div class="widget-numbers text-primary">@Model.dtDetails.Rows[0]["ChallengeCreationTime"]</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class="col-sm-6 col-md-6 col-xl-6">
+                        <div class="card-shadow-primary card-border mb-3 profile-responsive card">
+                            <div class="dropdown-menu-header">
+                                <div class="dropdown-menu-header-inner bg-alternate">
+                                    <div class="menu-header-image opacity-2" style="background-image: url('assets/images/dropdown-header/abstract1.jpg');"></div>
+                                    <div class="menu-header-content btn-pane-right">
+                                        <div class="avatar-icon-wrapper mr-3 avatar-icon-xl btn-hover-shine">
+                                            <div class="avatar-icon rounded">
+                                                <img src="../assets/images/avatars/1.jpg" alt="Avatar 5">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h5 class="menu-header-title">@Model.dtDetails.Rows[0]["FirstPlayerID"] (LudoKing Username :@Model.dtDetails.Rows[0]["FirstIGN"])</h5>
+
+                                        </div>
+                                        <div class="menu-header-btn-pane">
+                                            <button type="button" class="btn-wide btn-hover-shine btn-pill btn btn-warning">@Model.dtDetails.Rows[0]["FirstsTATUS"]</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="widget-content pt-2 pl-0 pb-2 pr-0">
+                                        <div class="text-center">
+                                            <h5 class="widget-heading opacity-4 mb-0">  Join Date : @Model.dtDetails.Rows[0]["FirstJoinDate"]</h5>
+                                            <h5 class="widget-heading opacity-4 mb-0">Upload Result Date & Time : @Model.dtDetails.Rows[0]["FirstUpdateResultDate"]</h5>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="p-0 list-group-item">
+                                    <div class="grid-menu grid-menu-2col">
+                                        <div class="no-gutters row">
+                                            <div class="col-sm-12">
+                                                <img style="width: 100%;" src="@Model.dtDetails.Rows[0]["FirstImageURL"]" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xl-6">
+                        <div class="card-shadow-primary card-border mb-3 profile-responsive card">
+                            <div class="dropdown-menu-header">
+                                <div class="dropdown-menu-header-inner bg-alternate">
+                                    <div class="menu-header-image opacity-4" style="background-image: url('assets/images/dropdown-header/abstract2.jpg');"></div>
+                                    <div class="menu-header-content btn-pane-right">
+                                        <div class="avatar-icon-wrapper mr-3 avatar-icon-xl btn-hover-shine">
+                                            <div class="avatar-icon rounded">
+                                                <img src="../assets/images/avatars/1.jpg" alt="Avatar 5">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h5 class="menu-header-title">@Model.dtDetails.Rows[0]["SECPlayerID"] (LudoKing Username: @Model.dtDetails.Rows[0]["FirstIGN"])</h5>
+
+                                        </div>
+                                        <div class="menu-header-btn-pane">
+                                            <button type="button" class="btn-wide btn-hover-shine btn-pill btn btn-warning">@Model.dtDetails.Rows[0]["sECsTATUS"]</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="p-0 list-group-item">
+                                    <div class="widget-content">
+                                        <div class="text-center">
+                                            <h5 class="widget-heading mb-0 opacity-4">
+                                                Join Date : @Model.dtDetails.Rows[0]["SecJoinDate"]
+                                            </h5>
+                                            <h5 class="widget-heading mb-0 opacity-4">
+                                                Upload Result Date & Time : @Model.dtDetails.Rows[0]["SecUpdateResultDate"]
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="p-0 list-group-item">
+                                    <div class="grid-menu grid-menu-2col">
+                                        <div class="no-gutters row">
+                                            <div class="col-sm-12">
+                                                <img style="width: 100%;" src="@Model.dtDetails.Rows[0]["SecImageURL"]" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><div class="main-card mb-3 card">
+                @if (Model.dtDetails.Rows[0]["WinnerDeclareBy"].ToString() == "User")
+    {
+                <div class="mbg-3 alert alert-info alert-dismissible fade show" role="alert">
+                    <span class="pr-2">
+                        <i class="fa fa-question-circle"></i>
+                    </span>
+                    Result Declared By User.
+                </div>
+    }
+    else if (Model.dtDetails.Rows[0]["WinnerDeclareBy"].ToString() == "Admin")
+    {
+                <div class="mbg-3 alert alert-info alert-dismissible fade show" role="alert">
+                    <span class="pr-2">
+                        <i class="fa fa-question-circle"></i>
+                    </span>
+                    Result Declared By Admin.
+                </div>
+    }
+    else if(Model.dtDetails.Rows[0]["WinnerDeclareBy"].ToString() == "Running" || Model.dtDetails.Rows[0]["WinnerDeclareBy"].ToString() == "Pending" || Model.dtDetails.Rows[0]["WinnerDeclareBy"].ToString() == "")
+    {
+                <div class="mbg-3 alert alert-info alert-dismissible fade show" role="alert">
+                    <span class="pr-2">
+                        <i class="fa fa-question-circle"></i>
+                    </span>
+                    Upload Result By Admin
+                </div>
+                <div class="col-sm-12">
+                    <div class="position-relative form-group col-sm-6">
+                        <label for="exampleEmail" class="">@Model.dtDetails.Rows[0]["FirstPlayerID"]</label>
+                        <select class="form-control" id="ddlFirstPlayer">
+                            <option>Win</option>
+                            <option>Loss</option>
+                            <option>Cancel</option>
+                        </select>
+                    </div>
+                    <div class="position-relative form-group col-sm-6">
+                        <label for="exampleEmail" class="">@Model.dtDetails.Rows[0]["SecPlayerID"]</label>
+                        <select class="form-control" id="ddlSecPlayer">
+                            <option>Win</option>
+                            <option>Loss</option>
+                            <option>Cancel</option>
+                        </select>
+                    </div>
+                    <div class="position-relative form-group col-sm-6">
+                        <button class="btn btn-primary btn-lg  form-group" onclick="UpdateResult()">Upload Result</button>
+                    </div>
+                </div>
+    } 
+            </div>
+            <div class="main-card mb-3 card">
+                <div class="card-header-tab card-header">
+                    <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                        <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
+                        Transaction Details
+                    </div>
+                </div>
+                @if (Model.dtDetails1.Rows.Count > 0 && Model.dtDetails1 != null)
+                    {
+                        int i = 1;
+                <div class="table-responsive">
+                    <table class="align-middle text-truncate mb-0 table table-borderless table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Txn Id</th>
+                                <th class="text-center">Amount</th>
+                                <th class="text-center">Type</th>
+                                <th class="text-center">Msg</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow item in Model.dtDetails1.Rows)
+                                    {
+                            <tr>
+                                <td class="text-center text-muted">#@Convert.ToInt32(i)</td>
+                                <td>
+                                    <div class="widget-content p-0">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left mr-3">
+                                                <div class="widget-content-left">
+                                                    <img width="40" class="rounded-circle" src="@item["ProfilePic"]" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="widget-content-left flex2">
+                                                <div class="widget-heading">  @item["Name"] (@item["UserId"])</div>
+                                                <div class="widget-subheading opacity-7">@item["MobileNo"]</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center">@item["TxtId"]</td>
+                                <td class="text-center" style="width: 150px;">
+                                    <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">@item["Amount"]</button>
+
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">@item["Type"]</button>
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">@item["Remark"]</button>
+                                </td>
+                                <td class="text-center">
+                                    <div class="badge badge-warning">@item["Status"]</div>
+                                </td>
+                                <td class="text-center">
+                                    @item["Date"]
+                                </td>
+
+                            </tr>
+                                    }
+                        </tbody>
+                    </table>
+                </div>
+
+
+                    }
+            </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+    function UpdateResult() {
+        if (confirm("are you sure want to update result.") == true) {
+            $.ajax({
+                url: '/Player/UpdateResult',
+                method: 'post',
+                data: { challengeId: getParameterByName('type'), FirstPlayerStatus: $("#ddlFirstPlayer").val(), SecPlayerStatus: $('#ddlSecPlayer').val() },
+                success: function (r) {
+                    $("#showSpinner").hide();
+                    if (r.msg1 = '1') {
+                        alert('Result Status Successfully...');
+                        location.reload();
+                    }
+                    else {
+                        alert("something went wrong");
+                    }
+                }
+            })
+        }
+    }
+
+</script>

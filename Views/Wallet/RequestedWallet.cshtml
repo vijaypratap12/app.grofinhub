@@ -1,0 +1,166 @@
+﻿@using System.Data
+@model DataTable
+@{
+    ViewData["Title"] = "RequestedWallet";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<h1>RequestedWallet</h1>*@
+
+<div class="app-main__inner">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="main-card mb-3 card">
+
+                <div class="col-lg-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover " id="example3">
+                            <thead>
+                                <tr>
+                                    <th>Sr.</th>
+                                    <th>Name</th>
+                                    <th>User ID</th>
+                                    <th>Amount</th>
+                                    <th>Transaction Type</th>
+                                    <th>Bank Name</th>
+                                    <th>Deposit Date</th>
+                                    <th>Entry Date</th>
+                                  
+
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if(Model!=null && Model.Rows.Count>0)
+                                {
+                                    int i = 1;
+                                    foreach (DataRow row in Model.Rows)
+                                    {
+                                        <tr>
+                                    <td>@(i++)</td>
+
+                                            <td id="tdName_@row["Id"]">@row["Name"]</td>
+                                            <td id="tduserid_@row["Id"]">@row["UserID"]</td>
+                                            <td id="tdamount_@row["Id"]">@row["Amount"]</td>
+                                            <td id="tdtransactiontype_@row["Id"]">@row["TransactionType"]</td>
+                                    <td id="tdbankname_@row["Id"]">@row["BankName"]</td>
+                                            <td id="tddepositdate_@row["Id"]">@row["DDate"]</td>
+                                            <td id="tdentrydate_@row["Id"]">@row["edate"]</td>
+                                            <td id="tdfilesrc_@row["Id"]" style="display:none;">
+                                                @row["images"]</td>
+                                    
+                                            <td data-toggle="modal" data-target="#exampleModal" onclick="showPopUp('@row["Id"]')"><button class=" btn btn-primary">Show</button></td>
+
+                                </tr>
+                                    }
+                                }
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Button trigger modal -->
+@*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>*@
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Fund Request</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <div class="row">
+            <div class="col-sm-8">
+                        <div class="row p-2">
+                            <div class="col-sm-6"><label>Name : </label></div>
+                            <div class="col-sm-6"><span id="userName"></span></div>
+                        </div>
+                <div class="row p-2">
+                    <div class="col-sm-6"><label>USERID : </label></div>
+                    <div class="col-sm-6"><span id="useriddv"></span></div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-sm-6"><label>Amount : </label></div>
+                    <div class="col-sm-6"><span id="amountdv"></span></div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-sm-6"><label>Bank Name : </label></div>
+                    <div class="col-sm-6"><span id="banknamedv"></span></div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-sm-6"><label>Transaction Type : </label></div>
+                    <div class="col-sm-6"><span id="transactiontypedv"></span></div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-sm-6"><label>Deposit Date : </label></div>
+                    <div class="col-sm-6"><span id="depositedatedv"></span></div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-sm-6"><label>Entry Date : </label></div>
+                    <div class="col-sm-6"><span id="entrydatedv"></span></div>
+                </div>
+                <input type="hidden" id="txthiddenid"/>
+            </div>
+                    <div class="col-sm-4"><a id="setasrc" target="_blank" href="#"><img height="100" width="100" id="showfilemodal" /></a></div>
+            </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="rejectAmount()">REJECT</button>
+                <button type="button" class="btn btn-primary" onclick="approveAmount()">APPROVE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function showPopUp(id)
+    {
+        
+        $("#txthiddenid").val(id)
+        $("#userName").text($("#tdName_" + id).text())
+        $("#useriddv").text($("#tduserid_" + id).text())
+        $("#amountdv").text($("#tdamount_" + id).text())
+        $("#transactiontypedv").text($("#tdtransactiontype_" + id).text())
+        $("#banknamedv").text($("#tdbankname_" + id).text())
+        $("#depositedatedv").text($("#tddepositdate_" + id).text())
+        $("#entrydatedv").text($("#tdentrydate_" + id).text())
+        $("#showfilemodal").attr("src",$("#tdfilesrc_" + id).text())
+        $("#setasrc").attr("href", $("#tdfilesrc_" + id).text())
+    }
+    function approveAmount()
+    {
+      var id=$("#txthiddenid").val()
+        var amount = $("#amountdv").text()
+        var type = $("#transactiontypedv").text()
+        var userId = $("#useriddv").text()
+        $.post("/Wallet/ApprovedWallet", { PId: id, Amount: amount, Type: type, UserId :userId}, function (msg) {
+      alert(msg)
+      location.reload();
+      })
+    }
+     function rejectAmount()
+    {
+      var id=$("#txthiddenid").val()
+       
+        $.post("/Wallet/RejectedWallet", { PId: id}, function (msg) {
+      alert(msg)
+      location.reload();
+      })
+    }
+</script>

@@ -1,0 +1,131 @@
+﻿@{
+    ViewData["Title"] = "Payspintwallet";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model DataTable
+@using System.Data
+<div class="app-main__inner">
+    <div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div class="card card-warning ">
+                        <div class="card-header">
+                            <h3 class="card-title"> Paysprint wallet</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group text-center mb-2">
+
+
+                                @{
+                                    string Code = (string)TempData["Code"];
+                                    string msg = (string)TempData["Msg"];
+                                    if (!string.IsNullOrEmpty(Code))
+                                    {
+                                        if (Code == "1")
+                                        {
+                                            <div class="alert alert-primary msgdiv" id="MSG">
+                                                <strong style="font-size:16px; color:green">Success! </strong><span style="font-size:16px;">@msg</span>
+                                            </div>
+                                            <script>
+
+                                                window.setTimeout(function () {
+                                                    location.href = '/Admin/Payspintwallet';
+                                                @*$("#MSG").hide();*@
+                                                                                                }, 3000)
+                                            </script>
+                                        }
+                                        else
+                                        {
+                                            <div class="alert alert-danger msgdiv">
+                                                <strong>Error!</strong> @msg
+                                            </div>
+                                        }
+                                    }
+                                }
+                            </div>  
+                            
+                            <div class="row">
+                                <form action="" method="post">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Amount<span style="color:red">*</span></label>
+                                            <input type="text" required  id="txtamount" class="form-control" name="Amount" placeholder="Enter Amount" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="submit" value="Recharge" onclick="return validateform()" class="btn btn-primary" />
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-lg-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-active"  id="dataTable" width="100%" cellspacing="0">
+                                            <thead class="bg-primary">
+                                                <tr>
+                                                    <th>Sr.No</th>
+                                                    <th>Amount</th>
+                                                    <th>Type</th>
+                                                    <th>Date</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @if (Model != null)
+                                                {
+                                                    int i = 1;
+                                                    foreach (DataRow item in Model.Rows)
+                                                    {
+                                                        <tr>
+
+                                                            <td>  @Convert.ToInt32(i++)</td>
+                                                            @* <td> <img height="100" src="@item["ImageURL"]" />  </td>*@
+                                                            <td>@item["Amount"]</td>
+
+                                                            <td style="color:white ;"><span style="background-color:forestgreen;" class="rounded">@item["TxnType"]</span></td>
+
+
+                                                            <td>@item["EntryDate"]</td>
+
+                                                            @* <td>  <a onclick="Delete(@item["id"])" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a> </td>*@
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    //function validateform() {
+    //    alert(";ok");
+    //    if($("#txtamount").val()=='')
+    //    alert("Please enter amount !");
+    //    $("#txtamount").focus();
+    //    return false;
+    //}
+
+    $('#txtamount').keyup(function () {
+        this.value = this.value.replace(/[^0-9\.]/g, '');
+    });
+</script>

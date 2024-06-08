@@ -1,0 +1,1192 @@
+﻿@{
+	ViewData["Title"] = "GetMemberDocuments";
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<h1>GetMemberDocuments</h1>*@
+
+
+@model DataTable
+@using System.Data
+
+
+<style>
+	h3 {
+		display: inline;
+	}
+
+	thead {
+		font-size: 12px;
+	}
+
+	.card {
+		border-radius: 10px;
+        box-shadow: 0px 2px 5px 0px rgba(19, 23, 38, 0.05);
+        margin-bottom: 30px !important;
+        padding: 17px;
+    }
+
+    .lable {
+        font-weight: bold;
+    }
+</style>
+
+
+
+<div class="col-md-12">
+
+	<div class="card card-warning ">
+
+		<div class="row">
+			<div class="col-md-12"><h4 class="new-title">Member Documents List</h4></div>
+			<div class="col-sm-2">
+				<label>Type</label>
+				<select id="ddltype" onchange="userByType()" class="form-control">
+					<option value="">All</option>
+					<option value="BS">Business Startup</option>
+					<option value="ITR">Income Tax Returns (ITR)</option>
+					<option value="CR">Company Registration</option>
+					<option value="TNR">Trust/NGO/Registration</option>
+					<option value="TR">Trade Mark Registration</option>
+					<option value="MSUR">MSME/Udayan Registration</option>
+					<option value="CL">Contractor Licesce</option>
+					<option value="FSSAI">FSSAI License</option>
+					<option value="PSARA">PSARA License</option>
+					<option value="CMA">CMA Report</option>
+					<option value="ACC">Accounting</option>
+					<option value="GRR">GST Registration & Return</option>
+					<option value="PFLR">Partnership Firm/LLP Registration</option>
+					<option value="SR">Shop Registration</option>
+					<option value="PFESI">PF/ESI Registration</option>
+					<option value="IEL">Import/Export License</option>
+					<option value="RERA">RERA License</option>
+					<option value="PROJR">Project Report</option>
+					<option value="HOMEL">Home Loan</option>
+					<option value="BUSIL">Business Loan</option>
+					<option value="PERSOL">Personal Loan</option>
+					<option value="PROPERL">Loan Against Property</option>
+					<option value="CCAPPLY">Credit Card Apply</option>
+					<option value="MFUNDS">Mutual Fund</option>
+					<option value="FDEPOSIT">Fixed Deposit</option>
+					<option value="NPSCHEME">National Pension Scheme (NPS)</option>
+					<option value="BONDSDEB">Bond/ Debentures</option>
+					<option value="SGBONDS">Sovereign Gold Bond</option>
+					<option value="REIT">REIT</option>
+					<option value="DEMAT">Dematerialize Share certificate</option>
+				</select>
+			</div>
+			<div class="col-sm-2">
+				<div class="form-group">
+					<label>From Date</label>
+					<input type="date" id="txtFromDate" class="form-control" />
+				</div>
+			</div>
+			<div class="col-sm-2">
+				<div class="form-group">
+					<label>To Date</label>
+					<input type="date" id="txtTodate" class="form-control" />
+				</div>
+			</div>
+			<div class="col-sm-2">
+				<div class="form-group pt-4">
+					<input type="button" value="search" onclick="searchRecord()" class="btn btn-primary">
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="card card-warning" id="outerdv">
+
+		<div style="overflow-x:auto;" class="p-0" id="outertbl">
+			<table id="example3" class="my   table table-striped  table-bordered table-hover ">
+				<thead class="bg-primary">
+					<tr>
+						@* <th>Sr.No.</th>*@
+						<th style="width: 60px;">Action</th>
+						<th>Partner Id</th>
+						<th>Customer Name</th>
+						<th>Mobile No.</th>
+						<th>Email Id</th>
+						<th>EntryDate</th>
+						@*<th>Service Enquery</th>*@
+						<th>Doc Type</th>
+                        <th>Close Date</th>
+                        <th>Close Remarks</th>
+						@*<th>Assign To</th>
+						<th>Assign Date</th>
+						<th>Progess</th>*@
+					</tr>
+				</thead>
+				<tbody>
+					@{
+						if (Model != null)
+						{
+							if (Model.Rows.Count > 0)
+							{
+								int i = 1;
+								foreach (DataRow item in Model.Rows)
+								{
+									<tr>
+										@*<td>@i</td>*@
+										<td>
+											<i class="fa fa-eye" style="font-size:25px;color:blue; cursor:pointer; padding-left: 10px;" onclick="ViewGetMemberDetails('@item["ID"]')"></i>
+                                            @if (@item["CloseStatus"] == null || @item["CloseStatus"].ToString() == "")
+                                            { 
+                                                <i class="fa fa-edit" style="font-size:25px;color:green; cursor:pointer; padding-left: 10px;" onclick="Showmodel('@item["ID"]')"></i>
+                                            }
+                                            
+										</td>
+										<td>@item["Userid"]</td>
+										<td>@item["Name"]</td>
+										<td>@item["Mobileno"]</td>
+										<td>@item["Email"]</td>
+										<td>@item["EntryDates"]</td>
+										@*<td></td>*@
+										<td>@item["DocType"]</td>
+                                        <td>@item["CloseDatee"]</td>
+                                        <td>@item["CloseRemarks"]</td>
+										@*<td></td>
+						<td></td>
+						<td></td>*@
+									</tr>
+									i++;
+								}
+							}
+						}
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<!--Moda startl-->
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="min-width:120px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModal1Label"></h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+                <h4 style="text-align:center;  background: linear-gradient(146deg, #0052cc, #0d724c); color: white;">Document Close Details</h4>
+                <div class="row" style="">
+                    <div class="col-md-12">
+                        <div class="">
+                            <div class="border p-4">
+                                    <div class="row">
+                                        <div class="col-sm-4"><label class="lable" >Close Date:</label></div>
+                                        <div class="col-sm-8"> <input type="date" id="txtdate" class="form-control"  name="FormDate" /></div>
+                                        <input type="hidden" class="form-control" id="hdnID" />
+                                    </div>
+                                     <div class="row">
+                                        <div class="col-sm-4"><label class="lable" style="margin-top: 15px;">Closing Remarks:</label></div>
+                                        <div class="col-sm-8">  <textarea id="txtRemarks" style="margin-top: 15px;" placeholder="Enter  Remarks" required class="form-control" name="Remarks"></textarea></div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                         <input type="submit" style="margin-top: 15px;" value="Save" class="btn btn-primary " onclick="SaveDateDetails()" />
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+				<div class="modal-footer">
+				</div>
+			</div>
+		</div>
+	</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="min-width:1200px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel"></h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+                <h4 style="text-align:center;  background: linear-gradient(146deg, #0052cc, #0d724c); color: white;">Document Member Details</h4>
+                <div class="row" style="">
+                    <div class="col-md-12">
+                        <div class="">
+                            <div class="border p-4">
+                                <div class="border p-4">
+                                    <div class="row">
+                                        <h5 style="text-align:center; background: linear-gradient(146deg, #0052cc, #0d724c); color: white;">
+                                            Member Details
+                                        </h5>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-2"><label class="lable" >Partner Id:</label></div>
+                                        <div class="col-sm-2"> <span id="PartnerId"></span></div>
+                                        <div class="col-sm-2"><label class="lable">Name:</label></div>
+                                        <div class="col-sm-2"> <span id="Name"></span></div>
+                                        <div class="col-sm-2"><label class="lable">Mobile No:</label></div>
+                                        <div class="col-sm-2"> <span id="MobileNo"></span></div>
+
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-sm-2"><label class="lable">Email:</label></div>
+                                        <div class="col-sm-2"> <span id="Email"></span></div>
+                                        <div class="col-sm-2"><label class="lable">Doc Type:</label></div>
+                                        <div class="col-sm-2"> <span id="Doctype"></span></div>
+                                        <div class="col-sm-2"><label class="lable">Bill No:</label></div>
+                                        <div class="col-sm-2"> <span id="BillNo"></span></div>
+                                    </div>
+
+
+
+                                    <div class="row">
+                                        <div class="col-sm-2"><label class="lable">Aadhar no:</label></div>
+                                        <div class="col-sm-2"> <span id="Aadharno"></span></div>
+                                        <div class="col-sm-2"><label class="lable">Pan number:</label class="lable"></div>
+                                        <div class="col-sm-2"> <span id="Pan_number"></span></div>
+
+
+                                    </div>
+
+
+                                    <div class="row clshideshow" style="padding-top: 5px;">
+                                        <div class="col-sm-2"><label class="lable">Aadhar Front Image:</label></div>
+                                        <div class="col-sm-1"> <a href="#" target="_blank" class="btn btn-light" id="Viewimage"> <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i></a></div>
+
+                                        <div class="col-sm-1"><a href="#" id="downfaadhaar" class="btn btn-light" download=""><i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i></a></div>
+                                        <div class="col-sm-2"><label class="lable">Aadhar Back Image:</label></div>
+                                        <div class="col-sm-1"> <a href="#" target="_blank" class="btn btn-light" id="ViewBackimage"> <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i></a></div>
+
+                                        <div class="col-sm-1"><a href="#" id="downBaadhaar" class="btn btn-light" download=""><i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i></a></div>
+
+
+                                    </div>
+
+                                    <div class="row clshideshow" style="padding-top: 5px;">
+                                    </div>
+
+
+
+                                    <div class="row clshideshow" style="padding-top: 5px;">
+                                        <div class="col-sm-2"><label class="lable">Pan Front Image:</label></div>
+                                        <div class="col-sm-1"> <a href="#" target="_blank" class="btn btn-light" id="viewpanFimg">  <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i></a></div>
+
+                                        <div class="col-sm-1"><a href="#" id="downFaPan" class="btn btn-light" download=""><i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i></a></div>
+                                        <div class="col-sm-2"><label class="lable">Pan Back Image:</label></div>
+                                        <div class="col-sm-1"> <a href="#" target="_blank" class="btn btn-light" id="viewpanBimg"> <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i></a></div>
+
+                                        <div class="col-sm-1"><a href="#" id="downBPan" class="btn btn-light" download=""><i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i></a></div>
+
+
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="border p-4 clshideshow">
+                                    <div class="row">
+                                        <h5 style="text-align:center; background: linear-gradient(146deg, #0052cc, #0d724c); color: white;">
+                                            Member Documents Details
+                                        </h5>
+                                    </div>
+                                    <div class="row " style="padding-top: 5px;">
+                                        <div class="col-sm-1"><label class="lable">Ad1:</label></div>
+                                        <div class="col-sm-2"> <span id="Ad1"></span></div>
+                                         
+                                             <div class="col-sm-2 clshideshow"><label class="lable">Ad1 Pic Front: </label></div>
+                                            <div class="col-sm-1 clshideshow">
+                                            <a href="#" target="_blank" id="Ad1PicFront" class="btn btn-light">
+                                                <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i>
+                                            </a>
+                                            </div>
+                                            <div class="col-sm-1 clshideshow">
+                                            <a href="#" id="downAd1PicFront" class="btn btn-light" download="">
+                                                <i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i>
+                                            </a>
+                                            </div>
+                                            <div class="col-sm-2 clshideshow"><label class="lable">Ad1 Pic Back: </label></div>
+                                            <div class="col-sm-1 clshideshow">
+                                            <a href="#" target="_blank" class="btn btn-light" id="Ad1PicBack">
+                                                <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i>
+                                            </a>
+                                            </div>
+                                            <div class="col-sm-1 clshideshow">
+                                            <a href="#" id="downAd1PicBack" class="btn btn-light" download="">
+                                                <i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i>
+                                            </a>
+                                            </div>
+                                     
+                                    </div>
+
+
+
+
+                                    <div class="row " style="padding-top: 5px;">
+                                        <div class="col-sm-1"><label class="lable">Ad2:</label class="lable"></div>
+                                        <div class="col-sm-2"> <span id="Ad2"></span></div>
+                                 
+                                            <div class="col-sm-2 clshideshow"><label class="lable">Ad2 Pic Front: </label></div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" target="_blank" class="btn btn-light" id="Ad2PicFront">
+                                                <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" id="downAd2PicFront" class="btn btn-light" download="">
+                                                <i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-2 clshideshow"><label class="lable">Ad2 Pic Back: </label></div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" target="_blank" class="btn btn-light" id="Ad2PicBack">
+                                                <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" id="downAd2PicBack" class="btn btn-light" download="">
+                                                <i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                
+                                    </div>
+
+                                    <div class="row " style="padding-top: 5px;">
+                                        <div class="col-sm-1"><label class="lable">Ad3:</label></div>
+                                        <div class="col-sm-2"> <span id="Ad3"></span></div>
+                                       
+                                              <div class="col-sm-2 clshideshow"><label class="lable">Ad3 Pic Front: </label></div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" target="_blank" class="btn btn-light" id="Ad3PicFront">
+                                                <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" id="downAd3PicFront" class="btn btn-light" download="">
+                                                <i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-2 clshideshow"><label class="lable">Ad3 Pic Back: </label></div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" target="_blank" class="btn btn-light" id="Ad3PicBack">
+                                                <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" id="downAd3PicBack" class="btn btn-light" download="">
+                                                <i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                       
+                                    </div>
+
+                                    <div class="row" style="padding-top: 5px;">
+                                        <div class="col-sm-1"><label class="lable">Ad4:</label></div>
+                                        <div class="col-sm-2"> <span id="Ad4"></span></div>
+                                       
+                                            <div class="col-sm-2 clshideshow"><label class="lable">Ad4 Pic Front: </label></div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" target="_blank" class="btn btn-light" id="Ad4PicFront">
+                                                <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" id="downAd4PicFront" class="btn btn-light" download="">
+                                                <i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-2 clshideshow"><label class="lable">Ad4 Pic Back: </label></div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" target="_blank" class="btn btn-light" id="Ad4PicBack">
+                                                <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" id="downAd4PicBack" class="btn btn-light" download="">
+                                                <i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                  
+                                        
+
+
+
+
+                                    </div>
+
+
+
+                                    <div class="row  " style="padding-top: 5px;">
+                                        <div class="col-sm-1"><label class="lable">Ad5:</label></div>
+                                        <div class="col-sm-2"> <span id="Ad5"></span></div>
+                                     
+                                            <div class="col-sm-2 clshideshow"><label class="lable">Ad5 Pic Front: </label></div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" target="_blank" class="btn btn-light" id="Ad5PicFront">
+                                                <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" id="downAd5PicFront" class="btn btn-light" download="">
+                                                <i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-2 clshideshow"><label class="lable">Ad5 Pic Back: </label class="lable"></div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" target="_blank" class="btn btn-light" id="Ad5PicBack">
+                                                <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" id="downAd5PicBack" class="btn btn-light" download="">
+                                                <i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+
+                                
+                                        
+
+
+
+                                    </div>
+
+
+
+                                    <div class="row " style="padding-top: 5px;">
+                                        <div class="col-sm-1"><label class="lable">Ad6:</label></div>
+                                        <div class="col-sm-2"> <span id="Ad6"></span></div>
+                                       
+                                             <div class="col-sm-2 clshideshow"><label class="lable">Ad6 Pic Front: </label class="lable"></div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" target="_blank" class="btn btn-light" id="Ad6PicFront">
+                                                <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" id="downAd6PicFront" class="btn btn-light" download="">
+                                                <i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-2 clshideshow"><label class="lable">Ad6 Pic Back: </label class="lable"></div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" target="_blank" class="btn btn-light" id="Ad6PicBack">
+                                                <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" id="downAd6PicBack" class="btn btn-light" download="">
+                                                <i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                          
+
+                                    </div>
+
+
+
+
+                                    <div class="row " style="padding-top: 5px;">
+                                        <div class="col-sm-1"><label class="lable">Ad7:</label></div>
+                                        <div class="col-sm-2"> <span id="Ad7"></span></div>
+                                      
+                                            <div class="col-sm-2 clshideshow"><label class="lable">Ad7 Pic Front: </label></div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" target="_blank" class="btn btn-light" id="Ad7PicFront">
+                                                <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" id="downAd7PicFront" class="btn btn-light" download="">
+                                                <i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-2 clshideshow"><label class="lable">Ad7 Pic Back: </label></div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" target="_blank" class="btn btn-light" id="Ad7PicBack">
+                                                <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" id="downAd7PicBack" class="btn btn-light" download="">
+                                                <i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                
+                                    </div>
+
+                                    <div class="row " style="padding-top: 5px;">
+                                        <div class="col-sm-1"><label class="lable">Ad8:</label></div>
+                                        <div class="col-sm-2"> <span id="Ad8"></span></div>
+                                    
+                                            <div class="col-sm-2 clshideshow"><label class="lable">Ad8 Pic Front: </label></div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" target="_blank" class="btn btn-light" id="Ad8PicFront">
+                                                <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" id="downAd8PicFront" class="btn btn-light" download="">
+                                                <i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-2 clshideshow"><label class="lable">Ad8 Pic Back: </label></div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" target="_blank" class="btn btn-light" id="Ad8PicBack">
+                                                <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" id="downAd8PicBack" class="btn btn-light" download="">
+                                                <i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                  
+                                    </div>
+                                    <div class="row " style="padding-top: 5px;">
+                                        <div class="col-sm-1"><label class="lable">Ad9:</label></div>
+                                        <div class="col-sm-2"> <span id="Ad9"></span></div>
+                                    
+                                             <div class="col-sm-2 clshideshow"><label class="lable">Ad9 Pic Front: </label class="lable"></div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" target="_blank" class="btn btn-light" id="Ad9PicFront">
+                                                <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" id="downAd9PicFront" class="btn btn-light" download="">
+                                                <i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-2 clshideshow"><label class="lable">Ad9 Pic Back: </label></div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" target="_blank" class="btn btn-light" id="Ad9PicBack">
+                                                <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" id="downAd9PicBack" class="btn btn-light" download="">
+                                                <i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                   
+                                    </div>
+
+
+                                    <div class="row " style="padding-top: 5px;">
+                                        <div class="col-sm-1"><label class="lable">Ad10:</label></div>
+                                        <div class="col-sm-2"> <span id="Ad10"></span></div>
+                                     
+                                            <div class="col-sm-2 clshideshow"><label class="lable">Ad10 Pic Front: </label></div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" target="_blank" class="btn btn-light" id="Ad10PicFront">
+                                                <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" id="downAd10PicFront" class="btn btn-light" download="">
+                                                <i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-2 clshideshow"><label class="lable">Ad10 Pic Back: </label></div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" target="_blank" class="btn btn-light" id="Ad10PicBack">
+                                                <i class="fa fa-eye"
+                                                   style="font-size:25px;color:blue; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-1 clshideshow">
+                                            <a href="#" id="downAd10PicBack" class="btn btn-light" download="">
+                                                <i class="fa fa-download"
+                                                   style="font-size:25px;color:#0d724c; cursor:pointer"></i>
+                                            </a>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="row" style="overflow:auto; display:none;">
+
+                                <table class="table table-hover table-reponsive ">
+                                    <thead>
+                                        <tr>
+                                            @*<th>SrNo</th>*@
+                                            @*	<th>Action</th>*@
+                                            <th>PartnerId</th>
+                                            <th>Name</th>
+                                            <th>MobileNo</th>
+                                            <th>Email</th>
+                                            <th>Doctype</th>
+                                            <th>BillNo</th>
+                                            <th>Aadharno</th>
+                                            <th>Pan number</th>
+                                            <th>AadharFimage</th>
+                                            <th>Front Aadhaar</th>
+
+                                            <th>AadharBimaged</th>
+                                            <th>Back Aadhaar</th>
+                                            <th>PanFrontImage</th>
+                                            <th>PanBackImage</th>
+                                            <th>Ad1</th>
+                                            <th>Ad1 Pic Front</th>
+                                            <th>Ad1 Pic Back</th>
+                                            <th>Ad2</th>
+                                            <th>Ad2 Pic Front</th>
+                                            <th>Ad2 Pic Back</th>
+                                            <th>Ad3</th>
+                                            <th>Ad3 Pic Front</th>
+                                            <th>Ad3 Pic Back</th>
+                                            <th>Ad4</th>
+                                            <th>Ad4 Pic Front</th>
+                                            <th>Ad4 Pic Back</th>
+                                            <th>Ad5</th>
+                                            <th>Ad5 Pic Front</th>
+                                            <th>Ad5 Pic Back</th>
+
+
+                                            <th>Ad6</th>
+                                            <th>Ad6 Pic Front</th>
+                                            <th>Ad6 Pic Back</th>
+
+
+                                            <th>Ad7</th>
+                                            <th>Ad7 Pic Front</th>
+                                            <th>Ad7 Pic Back</th>
+                                            <th>Ad8</th>
+                                            <th>Ad8 Pic Front</th>
+                                            <th>Ad8 Pic Back</th>
+                                            <th>Ad9</th>
+                                            <th>Ad9 Pic Front</th>
+                                            <th>Ad9 Pic Back</th>
+
+                                            <th>Ad10</th>
+                                            <th>Ad10 Pic Front</th>
+                                            <th>Ad10 Pic Back</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody id="ddtable"></tbody>
+
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+				<div class="modal-footer">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--End Modal-->
+
+	<script>
+		var js = jQuery.noConflict(true)
+		js(document).ready(function () {
+            //var d = new Date();
+            //var day = ('0' + d.getDate()).slice(-2);
+            //var month= ('0' + (d.getMonth()+1)).slice(-2);
+            //var year = d.getFullYear(); 
+            //var n = month+ '/' + day  + '/' + year ;
+            //$('#txtdate').val(n);
+			js("#example3").DataTable({
+				pageLenght: 5,
+				lengthMenu: [[5, 10, 50, 100, -1], [5, 10, 50, 100, "All"]]
+
+			});
+		})
+
+
+
+
+		function userByType() {
+			debugger;
+			//if (!(confirm("Are You Sure !!"))) {
+			//    location.reload();
+			//    return false;
+
+			//}
+			var data = new FormData;
+
+			data.append("type", $("#ddltype").val());
+
+			$.ajax({
+				url: "/Admin/GetMemberDocuments",
+				type: "POST",
+				contentType: false,
+				processData: false,
+				data: data,
+				success: function (view) {
+					if (view != null && view != "") {
+						//alert("of")
+						$("#outerdv").html($(view).find("#outertbl"))
+						// var js = jQuery.noConflict(true)
+						$('#example3').DataTable({
+							dom: 'Bfrtip',
+							//     pageLength: 5,
+							lengthMenu: [[5, 10, 20, 50, 100, -1], [5, 10, 20, 50, 100, 'All']],
+
+							buttons: [
+								'pageLength',
+								{
+									extend: 'excelHtml5', footer: true,
+								},
+								{ extend: 'csvHtml5', footer: true },
+								{
+									extend: 'pdfHtml5', footer: true, orientation: 'landscape',
+
+									pageSize: 'LEGAL',
+									text: '<i class="fa fa-file-pdf-o"> PDF</i>',
+									titleAttr: 'PDF'
+								}
+							]
+
+						});
+
+
+
+
+					}
+					//alert(msg);
+
+				},
+				error: function (XMLHttpRequest, textStatus, errorThrown) {
+					alert('Please Check values Entered by you !!!');
+					$("#showSpinner").hide();
+				}
+
+
+			});
+		}
+
+
+		function searchRecord() {
+			debugger;
+			var dataobj = {
+				FromDate: $("#txtFromDate").val(),
+				ToDate: $("#txtTodate").val(),
+			};
+			$.ajax({
+				url: "/Admin/GetMemberDocumentsbyFilter",
+				type: "POST",
+
+				data: dataobj,
+				success: function (view) {
+					if (view != null && view != "") {
+						//alert("of")
+						$("#outerdv").html($(view).find("#outertbl"))
+						// var js = jQuery.noConflict(true)
+						$('#example3').DataTable({
+							dom: 'Bfrtip',
+							//     pageLength: 5,
+							lengthMenu: [[5, 10, 20, 50, 100, -1], [5, 10, 20, 50, 100, 'All']],
+
+							buttons: [
+								'pageLength',
+								{
+									extend: 'excelHtml5', footer: true,
+								},
+								{ extend: 'csvHtml5', footer: true },
+								{
+									extend: 'pdfHtml5', footer: true, orientation: 'landscape',
+
+									pageSize: 'LEGAL',
+									text: '<i class="fa fa-file-pdf-o"> PDF</i>',
+									titleAttr: 'PDF'
+								}
+							]
+
+						});
+
+
+
+
+					}
+					//alert(msg);
+
+				},
+				error: function (XMLHttpRequest, textStatus, errorThrown) {
+					alert('Please Check values Entered by you !!!');
+					$("#showSpinner").hide();
+				}
+
+
+			});
+		}
+
+
+        function Showmodel(id){
+            debugger;
+            $('#hdnID').val(id);
+            $("#exampleModal1").modal('show');
+        }
+
+         function SaveDateDetails(){
+           if($('#txtdate').val()==""){
+                alert('Please select close date');
+                return false;
+           }
+            var data = new FormData;
+		    data.append("Id", $("#hdnID").val());
+            data.append("closedate", $("#txtdate").val());
+            data.append("Remarks", $("#txtRemarks").val());
+           $.ajax({
+				url: "/Admin/DocumentCloseDate",
+				type: "POST",
+				contentType: false,
+				processData: false,
+				data: data,
+				success: function (r) {
+					alert(r);
+					window.location.reload(true);
+				},
+				error: function (XMLHttpRequest, textStatus, errorThrown) {
+					alert('Please Check values Entered by you !!!');
+					$("#showSpinner").hide();
+				}
+
+			});
+        }
+
+		function ViewGetMemberDetails(Id) {
+			debugger;
+			var objdata = {
+				Id: Id
+                
+			}
+
+			$.ajax({
+				url: "/Admin/GetMemberDocumentDetails",
+				type: "POST",
+				data: objdata,
+				success: function (item) {
+					console.log(item);
+					if (item != null) {
+						debugger;
+						$("#PartnerId").text(item.partnerID);
+						$("#Name").text(item.name);
+						$("#MobileNo").text(item.mobile);
+						$("#Email").text(item.email);
+						$("#Doctype").text(item.docType);
+						$("#BillNo").text(item.billNo);
+						$("#Aadharno").text(item.aadharno);
+						$("#Pan_number").text(item.panNo);
+						$("#Viewimage").attr("href", item.aadharFimage);
+						$("#downfaadhaar").attr("href", item.aadharFimage);
+						$("#ViewBackimage").attr("href", item.aadharFimage);
+						$("#downBaadhaar").attr("href", item.aadharFimage);
+
+						$("#viewpanFimg").attr("href", item.panFimage);
+						$("#downFaPan").attr("href", item.panFimage)
+
+						$("#viewpanBimg").attr("href", item.panBimage);
+						$("#downBPan").attr("href", item.panBimage)
+
+
+					
+                            $("#Ad1PicFront").attr("href", item.ad1PicFront)
+						    $("#downAd1PicFront").attr("href", item.ad1PicFront)
+						    $("#Ad1PicBack").attr("href", item.ad1PicBack)
+						    $("#downAd1PicBack").attr("href", item.ad1PicBack)
+                            $("#dv1").css('display', 'none');
+                       
+						
+
+						$("#Ad2").text(item.ad2);
+                         $("#Ad2PicFront").attr("href", item.ad2PicFront)
+						    $("#downAd2PicFront").attr("href", item.ad2PicFront)
+						    $("#Ad2PicBack").attr("href", item.ad2PicBack)
+						    $("#downAd2PicBack").attr("href", item.ad2PicBack)
+                            $("#dv2").css('display', 'none');
+                      
+
+
+						$("#Ad3").text(item.ad3);
+                       
+                            $("#Ad3PicFront").attr("href", item.ad3PicFront)
+						    $("#downAd3PicFront").attr("href", item.ad3PicFront)
+						    $("#Ad3PicBack").attr("href", item.ad3PicBack)
+						    $("#downAd3PicBack").attr("href", item.ad3PicBack)
+                            $("#dv3").css('display', 'none');
+                        
+
+						$("#Ad4").text(item.ad4);
+                      
+                            $("#Ad4PicFront").attr("href", item.ad4PicFront)
+						    $("#downAd4PicFront").attr("href", item.ad4PicFront)
+						    $("#Ad4PicBack").attr("href", item.ad4PicFront)
+						    $("#downAd4PicBack").attr("href", item.ad4PicBack)
+                            $("#dv4").css('display', 'none');
+                       
+
+
+
+						$("#Ad5").text(item.ad5);
+                       
+                            $("#Ad5PicFront").attr("href", item.ad5PicFront)
+						    $("#downAd5PicFront").attr("href", item.ad5PicFront)
+						    $("#Ad5PicBack").attr("href", item.ad5PicBack)
+						    $("#downAd5PicBack").attr("href", item.ad5PicBack)
+                            $("#dv5").css('display', 'none');
+                      
+
+
+						$("#Ad6").text(item.ad6);
+                      
+                            $("#Ad6PicFront").attr("href", item.ad6PicFront)
+						    $("#downAd6PicFront").attr("href", item.ad6PicFront)
+						    $("#Ad6PicBack").attr("href", item.ad6PicBack)
+						    $("#downAd6PicBack").attr("href", item.ad6PicBack)
+                            $("#dv6").css('display', 'none');
+                       
+						$("#Ad7").text(item.ad7);
+                        
+                            $("#Ad7PicFront").attr("href", item.ad7PicFront)
+						    $("#downAd7PicFront").attr("href", item.ad7PicFront)
+						    $("#Ad7PicBack").attr("href", item.ad17icBack)
+						    $("#downAd7PicBack").attr("href", item.ad7PicBack)
+                            $("#dv7").css('display', 'none');
+
+                        
+
+						$("#Ad8").text(item.ad8);
+                       
+                            $("#Ad8PicFront").attr("href", item.ad8PicFront)
+						    $("#downAd8PicFront").attr("href", item.ad8PicFront)
+						    $("#Ad8PicBack").attr("href", item.ad8PicBack)
+						    $("#downAd8PicBack").attr("href", item.ad8PicBack)
+                            $("#dv8").css('display', 'none');
+                       
+						$("#Ad9").text(item.ad9);
+                        
+                            
+						    $("#Ad9PicFront").attr("href", item.ad9PicFront)
+						    $("#downAd9PicFront").attr("href", item.ad9PicFront)
+						    $("#Ad9PicBack").attr("href", item.ad9PicBack)
+						    $("#downAd9PicBack").attr("href", item.ad9PicBack)
+                            $("#dv9").css('display', 'none');
+                      
+						$("#Ad10").text(item.ad10);
+                       
+                            $("#Ad10PicFront").attr("href", item.ad10PicFront)
+						    $("#downAd10PicFront").attr("href", item.ad10PicFront)
+						    $("#Ad10PicBack").attr("href", item.ad10PicBack)
+						    $("#downAd10PicBack").attr("href", item.ad10PicBack)
+                            $("#dv10").css('display', 'none');
+                          if(item.closeStatus=="")
+                        {
+                             $(".clshideshow").css('display', 'block');
+                         }
+						 else{
+                            $(".clshideshow").css('display', 'none');
+                        }
+
+						$("#exampleModal").modal('show');
+					}
+
+					//var html = '';
+					//var srno = 1;
+					//$.each(result, function (key, item) {
+					//	html += '<tr>';
+
+					//	//html += '<td><button type="button" onclick="DeleteRecord(' + item.id + ')" class="btn btn-danger"> Delete</button> </td>';
+
+
+					//	html += '<td>' + item.partnerID + '</td>';
+					//	html += ' <td>' + item.name + '</td>';
+					//	html += '<td>' + item.mobile + '</td>';
+					//	html += '<td>' + item.email + '</td>';
+					//	html += '<td>' + item.docType + '</td>';
+					//	html += '<td>' + item.billNo + '</td>';
+					//	html += '<td>' + item.aadharno + '</td>';
+					//	html += '<td>' + item.panNo + '</td>';
+
+					//	//html += '<td><img src="' + item.aadharFimage + '"</td>';
+					//	//html += '<td><img src="' + item.aadharBimage + '"</td>';
+					//	html += '<td><a href= "' + item.aadharFimage + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+
+					//	html += '<td><a href="'+item.aadharFimage+'" download ="" ><button type="button" class="btn btn-warning">Download</button> </a></td>';
+
+					//	html += '<td><a href= "' + item.aadharBimage + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+
+
+					//	html += '<td><a href="'+item.aadharBimage+'" download ="" ><button type="button" class="btn btn-warning">Download</button> </a></td>';
+
+
+
+					//	html += '<td><a href= "' + item.PanFimage + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+
+
+					//	//html += '<td><img src="' + item.PanFimage + '"</td>';
+					//	html += '<td><a href= "' + item.PanBimage + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+					//	html += '<td><a href="' + item.aadharFimage + '" download ="" ><button type="button" class="btn btn-warning">Download</button> </a></td>';
+					//	//html += '<td><img src="' + item.PanBimage + '"</td>';
+
+					//	html += '<td>' + item.ad1 + '</td>';
+
+					//	//html += '<td><img src="' + item.Ad1PicFront + '"</td>';
+					//	html += '<td><a href= "' + item.Ad1PicFront + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+					//	//html += '<td><img src="' + item.Ad1PicBack + '"</td>';
+					//	html += '<td><a href= "' + item.Ad1PicBack + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+
+					//	html += '<td>' + item.ad2 + '</td>';
+
+					//	//html += '<td><img src="' + item.Ad2PicFront + '"</td>';
+					//	//html += '<td><img src="' + item.Ad2PicBack + '"</td>';
+					//	html += '<td><a href= "' + item.Ad2PicFront + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+					//	html += '<td><a href= "' + item.Ad2PicBack + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+
+					//	html += '<td>' + item.ad3 + '</td>';
+
+					//	//html += '<td><img src="' + item.Ad3PicFront + '"</td>';
+					//	//html += '<td><img src="' + item.Ad3PicBack + '"</td>';
+					//	html += '<td><a href= "' + item.Ad3PicFront + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+					//	html += '<td><a href= "' + item.Ad3PicBack + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+
+					//	html += '<td>' + item.ad4 + '</td>';
+					//	//html += '<td><img src="' + item.Ad4PicFront + '"</td>';
+					//	//html += '<td><img src="' + item.Ad4PicBack + '"</td>';
+					//	html += '<td><a href= "' + item.Ad4PicFront + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+					//	html += '<td><a href= "' + item.Ad4PicBack + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+
+
+					//	html += '<td>' + item.ad5 + '</td>';
+					//	//html += '<td><img src="' + item.Ad5PicFront + '"</td>';
+					//	//html += '<td><img src="' + item.Ad5PicBack + '"</td>';
+					//	html += '<td><a href= "' + item.Ad5PicBack + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+					//	html += '<td><a href= "' + item.Ad5PicBack + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+
+
+					//	html += '<td>' + item.ad6 + '</td>';
+					//	//html += '<td><img src="' + item.Ad6PicFront + '"</td>';
+					//	//html += '<td><img src="' + item.Ad6PicBack + '"</td>';
+
+					//	html += '<td><a href= "' + item.Ad6PicBack + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+					//	html += '<td><a href= "' + item.Ad6PicBack + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+
+					//	html += '<td>' + item.ad7 + '</td>';
+
+					//	//html += '<td><img src="' + item.Ad7PicFront + '"</td>';
+					//	//html += '<td><img src="' + item.Ad7PicBack + '"</td>';
+					//	html += '<td><a href= "' + item.Ad7PicBack + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+					//	html += '<td><a href= "' + item.Ad7PicBack + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+
+					//	html += '<td>' + item.ad8 + '</td>';
+					//	//html += '<td><img src="' + item.Ad8PicFront + '"</td>';
+					//	//html += '<td><img src="' + item.Ad8PicBack + '"</td>';
+					//	html += '<td><a href= "' + item.Ad8PicBack + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+					//	html += '<td><a href= "' + item.Ad8PicBack + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+
+					//	html += '<td>' + item.ad9 + '</td>';
+					//	//html += '<td><img src="' + item.Ad9PicFront + '"</td>';
+					//	//html += '<td><img src="' + item.Ad9PicBack + '"</td>';
+					//	html += '<td><a href= "' + item.Ad9PicBack + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+					//	html += '<td><a href= "' + item.Ad9PicBack + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+
+					//	html += '<td>' + item.ad10 + '</td>';
+					//	//html += '<td><img src="' + item.Ad10PicFront + '"</td>';
+					//	//html += '<td><img src="' + item.Ad10PicBack + '"</td>';
+					//	html += '<td><a href= "' + item.Ad10PicBack + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+					//	html += '<td><a href= "' + item.Ad10PicBack + '" target="_blank" class="btn btn-light"><i class="fa fa-eye"</a> </td>';
+
+					//	html += '</tr>';
+					//});
+					//$('#ddtable').html(html);
+					//$("#exampleModal").modal('show');
+
+
+				},
+				error: function (XMLHttpRequest, textStatus, errorThrown) {
+					alert('Please Check values Entered by you !!!');
+					$("#showSpinner").hide();
+				}
+
+			});
+		}
+
+
+		function DeleteRecord() {
+			alert(id);
+		}
+
+
+
+		function DeleteRecord(Id) {
+			debugger;
+
+			if (!(confirm("Do You want Delete  this Record  !!"))) {
+				//location.reload();
+				return false;
+
+			}
+			var objdata = {
+				Id: Id
+			}
+			$.ajax({
+				url: "/Admin/DocumentMemberDetailsDelete",
+				type: "POST",
+				data: objdata,
+				success: function (r) {
+
+					alert(r);
+					window.location.reload(true);
+				},
+				error: function (XMLHttpRequest, textStatus, errorThrown) {
+					alert('Please Check values Entered by you !!!');
+					$("#showSpinner").hide();
+				}
+
+			});
+		}
+
+	</script>
+

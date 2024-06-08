@@ -1,0 +1,1163 @@
+[
+  {
+    "ContainingType": "Grofinhub.Controllers.DMTAPIController",
+    "Method": "BenefiDel",
+    "RelativePath": "api/deletebenefeciary",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.BeneficiaryDelete",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.DMTAPIController",
+    "Method": "Refund",
+    "RelativePath": "api/DMTRefund",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.Claim_refund",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.DMTAPIController",
+    "Method": "Resendotp",
+    "RelativePath": "api/DMTResendotp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.RefundOpt",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.DMTAPIController",
+    "Method": "DMTTransaction",
+    "RelativePath": "api/DMTTransaction",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.TansactionBody",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.DMTAPIController",
+    "Method": "DMTTransactionStatus",
+    "RelativePath": "api/DMTTransactionStatus",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.Transactionstatus",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.EPFOApiController",
+    "Method": "GetKYCDetailsByReferenceID",
+    "RelativePath": "api/epfo/epfokycfetch",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.EPFOAPIMODELGetkycDetails",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.EPFOApiController",
+    "Method": "EpfoKYCDownloadPassword",
+    "RelativePath": "api/epfo/passbookdownload",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.EPFOAPIMODELGetkycDetails",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.EPFOApiController",
+    "Method": "EPFOKYC_OTPSENDAPI",
+    "RelativePath": "api/epfo/sendOtp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.EPFOAPIMODEL",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.EPFOApiController",
+    "Method": "KycDetailsGet",
+    "RelativePath": "api/epfo/verifyotp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.EPFOAPIMODELkyc",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.FastagAPIController",
+    "Method": "FetchConsumerDetails",
+    "RelativePath": "api/fastag/fetchConsumerDetails",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.FetchConsumerRequestApi",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.FastagAPIController",
+    "Method": "FASTAG",
+    "RelativePath": "api/fastag/operatorsList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.FastagAPIController",
+    "Method": "FastTagRecharge",
+    "RelativePath": "api/fastag/recharge",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.FastTagRechargeRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.FastagAPIController",
+    "Method": "FastTagRecharge",
+    "RelativePath": "api/fastag/savefastagrechargedetails",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "obj",
+        "Type": "SportsBattle.Models.fastagapi1",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.FastagAPIController",
+    "Method": "FastagStatus",
+    "RelativePath": "api/fastag/status",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.StatusBBPSEnquiryRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.DMTAPIController",
+    "Method": "FetchBenefeciary",
+    "RelativePath": "api/FetchBenefeciary",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.BeneficiaryParaMld",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.DMTAPIController",
+    "Method": "GetBeneficiaryDetailById",
+    "RelativePath": "api/fetchbenefeciarybyid",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.RootBeneficiaryMdlById",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.BBPSAPIController",
+    "Method": "FetchBill",
+    "RelativePath": "api/FetchBill",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "accreq",
+        "Type": "SportsBattle.Models.fillfecthRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.DMTAPIController",
+    "Method": "FetchRemitter",
+    "RelativePath": "api/FetchRemitter",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.QueryParametercls",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.BBPSAPIController",
+    "Method": "GetOperator",
+    "RelativePath": "api/GetOperatorList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "SportsBattle.Models.BBPSReqModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.LICApiController",
+    "Method": "FetchLicBillDetails",
+    "RelativePath": "api/lic/fetchlicbill",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.BillReq",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.LICApiController",
+    "Method": "LICStatesEnquiry",
+    "RelativePath": "api/lic/licstatus",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.Transactionstatus",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.LICApiController",
+    "Method": "SaveLicBillPayDetails",
+    "RelativePath": "api/lic/paylicbill",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.RootBodyLic",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.PanNSDLApiController",
+    "Method": "SavePamCardDetails",
+    "RelativePath": "api/pan/generateurl",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.PanBody",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.PanNSDLApiController",
+    "Method": "GetCheckPanStatus",
+    "RelativePath": "api/pan/panstatus",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.CheckPanStatusBody",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.PanNSDLApiController",
+    "Method": "PanStatesEnquiry",
+    "RelativePath": "api/pan/txnstatus",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.CheckPanStatusBody",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.BBPSAPIController",
+    "Method": "PayBill",
+    "RelativePath": "api/PayBill",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.BBPS_Body",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.DMTAPIController",
+    "Method": "PennyDropVerificationy",
+    "RelativePath": "api/PennyDrop",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.PennyDropRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.RechargeApiController",
+    "Method": "BrowsPlan",
+    "RelativePath": "api/recharge/browsplan",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.RootDTHBrowsPlanPara",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.RechargeApiController",
+    "Method": "DoMobileRecharge",
+    "RelativePath": "api/recharge/dorecharge",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.RootDoRecharge",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.RechargeApiController",
+    "Method": "DTHInFo",
+    "RelativePath": "api/recharge/dthinfo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.Rootdthinfobodyapi",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.RechargeApiController",
+    "Method": "GetOperator",
+    "RelativePath": "api/recharge/getoperator",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.RechargeApiController",
+    "Method": "CheckHLR",
+    "RelativePath": "api/recharge/hlrcheck",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.CheckHLRRequestBody",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.RechargeApiController",
+    "Method": "RechargeStatusEnquery",
+    "RelativePath": "api/recharge/recharge/status",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.Transactionstatus",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.DMTAPIController",
+    "Method": "RegisterBeneficiary",
+    "RelativePath": "api/RegisterBeneficiary",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.RootBeneficiaryRegister",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.DMTAPIController",
+    "Method": "RegisterRemitter",
+    "RelativePath": "api/RegisterRemitter",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.RegisterRemiterApicls",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.callbackController",
+    "Method": "Get",
+    "RelativePath": "api/Services/api/callback",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "event",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "param.merchant_id",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "param.partner_id",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "param.request_id",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "param.amount",
+        "Type": "System.Single",
+        "IsRequired": false
+      },
+      {
+        "Name": "param_enc",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.callbackController",
+    "Method": "Post",
+    "RelativePath": "api/Services/api/callback",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "event",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "param.merchant_id",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "param.partner_id",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "param.request_id",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "param.amount",
+        "Type": "System.Single",
+        "IsRequired": false
+      },
+      {
+        "Name": "param_enc",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.callbackController",
+    "Method": "Get",
+    "RelativePath": "api/Services/api/callback/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.callbackController",
+    "Method": "Put",
+    "RelativePath": "api/Services/api/callback/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "value",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Grofinhub.Controllers.callbackController",
+    "Method": "Delete",
+    "RelativePath": "api/Services/api/callback/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "CallBack",
+    "RelativePath": "api/Services/api/callback1",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objP",
+        "Type": "SportsBattle.Models.OnboardRequesBody",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "DeleteDocDetails",
+    "RelativePath": "api/Services/api/DeleteDocDetails",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "SportsBattle.Models.DocDetailsReq",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "FetchAllDocDetailByUserId",
+    "RelativePath": "api/Services/api/FetchAllDocDetailByUserId",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "SportsBattle.Models.DocDetailBody",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "FetchAllDocDetails",
+    "RelativePath": "api/Services/api/FetchAllDocDetails",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "SportsBattle.Models.ReqUserDetails",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "FetchPermissionByUserId",
+    "RelativePath": "api/Services/api/FetchPMMenuPermissionByUserId",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "SportsBattle.Models.ReqUserDetails",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "GetAuthToken",
+    "RelativePath": "api/Services/api/GetAuthToken",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.ReqUserDetails",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "GetBankList",
+    "RelativePath": "api/Services/api/GetBankList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "GetBeneficiaryDetails",
+    "RelativePath": "api/Services/api/GetBeneficiaryDetails",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.ReqUserDetails",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "GetCircleList",
+    "RelativePath": "api/Services/api/GetCircleList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "GetDTHOperator",
+    "RelativePath": "api/Services/api/GetDTHOperator",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "GetRechargePlanOperatorList",
+    "RelativePath": "api/Services/api/GetRechargePlanOperatorList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "GetReferenceId",
+    "RelativePath": "api/Services/api/GetReferenceId",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objP",
+        "Type": "SportsBattle.Models.GetReferenceModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "GetReferenceIdsByUserID",
+    "RelativePath": "api/Services/api/GetReferenceIdsByUserID",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "SportsBattle.Models.GetReqTranDetails",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "GetRemitterDetails",
+    "RelativePath": "api/Services/api/GetRemitterDetails",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.ReqUserDetails",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "GetTransactionDetails",
+    "RelativePath": "api/Services/api/GetTransactionDetails",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "SportsBattle.Models.TrnsRequst",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "GetTransactionDetailsbyType",
+    "RelativePath": "api/Services/api/GetTransactionDetailsbyType",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "SportsBattle.Models.GetReqTranDetails",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "GetUserBalanceDetails",
+    "RelativePath": "api/Services/api/GetUserBalanceDetails",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "SportsBattle.Models.GetuserBalanceReq",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "UserProfile",
+    "RelativePath": "api/Services/api/GetUserProfile",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objP",
+        "Type": "SportsBattle.Models.ReqUserLogin",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "GetUserWalletHistory",
+    "RelativePath": "api/Services/api/GetUserWalletHistory",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "SportsBattle.Models.GetuserBalanceReq",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "InsertBBPSDetails",
+    "RelativePath": "api/Services/api/InsertBBPSDetails",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "SportsBattle.Models.BBPSInsertApiCls",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "InsertDMTTransaction",
+    "RelativePath": "api/Services/api/InsertDMTTransaction",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "SportsBattle.Models.TransactionclsForAPI",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "InsertDoMobileRecharge",
+    "RelativePath": "api/Services/api/InsertDoMobileRecharge",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "SportsBattle.Models.RootDoRechargeForAPI",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "InsertElectricityBillPay",
+    "RelativePath": "api/Services/api/InsertElectricityBillPay",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "SportsBattle.Models.BBPSInsertApiCls",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "InsertLICBillPay",
+    "RelativePath": "api/Services/api/InsertLICBillPay",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "SportsBattle.Models.RootBodyLicForApi",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "InsertLPGBillPay",
+    "RelativePath": "api/Services/api/InsertLPGBillPay",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "SportsBattle.Models.BBPSInsertApiCls",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "InsertPANNSDLDetails",
+    "RelativePath": "api/Services/api/InsertPANNSDLDetails",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "SportsBattle.Models.PanBodyForApi",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "SaveComplianceDocDetails",
+    "RelativePath": "api/Services/api/SaveDocDetails",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "SportsBattle.Models.ConplainsApiReq",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "UserLoginbyMobile",
+    "RelativePath": "api/Services/api/UserLoginbyMobile",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objP",
+        "Type": "SportsBattle.Models.ReqUserLogin",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "WallerRequest",
+    "RelativePath": "api/Services/api/WalletRequest",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "SportsBattle.Models.WalletRequestApiCls",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "GenerateToken",
+    "RelativePath": "api/Services/GenerateToken",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "SportsBattle.Models.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

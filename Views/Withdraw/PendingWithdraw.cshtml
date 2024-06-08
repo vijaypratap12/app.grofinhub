@@ -1,0 +1,235 @@
+﻿
+@{
+    ViewData["Title"] = "PendingWithdraw";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+} 
+<div class="app-main__inner">
+    <div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h5 class="card-title">From Date</h5>
+                                <input type="text" id="FromDate" class="form-control" data-toggle="datepicker" />
+                            </div>
+                            <div class="col-sm-4">
+                                <h5 class="card-title">To Date</h5>
+                                <input id="ToDate" type="text" class="form-control" data-toggle="datepicker" />
+                            </div>
+                            <div class="col-sm-4">
+                                <input style="margin-top: 31px;" type="submit" class="btn btn-alternate" value="Search" onclick="SearchData()" />
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row"> 
+            <div class="card-body">
+                <div class="card mb-3">
+                    <div class="card-header-tab card-header">
+
+                        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                            <i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>
+                            Players
+                        </div>
+                    </div>
+                    <div id="divId">
+
+                        <div class="card-body">
+                            @if (Model != null && Model.dtDetails != null)
+                            {
+                                int i = 1; 
+                                <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr.</th>
+                                            <th>User Details</th>
+                                            <th>Amount</th>
+                                            <th>Payment Type</th>
+                                            <th>Bank Details</th>
+                                            <th>Transaction Id</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                            <th>Date</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (System.Data.DataRow item in Model.dtDetails.Rows)
+                                        {
+                                            <tr>
+                                                <td>@Convert.ToInt32(i)</td>
+                                                <td>
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-wrapper">
+
+                                                            <div class="widget-content-left mr-3">
+                                                                <div class="widget-content-left">
+                                                                    <img width="42" class="rounded" src="@item["" +
+                                                    "ProfilePic"]" alt="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="widget-content-left">
+                                                                <a asp-controller="Player" asp-action="UserFullDetails" asp-route-UserId="@item["UserID"]">
+                                                                    <div class="widget-heading"> @item["UserID"]</div>
+                                                                </a>
+                                                                <div class="widget-subheading">@item["Name"]</div>
+                                                            </div> 
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>@item["Amount"]</td>
+                                                <td>@item["PayemnetType"]</td>
+                                                <td>
+                                                    @if (@item["PayemnetType"].ToString() == "UPI")
+                                                    {
+                                                        <div class="widget-content-left flex2">
+                                                            <div class="widget-heading">@item["UPIId"].ToString()</div>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="widget-content-left flex2">
+                                                            <div class="widget-heading">Bank Name:@item["BankName"].ToString()</div>
+                                                            <div class="widget-subheading opacity-10">
+                                                                <span class="pr-2"><b>@item["AccountNo"].ToString()</b> @item["Ifsc"].ToString()</span>
+                                                                <span><b class="text-success">@item["BranchName"].ToString()</b> @item["AccountHolderName"].ToString()</span>
+                                                            </div>
+                                                        </div>
+                                                    } 
+                                                </td>
+                                                <td>@item["id"]</td>
+                                                <td><div class="badge badge-info ml-2">@item["Status"]</div> </td>
+                                                <td>
+                                                    <button class="mb-2 mr-2 btn btn-success active" onclick="updatestatus('@item["id"]','Approve','@item["UserID"]')">Approve</button>
+                                                    <button class="mb-2 mr-2 btn btn-danger active"  onclick="updatestatus('@item["id"]','Reject','@item["UserID"]')">
+                                                        Reject
+                                                    </button>
+                                                </td>
+                                                <td>@item["EntryDate"]</td>
+                                            </tr>
+                                        }
+                                </table>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Details</h5>
+                <button type="button" onclick="ModelHide()" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0"> 
+                    <div class="col-sm-12">
+                        <input type="hidden" id="hdId" />
+                        <input type="hidden" id="hdUserId" />
+                        <div class="position-relative form-group col-sm-12">
+                            <input class="form-control" id="TransferId" placeholder="Enter Transfer Id" type="text" />
+                        </div>
+                        <div class="position-relative form-group col-sm-12">
+                            <input class="form-control" id="TransferRemark" placeholder="Description" type="text" />
+                        </div>
+                        <div class="position-relative form-group col-sm-12">
+                            <input class="form-control" id="fuProofId" type="file"  />
+                        </div> 
+                    </div> 
+                </p>
+            </div>
+            <div class="modal-footer"> 
+                <button type="button" class="btn btn-primary" onclick="UpdatePayement()" >Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function SearchData() {
+        $.ajax({
+            url: "/Withdraw/PendingWithdraw",
+            type: "POST",
+            data: { FromDate: $("#FromDate").val(), ToDate: $("#ToDate").val(), Action: "PendingWithdraw" },
+            success: function (r) {
+                $('#divId').val($(r).find('#divId').html())
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+            }
+        });
+    }
+
+    function updatestatus(sid, status,userid)
+    { 
+        if (confirm("are you sure want to update status") == true) {
+            if (status == "Approve") {
+                $("#hdId").val(sid)
+                $("#hdUserId").val(userid)
+                $("#exampleModal").show(); 
+            }
+            else {
+                $.ajax({
+                    url: '/Withdraw/UpdateStatus',
+                    method: 'post',
+                    data: { UserID: sid, Status: status, sUserId: userid },
+                    success: function (r) {
+                        $("#showSpinner").hide();
+                        if (r.Status = '1') {
+                            alert('Status Change Successfully.');
+                            location.reload();
+                        }
+                        else {
+                            alert("something went wrong");
+                        }
+                    }
+                })
+            }
+        }
+    }
+
+    function ModelHide() {
+        $("#exampleModal").hide();
+    }
+
+    function UpdatePayement() {
+
+        var Imagefile1 = $("#fuProofId").get(0).files;
+        var data1 = new FormData();
+        data1.append("ProofId", Imagefile1[0]);
+        data1.append("TransferRemark", $("#TransferRemark").val());
+        data1.append("TransferId", $("#TransferId").val());
+        data1.append("Status", "Approve");
+        data1.append("UserID", $("#hdId").val()); 
+        data1.append("sUserId", $("#hdUserId").val());
+        $.ajax({
+            url: '/Withdraw/UpdateStatus',
+            method: 'post',
+            data: data1 ,
+            contentType: false,
+            processData: false,
+            success: function (r) {
+                $("#showSpinner").hide();
+                if (r.Status = '1') {
+                    alert('Status Change Successfully.');
+                    location.reload();
+                }
+                else {
+                    alert("something went wrong");
+                }
+            }
+        })
+    }
+</script>
+

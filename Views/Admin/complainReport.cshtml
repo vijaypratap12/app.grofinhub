@@ -1,0 +1,348 @@
+﻿@{
+    ViewData["Title"] = "complainReport";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using System.Data
+@model DataTable
+
+<style>
+    .card-body {
+        padding: 23px !important;
+    }
+
+    .card-header {
+        padding: 0.5rem 0.5rem !important;
+    }
+</style>
+<script src="~\grofin\ckeditor\ckeditor.js"></script>
+
+
+
+<script>
+    function searchRecord1() {
+        debugger;
+        var dataobj = {
+            Memberid: $("#txtpartnew").val(),
+            FromDate: $("#txtFromDate").val(),
+            ToDate: $("#txtTodate").val(),
+        };
+        $.ajax({
+            url: "/Admin/complainReport",
+            type: "POST",
+
+            data: dataobj,
+            success: function (view) {
+                if (view != null && view != "") {
+                    //alert("of")
+                    $("#outerdv").html($(view).find("#outertbl"))
+                    // var js = jQuery.noConflict(true)
+                    $('#example3').DataTable({
+                        dom: 'Bfrtip',
+                        //     pageLength: 5,
+                        lengthMenu: [[5, 10, 20, 50, 100, -1], [5, 10, 20, 50, 100, 'All']],
+
+                        buttons: [
+                            'pageLength',
+                            {
+                                extend: 'excelHtml5', footer: true,
+                            },
+                            { extend: 'csvHtml5', footer: true },
+                            {
+                                extend: 'pdfHtml5', footer: true, orientation: 'landscape',
+
+                                pageSize: 'LEGAL',
+                                text: '<i class="fa fa-file-pdf-o"> PDF</i>',
+                                titleAttr: 'PDF'
+                            }
+                        ]
+
+                    });
+
+
+
+
+                }
+                //alert(msg);
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+
+
+        });
+    }
+</script>
+
+
+
+
+
+<div class="col-md-12">
+    <div class="card card-warning ">
+        @*<div class="card-header">
+        <h4 class="card-title new-title"> Complain Report</h4>
+        </div>*@
+        <div class="row">
+            <div class="col-md-12"><h4 class="new-title">Complain List</h4></div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>Partner Id</label>
+                    <input type="text" id="txtpartnew" class="form-control" />
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>From Date</label>
+                    <input type="date" id="txtFromDate" class="form-control" />
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>To Date</label>
+                    <input type="date" id="txtTodate" class="form-control" />
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group pt-4">
+                    <input type="button" value="search" onclick="searchRecord1()" class="btn btn-primary">
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body" id="outerdv">
+            <div style="overflow-x:auto;" class="p-0" id="outertbl">
+                <table id="example3" class="my  table table-bordered table-hover " style="width:100%;">
+                    <thead class="bg-primary">
+                        <tr>
+                            <th>Sr.No.</th>
+                            <th>Name </th>
+                            <th>UserID</th>
+                            <th>Mobile No</th>
+                            <th>Title</th>
+                            <th>ServiceType</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>CloseDate</th>
+                            <th>CloseStatus</th>
+                            <th>Action</th>
+
+
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @{
+
+                            if (Model != null)
+                            {
+                                if (Model.Rows.Count > 0)
+                                {
+                                    int i = 1;
+                                    foreach (DataRow item in Model.Rows)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>@item["Name"]</td>
+                                            <td>@item["UserID"]</td>
+                                            <td>@item["Mobile"]</td>
+                                            <td>@item["Title"]</td>
+                                            <td>@item["serviceName"]</td>
+                                            <td>@item["Description"]</td>
+                                            <td>@item["CreatedDate"]</td>
+                                            <td>@item["Status"]</td>
+                                            <td>@item["CloseDate"]</td>
+                                            <td>@item["CloseStatus"]</td>
+                                            @*<td>@item["CloseRemarks"]</td>*@
+                                            @*<td>
+                            @if (item["Status"].ToString() == "Pending")
+                            {
+                            <i class="btn btn-success"  onclick="ComplainResolved('@item["ID"]')">Solve</i>
+                            }
+                            else
+                            {
+                            <i class="btn  btn-danger" onclick="ComplainReject('@item["ID"]')">Resolved</i>
+                            }
+                            </td>*@
+                                            <td>
+                                                @if (@item["CloseStatus"] == null || @item["CloseStatus"].ToString() == "")
+                                                {
+                                                    <i class="fa fa-edit" style="font-size:25px;color:green; cursor:pointer; padding-left: 10px;" onclick="Showmodel7('@item["ID"]')"></i>
+                                                }
+                                            </td>
+
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+
+
+
+
+
+
+                            }
+
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="exampleModal7" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="min-width:120px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModal1Label"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h4 style="text-align:center;  background: linear-gradient(146deg, #0052cc, #0d724c); color: white;">Document Close Details</h4>
+                <div class="row" style="">
+                    <div class="col-md-12">
+                        <div class="">
+                            <div class="border p-4">
+                                <div class="row">
+                                    <div class="col-sm-4"><label class="lable">Close Date:</label></div>
+                                    <div class="col-sm-8"> <input type="date" id="txtdate" class="form-control" name="FormDate" /></div>
+                                    <input type="hidden" class="form-control" id="hdnID" />
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4"><label class="lable" style="margin-top: 15px;">Closing Remarks:</label></div>
+                                    <div class="col-sm-8">  <textarea id="txtRemarks" style="margin-top: 15px;" placeholder="Enter  Remarks" required class="form-control" name="Remarks"></textarea></div>
+
+                                </div>
+                                <div class="row">
+                                    <input type="submit" style="margin-top: 15px;" value="Save" class="btn btn-primary " onclick="SaveDateDetails7()" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+    var js = jQuery.noConflict(true)
+    js(document).ready(function () {
+
+        js("#example3").DataTable();
+    })
+
+    function ComplainResolved(Id) {
+
+        debugger;
+        if (!(confirm("Do You want to Resolve this Complain  !!"))) {
+            location.reload();
+            return false;
+
+        }
+
+        var objdata = {
+            Id: Id
+        }
+        $.ajax({
+            url: "/Admin/UserComplianResoved",
+            type: "POST",
+            //contentType: false,
+            //processData: false,
+            data: objdata,
+            success: function (msg) {
+                alert(msg);
+                location.reload();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+
+        });
+    }
+
+
+    function ComplainReject(Id) {
+        debugger;
+
+        if (!(confirm("Do You want Un Resolve this Complain  !!"))) {
+            location.reload();
+            return false;
+
+        }
+        var objdata = {
+            Id: Id
+        }
+        $.ajax({
+            url: "/Admin/UserComplianUnResolve",
+            type: "POST",
+            //contentType: false,
+            //processData: false,
+            data: objdata,
+            success: function (msg) {
+                alert(msg);
+                location.reload();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+
+
+        });
+    }
+
+
+    function Showmodel7(id) {
+        debugger;
+        $('#hdnID').val(id);
+        $("#exampleModal7").modal('show');
+    }
+
+    function SaveDateDetails7() {
+        if ($('#txtdate').val() == "") {
+            alert('Please select close date');
+            return false;
+        }
+        var data = new FormData;
+        data.append("Id", $("#hdnID").val());
+        data.append("closedate", $("#txtdate").val());
+        data.append("Remarks", $("#txtRemarks").val());
+        $.ajax({
+            url: "/Admin/ComplainCloseDate",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (r) {
+                alert(r);
+                window.location.reload(true);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+
+        });
+    }
+
+
+
+</script>

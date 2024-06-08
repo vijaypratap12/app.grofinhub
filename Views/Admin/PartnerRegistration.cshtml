@@ -1,0 +1,601 @@
+﻿@model SportsBattle.Models.CommonMasterCls
+@{
+    ViewData["Title"] = "PartnerRegistration";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<script language="Javascript">
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+   return true;
+    }
+</script>
+
+
+<script language="Javascript" type="text/javascript">
+
+        function onlyAlphabets(e, t) {
+            try {
+                if (window.event) {
+                    var charCode = window.event.keyCode;
+                }
+                else if (e) {
+                    var charCode = e.which;
+                }
+                else { return true; }
+                if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 32)
+                    return true;
+                else
+                    return false;
+            }
+            catch (err) {
+                alert(err.Description);
+            }
+        }
+
+
+
+
+</script>
+
+<script>
+
+ function BindBlockName()
+ {
+
+                  var dataobject = {    DistrictCode: $("#ddldistrict").val()    };
+
+                 $.ajax({
+                  type: "POST",
+                  url: "/admin/getBlockCode",
+                  data: dataobject,
+                    success: function (response)
+
+                    {
+                          var d=eval(response);
+
+                       if (d != null)
+                       {
+
+                       $('#ddlblock').empty();
+
+                        
+
+                   for(var i=0;i<d.dataList.length;i++)
+                   {
+                   $('#ddlblock').append("<option value='" + d.dataList[i].id + "'>" +  d.dataList[i].name + "</option>");
+                   }
+
+
+                    } }
+
+          });
+          }
+
+
+          function BindCityName()
+          {
+
+                  var dataobject = {    StateId: $("#ddlstate").val()    };
+
+                 $.ajax({
+                  type: "POST",
+                  url: "/admin/getDistrictCode",
+                  data: dataobject,
+                    success: function (response)
+                     {
+                          var d=eval(response);
+
+                       if (d != null)
+                       {
+
+                       $('#ddldistrict').empty();
+
+                       
+
+                   for(var i=0;i<d.dataList.length;i++)
+                   {
+                   $('#ddldistrict').append("<option value='" + d.dataList[i].id + "'>" +  d.dataList[i].name + "</option>");
+                   }
+
+
+                    } 
+                    }
+
+          });
+          }
+
+
+
+function InsertRegistration(){
+
+    if($("#txtname").val()==""){
+        alert("Please Enter Name!")
+        $("#txtname").focus();
+        return;
+    }
+
+     if($("#txtmobile").val()==""){
+        alert("Please Enter Mobile No.!")
+        $("#txtmobile").focus();
+        return;
+    }
+
+     if($("#ddlqualification").val()=="" || $("#ddlqualification").val()=="0"){
+        alert("Please Select Qualification!")
+        $("#ddlqualification").focus();
+        return;
+    }
+     if($("#txtdob").val()==""){
+        alert("Please Enter DOB!")
+        $("#txtdob").focus();
+        return;
+    }
+     if($("#ddlstate").val()=="" || $("#ddlstate").val()=="0"){
+        alert("Please Select State!")
+        $("#ddlstate").focus();
+        return;
+    }
+
+     if($("#ddldistrict").val()=="" || $("#ddldistrict").val()=="0"){
+        alert("Please Select District!")
+        $("#ddldistrict").focus();
+        return;
+    }
+     if($("#ddlblock").val()=="" || $("#ddlblock").val()=="0"){
+        alert("Please Select Block!")
+        $("#ddlblock").focus();
+        return;
+    }
+     if($("#txtaddress").val()==""){
+        alert("Please Enter Address!")
+        $("#txtaddress").focus();
+        return;
+    }
+    
+   
+    if ($("input[name=companyasso]").is(":checked")==false) {
+          alert("Please Choose Company Associate!")
+        return;
+    }
+   
+    if ($("input[name=associateagent]").is(":checked")==false) {
+          alert("Please Choose Associate Agent!")
+        return;
+    }
+
+     if ( $("input[name=distributor]").is(":checked")==false) {
+          alert("Please Choose Insurance Distributor!")
+        return;
+    }
+    
+     if ($("input[name=termsandcond]").is(":checked")==false) {
+          alert("Please Choose Terms And Condition!")
+        return;
+    }
+  
+     if($("#ddlbankname").val()=="" || $("#ddlbankname").val()=="0"){
+        alert("Please Select Bank!")
+        $("#ddlbankname").focus();
+        return;
+    }
+
+     if($("#txtaccountno").val()==""){
+        alert("Please Enter Account No.!")
+        $("#txtaccountno").focus();
+        return;
+    }
+
+     if($("#txtifsccode").val()==""){
+        alert("Please Enter IFSC CODE!")
+        $("#txtifsccode").focus();
+        return;
+    }
+
+     if($("#txtaccountholder").val()==""){
+        alert("Please Enter Account Holder Name!")
+        $("#txtaccountholder").focus();
+        return;
+    }
+
+     if($("#txtaadharno").val()==""){
+        alert("Please Enter Aadhar No.!")
+        $("#txtaadharno").focus();
+        return;
+    }
+
+    // if($("#txtpanno").val()==""){
+    //    alert("Please Enter PAN!")
+    //    $("#txtpanno").focus();
+    //    return;
+    //}
+    
+
+
+       var data = new FormData;
+        data.append("Name", $("#txtname").val());
+        data.append("Mobile", $("#txtmobile").val());
+         data.append("State", $("#ddlstate option:selected").text());
+          data.append("District", $("#ddldistrict option:selected").text());
+         data.append("Address", $("#txtaddress").val());
+         data.append("Block", $("#ddlblock option:selected").text());
+     
+         data.append("AssociateCompany", $('input[name="companyasso"]:checked').val());
+         data.append("AssociateCompanyAgent", $('input[name="associateagent"]:checked').val());
+         data.append("StateId", $("#ddlstate").val());
+         data.append("DistrictId", $("#ddldistrict").val());
+         data.append("BlockId", $("#ddlblock").val());
+         data.append("Dob", $("#txtdob").val());
+         data.append("Qualification1", $("#ddlqualification option:selected").text());
+         data.append("Qualification", $("#ddlqualification").val());
+         data.append("AssociateMutual",$('input[name="distributor"]:checked').val());
+
+
+         data.append("BankId", $("#ddlbankname").val());
+         data.append("AccountNo", $("#txtaccountno").val());
+         data.append("IFSCCode", $("#txtifsccode").val());
+         data.append("AccountHolderName", $("#txtaccountholder").val());
+         data.append("AadharNo", $("#txtaadharno").val());
+         data.append("PANNo", $("#txtpanno").val());
+         
+
+
+         data.append("Action", "1");
+
+        $("#showSpinner").show();
+
+        $.ajax({
+            url: "/Admin/InsertUpdateRegistrationDetails",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (r) {
+                if (r.strId =="1") {
+                    alert(r.msg);
+                    location.reload();
+                }
+                else if (r.strId == "0") {
+                    alert(r.msg);
+                     $("#showSpinner").hide();
+                }
+                else {
+                    alert('Server not Responding !!!');
+                    $("#showSpinner").hide();
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        });
+
+}
+
+
+function Validateaadhar1()
+{
+     $("#showSpinner").show();
+      var data = new FormData;
+        data.append("aadharno", $("#txtaadharno").val());
+
+         $.ajax({
+            url: "/Admin/AdharNoValidate",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (r) {
+                if (r.strId =="1") {
+                   
+                     $("#showSpinner").hide();
+                }
+                else if (r.strId == "0") {
+                     alert(r.msg);
+                   $("#txtaadharno").val("");
+                     $("#showSpinner").hide();
+                }
+                else {
+                    alert('Server not Responding !!!');
+                    $("#showSpinner").hide();
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        });
+
+
+}
+
+
+function Validatepan(){
+
+     $("#showSpinner").show();
+      var data = new FormData;
+        data.append("panno", $("#txtpanno").val());
+
+         $.ajax({
+            url: "/Admin/PANNoValidate",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (r) {
+                if (r.strId =="1") {
+                   
+                     $("#showSpinner").hide();
+                }
+                else if (r.strId == "0") {
+                     alert(r.msg);
+                   $("#txtpanno").val("");
+                     $("#showSpinner").hide();
+                }
+                else {
+                    alert('Server not Responding !!!');
+                    $("#showSpinner").hide();
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        });
+
+}
+
+
+
+</script>
+
+<my-spinner>
+    <div ng-show="showSpinner" class="nexo-overlay ng-hide" style="width: 100%; height: 100%; background: rgba(255, 255, 255, 0.9); z-index: 5000; position: absolute; top: 0px; left: 0px;display:none" id="showSpinner">
+        <div class="spinner-border m-2" role="status" style="position: absolute; top: 30%; left: 50%; margin-top: -25px; margin-left: -25px;"></div>
+    </div>
+</my-spinner>
+
+<div class="app-main__inner">
+    <div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <div class="row">
+
+                            <div class="col-lg-6 col-md-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-2">Associate Patner Registration</h1>
+                                      
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>User Name <span style="color:red;">*</span> </label>
+                                        <input name="txtname" type="text" maxlength="150" id="txtname" autocomplete="off" placeholder="Enter Full Name" value="" onpaste="return false;" class="form-control" onkeypress="return onlyAlphabets(event,this);" ondrop="return false" ondrag="return false" onselectstart="return false" oncopy="return false" oncut="return false">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Mobile No.<span style="color:red;">*</span> </label>
+                                        <input name="txtmobile" type="text" maxlength="10" id="txtmobile" class="form-control" placeholder="Enter Mobile Number" value="" oncopy="return false" onpaste="return false" oncut="return false" onkeypress="return isNumberKey(event)" autocomplete="off">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Qualification <span style="color:red;">*</span> </label>
+
+                                        @Html.DropDownList("ddlqualification", (List<SelectListItem>)ViewBag.Qualist, new { @id = "ddlqualification", @class = "form-control"})
+
+                                    </div>
+
+
+
+
+                                    <div class="form-group">
+                                        <label>Date Of Birth <span style="color:red;">*</span> </label>
+                                        <input name="txtdob" type="date" id="txtdob" oncopy="return false" onpaste="return false" oncut="return false" class="form-control" placeholder="Enter Date of Birth">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>State <span style="color:red;">*</span> </label>
+
+                                        @Html.DropDownList("ddlstate", (List<SelectListItem>)ViewBag.Statelist, new { @id = "ddlstate", @class = "form-control",@onchange="BindCityName()" })
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>District <span style="color:red;">*</span> </label>
+                                        <select class="form-control" id="ddldistrict" onchange="BindBlockName()">
+                                           <option value="0">Select District</option>
+                                        </select>
+
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Block<span style="color:red;">*</span> </label>
+
+                                        @*@Html.DropDownList("ddlblock", (List<SelectListItem>)ViewBag.blocklist, new { @id = "ddlblock", @class = "form-control"})*@
+
+<select class="form-control" id="ddlblock" >
+                                           <option value="0">Select Block</option>  
+                                        </select>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Address<span style="color:red;">*</span> </label>
+                                        <textarea name="txtaddress" type="date" id="txtaddress" oncopy="return false" onpaste="return false" oncut="return false" class="form-control"></textarea>
+                                    </div>
+
+                                    
+                                    <div class="form-group">
+                                        <label>Are you associated with any company?<span style="color:red;">*</span> </label>
+
+                                        <div class="grid-container">
+ <div class="grid-container">
+    <div class="left-griditem">
+       
+
+     
+
+        <span id="genderArea">
+        <label for="one">Yes</label>
+        <input type="radio" id="one" name="companyasso" value="Yes" />
+       
+        </span>
+
+        <span id="genderArea1">
+       
+        <label for="two">No</label>
+        <input type="radio" id="two" name="companyasso" value="No" />
+        </span>
+
+    </div>
+   
+</div>
+                                    </div>
+
+                                   
+                                </div>
+
+
+                                 <div class="form-group">
+                                        <label>Are you any family member associated as Insurance Agent? <span style="color:red;">*</span> </label>
+
+                                        <div class="grid-container">
+ <div class="grid-container">
+    <div class="left-griditem">
+       
+        <span id="genderArea1">
+        <label for="one1">Yes</label>
+        <input type="radio" id="one1" name="associateagent" value="Yes" />
+       
+        </span>
+
+        <span id="genderArea1">
+       
+        <label for="two1">No</label>
+        <input type="radio" id="two1" name="associateagent" value="No" />
+        </span>
+
+    </div>
+   
+</div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                        <label>Are you any family member associated as Mutual Fund Distributor? <span style="color:red;">*</span> </label>
+
+                                        <div class="grid-container">
+ <div class="grid-container">
+    <div class="left-griditem">
+       
+        <span id="genderArea1">
+        <label for="one2">Yes</label>
+        <input type="radio" id="one2" name="distributor" value="Yes" />
+       
+        </span>
+
+        <span id="genderArea1">
+       
+        <label for="two2">No</label>
+        <input type="radio" id="two2" name="distributor" value="No" />
+        </span>
+
+    </div>
+   
+</div>
+                                    </div>
+
+                                   
+                                </div>
+
+                                <div class="form-group">
+                                 
+ <div class="grid-container">
+    <div class="left-griditem">
+       
+        <span id="genderArea1">
+      
+        <input type="checkbox" id="terms1" name="termsandcond" value="Yes" />
+          <label for="terms1">Terms And Condition <span style="color:red;">*</span> </label>
+        </span>
+        </div>
+        </div>
+               </div>                 
+
+
+                                 <input type="button" value="Register" class="btn btn-primary btn-user btn-block" onclick="InsertRegistration()">
+
+                                    <hr>
+
+                            </div>
+
+
+                        </div>
+
+
+                          <div class="col-lg-6 col-md-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-2">Bank Detail</h1>
+                                       
+
+
+                                    </div>
+
+                                 
+                                        <div class="form-group">
+                                        <label>Bank Name <span style="color:red;">*</span> </label>
+
+                                        @Html.DropDownList("ddlbankname", (List<SelectListItem>)ViewBag.Banklist, new { @id = "ddlbankname", @class = "form-control"})
+
+                                    </div>
+                                    </div>
+
+
+                                      <div class="form-group">
+                                        <label>Account No. <span style="color:red;">*</span> </label>
+                                        <input name="txtaccountno" type="text" maxlength="30" id="txtaccountno" class="form-control" placeholder="Enter Account No." value="" oncopy="return false" onpaste="return false" oncut="return false" onkeypress="return isNumberKey(event)" autocomplete="off">
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label>IFSC CODE <span style="color:red;">*</span> </label>
+                                        <input name="txtifsccode" type="text" maxlength="11" id="txtifsccode" class="form-control" placeholder="Enter IFSC CODE" value="" oncopy="return false" onpaste="return false" oncut="return false"  autocomplete="off">
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label>Account Holder Name <span style="color:red;">*</span> </label>
+                                        <input name="txtaccountholder" type="text" maxlength="30" id="txtaccountholder" class="form-control" placeholder="Enter Account Holder Name" onkeypress="return onlyAlphabets(event,this);" value="" oncopy="return false" onpaste="return false" oncut="return false"  autocomplete="off">
+                                    </div>
+
+                                    <h1 class="h4 text-gray-900 mb-2" style="text-align:center;">KYC Detail</h1>
+
+
+                                     <div class="form-group">
+                                        <label>Aadhar No. <span style="color:red;">*</span> </label>
+                                        <input name="txtaadharno" type="text" maxlength="12" id="txtaadharno" class="form-control" placeholder="Enter Aadhar No." value="" oncopy="return false" onpaste="return false" oncut="return false" onkeypress="return isNumberKey(event)" onchange="Validateaadhar1()" autocomplete="off">
+                                    </div>
+
+
+                                     <div class="form-group">
+                                        <label>PAN No.  </label>
+                                        <input name="txtpanno" type="text" maxlength="10" id="txtpanno" class="form-control" placeholder="Enter PAN No." value="" oncopy="return false" onpaste="return false" oncut="return false"  autocomplete="off" onchange="Validatepan()">
+                                    </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</div>

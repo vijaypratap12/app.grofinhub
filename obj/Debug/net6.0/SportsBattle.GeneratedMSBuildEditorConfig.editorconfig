@@ -1,0 +1,321 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = SportsBattle
+build_property.RootNamespace = SportsBattle
+build_property.ProjectDir = C:\Users\Sigma\OneDrive\Desktop\Grofin\Working\Grofinhubportal\Grofin\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\Sigma\OneDrive\Desktop\Grofin\Working\Grofinhubportal\Grofin
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Account/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxEYXNoYm9hcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Account/Logout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/AddBanner.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkQmFubmVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/AddCommission.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkQ29tbWlzc2lvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/AddMenuList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkTWVudUxpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/AdharPay.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRoYXJQYXkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/AdminCommissionReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW5Db21taXNzaW9uUmVwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/AdminDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW5EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/AEPS.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQUVQUy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/BBPS.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQkJQUy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/BeneficiaryReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQmVuZWZpY2lhcnlSZXBvcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/CheckPanStatus.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ2hlY2tQYW5TdGF0dXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/Commission.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ29tbWlzc2lvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/Compliance.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ29tcGxpYW5jZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/ComplianceAllDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ29tcGxpYW5jZUFsbERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/DailyLimit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGFpbHlMaW1pdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/DMT.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRE1ULmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/DoRecharge.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRG9SZWNoYXJnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/DTH.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRFRILmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/DTHINFO.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRFRISU5GTy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/DTHRecharge.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRFRIUmVjaGFyZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/Enquiry.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRW5xdWlyeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/EPFOKYC.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRVBGT0tZQy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/FetchBenificiary.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRmV0Y2hCZW5pZmljaWFyeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/Finance.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRmluYW5jZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/Insurance.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5zdXJhbmNlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/Investment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW52ZXN0bWVudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/LIC.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTElDLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/LICBillInfo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTElDQmlsbEluZm8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/LICBillPay.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTElDQmlsbFBheS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/LicPayReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTGljUGF5UmVwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/MainDashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTWFpbkRhc2hib2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/MemberList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTWVtYmVyTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/MiniStatement.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTWluaVN0YXRlbWVudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/Notification.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTm90aWZpY2F0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/Operatorlist.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cT3BlcmF0b3JsaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/Pan.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFuLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/PanReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFuUmVwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/PartnerRegistration.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydG5lclJlZ2lzdHJhdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/PaymentAction.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGF5bWVudEFjdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/QueryRemmiter.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUXVlcnlSZW1taXRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/Recharge.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUmVjaGFyZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/RechargeReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUmVjaGFyZ2VSZXBvcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/Refund.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUmVmdW5kLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/RegisterBenificiary.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUmVnaXN0ZXJCZW5pZmljaWFyeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/RegisterRemmiter.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUmVnaXN0ZXJSZW1taXRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/RemitterReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUmVtaXR0ZXJSZXBvcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/test.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cdGVzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/Transaction.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVHJhbnNhY3Rpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/TransactionReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVHJhbnNhY3Rpb25SZXBvcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/TransactionStatus.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVHJhbnNhY3Rpb25TdGF0dXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/UserDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlckRldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/VenderDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVmVuZGVyRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Admin/Widhroll.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cV2lkaHJvbGwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Player/CancelMatch.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheWVyXENhbmNlbE1hdGNoLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Player/CompletedMatch.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheWVyXENvbXBsZXRlZE1hdGNoLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Player/PendingMatch.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheWVyXFBlbmRpbmdNYXRjaC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Player/RunningMatch.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheWVyXFJ1bm5pbmdNYXRjaC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Player/TableFullView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheWVyXFRhYmxlRnVsbFZpZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Player/UserFullDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheWVyXFVzZXJGdWxsRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Player/VerifiedMatch.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheWVyXFZlcmlmaWVkTWF0Y2guY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Player/WaitingTable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheWVyXFdhaXRpbmdUYWJsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Shared/_AdminLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Withdraw/AllTransaction.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2l0aGRyYXdcQWxsVHJhbnNhY3Rpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Withdraw/ApproveWithdraw.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2l0aGRyYXdcQXBwcm92ZVdpdGhkcmF3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Withdraw/PendingWithdraw.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2l0aGRyYXdcUGVuZGluZ1dpdGhkcmF3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/Withdraw/RejectWithdraw.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2l0aGRyYXdcUmVqZWN0V2l0aGRyYXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Sigma/OneDrive/Desktop/Grofin/Working/Grofinhubportal/Grofin/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

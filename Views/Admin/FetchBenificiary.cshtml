@@ -1,0 +1,253 @@
+﻿@{
+    ViewData["Title"] = "FetchBenificiary";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+
+<script type="text/javascript" language="javascript">
+    function numeric(e) {
+        var unicode = e.charCode ? e.charCode : e.keyCode;
+        if (unicode == 8 || unicode == 9 || (unicode >= 48 && unicode <= 57)) {
+            return true;
+            return false;
+        }
+    }
+
+
+
+
+
+
+
+
+    function QueryLICBillInfocheck() {
+
+        if ($('#txtFetchBenificiaryPhone1').val() == "") {
+            alert('Enter Phone No.');
+            $('#txtFetchBenificiaryPhone1').focus();
+            return;
+        }
+        var url1 = "/Admin/GetBeneficiaryDetails"
+        if ($('#txtFetchBenificiarybane').val() != "") {
+
+            url1 = "/Admin/GetBeneficiaryDetailById"
+        }
+
+        var data = new FormData;
+
+        data.append("beneid", $("#txtFetchBenificiarybane").val());
+        data.append("mobile", $("#txtFetchBenificiaryPhone1").val());
+        data.append("bank3_flag", "NO");
+
+
+        $("#showSpinner").show();
+        // debugger;
+        $.ajax({
+            //url: "/Admin/QueryDTHINFOPost",
+            url: url1,
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (r) {
+                //debugger;
+                //console.log(r)
+                if (r.strId == "1") {
+                    // console.log(r)
+                    //alert("Success")
+                    var tbl = ""
+                    $("tbody").empty(tbl)
+                    $.each(r.dt, function (index, data) {
+                        tbl += "<tr><td>" + (index + 1) + " </td> "
+                        tbl += "<td>" + data.bene_id + " </td> "
+                        tbl += "<td>" + data.bankid + " </td> "
+                        tbl += "<td>" + data.bankname + " </td> "
+                        tbl += "<td>" + data.name + " </td> "
+                        tbl += "<td>" + data.accno + " </td> "
+                        tbl += "<td>" + data.ifsc + " </td> "
+                        tbl += "<td>" + data.banktype + " </td> "
+                        tbl += "<td><a class=' btn btn-danger' onclick='deletebeneRecor(" + data.bene_id + ")' >DELETE</a> </td> </tr>"
+
+                    })
+
+                    $("tbody").append(tbl)
+                }
+                else if (r.strId == "2") {
+
+                    $("#showSpinner").hide();
+                    //window.location.href = "../Admin/RegisterRemmiter?Mobile=" + $("#txtFetchBenificiaryPhone1").val() + "&stateresp=" + r.stateresp;
+                    window.location.href = "../Admin/RegisterBenificiary?Mobile=" + $("#txtFetchBenificiaryPhone1").val() + "&stateresp=" + r.stateresp;
+                }
+                else if (r.strId == "0") {
+                    alert(r.msg);
+                    $("#showSpinner").hide();
+                }
+                else {
+                    alert('Server not Responding !!!');
+                    $("#showSpinner").hide();
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                debugger;
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        });
+    }
+
+    function deletebeneRecor(benid) {
+        if ($('#txtFetchBenificiaryPhone1').val() == "") {
+            alert('Enter Phone No.');
+            $('#txtFetchBenificiaryPhone1').focus();
+            return;
+        }
+
+        var data1 = new FormData;
+
+        data1.append("mobile", $("#txtFetchBenificiaryPhone1").val());
+        data1.append("bene_id", benid);
+        $.ajax({
+            //url: "/Admin/QueryDTHINFOPost",
+            url: "/Admin/BeneficiaryDelete",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data1,
+            success: function (r) {
+                //debugger;
+                //console.log(r)
+                if (r.strId == "1") {
+                    alert(r.msg)
+                    QueryLICBillInfocheck()
+                    // location.reload()
+                }
+                else {
+                    alert(r.msg);
+                    $("#showSpinner").hide();
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                debugger;
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+
+
+        });
+
+
+
+    }
+
+
+
+
+
+</script>
+
+
+
+
+<section class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <h4 class="card-title">Fetch Benificiary</h4>
+                    </div>
+
+                    <div class="card-body ">
+
+                        <div class="row">
+
+
+
+                            <div class="col-sm-3">
+
+                                <div class="form-group">
+                                    <label>  Phone No:	 </label>
+                                    <input type="text" class="form-control" placeholder="Enter Phone No" maxlength="10" id="txtFetchBenificiaryPhone1" onkeypress="return numeric(event);" value="@ViewBag.RegMobile" onchange="phonenumberlength();" />
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+
+                                <div class="form-group">
+                                    <label> Bill No </label>
+                                    <input type="text" class="form-control" placeholder="Enter Bill No" id="txtFetchBenificiarybane" onkeypress="return numeric(event);" onchange="DetailsByBaneId();" />
+
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+                        <button type="button" id="btnSearch" class="btn btn-primary waves-effect waves-light" onclick="QueryLICBillInfocheck()"> Search </button>
+
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card card-warning">
+                <div class="card-header">
+
+
+                    <div class="card-tools">
+                    </div>
+
+                    <div class="card-body">
+                        <div style="overflow-x:auto;">
+
+                            <table id="example3" class="my  table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.No.</th>
+                                        <th>Benificiary Id</th>
+                                        <th>Bank Id</th>
+                                        <th>Bank Name</th>
+                                        <th>Name</th>
+                                        <th>Acount No</th>
+                                        <th>Ifsc</th>
+                                        <th>Bank Type</th>
+                                        <th>Delete</th>
+                                        @* <th>bank1_limit</th>*@
+
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                </tbody>
+                             
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+

@@ -1,0 +1,250 @@
+﻿
+@{
+    ViewData["Title"] = "LICBillInfo";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<script type="text/javascript" language="javascript">
+    function numeric(e) {
+        var unicode = e.charCode ? e.charCode : e.keyCode;
+        if (unicode == 8 || unicode == 9 || (unicode >= 48 && unicode <= 57)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+
+
+
+
+
+
+    function QueryLICBillInfocheck() {
+
+        if ($('#txtPhone1').val() == "") {
+            alert('Enter Phone No.');
+            $('#txtPhone1').focus();
+            return;
+        }
+
+        if($('#txtEmail').val()==""){
+            alert('Enter Email Id');
+            $('#txtEmail').focus();
+            return
+        }
+
+        var data = new FormData;
+
+        data.append("mobile", $("#txtPhone1").val());
+        data.append("bank3_flag", "NO");
+
+
+        $("#showSpinner").show();
+
+        $.ajax({
+            url: "/Admin/QueryDTHINFOPost",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (r) {
+                if (r.strId == "1") {
+
+                }
+                else if (r.strId == "2") {
+
+                    $("#showSpinner").hide();
+                    window.location.href = "../Admin/RegisterRemmiter?Mobile=" + $("#txtPhone1").val() + "&stateresp=" + r.stateresp;
+                }
+                else if (r.strId == "0") {
+                    alert(r.msg);
+                    $("#showSpinner").hide();
+                }
+                else {
+                    alert('Server not Responding !!!');
+                    $("#showSpinner").hide();
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+
+
+        });
+    }
+
+
+
+
+
+
+
+</script>
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h5 class="m-0">LIC Bill Info</h5>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/Admin/Dashboard">Dashboard</a></li>
+
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <h3 class="card-title">LIC Bill Info</h3>
+                    </div>
+
+                    <div class="card-body ">
+
+                        <div class="row">
+
+
+
+                            <div class="col-sm-3">
+
+                                <div class="form-group">
+                                    <label> Customer Phone No:	 </label>
+                                    <input type="text" class="form-control" placeholder="Enter Phone No" maxlength="10" id="txtPhone1" onkeypress="return numeric(event);" onchange="phonenumberlength();" />
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-3">
+
+                                <div class="form-group">
+                                    <label> Customer Email:	 </label>
+                                    <input type="text" class="form-control" placeholder="Enter Email Id" maxlength="10" id="txtEmail"   />
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                Mode:
+
+                                <select class="form-control" id="Pipe" required name="Pipe">
+                                    <option value="0" disabled selected>-- Select Mode --</option>
+                                    <option value="Online" id="Online"> Online </option>
+                                    <option value="Offline" id="Offline"> Offline</option>
+
+                                   @* <option value="DishTv" id="DishTv"> DishTv </option>*@
+                                </select>
+                            </div>
+
+                         
+                        </div>
+                        <button type="button" id="btnSearch" class="btn btn-primary waves-effect waves-light" onclick="QueryLICBillInfocheck()"> Search </button>
+
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" >
+            <div class="card card-warning">
+                <div class="card-header">
+
+
+                    <div class="card-tools">
+                    </div>
+
+                    <div class="card-body">
+                        <div style="overflow-x:auto;">
+
+                            <table id="example3" class="my  table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.No.</th>
+                                        <th>Bill Number</th>
+                                        <th>Bill Amount</th>
+                                        <th>Bill Net Amount</th>
+                                        <th>Bill Date</th>
+                                        <th>Cell Number</th>
+                                      @*  <th>Message</th>*@
+                                        @*  <th>bank2_limit</th>
+                                        <th>bank1_limit</th>*@
+
+                                    </tr>
+
+                                </thead>
+                                @*          <tbody>
+                                @{
+                                if (Model.dt != null)
+                                {
+                                if (Model.dt.Rows.Count > 0)
+                                {
+                                int i = 1;
+                                foreach (DataRow item in Model.dt.Rows)
+                                {
+                                <tr>
+                                <td>@i</td>
+                                <td>@item["clientCode"]</td>
+                                <td>@item["ClientName"]</td>
+                                <td>@item["PhoneNo"]</td>
+                                <td>@item["State_Name"]</td>
+                                <td>@item["Cityname"]</td>
+                                <td>@item["WebSite"]</td>
+                                <td>@item["HeadOffice"]</td>
+                                <td>@item["Pincode"]</td>
+                                <td>@item["Address2"]</td>
+                                <td>@item["Remark"]</td>
+
+                                <td>
+                                <a href="#" onclick="GetDetailsForEdit('@item["clientCode"]')"><span class="badge bg-success">Edit</span></a>
+                                </td>
+
+                                @*   <td>
+                                <a href="#" onclick="DeleteItemHeadDetails('@item["SrNo"]')"><span class="badge bg-danger">Delete</span></a>
+                                </td>
+                                *@
+                                @*   </tr>
+                                i++;
+                                }
+                                }
+
+                                }
+                                }
+
+                                </tbody>*@
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+

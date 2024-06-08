@@ -1,0 +1,86 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+<li class="treeview">
+	<a href="#">
+		<i class="icon-Layoutf-4-blocks "><span class="path1"></span><span class="path2"></span></i>
+		<span>SERVICES </span>
+		<span class="pull-right-container">
+			<i class="fa fa-angle-right pull-right"></i>
+		</span>
+	</a>
+	<ul class="treeview-menu">
+		@if ((ViewBag.pertbl.Rows[0]["PAYUTILITY"]) == true)
+		{
+			<li>
+				<a href="/Admin/Dashboard">
+					<i class="icon-Layout-4-blocks">
+						<span class="path1">
+						</span><span class="path2"></span>
+					</i>Pay & Utility
+				</a>
+			</li>
+		}
+
+		@if ((ViewBag.pertbl.Rows[0]["COMPLIANCE"]) == true)
+		{
+			<li>
+				<a href="/Admin/Compliance">
+					<i class="icon-Layout-4-blocks">
+						<span class="path1">
+						</span><span class="path2"></span>
+					</i> Compliance
+				</a>
+			</li>
+		}
+
+		@if ((ViewBag.pertbl.Rows[0]["FINANCE"]) == true)
+		{
+			<li>
+				<a href="/Admin/Finance">
+					<i class="icon-Layout-4-blocks">
+						<span class="path1">
+						</span><span class="path2"></span>
+					</i>Finance
+				</a>
+			</li>
+		}
+
+		@if ((ViewBag.pertbl.Rows[0]["INVESTMENT"]) == true)
+		{
+			<li>
+				<a href="/Admin/Investment">
+					<i class="icon-Layout-4-blocks">
+						@* <i class="icon-Commit">*@
+
+						<span class="path1">
+						</span><span class="path2"></span>
+					</i> Investment
+				</a>
+			</li>
+		}
+
+		@if ((ViewBag.pertbl.Rows[0]["INSURANCE"]) == true)
+		{
+			<li>
+				<a href="/Admin/Insurance">
+					<i class="icon-Layout-4-blocks">
+						<span class="path1">
+						</span><span class="path2"></span>
+					</i> Insurance
+				</a>
+			</li>
+		}
+		@if ((ViewBag.pertbl.Rows[0]["OTHERSERVICES"]) == true)
+		{
+			<li>
+				<a href="/Admin/OtherServic">
+					<i class="icon-Layout-4-blocks">
+						<span class="path1">
+						</span><span class="path2"></span>
+					</i> Other Service
+				</a>
+			</li>
+		}
+	</ul>
+
+</li>

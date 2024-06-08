@@ -1,0 +1,1076 @@
+﻿@using System.Data
+@model DataTable
+@{
+    ViewData["Title"] = "Electricity";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@*
+<h1>Electricity</h1>*@
+
+
+<style>
+
+
+    .card {
+        border-radius: 10px;
+        box-shadow: 0px 2px 5px 0px rgba(19, 23, 38, 0.05);
+        margin-bottom: 10px !important;
+    }
+
+    .wraperplan {
+        min-width: 120px;
+        max-height: 310px;
+        overflow-y: scroll;
+    }
+
+    body {
+        padding: 10px;
+    }
+
+    #exTab1 .tab-content {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    #exTab2 h3 {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    /* remove border radius for the tab */
+
+    #exTab1 .nav-pills > li > a {
+        border-radius: 0;
+    }
+
+    /* change border radius for the tab , apply corners on top*/
+
+    #exTab3 .nav-pills > li > a {
+        border-radius: 4px 4px 0 0;
+    }
+
+    #exTab3 .tab-content {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    ul#myTab {
+        display: flex;
+        width: 100%;
+    }
+
+    .tab-pane {
+        padding: 18px;
+    }
+
+    nav#myTab {
+        display: block !important;
+    }
+
+    .tab-content {
+        width: 100%;
+        background: #fff;
+    }
+</style>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="myTab" role="tablist">
+
+
+    <ul class="nav nav-tabs customtab nav-justified" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#demo" type="button" role="tab" aria-controls="home" aria-selected="true">Electricity Bill</button>
+        </li>
+        @*<li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#demo1" type="button" role="tab" aria-controls="profile" aria-selected="false">LIC Bill Pay</button>
+        </li>*@
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#demo2" type="button" role="tab" aria-controls="contact" aria-selected="false"> Status Enquiry</button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="demo" role="tabpanel" aria-labelledby="home-tab">
+            <section class="content">
+    <div class="">
+
+        <div class="">
+
+            <div class="">
+
+                <div class="card card-warning">
+                    <div class="c">
+                        <h4 class="card-title new-title">Electricity</h4>
+                    </div>
+
+                    <div class="card-body ">
+
+                        <div class="row">
+
+
+
+                            <div class="col-sm-6">
+
+                                <div class="form-group">
+                                                <label>Mode<span style="color:red">*</span></label>
+                                    <select class="form-control" id="txtmodel" onchange="bindoperatorList()">
+                                        <option value="0">--select Mode--</option>
+                                        <option value="online">online</option>
+                                        <option value="offline">offline</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+
+                               
+                                       
+                               <div class="form-group">
+                                    
+                                    <input type="hidden" class="form-control" id="ddlCategory" name="CityId" />
+                                                <label>Operator<span style="color:red">*</span></label>
+                                                <select class="form-control" id="ddoperator" onchange='checkOperatorDetailsAd()'>
+                                        <option value='0' selected disabled> --select Operator-- </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6" id="billdvshowhide">
+                                <div class="form-group">
+                                                <label id="showlabelbillno">Bill No<span style="color:red">*</span></label>
+                                    <input type="text" id="txtBill" placeholder="Enter..." class="form-control" />
+                                </div>
+                                <input type="hidden" id="ddlamt">
+                                <input type="hidden" id="ddlUsername">
+
+                                <input type="hidden" id="ddldate">
+                            </div>
+                                <!-- new start-->
+                                        <div class="col-sm-6" style="display:none;" id="amountdvshowhide">
+                                            <div class="form-group">
+                                                <label>Amount<span style="color:red">*</span></label>
+                                                <input type="number" id="txtamountdirectpay" placeholder="Enter Amount" class="form-control" />
+                                            </div>
+                                        
+                                        </div>
+
+                                        <div class="col-sm-6" style="display:none;" id="ad1dvshowhide">
+                                            <div class="form-group">
+                                                <label id="ad1lbldv"></label><span style="color:red">*</span>
+                                                <input type="text" id="txtad1directpay" placeholder="Enter ...." class="form-control" />
+                                            </div>
+                                        
+                                        </div>
+                                         <div class="col-sm-6" style="display:none;" id="ad2dvshowhide">
+                                            <div class="form-group">
+                                                <label id="ad2lbldv"></label><span style="color:red">*</span>
+                                                <input type="text" id="txtad2directpay" placeholder="Enter ...." class="form-control" />
+                                            </div>
+                                        
+                                        </div>
+                                         <div class="col-sm-6" style="display:none;" id="ad3dvshowhide">
+                                            <div class="form-group">
+                                                <label id="ad3lbldv"></label><span style="color:red">*</span>
+                                                <input type="text" id="txtad3directpay" placeholder="Enter ...." class="form-control" />
+                                            </div>
+                                        
+                                        </div>
+                                        <!-- new end-->
+                            <div class="col-sm-6 mt-3">
+                                <div class="form-group">
+
+                                    <button type="button" id="btnSearchBBPS" class="btn btn-primary form-control waves-effect waves-light" onclick="FetchBillDetails()"> Search </button>
+
+                                                <button type="button" id="btnsaveBBPS" class="btn btn-primary form-control waves-effect waves-light" onclick="PayBill()" style="display:none;"> Pay Now </button>
+
+                                               
+                                </div>
+                        </div>
+                       
+
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+            <div class="col-md-12" style="display:none;" id="showbilldetailsdv">
+                <div class="card card-warning">
+                    <div class="card-header">
+
+                        <div class="card-tools">
+                        </div>
+
+                        <div class="card-body">
+                            <div class="border p-4">
+                                <div class="row">
+                                    <div class="col-sm-3"><lable>User Name:</lable></div>
+                                    <div class="col-sm-3"> <span id="showusernamespan"></span></div>
+                                    <div class="col-sm-3"><lable>Amount:</lable></div>
+                                    <div class="col-sm-3"> <span id="showamountspan"></span></div>
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"><lable>Due Date:</lable></div>
+                                    <div class="col-sm-3"> <span id="showduedatespan"></span></div>
+                                    <div class="col-sm-3"><lable>Bill Date:</lable></div>
+                                    <div class="col-sm-3"> <span id="showbilldatespan"></span></div>
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"><lable>AD2:</lable></div>
+                                    <div class="col-sm-3"> <span id="showad2span"></span></div>
+                                    <div class="col-sm-3"><lable>AD3:</lable></div>
+                                    <div class="col-sm-3"> <span id="showad3pan"></span></div>
+
+
+                                </div>
+                            </div>
+
+                            <br />
+                            @*<div style="overflow-x:auto;">
+                            <table id="example3" class="my  table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                            <th>Sr.No.</th>
+                            <th>Username </th>
+                            <th>Amount</th>
+                            <th>Due Date</th>
+                            <th>ad2</th>
+                            <th>ad3</th>
+                            <th>Cell Number</th>
+
+
+                            </tr>
+
+                            </thead>
+                            <tbody>
+                            </tbody>
+
+                            </table>
+
+
+                            </div>*@
+
+                            <input type="button" onclick="PayBill()" id="btnsave" class="btn btn-primary" value="Pay Now" />
+
+
+                            <div style="display:none;">
+                                <input type="text" id="txtcurrentlocation" placeholder="Location" />
+                                <input type="text" id="lat" placeholder="lat" />
+                                <input type="text" id="lon" placeholder="lon" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+    </div>
+
+</section>
+        </div>
+        <div class="tab-pane fade" id="demo2" role="tabpanel" aria-labelledby="contact-tab">
+
+
+            <div class="">
+
+                <div class="">
+
+                    <div class="card card-warning">
+
+                        <div class="card-body ">
+
+
+
+
+                            <div class="row">
+
+                                <div style="display:none;">
+                                    <div class="col-sm-6  p-3">
+                                        <span style="color:red">*</span><label>Reference Id</label>
+                                        <input id="txtrefid" type="text" placeholder="enter ReferenceId.." class="form-control" />
+
+
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <button type="button" id="btnSearch" class="btn mt-3 form-control btn-primary " onclick="checkEnquiryStatus()">Check Status </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 border p-2">
+                                    <div class="card-header alert alert-primary ">
+                                    <h4 class="text-center">Bill History</h4>
+
+                                      </div>
+                                    <table id="example3" class="my  table table-bordered table-hover" style="width:100%;">
+                                        <thead class="bg-primary">
+                                            <tr>
+                                                <th>Status</th>
+                                                <th>Reference Id :</th>
+                                                <th>Bill Date :</th>
+                                                <th>Amount :</th>
+                                                <th>User Name :</th>
+                                                <th>Aknowledge No :</th>
+
+
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+
+
+                                            @if (ViewBag.BBPSRefId != null && ViewBag.BBPSRefId.Rows.Count > 0)
+                                            {
+                                                foreach (DataRow item in ViewBag.BBPSRefId.Rows)
+                                                {
+                                                    <tr>
+
+
+                                                        <td>
+                                                            <i class="btn btn-warning" onclick="checkEnquiryStatus('@item["referenceid"]')">View</i>
+                                                        </td>
+
+                                                        <td>@item["referenceid"]</td>
+                                                        <td>@item["EntryDate"]</td>
+
+
+                                                        <td>@item["amount"]</td>
+                                                        <td>@item["userName"]</td>
+                                                        <td>@item["ackno"]</td>
+                                                    </tr>
+
+
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                 
+                                  @*  <span style="color: blue;"> click to Reference no for more detail</span>*@
+                                    <div class="wraperplan row" style="display:none;">
+
+
+
+
+                                        @if (ViewBag.BBPSRefId != null && ViewBag.BBPSRefId.Rows.Count > 0)
+                                        {
+                                            foreach (DataRow item in ViewBag.BBPSRefId.Rows)
+                                            {
+                                                <div class="col-sm-6 card p-3 ">
+
+                                                    <table class="table table-bordered" onclick="checkEnquiryStatus('@item["referenceid"]')">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Reference Id :</th>
+                                                                <td style="color: blue;"><u> @item["referenceid"]</u></td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th>Bill Date :</th>
+                                                                <td>  @item["EntryDate"]</td>
+
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th>Amount :</th>
+                                                                <td>  @item["amount"]</td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <th>User Name :</th>
+                                                                <td>  @item["userName"]</td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Aknowledge No :</th>
+                                                                <td> @item["ackno"]</td>
+
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+
+
+
+
+                                                    @*<div class=" row ">
+                                            <div class="col-sm-5"><label>Reference Id : </label></div><div class="col-sm-7"><span> @item["referenceid"]</span></div>
+                                            </div>
+                                            <div class=" row ">
+                                            <div class="col-sm-5"><label>Bill Date : </label></div><div class="col-sm-7">
+                                            <span> @item["EntryDate"]</span>
+                                            </div>
+                                            </div>
+
+                                            <div class=" row ">
+                                            <div class="col-sm-5"><label>Amount : </label></div><div class="col-sm-7">
+                                            <span> @item["amount"]</span>
+                                            </div>
+                                            </div>
+                                            <div class=" row ">
+                                            <div class="col-sm-5"><label>User Name : </label></div><div class="col-sm-7">
+                                            <span> @item["userName"]</span>
+                                            </div>
+                                            </div>*@
+                                                    @* <div class=" row ">
+                                            <div class="col-sm-5"><label>Aknowledge No : </label></div><div class="col-sm-7">
+                                            <span> @item["ackno"]</span>
+                                            </div>
+                                            </div>*@
+                                                </div>
+                                            }
+
+                                        }
+
+
+
+
+                                    </div>
+
+                                </div>
+
+
+
+
+                            </div>
+
+
+
+
+
+                            <div class="row" style="display:none;">
+
+
+                                <div class="col-sm-6  p-3">
+                                    <span style="color:red">*</span><label>Reference Id</label>
+                                    <input id="txtrefid" type="text" placeholder="enter ReferenceId.." class="form-control" />
+
+
+                                   
+                                </div>
+
+
+                                <div class="col-sm-6  p-3">
+                                     <button type="button" id="btnSearch" class="btn mt-3 form-control btn-primary " onclick="checkEnquiryStatus()">Check Status </button>
+                                </div>
+
+
+
+
+                                <div class="col-sm-12 border p-2">
+                                    <div class="card-header alert alert-primary ">
+                                        <h4 class="text-center"> Bill History</h4>
+
+                                    </div>
+                                    <div class="wraperplan ">
+                                        @if (ViewBag.BBPSRefId != null && ViewBag.BBPSRefId.Rows.Count > 0)
+                                        {
+                                            foreach (DataRow item in ViewBag.BBPSRefId.Rows)
+                                            {
+                                                <div class=" card p-3 " onclick="setRefIdTxt('@item["referenceid"]')">
+
+
+                                                    <table class="table table-bordered">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Reference Id :</th>
+                                                                <td> @item["referenceid"]</td>
+
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th>Bill Date :</th>
+                                                                <td>  @item["EntryDate"]</td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Amount :</th>
+                                                                <td> @item["amount"]</td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <th>User Name :</th>
+                                                                <td>  @item["userName"]</td>
+
+                                                            </tr>
+                                                            
+                                                        </tbody>
+                                                    </table>
+
+
+
+
+
+                                                   @* <div class=" row ">
+                                                        <div class="col-sm-5"><label>Reference Id : </label></div><div class="col-sm-7"><span> @item["referenceid"]</span></div>
+                                                    </div>
+                                                    <div class=" row ">
+                                                        <div class="col-sm-5"><label>Bill Date : </label></div><div class="col-sm-7">
+                                                            <span> @item["EntryDate"]</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class=" row ">
+                                                        <div class="col-sm-5"><label>Amount : </label></div><div class="col-sm-7">
+                                                            <span> @item["amount"]</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class=" row ">
+                                                        <div class="col-sm-5"><label>User Name : </label></div><div class="col-sm-7">
+                                                            <span> @item["userName"]</span>
+                                                        </div>
+                                                    </div>*@
+                                                    @* <div class=" row ">
+                                            <div class="col-sm-5"><label>Aknowledge No : </label></div><div class="col-sm-7">
+                                            <span> @item["ackno"]</span>
+                                            </div>
+                                            </div>*@
+                                                </div>
+                                            }
+
+                                        }
+                                    </div>
+
+                                </div>
+
+
+
+
+
+
+
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+               
+
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+</nav>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h4 style="text-align:center">Electricity Bill History</h4>
+                <div class="row" style="">
+
+                    <div class="col-md-12">
+
+                        <div class="">
+
+
+                            <div class="card-body border  ">
+
+
+                                <div class="row">
+                                    <div class="card-header alert alert-primary">
+                                        <h3 class="text-center" id="resmsg"></h3>
+
+
+                                    </div>
+                                    <div class="card card-warning" id="ddldivbox">
+                                        <div class="card-header">
+
+                                            <div class="card-tools">
+                                            </div>
+
+                                            <div class="card-body">
+                                                <div class="border p-4">
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>Operator Name:</lable></div>
+                                                        <div class="col-sm-6"> <span id="lblOP"></span></div>
+
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>CanNumber </lable></div>
+                                                        <div class="col-sm-6"> <span id="lblcannumber"></span></div>
+
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>Amount:</lable></div>
+                                                        <div class="col-sm-6"> <span id="ddlamount"></span></div>
+
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>ReferenceID:</lable></div>
+                                                        <div class="col-sm-6"> <span id="ddlReferenceID"></span></div>
+
+
+
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>Additional Parameter 1:</lable></div>
+                                                        <div class="col-sm-6"> <span id="dllad1"></span></div>
+
+
+
+                                                    </div>
+
+
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>Additional Parameter 2:</lable></div>
+                                                        <div class="col-sm-6"> <span id="dllad2"></span></div>
+
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>Additional Parameter 3:</lable></div>
+                                                        <div class="col-sm-6"> <span id="dllad3"></span></div>
+
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>OperatorId:</lable></div>
+                                                        <div class="col-sm-6"> <span id="ddlOperatorId"></span></div>
+
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>Date Added:</lable></div>
+                                                        <div class="col-sm-6"> <span id="ddldateadded"></span></div>
+
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>Date Refunded:</lable></div>
+                                                        <div class="col-sm-6"> <span id="ddldaterefunded"></span></div>
+
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>refunded</lable></div>
+                                                        <div class="col-sm-6"> <span id="ddlrefunded"></span></div>
+
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>TDS</lable></div>
+                                                        <div class="col-sm-6"> <span id="ddltds"></span></div>
+
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6"><lable>Refund Transaction ID</lable></div>
+                                                        <div class="col-sm-6"> <span id="ddlrefundtxnid"></span></div>
+
+
+
+                                                    </div>
+                                                </div>
+
+                                                <br>
+
+
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+        $("#btnsave").hide();
+    })
+
+    var category = [];
+    var operator = {};
+    function bindoperatorList() {
+        debugger;
+        var dataobject = {
+            Mode: $("#txtmodel").val(),
+        };
+        $.ajax({
+            url: "/Admin/BindOperatorList",
+            type: "POST",
+            data: dataobject,
+            success: function (r) {
+                var obj = jQuery.parseJSON(r);
+                //console.log(obj);
+                if (obj.response_code == 1) {
+                    //debugger;
+                    var data = obj.data;
+                    // $("tbody").empty();
+                    $('#ddlCategory').empty();
+                    //$("#ddoperator").empty();
+                    
+                    // $("#ddoperator").append("<option value='0'> --select operator-- </option>")
+                    //    for (var i = 0; i < obj.data.length; i++) {
+                    //        if (obj.data[i].category != null){
+                    //            debugger;
+
+                    //        $('#ddlCategory').append("<option value='" + obj.data[i].id + "'>" + obj.data[i].category + "</option>");
+                    //           // $('#ddoperator').append("<option value='" + obj.data[i].id + "'>" + obj.data[i].name + "</option>");
+                    //        }
+                    //    }
+                    //debugger;
+
+
+                    //$("#ddlCategory").append("<option selected disabled value='0'> --select Category-- </option>")
+
+
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i]['category'] != null) {
+                            category[i] = data[i]['category'];
+                        }
+                    }
+                    var catarr = removeDuplicates(category)
+                    for (var i = 0; i < catarr.length; i++) {
+                        if (catarr[i] == "Electricity"){
+                       // $('#ddlCategory').append("<option value='" + catarr[i] + "'>" + catarr[i] + "</option>");
+                            $('#ddlCategory').val(catarr[i])
+                        }
+                    }
+                    for (var i = 0; i < data.length; i++) {
+                        operator[data[i]['id']] = data[i]['name'] + "," + data[i]['category'];
+                    }
+                    var checkop = $('#ddlCategory').val();
+                    var arrkey = Object.keys(operator)
+                    for (var i = 0; i < arrkey.length; i++) {
+                        var slicearr = operator[arrkey[i]].split(',');
+
+                        if (slicearr[1] == checkop) {
+                            $('#ddoperator').append("<option value='" + arrkey[i] + "'>" + slicearr[0] + "</option>");
+                        }
+                    }
+                }
+                else{
+                    alert(obj.message)
+                }
+                // console.log(operator)
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        })
+    }
+
+
+
+    function FetchBillDetails() {
+        if ($("#txtmodel").val() == '0') {
+            alert("Please select mode !")
+            $("#txtmodel").focus();
+            return false;
+        }
+
+        if ($("#ddoperator").val() == '0') {
+            alert("Please select operator !")
+            $("#ddoperator").focus();
+            return false;
+        }
+
+
+        if ($("#txtBill").val() == '') {
+            alert("Please enter Bill No !")
+            $("#txtBill").focus();
+            return false;
+        }
+
+        var dataobj = {
+
+            Mode: $("#txtmodel").val(),
+            OP: $("#ddoperator").val(),
+            BillNo: $("#txtBill").val(),
+        }
+        $.ajax({
+            url: "/Admin/FetchBillDetasilsApi",
+            type: "POST",
+            data: dataobj,
+            success: function (r) {
+                debugger;
+                var obj = jQuery.parseJSON(r);
+                console.log(obj);
+                if (obj.response_code == "1") {
+                    debugger;
+                    //$("tbody").empty();
+                    $("#btnsave").show();
+                    $("#ddlamt").val(obj.amount)
+                    $("#ddlUsername").val(obj.name)
+                    $("#ddldate").val(obj.duedate)
+                    //$("tbody").append("<tr><td>1</td> <td>" + obj.name + "</td><td>" + obj.amount + "</td>  <td>"
+                    //    + obj.duedate + "</td>  <td>" + obj.ad2 + "</td><td>" + obj.ad3 + "</td>  </tr>");
+
+
+                    $("#showusernamespan").text(obj.name);
+                    $("#showamountspan").text(obj.amount);
+                    $("#showduedatespan").text(obj.duedate);
+                    $("#showbilldatespan").text();
+                    $("#showad2span").text(obj.ad2);
+                    $("#showad3pan").text(obj.ad3);
+
+                    $("#showbilldetailsdv").show();
+                }
+                else{
+                    alert(obj.message)
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        })
+    }
+
+    function removeDuplicates(arr) {
+        return arr.filter((item,
+            index) => arr.indexOf(item) === index);
+    }
+
+
+    //function BindBlockName(arr) {
+    //    // debugger;
+    //    $('#ddoperator').empty();
+    //    var checkop = $("#ddlCategory").val();
+    //    var arrkey = Object.keys(operator)
+    //    $("#ddoperator").append("<option value='0' selected disabled > --select Operator-- </option>")
+    //    for (var i = 0; i < arrkey.length; i++) {
+    //        var slicearr = operator[arrkey[i]].split(',');
+
+    //        if (slicearr[1] == checkop) {
+    //            $('#ddoperator').append("<option value='" + arrkey[i] + "'>" + slicearr[0] + "</option>");
+    //        }
+    //    }
+    //    //alert($("#ddlCategory").val())
+    //    // console.log(operator)
+    //    //console.log(arrkey)
+    //}
+
+
+    function PayBill() {
+        //debugger;
+        if($("#txtBill").val()=="")
+        {
+            $("#txtBill").focus()
+            alert("Enter Bill No !!")
+            return;
+        }
+        var dataobj = {
+            OperatorID: $("#ddoperator").val(),
+            Canumber: $("#txtBill").val(),
+            Amount: $("#ddlamt").val(),
+            Mode: $("#txtmodel").val(),
+            UserName: $("#ddlUsername").val(),
+            DueDate: $("#ddldate").val(),
+            
+            Latitude: $("#lat").val(),
+            Longitude: $("#lon").val(),
+            BillType: "Electricity",
+            AmountDir: $("#txtamountdirectpay").val(),
+            Ad1: $("#txtad1directpay").val(),
+            Ad2: $("#txtad2directpay").val(),
+            Ad3: $("#txtad3directpay").val()
+        };
+        $.ajax({
+            url: "/Admin/PayBillElectricity",
+            type: "POST",
+            data: dataobj,
+            success: function (r) {
+                debugger;
+                console.log(r);
+                if (r.response_code == 1) {
+                    alert(r.message);
+                    location.reload()
+                }
+                else {
+                    alert(r.message);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        });
+    }
+
+    function checkEnquiryStatus() {
+        debugger;
+        if ($("#txtrefid").val() == "") {
+            alert("Enter Reference Id !!!");
+            $("#txtrefid").focus();
+            return;
+        }
+        var dataobject = {
+            referenceid: $("#txtrefid").val(),
+        };
+        $.ajax({
+            url: "/Admin/GetBBPSStatusEnquiry",
+            type: "POST",
+            data: dataobject,
+            success: function (r) {
+                var res = jQuery.parseJSON(r);
+                console.log(res);
+                if (res.response_code == '1') {
+                    $("#exampleModal").modal('show');
+                    $("#resmsg").text(res.message);
+                    $("#lblOP").text(res.data.operatorname);
+                    $("#lblcannumber").text(res.data.canumber);
+                    $("#ddlamount").text(res.data.amount);
+                    $("#ddlReferenceID").text(res.data.refid);
+                    $("#dllad1").text(res.data.ad1);
+                    $("#dllad2").text(res.data.ad2);
+                    $("#dllad3").text(res.data.ad3);
+                    $("#ddldateadded").text(res.data.dateadded);
+                    $("#ddlOperatorId").text(res.data.operatorid);
+                    $("#ddldaterefunded").text(res.data.daterefunded);
+                    $("#ddlrefunded").text(res.data.refunded);
+                    $("#ddlrefundtxnid").text(res.data.refundtxnid);
+                    $("#ddltds").text(res.data.tds);
+                    $("#ddldivbox").show();
+                    $("#showSpinner").hide();
+                    $("#resmsg").css("color", "white")
+                }
+                else {
+                    $("#resmsg").text(res.message);
+                    $("#exampleModal").modal('show');
+                    $("#resmsg").css("color", "red");
+                    $("#ddldivbox").hide();
+                }
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        });
+    }
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        debugger;
+        var x = $("#txtcurrentlocation")
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.val("Geolocation is not supported by this browser.");
+        }
+        function showPosition(position) {
+            $("#lat").val(position.coords.latitude)
+            $("#lon").val(position.coords.longitude)
+        }
+
+    })
+    function setRefIdTxt(referenceid) {
+        $("#txtrefid").val(referenceid);
+    }
+    function checkOperatorDetailsAd() {
+        debugger;
+        var operatorId = $("#ddoperator").val()
+        var Modes = $("#txtmodel").val()
+        //alert(operatorId)
+        $.post("/Admin/GetOpetatorDetailsByOperatorId", { OperatorId: operatorId, mode: Modes }, function (res) {
+            var data = eval(res)
+            data = data[0]
+            console.log(data)
+            //  alert("oi")
+            if (data.viewbill == "0") {
+                $("#btnsaveBBPS").show()
+                $("#btnSearchBBPS").hide()
+                //$("#billdvshowhide").hide()
+                $("#amountdvshowhide").show()
+            }
+            else {
+                $("#btnsaveBBPS").hide()
+                $("#btnSearchBBPS").show()
+                //$("#billdvshowhide").show()
+                $("#amountdvshowhide").hide()
+            }
+            if (data.ad1_name != "" && data.ad1_name != "null" && data.ad1_name != "undefined") {
+                $("#ad1dvshowhide").show()
+                $("#ad1lbldv").text(data.ad1_name)
+            }
+            else
+                $("#ad1dvshowhide").hide()
+
+            if (data.ad2_name != "" && data.ad2_name != "null" && data.ad2_name != "undefined") {
+                $("#ad2dvshowhide").show()
+                $("#ad2lbldv").text(data.ad2_name)
+            }
+            else
+                $("#ad2dvshowhide").hide()
+
+            if (data.ad3_name != "" && data.ad3_name != "null" && data.ad3_name != "undefined") {
+                $("#ad3dvshowhide").show()
+                $("#ad3lbldv").text(data.ad3_name)
+            }
+            else
+                $("#ad3dvshowhide").hide()
+            if (data.displayname != "" && data.displayname != "null" && data.displayname != "undefined")
+                $("#showlabelbillno").text(data.displayname)
+            else
+                $("#showlabelbillno").text('Bill No')
+        })
+    }
+
+    $(document).ready(function () {
+        $('select').select2();
+    });
+</script>

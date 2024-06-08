@@ -1,0 +1,185 @@
+﻿@model SportsBattle.Models.profile
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<style>
+    .new-title12 {
+        background: linear-gradient(146deg, #0052cc, #0d724c);
+        color: #fff;
+        border-radius: 22px;
+        padding: 7px !important;
+        margin-bottom: 9px;
+        width: 102%;
+        font-size: 1.5rem !important;
+    }
+</style>
+<div class="box-body">
+
+    <!-- beneficiary start tab-->
+    <div class="" id="registerdv">
+        <div class="row">
+            <form method="post" asp-action="Profile">
+                <div class="">
+
+                    <div class="main-card mb-3 card">
+                        <h3 class="my-5 new-title">View/Update Profile</h3>
+                        <div class="card-body">
+                            <h3 class="my-6 new-title">Personal Detail</h3>
+                            <div class="otherdiv">
+
+                                <div class="row">
+                                    <div class="col-6 p-2">
+
+                                        <span style="color:red">*</span><label>Name</label>
+                                        <input type="text" id="name" name="name" value="@Model.name" class="form-control">
+                                    </div>
+
+                                    @*<div class="col-6 p-2" style="display:none">
+
+                                    <span style="color:red">*</span><label>Agent ID</label>
+                                    <input type="text" id="agentid" name="agentid" class="form-control">
+
+                                    </div>*@
+                                    <div class="col-6 p-2">
+                                        <span style="color:red">*</span><label>Pincode:</label>
+                                        <input type="text" id="Pincode" value="@Model.Pincode" name="Pincode" class="form-control">
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row txtTransfer">
+                                    <div class="col-6 p-2 ">
+                                        <span style="color:red">*</span><label>Mobile</label>
+
+                                        <input type="text" id="mobile" readonly value="@Model.mobile" name="mobile" class="form-control">
+
+                                    </div>
+                                    <div class="col-6 p-2 ">
+                                        <span style="color:red">*</span><label>DOB</label>
+
+                                        <input type="text" id="Dob" name="Dob" value="@Model.Dob" class="form-control">
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row" id="hidtxtbox1">
+
+
+                                    <div class="col-6 p-2">
+                                        <span style="color:red">*</span><label>State:</label>
+                                        @*<input type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" class="form-control" placeholder="Enter TransactionID " id="txttransactionID" />*@
+                                        <input type="text" id="State" readonly value="@Model.State" name="State" class="form-control">
+                                    </div>
+
+                                    <div class="col-6 p-2">
+
+                                        <span style="color:red">*</span><label>  District:</label>
+                                        <input type="text" id="District" readonly value="@Model.District" name="District" class="form-control">
+                                    </div>
+
+                                </div>
+
+                                <div class="row" id="hidtxtbox2">
+
+
+                                    <div class="col-6 p-2">
+                                        <span style="color:red">*</span><label>Block:</label>
+                                        <input type="text" id="Block" readonly value="@Model.Block" name="Block" class="form-control">
+                                    </div>
+
+                                    <div class="col-6 p-2">
+
+                                        <span style="color:red">*</span><label>Address:</label>
+                                        <input type="text" id="Address" value="@Model.Address" name="Address" class="form-control">
+                                    </div>
+
+                                </div>
+                                <div class="col-xl-3 col-md-6 col-12 otherdivbtn">
+                                    @*<input type="button" id="savebutton" style="width:100%;" value="SAVE" class="btn button mt-2 fs-5 center-elem bg-gradient-primary">*@
+
+                                    <input type="submit" id="savebutton" style="width:100%;" value="Update" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" />
+
+                                </div>
+                            </div>
+
+
+
+
+
+                            @*  </div>
+
+
+                            <div class="card-body">*@
+                            <h3 class="my-6 new-title">Bank Detail</h3>
+                            <div class="otherdiv">
+
+                                <div class="row">
+                                    <div class="col-6 p-2">
+
+                                        <span style="color:red">*</span><label>BankName</label>
+                                        <input type="text" readonly id="BankName" value="@Model.BankName" name="BankName" class="form-control">
+                                    </div>
+
+                                    <div class="col-6 p-2">
+                                        <span style="color:red">*</span><label>BankHolderName:</label>
+                                        <input type="text" readonly id="BankHolderName" value="@Model.BankHolderName" name="BankHolderName" class="form-control">
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row txtTransfer">
+                                    <div class="col-6 p-2 ">
+                                        <span style="color:red">*</span><label>BankAccountNo</label>
+
+                                        <input type="text" readonly id="BankAccountNo" value="@Model.BankAccountNo" name="BankAccountNo" class="form-control">
+
+                                    </div>
+                                    <div class="col-6 p-2 ">
+                                        <span style="color:red">*</span><label>IFSCCode</label>
+
+                                        <input type="text" readonly id="IFSCCode" value="@Model.IFSCCode" name="IFSCCode" class="form-control">
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+                    </div>
+
+                </div>
+
+
+
+
+            </form>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+</div>
+
+
+
+

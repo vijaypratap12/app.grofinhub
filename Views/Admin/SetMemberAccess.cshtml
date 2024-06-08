@@ -1,0 +1,95 @@
+﻿@using System.Data
+@model DataSet
+@{
+    ViewData["Title"] = "SetMemberAccess";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<h1>SetMemberAccess</h1>*@
+
+
+<div class="">
+    <div class="">
+        <div class="card card-warning ">
+            <div class="card-header">
+                <h4 class="card-title new-title">  NEW MEMBER ALLOTMENT</h4>
+            </div>
+            <div class="card-body" id="upterofoutertbl">
+                <div style="overflow-x:auto;" id="outertbl">
+                    <table id="example3" class="my  table table-bordered table-hover" style="width:100%;">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th>SN.</th>
+                                <th style="display:none">ALLOTMENT</th>
+                                <th>PARTNER ID</th>
+                                <th>NAME</th>
+                                <th>MOBILE</th>
+                                <th>DOB </th>
+                                <th>STATE </th>
+                                <th>DISTRICT </th>
+                                <th>BLOCK </th>
+                                <th>ADDRESS </th>
+
+
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Tables.Count > 0)
+                            {
+                                int i = 1;
+                                foreach (DataRow row in Model.Tables[0].Rows)
+                                {
+                                    <tr>
+                                        <td>@(i++)</td>
+                                        <td style="display:none">
+                                            <select class="form-control" id="ddl_@row["Agentid"]" onchange="savePermission('@row["Agentid"]')">
+                                                <option value="0" disabled selected>Select</option>
+                                                @foreach (DataRow item in Model.Tables[1].Rows)
+                                                {
+                                                    if (row["role"].ToString() == row["PrevRole"].ToString())
+                                                    {
+                                                        <option disabled selected value="@row["role"]">@item["RoleName"]</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@row["ID"]">@item["RoleName"]</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </td>
+                                        <td>@row["Agentid"]</td>
+                                        <td>@row["Name"]</td>
+                                        <td>@row["Mobile"]</td>
+                                        <td>@row["Dob"]</td>
+                                        <td>@row["StateName"]</td>
+                                        <td>@row["DistrictName"]</td>
+                                        <td>@row["BlockName"]</td>
+                                        <td>@row["Address"]</td>
+                                    </tr>
+
+                                }
+                            }
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function savePermission(id)
+    {
+        var aid=$("#ddl_"+id).val();
+        $.post("/Admin/SavePermission", { agentid: id ,roleper:aid},function(res){
+        alert(res)
+        })
+    }
+</script>
+
+

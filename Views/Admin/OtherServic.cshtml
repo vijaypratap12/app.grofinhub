@@ -1,0 +1,222 @@
+﻿
+@{
+    ViewData["Title"] = "OtherServic";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<style>
+
+    img.logo-lg {
+        border-radius: 50%;
+        background-color: white;
+        width: 55px;
+        border: 1px solid #07638a;
+        padding: 5px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+
+    .box-body {
+        cursor: pointer;
+        text-align: center;
+    }
+
+
+
+    a.mb-0.font-size-18.text-center {
+        position: relative;
+        top: 7px;
+        text-decoration: none;
+        color: #006baf;
+        font-weight: 600;
+    }
+
+
+
+    .box-body {
+    padding: 1rem 1.5rem;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    border-radius: 10px;
+    height: 100px;
+}
+
+
+
+
+    .modal-header {
+        background: #0059cf;
+        color: white;
+        border-radius: 0px;
+    }
+
+    .box-body {
+        cursor: pointer;
+    }
+
+    #my-div {
+        /* background-color: #f00;
+                    width: 200px;
+                    height: 200px;*/
+    }
+
+    a.fill-div {
+        display: block;
+        height: 100%;
+        width: 100%;
+        text-decoration: none;
+    }
+</style>
+
+<script>
+    $("#bcount").click(function () {
+        location.reload();
+    });
+</script>
+
+@*Total Battery Count POP UP Start*@
+
+<!-- Modal -->
+
+
+<div class="row">
+    <div class="col-12 ">
+        <div class="box q1 bg-gradient-primary overflow-hidden pull-up">
+            <div class="box-body pr-0 pl-lg-50 pl-15 py-0">
+                <div class="row align-items-center">
+                    <div class="col-12 col-lg-8">
+                        <h1 class="font-size-25 text-white">Other Service</h1>
+                        <p class="text-white mb-0 font-size-20">
+                            ......
+                        </p>
+                    </div>
+                    <div class="col-12 col-lg-4"><img src="https://eduadmin-template.multipurposethemes.com/bs4/images/svg-icon/color-svg/custom-15.svg" alt="" class="JKK"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="app-main__inner">
+    <div>
+
+
+        <div class="row uii">
+            <div class="col-12">
+                <div class="box q2 no-shadow mb-20 bg-transparent">
+                    <div class="box-header no-border px-0">
+                        <h4 class="box-title"> Quick menu's </h4>
+                        <ul class="box-controls pull-right d-md-flex d-none">
+                            <li>
+                                @*   <button class="btn btn-primary-light px-10">View All</button>*@
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                <a href="/admin/ComplianceAllDetails?para=CURRAC&paraPage=Customer Lead">
+                    <div class="box q3 pull-up fill-div">
+                        <div class="box-body fill-div">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                            </div>
+                            <a href="/admin/ComplianceAllDetails?para=CURRAC&paraPage=Customer Lead" class="mb-0 font-size-18 text-center fill-div"> Customer Lead </a>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                 <a href="/admin/ComplianceAllDetails?para=CURRAC&paraPage=Current Account">
+                    <div class="box q3 pull-up fill-div">
+                        <div class="box-body fill-div">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                <div> <img src="~/images/Pay.png" class="logo-lg" /></div>
+                            </div>
+                            <a href="/admin/ComplianceAllDetails?para=CURRAC&paraPage=Current Account" class="mb-0 font-size-18 text-center fill-div"> Current Account  </a>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                <a href="/admin/ComplianceAllDetails?para=SAVIAC&paraPage=Saving Account">
+                    <div class="box q3 pull-up fill-div">
+                        <div class="box-body fill-div">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                <div> <img src="~/images/atm.png" class="logo-lg" /></div>
+                            </div>
+                            <a href="/admin/ComplianceAllDetails?para=SAVIAC&paraPage=Saving Account" class="mb-0 font-size-18 text-center fill-div"> Saving Account  </a>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                <a href="/admin/ComplianceAllDetails?para=DEMATAC&paraPage=Demat Account">
+                    <div class="box q3 pull-up fill-div">
+                        <div class="box-body fill-div">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                <div> <img src="~/images/atm.png" class="logo-lg" /></div>
+                            </div>
+                            <a href="/admin/ComplianceAllDetails?para=DEMATAC&paraPage=Demat Account" class="mb-0 font-size-18 text-center fill-div"> Demat Account  </a>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="col-xl-3 col-md-6 col-12 fill-div" style="display:none">
+                <a href="/admin/ComplianceAllDetails?para=TRADAC&paraPage=Trading  Account">
+                    <div class="box q3 pull-up fill-div">
+                        <div class="box-body fill-div">
+                            <div class="dde rounded text-center">
+
+
+                                <div> <img src="~/images/atm.png" class="logo-lg" /></div>
+                            </div>
+        <a href="/admin/ComplianceAllDetails?para=TRADAC&paraPage=Trading  Account" class="mb-0 font-size-18 text-center fill-div"> Trading  Account  </a>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+

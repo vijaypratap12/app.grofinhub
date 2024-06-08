@@ -1,0 +1,619 @@
+﻿@model SportsBattle.Models.clsHomePageDetails
+@using System.Data
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+<style>
+
+    img.logo-lg {
+        border-radius: 50%;
+        background-color: white;
+        width: 55px;
+        border: 1px solid #07638a;
+        padding: 5px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+
+    .box-body {
+        cursor: pointer;
+        text-align: center;
+    }
+
+
+
+    a.mb-0.font-size-18.text-center {
+        position: relative;
+        top: 7px;
+        text-decoration: none;
+        color: #fff !important;
+        font-weight: 600;
+    }
+
+
+    .modal-header {
+        background: #0059cf;
+        color: white;
+        border-radius: 0px;
+    }
+
+    .box-body {
+        cursor: pointer;
+    }
+
+    #my-div {
+       /* background-color: #f00;
+        width: 200px;
+        height: 200px;*/
+    }
+
+    a.fill-div {
+        display: block;
+        height: 100%;
+        width: 100%;
+        text-decoration: none;
+    }
+
+</style>
+
+<script>
+    $("#bcount").click(function () {
+        location.reload();
+    });
+</script>
+
+
+
+
+<div class="row">
+    <div class="col-12 ">
+        <div class="box q1 bg-gradient-primary overflow-hidden pull-up">
+            <div class="box-body pr-0 pl-lg-50 pl-15 py-0">
+                <div class="row align-items-center">
+                    <div class="col-12 col-lg-8">
+                        <h3 class="font-size-25 text-white">Pay And Utility</h3>
+
+                    </div>
+                    <div class="col-12 col-lg-4"><img src="https://eduadmin-template.multipurposethemes.com/bs4/images/svg-icon/color-svg/custom-15.svg" alt="" class="JKK"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <div class="app-main__inner">
+        <div>
+            @{
+                bool paynutility = (ViewBag.pertbl.Rows[0]["DMT"]) == true || (ViewBag.pertbl.Rows[0]["MATM"]) == true || (ViewBag.pertbl.Rows[0]["AEPS"]) == true || (ViewBag.pertbl.Rows[0]["BBPS"]) == true;
+                bool Utility = (ViewBag.pertbl.Rows[0]["RECHARGE"]) == true || (ViewBag.pertbl.Rows[0]["DTH"]) == true || (ViewBag.pertbl.Rows[0]["ELECTRICITY"]) == true || (ViewBag.pertbl.Rows[0]["FASTAG"]) == true || (ViewBag.pertbl.Rows[0]["LPG"]) == true || (ViewBag.pertbl.Rows[0]["EPFO"]) == true || (ViewBag.pertbl.Rows[0]["PAN"]) == true || (ViewBag.pertbl.Rows[0]["LIC"]) == true;
+
+                bool toorntravel = (ViewBag.pertbl.Rows[0]["IRCTC"]) == true || (ViewBag.pertbl.Rows[0]["FLIGHT"]) == true || (ViewBag.pertbl.Rows[0]["BUS"]) == true || (ViewBag.pertbl.Rows[0]["HOTEL"]) == true || (ViewBag.pertbl.Rows[0]["HOLIDAYS_BOOKING"]) == true;
+
+                bool otherservice = (ViewBag.pertbl.Rows[0]["SAVINGACCOUNT"]) == true || (ViewBag.pertbl.Rows[0]["CURRENTACCOUNT"]) == true || (ViewBag.pertbl.Rows[0]["DEMATACCOUNT"]) == true || (ViewBag.pertbl.Rows[0]["LEAD"]) == true;
+                bool nopermission = paynutility || Utility || toorntravel || otherservice;
+            }
+        </div>
+        <div class="row uii">
+
+            @if (paynutility)
+            {
+                <div class="col-12">
+                    <div class="box q2 no-shadow mb-20 bg-transparent">
+                        <div class="box-header no-border px-0">
+                            <h4 class="box-title"> Quick menu's </h4>
+                            <ul class="box-controls pull-right d-md-flex d-none">
+                                <li>
+                                    @*   <button class="btn btn-primary-light px-10">View All</button>*@
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+            @if ((ViewBag.pertbl) != null && ViewBag.pertbl.Rows.Count > 0)
+            {
+                @if ((ViewBag.pertbl.Rows[0]["DMT"]) == true)
+            {
+                <a href="/Admin/QueryRemmiter">
+                    <div class="col-xl-3 col-md-6 col-12">
+                        <a href="/Admin/QueryRemmiter">
+                            <div class="box q3 pull-up">
+                                <a href="/Admin/QueryRemmiter">
+                                    <div class="box-body" id="my-div" href="/Admin/QueryRemmiter">
+                                        <a href="/Admin/QueryRemmiter" class="fill-div">
+                                            <div class="dde rounded text-center" href="/Admin/QueryRemmiter">
+
+
+                                            <div> <img src="~/images/DMT.png" class="logo-lg" /></div>
+                                        </div>
+                                        </a>
+                                        <a href="/Admin/QueryRemmiter" class="mb-0 font-size-18 text-center fill-div"> DMT </a>
+
+                                    </div>
+                                </a>
+                            </div>
+                        </a>
+                    </div>
+                </a>
+                }
+                @if ((ViewBag.pertbl.Rows[0]["AEPS"]) == true)
+                {
+
+                <div class="col-xl-3 col-md-6 col-12 fill-div">
+                    <a href="/Admin/AEPS">
+                        <div class="box q3 pull-up">
+                            <a href="/Admin/AEPS">
+                                <div class="box-body" id="my-div" href="/Admin/AEPS">
+                                    <a href="/Admin/AEPS" class="fill-div">
+                                        <div class="dde rounded text-center fill-div" href="/Admin/AEPS">
+
+
+                                            <div> <img src="~/images/Pay.png" class="logo-lg" /></div>
+                                        </div>
+                                    </a>
+                                    <a href="/Admin/AEPS" class="mb-0 font-size-18 text-center fill-div"> AEPS </a>
+
+                                </div>
+                            </a>
+                        </div>
+                    </a>
+                </div>
+
+                }
+
+
+
+                @if ((ViewBag.pertbl.Rows[0]["MATM"]) == true)
+                {
+                <div class="col-xl-3 col-md-6 col-12 fill-div">
+                        <div class="box q3 pull-up" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <div class="box-body fill-div">
+                                <div class="dde rounded text-center fill-div">
+
+
+                                    <div> <img src="~/images/atm.png" class="logo-lg" /></div>
+                                </div>
+                            <a href="#" class="mb-0 font-size-18 text-center fill-div"> M-ATM </a>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+                @if ((ViewBag.pertbl.Rows[0]["BBPS"]) == true)
+                {
+                <div class="col-xl-3 col-md-6 col-12 fill-div">
+                        <a href="/Admin/BBPS">
+                            <div class="box q3 pull-up">
+                                <div class="box-body">
+                                <div class="dde rounded text-center fill-div">
+
+
+                                        <div> <img src="~/images/BBPS.png" class="logo-lg" /></div>
+                                    </div>
+                                <a href="/Admin/BBPS" class="mb-0 font-size-18 text-center fill-div"> BBPS </a>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+
+
+
+            }
+
+
+
+
+
+        </div>
+
+
+    </div>
+
+    @if ((ViewBag.pertbl) != null && ViewBag.pertbl.Rows.Count > 0)
+    {
+
+        <div class="row uii">
+            @if (Utility)
+            {
+                <div class="col-12">
+                    <div class="box q2 no-shadow mb-20 bg-transparent">
+                        <div class="box-header no-border px-0">
+                            <h4 class="box-title">Utility</h4>
+                            <ul class="box-controls pull-right d-md-flex d-none">
+                                <li>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if ((ViewBag.pertbl.Rows[0]["RECHARGE"]) == true)
+            {
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                    <a href="/Admin/Recharge">
+                        <div class="box q3 pull-up">
+                            <div class="box-body">
+                                <div class="dde rounded text-center fill-div">
+
+
+                                    <div> <img src="~/images/RECHARGE.png" class="logo-lg" /></div>
+                                </div>
+                            <a href="/Admin/Recharge" class="mb-0 font-size-18 text-center fill-div"> RECHARGE </a>
+
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+            @if ((ViewBag.pertbl.Rows[0]["DTH"]) == true)
+            {
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+
+                    <a href="/Admin/DTH">
+
+                        <div class="box q3 pull-up" id="thediv">
+                            <div class="box-body">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                    <div> <img src="~/images/DTH.png" class="logo-lg" /></div>
+                                </div>
+                            <a href="/Admin/DTH" class="mb-0 font-size-18 text-center fill-div"> DTH </a>
+
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+            }
+            @if ((ViewBag.pertbl.Rows[0]["ELECTRICITY"]) == true)
+            {
+
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                    <div class="box q3 pull-up">
+                        <a href="/Admin/Electricity">
+                            <div class="box-body">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                    <div> <img src="~/images/electricity.png" class="logo-lg" /></div>
+                                </div>
+                            <a href="/Admin/Electricity" class="mb-0 font-size-18 text-center fill-div"> ELECTRICITY </a>
+
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+            @if ((ViewBag.pertbl.Rows[0]["FASTAG"]) == true)
+        {
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                <div class="box q3 pull-up">
+                    <a href="/Admin/FASTAG">
+                        <div class="box-body">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                <div> <img src="~/images/FASTAG.png" class="logo-lg" /></div>
+                            </div>
+                            <a href="/Admin/FASTAG" class="mb-0 font-size-18 text-center fill-div"> FASTAG </a>
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+
+
+            @if ((ViewBag.pertbl.Rows[0]["LIC"]) == true)
+            {
+
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                    <a href="/Admin/LIC">
+                        <div class="box q3 pull-up">
+                            <div class="box-body">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                    <div> <img src="~/images/LIC.png" class="logo-lg" /></div>
+                                </div>
+                            <a href="/Admin/LIC" class="mb-0 font-size-18 text-center fill-div"> LIC </a>
+
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+            @if ((ViewBag.pertbl.Rows[0]["PAN"]) == true)
+            {
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                    <a href="/admin/Pan">
+                        <div class="box q3 pull-up">
+                            <div class="box-body">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                    <div> <img src="~/images/PAN.png" class="logo-lg" /></div>
+                                </div>
+                            <a href="/admin/Pan" class="mb-0 font-size-18 text-center fill-div"> PAN </a>
+
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            }
+            @if ((ViewBag.pertbl.Rows[0]["EPFO"]) == true)
+            {
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                    <a href="/Admin/EPFOKYC">
+                        <div class="box q3 pull-up">
+                            <div class="box-body">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                    <div> <img src="~/images/EPFO.png" class="logo-lg" /></div>
+                                </div>
+                            <a href="/Admin/EPFOKYC" class="mb-0 font-size-18 text-center fill-div"> EPFO </a>
+
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+            @if ((ViewBag.pertbl.Rows[0]["LPG"]) == true)
+            {
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                    <div class="box q3 pull-up">
+                        <a href="/Admin/LPG">
+                            <div class="box-body">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                    <div> <img src="~/images/LPG.png" class="logo-lg" /></div>
+                                </div>
+                            <a href="/Admin/LPG" class="mb-0 font-size-18 text-center fill-div"> LPG </a>
+
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+
+
+        <div class="row uii">
+            @if (toorntravel)
+            {
+                <div class="col-12">
+                    <div class="box q2 no-shadow mb-20 bg-transparent">
+                        <div class="box-header no-border px-0">
+                            <h4 class="box-title"> Tour And Travel </h4>
+                            <ul class="box-controls pull-right d-md-flex d-none">
+                                <li>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if ((ViewBag.pertbl.Rows[0]["IRCTC"]) == true)
+            {
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                    <a href="https://www.irctc.co.in/" target="_blank">
+                        <div class="box q3 pull-up">
+                            <div class="box-body">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                    <div> <img src="~/images/IRCTC.png" class="logo-lg" /></div>
+                                </div>
+                            <a href="https://www.irctc.co.in/" target="_blank" class="mb-0 font-size-18 text-center fill-div"> IRCTC </a>
+
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+            @if ((ViewBag.pertbl.Rows[0]["FLIGHT"]) == true)
+            {
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                    <div class="box q3 pull-up" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <div class="box-body">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                <div> <img src="~/images/FLIGHT.png" class="logo-lg" /></div>
+                            </div>
+                        <a href="#" class="mb-0 font-size-18 text-center fill-div"> FLIGHT </a>
+
+                        </div>
+                    </div>
+                </div>
+            }
+            @if ((ViewBag.pertbl.Rows[0]["BUS"]) == true)
+            {
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                    <div class="box q3 pull-up" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <div class="box-body">
+                        <div class="dde rounded text-center fill-div">
+
+
+                                <div> <img src="~/images/BUS.png" class="logo-lg" /></div>
+                            </div>
+                        <a href="#" class="mb-0 font-size-18 text-center fill-div"> BUS </a>
+
+                        </div>
+                    </div>
+                </div>
+            }
+            @if ((ViewBag.pertbl.Rows[0]["HOTEL"]) == true)
+            {
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                    <div class="box q3 pull-up" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <div class="box-body">
+                        <div class="dde rounded text-center fill-div">
+
+
+                                <div> <img src="~/images/HOTEL.png" class="logo-lg" /></div>
+                            </div>
+                        <a href="#" class="mb-0 font-size-18 text-center fill-div"> HOTEL </a>
+
+                        </div>
+                    </div>
+                </div>
+            }
+            @if ((ViewBag.pertbl.Rows[0]["HOLIDAYS_BOOKING"]) == true)
+            {
+
+
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                    <div class="box q3 pull-up" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <div class="box-body">
+                        <div class="dde rounded text-center fill-div">
+
+
+                                <div> <img src="~/images/HOLIDAY.png" class="logo-lg" /></div>
+                            </div>
+                        <a href="#" class="mb-0 font-size-18 text-center fill-div"> HOLIDAYS BOOKING </a>
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <div class="row uii">
+            @if (otherservice)
+            {
+                <div class="col-12">
+                    <div class="box q2 no-shadow mb-20 bg-transparent">
+                        <div class="box-header no-border px-0">
+                            <h4 class="box-title">Other services </h4>
+                            <ul class="box-controls pull-right d-md-flex d-none">
+                                <li>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if ((ViewBag.pertbl.Rows[0]["SAVINGACCOUNT"]) == true)
+            {
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                    <div class="box q3 pull-up">
+                        <a href="/admin/ComplianceAllDetails?para=SAVIAC&paraPage=Saving Account">
+                            <div class="box-body">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                    <div> <img src="~/images/HOLIDAY.png" class="logo-lg" /></div>
+                                </div>
+                            <a href="/admin/ComplianceAllDetails?para=SAVIAC&paraPage=Saving Account" class="mb-0 font-size-18 text-center fill-div">  SAVING ACCOUNT </a>
+
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+            @if ((ViewBag.pertbl.Rows[0]["CURRENTACCOUNT"]) == true)
+            {
+
+
+            <div class="col-xl-3 col-md-6 col-12 fill-div">
+                    <div class="box q3 pull-up">
+                        <a href="/admin/ComplianceAllDetails?para=CURRAC&paraPage=Current Account">
+                            <div class="box-body">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                    <div> <img src="~/images/HOLIDAY.png" class="logo-lg" /></div>
+                                </div>
+                            <a href="/admin/ComplianceAllDetails?para=CURRAC&paraPage=Current Account" class="mb-0 font-size-18 text-center fill-div"> CURRENT ACCOUNT </a>
+
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+            @if ((ViewBag.pertbl.Rows[0]["DEMATACCOUNT"]) == true)
+            {
+
+
+                <div class="col-xl-3 col-md-6 col-12 fill-div">
+                    <div class="box q3 pull-up">
+                        <a href="/admin/ComplianceAllDetails?para=DEMATAC&paraPage=Demat Account">
+                            <div class="box-body">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                    <div> <img src="~/images/HOLIDAY.png" class="logo-lg" /></div>
+                                </div>
+                            <a href="/admin/ComplianceAllDetails?para=DEMATAC&paraPage=Demat Account" class="mb-0 font-size-18 text-center fill-div"> DEMAT ACCOUNT   </a>
+
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+            @if ((ViewBag.pertbl.Rows[0]["LEAD"]) == true)
+            {
+
+
+                <div class="col-xl-3 col-md-6 col-12 fill-div">
+                    <div class="box q3 pull-up">
+                        <a href="/admin/ComplianceAllDetails?para=CURRAC&paraPage=Customer Lead">
+                            <div class="box-body">
+                            <div class="dde rounded text-center fill-div">
+
+
+                                    <div> <img src="~/images/HOLIDAY.png" class="logo-lg" /></div>
+                                </div>
+                            <a href="/admin/ComplianceAllDetails?para=CURRAC&paraPage=Customer Lead" class="mb-0 font-size-18 text-center fill-div"> LEAD </a>
+
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+        @if (!(nopermission))
+        {
+            <div class="row uii">
+                <div class="col-12">
+                    <div class="box q2 no-shadow mb-20 bg-transparent">
+                        <div class="box-header no-border px-0">
+                            <p class="text-center fs-2">
+                                You Have No Permission By
+                                Admin !!!
+                            </p>
+                            <ul class="box-controls pull-right d-md-flex d-none">
+                                <li>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+
+
+

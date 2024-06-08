@@ -1,0 +1,438 @@
+﻿@using System.Data
+@model DataTable
+@{
+    ViewData["Title"] = "Commission";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@*
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="~/js/commission.js"></script>*@
+
+<style>
+    .txtinpt {
+        max-width: 100px;
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 58px;
+        height: 27px;
+    }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 19px;
+            width: 19px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+    input:checked + .slider {
+        background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        #tblwraper {
+    overflow-y: scroll;
+    max-height: 400px;
+    overflow-x:scroll;
+}
+</style>
+
+<div class="app-main__inner">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="main-card mb-3 card">
+
+
+                <div class="col-md-12">
+                    <div class="card-header">
+                        <h4 class="card-title new-title">Commission</h4>
+                    </div>
+                    <div class="card card-warning">
+                       
+
+                        @*  <div class="card-body ">
+
+                        <div class="row">
+
+
+
+                        <div class="col-sm-6">
+
+                        <div class="form-group">
+                        <label > commission Percenrtage <span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="txtComPer" placeholder="Enter commission"  />
+                        </div>
+                        </div>
+
+
+
+                        </div>
+                        <button type="button" id="btnSearch" class="btn btn-primary waves-effect waves-light" onclick="SaveCommission()"> SAVE </button>
+
+
+
+
+                        </div>
+                        *@
+                    </div>
+                </div>
+
+
+                <div class="col-lg-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover " id="example3">
+                            <thead>
+                                <tr>
+                                    <th>Sr.</th>
+
+                                    <th>User Name</th>
+                                    <th>User Id</th>
+                                    <th>Mobile No.</th>
+                                    <th>Commission Update</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (Model != null && Model.Rows.Count > 0)
+                                    {
+                                        int i = 1;
+                                        foreach (DataRow data in Model.Rows)
+                                        {
+
+
+
+
+                                            <tr>
+                                                <td>@i</td>
+
+                                                <td id='name_@data["Agentid"]'>@data["Name"]</td>
+                                                <td id='Agentid_@data["Agentid"]'>@data["Agentid"]</td>
+                                                <td id='Mobile_@data["Agentid"]'>@data["Mobile"]</td>
+                                                <td>
+                                                    <button type="button" id="btnsaveamoun" onclick="btnsaveamount('@data["Agentid"]')" class="btn btn-success" data-toggle="modal" data-target='.bd-example-modal-lg'>View Commission</button>
+
+                                                </td>
+
+                                                <td>
+
+
+                                                    <label class="switch">
+                                                        <input type="checkbox">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+
+
+
+                                            </tr>
+                                            i++;
+                                        }
+
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--modela-->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content " style="
+             width: 1000px;"> 
+            <div class="card-body p-3"> 
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label> User Id <span style="color:red">*</span></label>
+                            
+                            <div id="txtuserid" class="card p-2">
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <div class="row">
+                    <div style="overflow-x:auto;" id="tblwraper">
+                        <table class="table table-bordered table-hover " id="example">
+                            <thead>
+                                <tr>
+                                    <th>Services</th>
+                                    <th>Transaction From</th>
+                                    <th>Transaction To</th>
+                                    <th>Type Of Commission</th> 
+                                    <th>Customer Fees Chargeable</th> 
+                                </tr>
+                            </thead>
+                            <tbody class="tbodymain"> 
+                                <tr>
+                                    <td class="fixleft2" rowspan="3" align="center" style="position: relative; left: 0px;">DMT</td>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">1</td>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">1000</td>
+                                    <td><select><option value="" disabled selected>Select Type</option><option value="">Percent(%)</option><option value="">Flat(Rs)</option></select></td>
+                                    <td align="center" style="position: relative; left: 0px;"><input type="text" placeholder="Enter Value" class="txtinpt" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">1001</td>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">3000</td>
+                                    <td><select><option value="" disabled selected>Select Type</option><option value="">Percent(%)</option><option value="">Flat(Rs)</option></select></td>
+                                    <td align="center" style="position: relative; left: 0px;"><input type="text" placeholder="Enter Value" class="txtinpt" /></td>
+
+                                </tr>
+                                <tr>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">3001</td>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">5000</td>
+                                    <td><select><option value="" disabled selected>Select Type</option><option value="">Percent(%)</option><option value="">Flat(Rs)</option></select></td>
+                                    <td align="center" style="position: relative; left: 0px;"><input type="text" placeholder="Enter Value" class="txtinpt" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="fixleft2" rowspan="4" align="center" style="position: relative; left: 0px;">AEPS</td>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">1</td>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">500</td>
+                                    <td><select><option value="" disabled selected>Select Type</option><option value="">Percent(%)</option><option value="">Flat(Rs)</option></select></td>
+                                    <td align="center" style="position: relative; left: 0px;"><input type="text" placeholder="Enter Value" class="txtinpt" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">501</td>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">1000</td>
+                                    <td><select><option value="" disabled selected>Select Type</option><option value="">Percent(%)</option><option value="">Flat(Rs)</option></select></td>
+                                    <td align="center" style="position: relative; left: 0px;"><input type="text" placeholder="Enter Value" class="txtinpt" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">1001</td>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">3000</td>
+                                    <td><select><option value="" disabled selected>Select Type</option><option value="">Percent(%)</option><option value="">Flat(Rs)</option></select></td>
+                                    <td align="center" style="position: relative; left: 0px;"><input type="text" placeholder="Enter Value" class="txtinpt" /></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">3001</td>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">10300</td>
+                                    <td><select><option value="" disabled selected>Select Type</option><option value="">Percent(%)</option><option value="">Flat(Rs)</option></select></td>
+                                    <td align="center" style="position: relative; left: 0px;"><input type="text" placeholder="Enter Value" class="txtinpt" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="fixleft2" rowspan="4" align="center" style="position: relative; left: 0px;">M-ATM</td>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">1</td>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">500</td>
+                                    <td><select><option value="" disabled selected>Select Type</option><option value="">Percent(%)</option><option value="">Flat(Rs)</option></select></td>
+                                    <td align="center" style="position: relative; left: 0px;"><input type="text" placeholder="Enter Value" class="txtinpt" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">501</td>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">1000</td>
+                                    <td><select><option value="" disabled selected>Select Type</option><option value="">Percent(%)</option><option value="">Flat(Rs)</option></select></td>
+                                    <td align="center" style="position: relative; left: 0px;"><input type="text" placeholder="Enter Value" class="txtinpt" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">1001</td>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">3000</td>
+                                    <td><select><option value="" disabled selected>Select Type</option><option value="">Percent(%)</option><option value="">Flat(Rs)</option></select></td>
+                                    <td align="center" style="position: relative; left: 0px;"><input type="text" placeholder="Enter Value" class="txtinpt" /></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">3001</td>
+                                    <td class="fixleft3" align="center" style="position: relative; left: 0px;">10300</td>
+                                    <td><select><option value="" disabled selected>Select Type</option><option value="">Percent(%)</option><option value="">Flat(Rs)</option></select></td>
+                                    <td align="center" style="position: relative; left: 0px;"><input type="text" placeholder="Enter Value" class="txtinpt" /></td>
+                                </tr>
+                                <tr class="total" style=" font-weight: bold;">
+                                    <td align="center" class="fixleft4" style=" position: relative; left: 0px;"> BBPS</td>
+                                    <td align="center" style="position: relative; left: 0px;">Fixed</td>
+                                    <td align="center" style="position: relative; left: 0px;">Rs - 0.75/-</td>
+                                </tr>
+                                <tr class="total" style=" font-weight: bold;">
+                                    <td align="center" class="fixleft4" style=" position: relative; left: 0px;"> Recharge</td>
+                                    <td align="center" style="position: relative; left: 0px;"></td>
+                                    <td align="center" style="position: relative; left: 0px;"></td>
+                                </tr>
+                                <tr>
+                                    <td>Airtel</td>
+                                    <td align="center" style="position: relative; left: 0px;">500</td>
+                                    <td align="center" style="position: relative; left: 0px;">% of transaction Amount </td>
+                                    <td align="center" style="position: relative; left: 0px;">2% </td>
+                                </tr>
+                                <tr>
+                                    <td>BSNL</td>
+                                    <td align="center" style="position: relative; left: 0px;">500</td>
+                                    <td align="center" style="position: relative; left: 0px;">% of transaction Amount </td>
+                                    <td align="center" style="position: relative; left: 0px;">3% </td>
+                                </tr>
+                                <tr>
+                                    <td>JIO</td>
+                                    <td align="center" style="position: relative; left: 0px;">500</td>
+                                    <td align="center" style="position: relative; left: 0px;">% of transaction Amount </td>
+                                    <td align="center" style="position: relative; left: 0px;">2.5% </td>
+                                </tr>
+                                <tr>
+                                    <td>Vodafone Idea</td>
+                                    <td align="center" style="position: relative; left: 0px;">500</td>
+                                    <td align="center" style="position: relative; left: 0px;">% of transaction Amount </td>
+                                    <td align="center" style="position: relative; left: 0px;">2.5% </td>
+                                </tr>
+                                <tr class="total" style=" font-weight: bold;">
+                                    <td align="center" class="fixleft4" style=" position: relative; left: 0px;"> DTH </td>
+                                    <td align="center" style="position: relative; left: 0px;"></td>
+                                    <td align="center" style="position: relative; left: 0px;"></td>
+                                    <td align="center" style="position: relative; left: 0px;"></td>
+                                </tr>
+                                <tr>
+                                    <td>AIRTEL DTH</td>
+                                    <td align="center" style="position: relative; left: 0px;">500</td>
+                                    <td align="center" style="position: relative; left: 0px;">% of transaction Amount </td>
+                                    <td align="center" style="position: relative; left: 0px;">3% </td>
+                                </tr>
+                                <tr>
+                                    <td>DISH TV</td>
+                                    <td align="center" style="position: relative; left: 0px;">500</td>
+                                    <td align="center" style="position: relative; left: 0px;">% of transaction Amount </td>
+                                    <td align="center" style="position: relative; left: 0px;">3% </td>
+                                </tr>
+                                <tr>
+                                    <td>SUN TV</td>
+                                    <td align="center" style="position: relative; left: 0px;">500</td>
+                                    <td align="center" style="position: relative; left: 0px;">% of transaction Amount </td>
+                                    <td align="center" style="position: relative; left: 0px;">3% </td>
+                                </tr>
+                                <tr>
+                                    <td>TATA-SKY</td>
+                                    <td align="center" style="position: relative; left: 0px;">500</td>
+                                    <td align="center" style="position: relative; left: 0px;">% of transaction Amount </td>
+                                    <td align="center" style="position: relative; left: 0px;">3% </td>
+                                </tr>
+                                <tr>
+                                    <td>VIDEOCON DTH</td>
+                                    <td align="center" style="position: relative; left: 0px;">500</td>
+                                    <td align="center" style="position: relative; left: 0px;">% of transaction Amount </td>
+                                    <td align="center" style="position: relative; left: 0px;">3% </td>
+                                </tr>
+                                <tr class="total" style=" font-weight: bold;">
+                                    <td align="center" class="fixleft4" style=" position: relative; left: 0px;"> FASTAG </td>
+                                    <td align="center" style="position: relative; left: 0px;">500</td>
+                                    <td align="center" style="position: relative; left: 0px;">% of transaction Amount </td>
+                                    <td align="center" style="position: relative; left: 0px;">0.12% of transaction Amount </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</div>
+<!--modela-->
+<script>
+
+    function SaveCommission(id) {
+        // debugger;
+        //if ($("#txtComPer").val()==''){
+        //    alert("Please enter commssion !");
+        //    $("#txtComPer").focus();
+        //    return;
+        //}
+        //debugger;
+        var objdata = {
+            Id: id,
+            Dmt: $("#dmt_" + id).val(),
+            Aeps: $("#aeps_" + id).val(),
+            Matm: $("#matm_" + id).val(),
+            Bbps: $("#bbps_" + id).val(),
+            Recharge: $("#recharge_" + id).val(),
+            Dth: $("#dth_" + id).val(),
+            Electricity: $("#electricity_" + id).val(),
+            Fastag: $("#fastag_" + id).val(),
+            Waterbill: $("#waterbill_" + id).val(),
+            Muncipality: $("#muncipality_" + id).val(),
+            Lic: $("#lic_" + id).val(),
+            Pan: $("#pan_" + id).val(),
+            Epfo: $("#epfo_" + id).val(),
+            Lpg: $("#lpg_" + id).val(),
+            Irctc: $("#irctc_" + id).val(),
+            Flight: $("#flight_" + id).val(),
+            Bus: $("#bus_" + id).val(),
+            Hotel: $("#hotel_" + id).val(),
+            Holidaysbooking: $("#holidaysbooking_" + id).val()
+        };
+        $.ajax({
+            url: "/Admin/SaveUserCommission",
+            type: "POST",
+            data: objdata,
+
+            success: function (r) {
+                debugger;
+                if (r != null) {
+                    alert(r);
+                    location.reload(true);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        })
+    }
+    $('.txtinpt').keyup(function () {
+        this.value = this.value.replace(/[^0-9\.]/g, '');
+    });
+
+    //function setlbl() {
+    //    $(".setlbl").text($("#ddlservice").val())
+    //}
+
+    function btnsaveamount(id) {
+        debugger;
+        $("#txtuserid").text(id)
+    }
+</script>

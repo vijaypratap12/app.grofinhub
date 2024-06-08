@@ -1,0 +1,179 @@
+﻿
+@{
+    ViewData["Title"] = "Cancel Match";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="app-main__inner">
+    <div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h5 class="card-title">From Date</h5>
+                                <input type="text" id="FromDate" class="form-control" data-toggle="datepicker" />
+                            </div>
+                            <div class="col-sm-4">
+                                <h5 class="card-title">To Date</h5>
+                                <input id="ToDate" type="text" class="form-control" data-toggle="datepicker" />
+                            </div>
+                            <div class="col-sm-4">
+                                <input style="margin-top: 31px;" type="submit" class="btn btn-alternate " value="Search" onclick="SearchData()" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="card-body">
+                <div class="card mb-3">
+                    <div class="card-header-tab card-header">
+
+                        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                            <i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>
+                            Players
+                        </div>
+                    </div>
+                    <div id="divId">
+
+                        <div class="card-body">
+                            @if (Model != null && Model.dtDetails != null)
+                            {
+                                int i = 1;
+
+                                <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr.</th>
+                                            <th>Table</th>
+                                            <th>Game</th>
+                                            <th>Action</th>
+                                            <th>Amount</th>
+                                            <th>Match Type</th>
+                                            <th>Date & Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (System.Data.DataRow item in Model.dtDetails.Rows)
+                                        {
+                                            <tr>
+                                                <td>@Convert.ToInt32(i)</td>
+                                                <td>
+
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-wrapper">
+
+                                                            <div class="widget-content-left mr-3">
+                                                                <div class="widget-content-left">
+                                                                    <img width="42" class="rounded" src="@item["FirstPlayerPic"]" alt="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="widget-content-left">
+                                                                <div class="widget-heading"> @item["FirstPlayerID"]</div>
+                                                                <div class="widget-subheading">@item["FirstPlayerName"]</div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+
+                                                    <img style="height:50px;" src="~/Upload/Images/vs.jpg" />
+
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-wrapper">
+
+                                                            <div class="widget-content-left mr-3">
+                                                                <div class="widget-content-left">
+                                                                    <img width="42" class="rounded" src="@item["SecPlayerPic"]" alt="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="widget-content-left">
+                                                                <div class="widget-heading"> @item["SecPlayerID"]</div>
+                                                                <div class="widget-subheading">@item["SecPlayerName"]</div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </td>
+                                                <td>
+
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-wrapper">
+
+                                                            <div class="widget-content-left mr-3">
+                                                                <div class="widget-content-left">
+                                                                    <img width="42" class="rounded" src="@item["FirstPlayerPic"]" alt="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="widget-content-left">
+                                                                <div class="widget-heading"> @item["FirstPlayerID"]</div>
+                                                                <div class="badge badge-pill badge-info ml-2">@item["FristResultStatus"]</div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-wrapper">
+
+                                                            <div class="widget-content-left mr-3">
+                                                                <div class="widget-content-left">
+                                                                    <img width="42" class="rounded" src="@item["SecPlayerPic"]" alt="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="widget-content-left">
+                                                                <div class="widget-heading"> @item["SecPlayerID"]</div>
+                                                                <div class="badge badge-pill badge-info ml-2">@item["SecResultStatus"]</div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </td>
+                                                <td> <a asp-controller="Player" asp-action="TableFullView" asp-route-type="@item["ChallengeId"]" class="mb-2 mr-2 btn btn-primary active">View Details</a> </td>
+                                                <td>@item["EntryFee"]</td>
+                                                <td>@item["GameType"]</td>
+                                                <td>@item["ChallengeCreationTime"]</td>
+
+                                            </tr>      i = i + 1;
+                                        }
+                                </table>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    function SearchData() {
+        $.ajax({
+            url: "/Player/CancelMatch",
+            type: "POST",
+            data: { FromDate: $("#FromDate").val(), ToDate: $("#ToDate").val(), Action:"CancelMatch" },
+            success: function (r) {
+                $('#divId').val($(r).find('#divId').html())
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+
+            }
+        });
+    }
+</script>
+

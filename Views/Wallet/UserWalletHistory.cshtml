@@ -1,0 +1,116 @@
+﻿@{
+    ViewData["Title"] = "UserWalletHistory";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@model DataTable
+@using System.Data
+
+<div class="">
+    <form method="post" action="/Wallet/UserWalletHistory">
+        <div class="card card-warning ">
+            <h3 class="card-title new-title"> Wallet History </h3>
+            <div class="card-header">
+                
+                <div class="col-sm-4">
+                    <select class="form-control" name="type" onchange="serchRecordserivceWise()">
+                        <option value="">--Select Type--</option>
+                        <option value="DMT">DMT</option>
+                        <option value="mobile">Mobile</option>
+                        <option value="BBPS">BBPS</option>
+                        <option value="Electricity">Electricity</option>
+                        <option value="LPG"> LPG</option>
+                        <option value="LIC">LIC </option>
+                    </select>
+                </div>
+                <div class="col-sm-2" style="margin-right:500px;">
+                    <input type="submit" class="btn btn-primary" value="SEARCH" />
+                </div>
+            </div>
+            <div class="card-body1">
+
+                <div style="overflow-x:auto;">
+                    <table id="example3" class="my  table table-bordered table-hover bg-light " style="width:100%;">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th>Sr.No.</th>
+                                <th>Partner Id </th>
+                                <th>Transaction Amount</th>
+                                <th>Service Type</th>
+
+                                <th>Transaction Date</th>
+                                <th>Comm.</th>
+                                <th>Amount Deducted</th>
+
+
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @{
+
+                                if (Model != null)
+                                {
+                                    if (Model.Rows.Count > 0)
+                                    {
+                                        int i = 1;
+                                        foreach (DataRow item in Model.Rows)
+                                        {
+                                            <tr>
+                                                <td>@i</td>
+
+
+                                                <td>@item["userid"]</td>
+                                                <td>@item["Amount"]</td>
+                                                <td>@item["Type"]</td>
+                                                <td>@item["EntryDate"]</td>
+                                                <td></td>
+                                                <td></td>
+
+
+
+
+
+                                                @* <td>
+                                <a href="#" onclick="GetDetailsForEdit('@item["RecruitmentID"]')"><span class="badge bg-success">Edit</span></a>
+                                </td>
+                                *@
+
+                                            </tr>
+                                            i++;
+                                        }
+                                    }
+
+                                }
+
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<script>
+
+
+
+                   //function serchRecordserivceWise(){
+    //    debugger;
+    //    var obj = {
+    //        type: $("#txtType").val()
+    //    }
+    //    $.post("/Wallet/UserWalletHistory", obj, function (data) {
+    //        if(data!=null){
+    //            location.href = '/Wallet/UserWalletHistory';
+    //        }
+
+    //    })
+
+
+</script>

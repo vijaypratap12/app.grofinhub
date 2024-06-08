@@ -1,0 +1,235 @@
+﻿
+@{
+    ViewData["Title"] = "PartnerWallet";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+@using System.Data
+@model DataTable
+
+
+<div class="container-fluid">
+    <div class="col-md-12">
+        <div class="card card-warning ">
+            <div class="card-header">
+                <h4 class="card-title new-title"> Partner Wallet</h4>
+            </div>
+            <div class="card-body" id="upterofoutertbl">
+                <div style="overflow-x:auto;" id="outertbl">
+                    <table id="example3" class="my  table table-bordered table-hover" style="width:100%;">
+                        <thead>
+                            <tr>
+                                @*<th>SR.NO.</th>*@
+                                <th>UserID</th>
+                                <th>Name</th>
+                             
+                                <th>Debit Blance </th>
+                                <th>Credit Blance</th>
+                              @*  <th>APES </th>*@
+                              
+                             @*   <th>Status</th>*@
+
+                            </tr>
+
+                        </thead>
+                       <tbody>
+                            @{
+
+                                if (Model != null)
+                                {
+                                    if (Model.Rows.Count > 0)
+                                    {
+                                        int i = 1;
+                                        foreach (DataRow item in Model.Rows)
+                                        {
+                                            <tr>
+                                               @* <td>@i</td>
+                                                @if (@item["Active"].ToString() == "1")
+                                                {
+                                                    //<td><span style="color:green;">ACTIVE</span></td>
+                                                    //<td> <input type="checkbox" /></td>
+                                                    //<td> <input type="radio" checked onclick="ActiveDeactive(@item["id"])" /></td>
+                                                    <td>
+                                                        <label class="switch">
+                                                            <input type="checkbox" id="user_@item["id"]" checked onclick="ActiveDeactive(@item["id"])">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    //<td><span style="color:red;">DEACTIVE</span></td>
+                                                    //<td><input type="radio" onclick="ActiveDeactive(ActiveDeactive(@item["id"]))"></td>
+                                                    <td>
+                                                        <label class="switch">
+                                                            <input type="checkbox" id="user_@item["id"]" onclick="ActiveDeactive                        (@item["id"])">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </td>
+                                                }
+                                                *@
+                                                
+                                                <td>@item["UserID"]</td>
+                                                 <td>@item["Name"]</td>
+                                              
+
+                                                <td>
+                                                     <span>@item["Mainwallet"] रु/-</span>
+                                                    @* <p>AEPS : <span>@item["APES"]रु/-</span> </p> *@
+
+
+                                                </td>
+
+                                                <td>
+                                                    <span>@item["Credit"] रु/-</span>
+                                                    @* <p>AEPS : <span>@item["APES"]रु/-</span> </p> *@
+
+
+                                                </td>
+
+
+                                                @*<td>
+
+                                                   <button class="btn btn-primary" onclick="Openmodol(@item["Id"])">Recharge</button>
+                                </td>*@
+
+                                            @* <td>
+                                <a href="#" onclick="GetDetailsForEdit('@item["RecruitmentID"]')"><span class="badge bg-success">Edit</span></a>
+                                </td>*@
+                                
+
+                                            </tr>
+                                            i++;
+                                        }
+                                    }
+
+                                }
+
+                            }
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                @*   <h5 class="modal-title " style="color:green;" >OTP</h5> <br />*@
+                <input type="hidden" id="ddlRefeID" />
+                @* <span><input type="text" id="ddlotp" readonly /></span>*@
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <span> Wallet Amount</span>
+                <input type="text" id="txtWalletAmt" class="form-control" placeholder="Wallet Amount" /><br />
+               <input type="hidden" id="ddlhiden" />
+                @*<span>APES Amount</span>
+                <input type="text" id="txtApesAmt" class="form-control" placeholder="APES Amount" /><br />*@
+             
+
+            @*    <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <input type="text" id="txtoto" class="form-control" placeholder="Enter OTP" /><br />
+                            <p id="msg" style="color:red"></p>
+                        </div>
+                       </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <input type="text" id="txtoto" class="form-control" placeholder="Enter OTP" /><br />
+                            <p id="msg" style="color:red"></p>
+                        </div>
+                       </div>
+                </div>*@
+            </div>
+
+            <div class="modal-footer">
+
+                <input type="button" onclick=" Rechargewallet()" class="btn btn-primary" value="Recharge Now" />
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+   var js = jQuery.noConflict(true)
+    js(document).ready(function () {
+
+        js("#example3").DataTable();
+    })
+
+    function Openmodol(id){
+        $("#exampleModal").modal('show')  ;     
+        $("#ddlhiden").val(id);
+    }
+
+    function Rechargewallet (){
+
+        if ($("#txtWalletAmt").val() == '' ) {
+            alert("Please enter Wallet Amount !");
+            $("#txtWalletAmt").focus();
+            return false;
+        }
+
+
+        //if ($("#txtApesAmt").val() == '') {
+        //    alert("Please enter Wallet Amount !");
+        //    $("#txtApesAmt").focus();
+        //    return false;
+        //}
+        var dataobj = {
+            Id:$("#ddlhiden").val(),
+            WalletAmt: $("#txtWalletAmt").val(),
+            //APESAmt: $("#txtApesAmt").val()
+        };
+        $.ajax({
+            url: "/Admin/RechargePartnerwallet",
+            type: "POST",
+            data: dataobj,
+            success: function (r) {
+                debugger;
+                console.log(r);               
+                if (r.flag == '1') {
+                  alert(r.message);
+                  location.reload(true);
+                }
+                else {
+                    alert(r.msg);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        });
+    }
+  
+     
+    $('#txtApesAmt').keyup(function () {
+        this.value = this.value.replace(/[^0-9\.]/g, '');
+    });
+    $('#txtWalletAmt').keyup(function () {
+        this.value = this.value.replace(/[^0-9\.]/g, '');
+    });
+
+
+
+
+
+
+</script>

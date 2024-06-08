@@ -1,0 +1,201 @@
+﻿@model clsAllClasses
+@{
+    ViewData["Title"] = "Video";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using System.Data
+<script src="~/ckeditor/ckeditor.js"></script>
+<link href="~/ckeditor/contents.css" rel="stylesheet" />
+<div class="app-main__inner">
+    <div>
+        <div class="row">
+            <form action="/admin/Video" method="post">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+               
+                        <div class="card-header">
+                            <h3 class="card-title new-title"> Upload Video Link</h3>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="form-group text-center mb-2">
+                                @{
+                                    string Code = (string)TempData["Code"];
+                                    string msg = (string)TempData["Msg"];
+                                    if (!string.IsNullOrEmpty(Code))
+                                    {
+                                        if (Code == "1")
+                                        {
+                                            <div class="alert alert-primary msgdiv" id="MSG">
+                                                <strong style="font-size:16px;">Success!</strong><span style="font-size:16px;">@msg</span>
+                                            </div>
+                                            <script>
+                                                window.setTimeout(function () {
+                                                    @*location.href = '/Admin/Video';*@
+                                                        $("#MSG").hide();
+                                                }, 2000)
+                                            </script>
+                                        }
+                                        else
+                                        {
+                                            <div class="alert alert-danger msgdiv">
+                                                <strong>Error!</strong> @msg
+                                            </div>
+                                        }
+                                    }
+                                }
+                            </div>
+                          
+                            <div class="row" style="margin-left:2px;">
+                                 
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <h5>Link</h5>
+                                        <input type="text" name="Title" class="form-control" id="txtLink" placeholder="URL" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Service</label>
+                                        <select class="form-control" name="ServiceType" id="ddlservice">
+                                            <option value="0">--Select Services--</option>
+                                            @if (Model.dt1 != null && Model.dt1.Rows.Count > 0)
+                                            {
+                                                @foreach (DataRow dr in Model.dt1.Rows)
+                                                {
+                                                    <option value="@dr["PK_Id"]"> @dr["Name"] </option>
+                                                }
+                                            }
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <br />
+                                <br />
+
+                                <div class="col-sm-12">
+                                    <div class="form-group mt-3">
+                                        <h5>Descirption</h5>
+                                    <textarea class="form-control"  id="txtDesc" maxlength="100" name="Description" rows="10" cols="100" placeholder="Description"></textarea>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        <div class="col-sm-6 ">
+                            <div class="form-group">
+
+                                    <input type="submit" value="submit"  onclick="return InserRecord()" class="btn btn-primary mt-4" />
+
+                            </div>
+
+                           
+                        </div>
+                           
+                        </div>
+                       
+                    </div>
+               
+                </div>
+                <div class="card-body" id="upterofoutertbl">
+                    <div style="overflow-x:auto;" id="outertbl">
+                        <table id="example3" class="my  table table-bordered table-hover" style="width:100%;">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th>SR.NO.</th>
+                                    <th>ACTION</th>
+                                    <th>LINK </th>
+                                    <th>SERVICE TYPE </th>
+                                    <th style="min-width:130px;">DESCIRPTION</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                @{
+
+                                    if (Model.dt2 != null && Model.dt2.Rows.Count > 0)
+                                    {
+                                        
+                                            int i = 1;
+                                        foreach (DataRow item in Model.dt2.Rows)
+                                            {
+                                            <tr>
+                                                <td>@i</td>
+                                                <td>
+                                                    <i class="btn  btn-danger" onclick="DeleteRecord('@item["ID"]')">Delete</i>
+                                                </td>
+                                                <td><a href="@item["Link"]" target="_blank">Play Video</a></td>
+                                                <td>@item["Name"]</td>
+                                                <td>@item["Description"]</td>
+
+                                            </tr>
+                                            i++;
+                                        }
+
+
+                                    }
+
+                                }
+
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+
+
+
+<script>
+
+    function DeleteRecord(Id) {
+        debugger;
+
+        if (!(confirm("Do You want Delete  this Record  !!"))) {
+            //location.reload();
+            return false;
+
+        }
+        var objdata = {
+            Id: Id
+        }
+        $.ajax({
+            url: "/Admin/DeleteTrainingVideo",
+            type: "POST",
+            data: objdata,
+            success: function (r) {
+
+                alert(r);
+                window.location.reload(true);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+
+        });
+    }
+
+    function InserRecord(){
+        if($("#txtLink").val()==''){
+           alert("Please Input URL !");
+            $("#txtLink").focus();
+
+            return false;
+        }
+   
+    
+    }
+
+</script>
+
+<script>
+    CKEDITOR.replace('Description');
+
+</script>

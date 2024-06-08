@@ -1,0 +1,144 @@
+﻿@{
+    ViewData["Title"] = "UserLeadReport";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<style>
+    .card-header:first-child {
+        border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+        margin-bottom: -65px;
+    }
+</style>
+@model DataTable
+@using System.Data
+
+<div class="col-md-12">
+    <div class="card card-warning ">
+        <div class="card-header">
+            <h3 class="card-title new-title"> Lead Report</h3>
+        </div>
+
+        <form method="post" action="/admin/UserLeadReport">
+
+
+            <div class="card-body">
+
+
+
+
+                <div class="row">
+
+
+
+
+                    <div class="col-sm-4">
+
+                        <div class="form-group">
+                            <label>FormDate</label>
+                            <input type="date" class="form-control" name="FormDate" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+
+                        <div class="form-group">
+                            <label>ToDate</label>
+                            <input type="date" class="form-control" name="ToDate" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4" style="margin-top: 27px;">
+
+                        <div class="form-group">
+                            <input type="submit" value="Search" class="btn btn-primary " />
+                        </div>
+                    </div>
+
+                </div>
+                <div style="overflow-x:auto;" class="p-0">
+                    <table id="example3" class="my  table table-bordered table-hover" style="width:100%;">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th>Sr.No.</th>
+                                <th>User ID</th>
+                                <th>Name</th>
+                                <th>AadharNo</th>
+
+                                <th>PanNo</th>
+
+                                <th>Mobileno</th>
+                                <th>Income</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>EntryDate</th>
+
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @{
+
+                                if (Model != null)
+                                {
+                                    if (Model.Rows.Count > 0)
+                                    {
+                                        int i = 1;
+                                        foreach (DataRow item in Model.Rows)
+                                        {
+                                            <tr>
+                                                <td>@i</td>
+                                                <td>@item["Userid"]</td>
+                                                <td>@item["Name"]</td>
+                                                <td>@item["AadharNo"]</td>
+                                                <td>@item["PanNo"]</td>
+                                                <td>@item["Mobileno"]</td>
+                                                <td>@item["Income"]</td>
+                                                <td>@item["Email"]</td>
+                                                @*@if (item["Status"].ToString().ToLower() == "true")
+                                {
+                                <td style="color:white ;"><span style="background-color:forestgreen;" class="rounded">success</span></td>
+                                }
+                                else
+                                {
+                                <td style="color:white ;"><span style="background-color:red;" class="rounded">failed</span></td>
+                                }*@
+
+                                                <td>@item["Address"]</td>
+                                                <td>@item["EntryDate"]</td>
+                                                @* <td>
+                                <a href="#" onclick="GetDetailsForEdit('@item["RecruitmentID"]')"><span class="badge bg-success">Edit</span></a>
+                                </td>
+                                *@
+
+                                            </tr>
+                                            i++;
+                                        }
+                                    }
+
+                                }
+
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    var js = jQuery.noConflict(true)
+    js(document).ready(function () {
+
+        js("#example3").DataTable();
+    })
+
+
+
+
+
+</script>
