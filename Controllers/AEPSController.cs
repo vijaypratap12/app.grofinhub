@@ -6,6 +6,9 @@ using RestSharp;
 using SportsBattle.Models;
 using System;
 using System.Data;
+using System.Net.Http.Headers;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Grofinhub.Controllers
 {
@@ -21,6 +24,36 @@ namespace Grofinhub.Controllers
           //  DB = new DBHelper(); 
         }
 
+        [HttpGet]
+        [Route("Admin/AEPS")]
+        public async Task<IActionResult> GetBankList()
+        {
+            try
+            {
+                string userid = Convert.ToString(HttpContext.Session.GetString("UserId"));
+                string url = $"https://sit.paysprint.in/service-api/api/v1/service/aeps/banklist/index";
+
+                HttpClient client = new HttpClient();
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Token", sm.GetToken());
+                var response = await client.PostAsync(url, null);
+                string responseBody = await response.Content.ReadAsStringAsync();
+                RootAEPS data = Newtonsoft.Json.JsonConvert.DeserializeObject<RootAEPS>(responseBody);
+                if (data.banklist != null)
+                {
+                    return View("~/Views/Admin/AEPS.cshtml", data);
+                }
+                else
+                {
+                    return View("~/Views/Admin/AEPS.cshtml");
+                }             
+            }
+            catch(Exception ex)
+            {
+                return View("~/Views/Admin/AEPS.cshtml");
+            }
+        }
         public JsonResult Enquiry(AEPSEnqueriModel p)
         {
             try

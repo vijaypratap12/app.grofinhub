@@ -1,5 +1,15 @@
 [
   {
+    "ContainingType": "Grofinhub.Controllers.AEPSController",
+    "Method": "GetBankList",
+    "RelativePath": "Admin/AEPS",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Grofinhub.Controllers.DMTAPIController",
     "Method": "BenefiDel",
     "RelativePath": "api/deletebenefeciary",

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Grofinhub")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d6c1a8391251ab3eb2e0e110e992f9b20146466e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cc59825a8ba4234ffecdb66ab0e02184e06a4377")]
 [assembly: System.Reflection.AssemblyProductAttribute("Grofinhub")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Grofinhub")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
