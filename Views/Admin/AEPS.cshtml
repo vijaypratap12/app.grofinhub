@@ -1,4 +1,4 @@
-﻿@model RootAEPS
+﻿@model RootAEPS;
 @{
     ViewData["Title"] = "AEPS";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -165,12 +165,12 @@
                                         </div>
                                         <div class="col-4">
                                             <span style="color:red"></span><label>Bank :</label>
-                                           <select class="form-control" id="enquiryddlbankid" >
-                                                <option value="0">Select Bank </option>
-@*                                                 @foreach (DatumAEPS item in Model.banklist.data)
+                                           <select class="form-control" id="enquiryddlbankid">
+                                                <option value="0">Select Bank</option>
+                                                @foreach (DatumAEPS item in Model.banklist.data)
                                                 {
                                                     <option value="@item.iinno">@item.bankName</option>
-                                                } *@
+                                                }
                                             </select>
 
 
@@ -242,10 +242,10 @@
                                            
                                             <select class="form-control" id="withdrowlddlbankid">
                                                 <option>Select Bank</option>
-                                    @*             @foreach (DatumAEPS item in Model.banklist.data)
+                                                @foreach (DatumAEPS item in Model.banklist.data)
                                                 {
                                                     <option value="@item.iinno">@item.bankName</option>
-                                                } *@
+                                                }
                                             </select>
 
                                         </div>
@@ -310,10 +310,10 @@
                                            
                                             <select class="form-control" id="ministatmentddlbackid">
                                                 <option>Select Bank</option>
-                                         @*        @foreach (DatumAEPS item in Model.banklist.data)
+                                                @foreach (DatumAEPS item in Model.banklist.data)
                                                 {
                                                     <option value="@item.iinno">@item.bankName</option>
-                                                } *@
+                                                }
                                             </select>
 
                                         </div>
@@ -427,10 +427,10 @@
 
                                             <select class="form-control" id="adhaarpayddlbackid">
                                                 <option value="0">Select Bank</option>
-                                    @*             @foreach (DatumAEPS item in Model.banklist.data)
+                                                @foreach (DatumAEPS item in Model.banklist.data)
                                                 {
                                                     <option value="@item.iinno">@item.bankName</option>
-                                                } *@
+                                                }
                                             </select>
 
                                         </div>
@@ -528,26 +528,6 @@
          
     })
 
-    // function getBankList() {
-    //     $("#showSpinner").show();
-    //         $.ajax({
-    //             url: "/AEPS/GetBankList",
-    //             type: "GET",
-    //             contentType: false,
-    //             processData: false,
-    //             success: function (r) {
-    //                 $("#enquiryddlbankid").empty();
-    //                 $("#enquiryddlbankid").append('<option value="">Select Bank</option>');
-    //                 $.each(data, function (index, item) {
-    //                     $("#enquiryddlbankid").append('<option value="' + item.id + '">' + item.name + '</option>');
-    //                 });
-    //             },
-    //             error: function () {
-    //                 alert('Failed to retrieve data.');
-    //             }
-    //         });
-    //     });
-    // });
     function enquery() {
         
         if ($("#lat").val() == "" && $("#lon").val()=="")

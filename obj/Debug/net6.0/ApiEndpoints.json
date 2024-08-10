@@ -10,6 +10,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SportsBattle.Controllers.AdminController",
+    "Method": "AEPS",
+    "RelativePath": "Admin/AEPS",
+    "HttpMethod": "",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Grofinhub.Controllers.DMTAPIController",
     "Method": "BenefiDel",
     "RelativePath": "api/deletebenefeciary",
@@ -824,6 +834,22 @@
     "ContainingType": "SportsBattle.Controllers.ServicesController",
     "Method": "GetBeneficiaryDetails",
     "RelativePath": "api/Services/api/GetBeneficiaryDetails",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "p",
+        "Type": "SportsBattle.Models.ReqUserDetails",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportsBattle.Controllers.ServicesController",
+    "Method": "GetBeneficiaryDetailsById",
+    "RelativePath": "api/Services/api/GetBeneficiaryDetailsById",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

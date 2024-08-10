@@ -281,6 +281,9 @@
                                     $("#querycheckdv").hide();
                                     $("#registerdv").show();
                                     $("#mobile").val($("#txtQueryRemmiterPhone1").val());
+                                    $("#dob").val('');
+                                    $("#address").val('');
+                                    $("#Pincode").val('');
 
 
                                     $("#fetchbenificiarydv").hide();
@@ -314,7 +317,7 @@
                         $("#showSpinner").show();
 
                         $.ajax({
-                            url: "/Admin/QueryRemmiterPost",
+                            url: "/Admin/GetBeneficiaryDetails",
                             type: "POST",
                             contentType: false,
                             processData: false,
@@ -328,14 +331,14 @@
                                     //// $.each(tbldata, function (i, tbl) {
                                     ////$("tbody").append("<tr><td>1</td> <td>" + tbl.fname + "</td><td>" + tbl.lname + "</td>  <td>" + tbl.mobile + "</td>  <td>" + tbl.status + "</td>  <td>" + tbl.bank3_limit + "</td><td>" + tbl.bank3_status + "</td><td>" + tbl.bank2_limit + "</td><td>" + tbl.bank1_limit + "</td>  </tr>");
                                     ////})
-                                    //$("#querynameshow").text(tbl.fname + " " + tbl.lname);
-                                    //$("#querybankstatusshow").text(tbl.bank3_status);
-                                    //$("#querystatusshow").text(tbl.status);
+                                    $("#querynameshow").text(tbl.fname + " " + tbl.lname);
+                                    $("#querybankstatusshow").text(tbl.bank3_status);
+                                    $("#querystatusshow").text(tbl.status);
                                     $("#querymobileshow").text(tbl.mobile);
                                     $("#mobile").text(tbl.mobile);
-                                    //$("#querybank3limitshow").text(tbl.bank3_limit);
-                                    //$("#querybank2limitshow").text(tbl.bank2_limit);
-                                    //$("#querybank1limitshow").text(tbl.bank1_limit);
+                                    $("#querybank3limitshow").text(tbl.bank3_limit);
+                                    $("#querybank2limitshow").text(tbl.bank2_limit);
+                                    $("#querybank1limitshow").text(tbl.bank1_limit);
                                     //$("#querydetaisshow").show();
                                     QueryLICBillInfocheck();
 
@@ -348,6 +351,9 @@
                                     $("#registerdv").show();
                                     $("#mobile").val($("#txtQueryRemmiterPhone1").val());
                                     $("#mobile").val($("#txtFetchBenificiaryPhone1").val());
+                                    $("#dob").val('');
+                                    $("#address").val('');
+                                    $("#Pincode").val('');
                                     
                                     $("#showbenificiarydetails").hide();
                                     $("#fetchbenificiarydv").hide();
@@ -1117,7 +1123,11 @@
                                     $("#registerbenificiarydv").show();
                                     $("#fetchbenificiarydv").hide();
                                     $("#registermobilebeneficiary").val($('#txtFetchBenificiaryPhone1').val());
-
+                                    $("#Bankname").val('');
+                                    $("#AccountNo").val('');
+                                    $("#registerdobbenificiary").val('');
+                                    $("#txtregisteraddressbeneficiary").val('');
+                                    $("#txtPincodebeneficiary").val('');
 
 
                                 }
@@ -1198,8 +1208,12 @@
                         $("#txtfillfetchaccno").val(accno);
                         $("#txtfillfetchbenename").val(benename);
                         $("#txtfillfetchbankname").val(bankid);
+                        $("#txtfillbankid").val(bankid);
                         $("#Txntype").val(tnxtype);
                         $("#ddlVerifiedtransaction").val(verified);
+                        $("#txtPincodeTransaction").val('');
+                        $("#txtAddresstransaction").val('');
+                        $("#txtdobtransaction").val('');
                         //alert(benid)
                     }
 
@@ -1350,7 +1364,7 @@
                                                 @*<strong>Register Beneficiary</strong>*@
                                             </div>
                                         </div>
-                                        <button type="button" id="beneficiaryhideshowbtn" class="btn btn-primary waves-effect waves-light" onclick="Queryremitercheck1()"> Search </button>
+                                        <button type="button" id="beneficiaryhideshowbtn" class="btn btn-primary waves-effect waves-light" onclick="QueryLICBillInfocheck()"> Search </button>
 
                                         <button type="button" id="remitterhideshowbtn" class="btn btn-primary waves-effect waves-light" onclick="Queryremitercheck()">Search</button>
                                         <button type="button" id="remitterregisterhideshowbtn" class="btn btn-primary waves-effect waves-light" onclick="remitterregistshowbtn()">Register Remitter</button>
@@ -1771,17 +1785,6 @@
                             verified: "0",
 
                             pincode: $("#txtPincodebeneficiary").val(),
-
-
-
-                            //Ammount: $("#Ammount").val(),
-                            //dob: $("#dob").val(),
-                            //verified: $("#Verified").val(),
-                            //mobile: $("#mobile").val(),
-                            //Address: $("#address").val(),
-                            //gst_state: $("#gst_state").val(),
-                            //Pincode: $("Pincode").val(),
-                            //Action: "1"
                         };
                         $("#showSpinner").show();
                         //alert("h")
@@ -1857,28 +1860,17 @@
                     <div class="row">
                         <form method="post">
                             <div class="col-md-12">
-
                                 <div class="main-card mb-3 card">
                                     <div class="card-body">
                                         <h4 class="my-5" style="text-align:center;">   Transaction</h4>
                                         <hr />
                                         <div class="row">
-
-
                                             <div class="col-6">
                                                 <input type="hidden" id="txtbeneidfillauto" />
                                                 <div class="form-group">
                                                     <label>   Amount :</label>
-
                                                     <input type="text" id="Ammount" placeholder="Enter Amount " name="vendor_Name" class="form-control" />
-
                                                 </div>
-
-
-
-
-
-
                                             </div>
 
                                             <div class="col-6">
@@ -1903,13 +1895,10 @@
 
                                         </div>
                                         <div class="row" >
-
-                                            <div class="col-6" style="display:none">
+                                            <div class="col-6">
 
                                                 <div class="form-group">
                                                     <label>Pipe:</label>
-
-
                                                     <select class="form-control" id="Pipe" required name="Pipe">
                                                         <option value="0">-- Select Pipe --</option>
                                                         <option value="bank1" id="bank1">bank1</option>
@@ -1937,27 +1926,18 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-6">
-
-                                                <div class="form-group">
-                                                    <label>  Pincode:</label>
-
-
-                                                    <input type="text" id="txtPincodeTransaction" placeholder="Enter Pincode " required name="vendor_Name" class="form-control" />
-
-                                                </div>
-                                            </div>
-
-
                                         </div>
                                         <div class="row">
-
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label>  Pincode:</label>
+                                                    <input type="text" id="txtPincodeTransaction" placeholder="Enter Pincode " required name="vendor_Name" class="form-control" />
+                                                </div>
+                                            </div>
                                             <div class="col-6" style="display:none;">
 
                                                 <div class="form-group">
-                                                    <label>      Verified:</label>
-
-
+                                                    <label> Verified:</label>
                                                     <input type="text" id="ddlVerifiedtransaction" placeholder="Enter Verified Code" required name="vendor_Name" class="form-control" />
                                                     @*<select id="ddlVerifiedtransaction" class="form-control">
                                                     <option value="0">NO</option>
@@ -1977,28 +1957,17 @@
                                                     <option value="0">-- Select Txntype --</option>
                                                     <option value="IMPS" id="IMPS">IMPS</option>
                                                     <option value="NEFT" id="NEFT"> NEFT</option>
-
-
                                                     </select>
-
                                                 </div>
-
                                             </div>
-
                                         </div>
                                         <div class="row">
                                             <div class="col-6">
-
-
                                                 <div class="form-group">
                                                     <label>Address:</label>
-
-
-
                                                     <textarea id="txtAddresstransaction" placeholder="Enter  Address" required class="form-control" name="txtAddresstransaction"></textarea>
                                                     @* <p id="paddress">Please Fill Address</p>*@
                                                 </div>
-
                                             </div>
                                             <div class="col-3">
                                                 <label></label>
@@ -2010,50 +1979,22 @@
                                                 <input type="button" id="backbutton" style="width:100%;" value="Back" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="BackRecordTransation();" />
 
                                             </div>
-                                            @*  <div class="col-3">
-
-                                            <div class="form-group">
-                                            <label>  Gst State:</label>
-                                            <select id="ddlgst_statetransation" required name="vendor_Name" class="form-control">
-                                            <option value="0">Select state</option>
-                                            @if (ViewBag.GSTState != null && ViewBag.GSTState.Rows.Count > 0)
-                                            {
-                                            foreach (DataRow row in ViewBag.GSTState.Rows)
-                                            {
-                                            <option value="@row["GSTState_Id"]">@row["GSTState_Name"]</option>
-                                            }
-                                            }
-                                            </select>
-                                            </div>
-                                            </div>
-                                            *@
-
                                         </div>
-
                                     </div>
-
-
-
                                 </div>
                                 <input type="hidden" id="txtfillfetchbaneid" />
                                 <input type="hidden" id="txtfillfetchaccno" />
                                 <input type="hidden" id="txtfillfetchbenename" />
                                 <input type="hidden" id="txtfillfetchbankname" />
-                                @*<div class="col-xl-3 col-md-3 col-6">
+                                <input type="hidden" id="txtfillbankid" />
+@*                                 <div class="col-xl-3 col-md-3 col-6">
                                 <input type="button" id="savebutton" style="width:100%;" value="SAVE" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="PennyDropVerificationy()" />
 
                                 </div>
                                 <div class="col-xl-3 col-md-3 col-6">
                                 <input type="button" id="backbutton" style="width:100%;" value="Back" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="BackRecordTransation();" />
-
-                                </div>*@
-
+                                </div> *@
                             </div>
-
-
-
-
-
                         </form>
                     </div>
 
@@ -3124,101 +3065,82 @@
         });
     }
 
-
-
-
-
 </script>
-
-
-
-
 
 <script>
 
 
     function SaveRecordTransation() {
-        debugger;
 
-        //if ($("#Pipe").val() == "0") {
+        // if ($("#Pipe").val() == "0") {
         //    alert("Plese select  Pipe!!!");
         //    $("#Pipe").focus();
         //    return false;
-        //}
-
-        if ($("#Txntype").val() == '0') {
-            alert("Select Txntype !!!");
-            $("#Txntype").focus();
-            return false
-        }
-
-
-        if ($("#Ammount").val() == "") {
-            alert("Enter Amount!!!");
-            $("#Ammount").focus();
-            return false
-        }
-
-
-        if ($("#txtdobtransaction").val() == "") {
-            alert("Enter dob !!!");
-            $("#txtdobtransaction").focus();
-            return false;
-        }
-
-        if ($("#ddlVerifiedtransaction").val() == "") {
-            alert("Enter Verified !!!");
-            $("#ddlVerifiedtransaction").focus();
-            return false;
-        }
-
-        //if ($("#txtmobiletransaction").val() == "") {
+        // }
+        // if ($("#Txntype").val() == '0') {
+        //     alert("Select Txntype !!!");
+        //     $("#Txntype").focus();
+        //     return false
+        // }
+        // if ($("#Ammount").val() == "") {
+        //     alert("Enter Amount!!!");
+        //     $("#Ammount").focus();
+        //     return false
+        // }
+        // if ($("#txtdobtransaction").val() == "") {
+        //     alert("Enter dob !!!");
+        //     $("#txtdobtransaction").focus();
+        //     return false;
+        // }
+        // if ($("#txtmobiletransaction").val() == "") {
         //    alert("Enter mobile !!!");
-        //    $("#txtmobiletransaction").focus();
+        //     $("#txtFetchBenificiaryPhone1").focus();
         //    return false;
-        //}
-
-        if ($("#txtAddresstransaction").val() == "") {
-            alert('Enter Address !!')
-            $("#txtAddresstransaction").focus();
-            return false;
-        }
-
-        if ($("#ddlgst_statetransation").val() == "0") {
-            alert("Enter gst_state ")
-            $("#ddlgst_statetransation").focus();
-            return false;
-        }
-
-        if ($("#txtPincodeTransaction").val() == "") {
-            alert('Enter Pincode')
-            $("#txtPincodeTransaction").focus();
-            return;
-        }
+        // }
+        // if ($("#txtAddresstransaction").val() == "") {
+        //     alert('Enter Address !!')
+        //     $("#txtAddresstransaction").focus();
+        //     return false;
+        // }
+        // if ($("#ddlgst_statetransation").val() == "0") {
+        //     alert("Enter gst_state ")
+        //     $("#ddlgst_statetransation").focus();
+        //     return false;
+        // }
+        // if ($("#txtPincodeTransaction").val() == "") {
+        //     alert('Enter Pincode')
+        //     $("#txtPincodeTransaction").focus();
+        //     return;
+        // }
+        // if ($("#txtbeneidfillauto").val() == "") {
+        //     alert('Enter Pincode')
+        //     $("#txtbeneidfillauto").focus();
+        //     return;
+        // }
 
 
         var dataobject = {
             Pipe: $("#Pipe").val(),
-            TxnType: $("#Txntype").val(),
+            TxnType: "IMPS",
             Amount: $("#Ammount").val(),
             Dob: $("#txtdobtransaction").val(),
-            Verified: $("#ddlVerifiedtransaction").val(),
             mobile: $("#txtFetchBenificiaryPhone1").val(),
             Address: $("#txtAddresstransaction").val(),
             gst_state: $("#ddlgst_statetransation").val(),
             Pincode: $("#txtPincodeTransaction").val(),
             Bene_id: $("#txtbeneidfillauto").val(),
         };
+        console.log(dataobject);
         $("#showSpinner").show();
         $.ajax({
             url: "/Admin/InsertTransaction",
             type: "POST",
             data: dataobject,
             success: function (r) {
+                console.log(r);
                 if (r.response_code == "1") {
                     alert(r.message);
                     location.reload();
-
                 }
                 else {
                     //alert('Server not Responding !!!');
@@ -3248,24 +3170,11 @@
             return false
         }
 
-
         if ($("#txtdobtransaction").val() == "") {
             alert("Enter dob !!!");
             $("#txtdobtransaction").focus();
             return false;
         }
-
-        //if ($("#ddlVerifiedtransaction").val() == "") {
-        //    alert("Enter Verified !!!");
-        //    $("#ddlVerifiedtransaction").focus();
-        //    return false;
-        //}
-
-        //if ($("#txtmobiletransaction").val() == "") {
-        //    alert("Enter mobile !!!");
-        //    $("#txtmobiletransaction").focus();
-        //    return false;
-        //}
 
         if ($("#txtAddresstransaction").val() == "") {
             alert('Enter Address !!')
@@ -3292,7 +3201,6 @@
             pincode: $("#txtPincodeTransaction").val(),
             //mobile: $("#txtmobiletransaction").val(),
             mobile: $("#txtFetchBenificiaryPhone1").val(),
-
             accno: $("#txtfillfetchaccno").val(),
             bankid: $("#txtfillfetchbankname").val(),
             benename: $("#txtfillfetchbenename").val(),
@@ -3304,17 +3212,16 @@
             type: "POST",
             data: dataobject,
             success: function (r) {
-
-                var res = jQuery.parseJSON(r);
-                //console.log(res);
-                if (res.response_code == 1)
+                var res = JSON.parse(r);
+                if (res.response_code == 1) {
+                    alert("Penny Drop Verification Successfull!");
                     SaveRecordTransation();
+                }
                 else {
                     debugger;
                     alert(res.message);
                     $("#showSpinner").hide();
                 }
-                //SaveRecordTransation();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert('Please Check values Entered by you !!!');
@@ -3332,6 +3239,9 @@
         $("#registermobilebeneficiary").val($("#txtQueryRemmiterPhone1").val());
         $("#registerdv").hide();
         $("#registerbenificiarydv").show();
+        $("#registerdobbenificiary").val('');
+        $("#txtregisteraddressbeneficiary").val('');
+        $("#txtPincodebeneficiary").val('');
         // hide main div
         $("#fetchbenificiarydv").hide();
     }

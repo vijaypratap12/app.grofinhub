@@ -23,6 +23,12 @@ namespace Grofinhub.Controllers
             dt=DL.GetRequestedWallet();
             return View(dt);
         }
+
+        public IActionResult WalletTranasctionDetails()
+        {
+            dt = DL.GetRequestedWallet();
+            return View(dt);
+        }
         public IActionResult ApprovedWallet(string PId,double Amount,string Type,string UserId)
         {
             bool checkbal;

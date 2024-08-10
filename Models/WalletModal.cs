@@ -212,23 +212,23 @@ namespace Grofinhub.Models
 		//get pipe details
 		public static string GetPipe(string userid, ref double amount)
 		{
-			string mobile = "";
-			dt = db.GetMobileByUserId(userid);
-			if (dt != null && dt.Rows.Count > 0)
-				mobile = dt.Rows[0]["Mobile"].ToString();
-			QueryParametercls p = new QueryParametercls();
+			string mobile = userid;
+            dt = db.GetMobileByUserId(userid);
+            if (dt != null && dt.Rows.Count > 0)
+                mobile = dt.Rows[0]["Mobile"].ToString();
+            QueryParametercls p = new QueryParametercls();
 			p.bank3_flag = "NO";
 			p.mobile = mobile;
 			RootQueryremiter racc = new RootQueryremiter();
-			var options = new RestClientOptions("https://paysprint.in")
+			var options = new RestClientOptions("https://api.paysprint.in")
 			{
 				MaxTimeout = -1,
 			};
 			var client = new RestClient(options);
-			var request = new RestRequest("/service-api/api/v1/service/dmt/remitter/queryremitter", Method.Post);
+			var request = new RestRequest("/api/v1/service/dmt/remitter/queryremitter", Method.Post);
 			request.AddHeader("accept", "application/json");
-			request.AddHeader("Token", sm.GetToken());
-			request.AddHeader("Authorisedkey", DB.AuthorizationKey);
+			request.AddHeader("Token", sm.GetLiveToken());
+			//request.AddHeader("Authorisedkey", DB.AuthorizationKey);
 			request.AddHeader("Content-Type", "application/json");
 			string body = JsonConvert.SerializeObject(p);
 			request.AddStringBody(body, DataFormat.Json);

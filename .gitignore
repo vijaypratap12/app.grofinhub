@@ -6,3 +6,8 @@
 /.vs/Grofinhub/DesignTimeBuild
 /.vs/Grofinhub/FileContentIndex
 /.vs/ProjectEvaluation
+/bin/Debug/net6.0
+/obj/Debug/net6.0
+/obj/Release/net6.0/PubTmp/Out
+/obj
+/Properties/PublishProfiles/FolderProfile7.pubxml.user

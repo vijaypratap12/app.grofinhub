@@ -308,7 +308,7 @@ namespace SportsBattle.Models
 
             // Define const Key this should be private secret key  stored in some safe place
             //string key = "UFMwMDExMjEyYzY5MzliODkwMmI0NDU4OWM0MDhlYTZmZWI2OGE5NQ==";
-            string key = "UFMwMDM4NzNhZGM4MGEzZWUzMGVkNWFjYjBjYzYxYTY1OTBkODllZjE2ODM2MTE5MjQ=";
+            string key =    "UFMwMDM4NzNhZGM4MGEzZWUzMGVkNWFjYjBjYzYxYTY1OTBkODllZjE2ODM2MTE5MjQ=";
 
             // Create Security key  using private key above:
             // not that latest version of JWT using Microsoft namespace instead of System
@@ -611,13 +611,13 @@ namespace SportsBattle.Models
             RootAEPS obj = new RootAEPS();
             try
             {
-                var client = new RestClient("https://paysprint.in");
+                var client = new RestClient("https://api.paysprint.in");
                 var request = new RestRequest("/service-api/api/v1/service/aeps/banklist/index", Method.Post);
                 request.AddHeader("accept", "application/json");
-                request.AddHeader("Token", GetToken());
-                request.AddHeader("Authorisedkey", new DBHelper().AuthorizationKey);
+                request.AddHeader("Token", GetLiveToken());
+                //request.AddHeader("Authorisedkey", new DBHelper().AuthorizationKey);
                 // request.AddParameter("application/json", body, ParameterType.RequestBody);
-                RestResponse response = client.Execute(request);
+                RestResponse response = client.PostAsync(request).Result;
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 obj = js.Deserialize<RootAEPS>(response.Content);
 

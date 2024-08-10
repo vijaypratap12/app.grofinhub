@@ -1161,6 +1161,7 @@ namespace SportsBattle.Controllers
 
 		#region AEPS  27-02-2023
 
+		[Route("Admin/AEPS")]
 		public IActionResult AEPS()
 		{
 			RootAEPS banklist = sm.AEPSBankList();
@@ -1578,6 +1579,7 @@ namespace SportsBattle.Controllers
 		public JsonResult InsertTransaction(Transactioncls p)
 		{
 			Responsemsgcls res = new Responsemsgcls();
+			//int status = db.InsertError("inside first method");
 			RootTransaction racc = TransactionApi(p);
 			string userid = Convert.ToString(HttpContext.Session.GetString("UserId"));
 			DataTable dt = db.InsertTransaction(p, racc, userid);
@@ -1615,18 +1617,18 @@ namespace SportsBattle.Controllers
 			{
 				MaxTimeout = -1,
 			};
-
-			TansactionBody tbody = new TansactionBody();
-			tbody.mobile = p.Mobile;
+            //int status = db.InsertError("inside second method");
+            TansactionBody tbody = new TansactionBody();
+			tbody.mobile =p.Mobile;
 			tbody.referenceid = p.Referenceid;
 			tbody.pipe = p.Pipe;
 			tbody.pincode = p.Pincode;
 			tbody.address = p.Address;
 			tbody.dob = p.Dob;
 			tbody.gst_state = p.Gst_state;
-			tbody.bene_id = p.Bene_id;
+			tbody.bene_id = p.Bene_id.ToString();
 			tbody.txntype = p.TxnType;
-			tbody.amount = p.Amount;
+			tbody.amount =p.Amount;
 			var client = new RestClient(options);
 			var request = new RestRequest("/api/v1/service/dmt/transact/transact", Method.Post);
 			request.AddHeader("accept", "application/json");
@@ -1636,8 +1638,10 @@ namespace SportsBattle.Controllers
 			request.AddStringBody(body, DataFormat.Json);
 			RestResponse response = client.Execute(request);
 			racc = JsonConvert.DeserializeObject<RootTransaction>(response.Content);
-			if (Convert.ToString(HttpContext.Session.GetString("Role")) != "1" && racc.response_code == 1)
-			{
+            //int obj = db.InsertError("inside after api"+ racc.txn_status.ToString() + racc.message);
+            //if (Convert.ToString(HttpContext.Session.GetString("Role")) != "2" && racc.response_code == 1)
+            if (racc.txn_status== 1)
+            {
 				WalletModal.UpdateUserMainWallet(p.UserId, p.Amount, "DMT");
 				HttpContext.Session.SetString("DEBIT", Convert.ToString(WalletModal.GetPartenDebitBalanceByUser(p.UserId)));
 			}
@@ -3827,16 +3831,16 @@ namespace SportsBattle.Controllers
 			try
 			{
 				string userid = HttpContext.Session.GetString("UserId");
-				var options = new RestClientOptions("https://paysprint.in")
+				var options = new RestClientOptions("https://api.paysprint.in")
 				{
 					MaxTimeout = -1,
 				};
 				var client = new RestClient(options);
-				var request = new RestRequest("/service-api/api/v1/service/onboard/onboardnew/getonboardurl", Method.Post);
+				var request = new RestRequest("/api/v1/service/onboard/onboard/getonboardurl", Method.Post);
 				request.AddHeader("accept", "application/json");
-				string GetToken = sm.GetToken();
+				string GetToken = sm.GetLiveToken();
 				request.AddHeader("Token", GetToken);
-				request.AddHeader("Authorisedkey", DB.AuthorizationKey);
+				//request.AddHeader("Authorisedkey", DB.AuthorizationKey);
 				request.AddHeader("Content-Type", "application/json");
 				string body = JsonConvert.SerializeObject(req);
 				request.AddStringBody(body, DataFormat.Json);

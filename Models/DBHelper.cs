@@ -91,6 +91,23 @@ namespace SportsBattle.Models
             }
             return r;
         }
+        public int InsertErrorDatabase(string message)
+        {
+            SqlConnection con = new SqlConnection(consString);
+            SqlCommand cmd = new SqlCommand();
+ 
+
+                //if (obj.BlockchainTransactionStatus != 2) 
+                //{
+                con.Open();
+                cmd.Connection = con;
+                cmd.CommandText = "InsertError";
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                //cmd.Parameters.Add("@BatchId", System.Data.SqlDbType.VarChar, 225).Value = obj.BatchId;
+                cmd.Parameters.Add("@message", System.Data.SqlDbType.NVarChar, 500).Value = message;
+                //cmd.Parameters.Add("@BlockchainStatus", System.Data.SqlDbType.Int).Value = obj.BlockchainTransactionStatus;
+                 return cmd.ExecuteNonQuery();             
+        }
         public DataTable ExecProcDataTable(string ProName, SqlParameter[] Param)
         {
             DataTable dt = new DataTable();

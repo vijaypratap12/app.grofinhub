@@ -394,6 +394,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FsbGV0XFVzZXJXYWxsZXRIaXN0b3J5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Project/Grofinhub_app/app.grofinhub/Views/Wallet/WalletTranasctionDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FsbGV0XFdhbGxldFRyYW5hc2N0aW9uRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Project/Grofinhub_app/app.grofinhub/Views/Withdraw/AllTransaction.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2l0aGRyYXdcQWxsVHJhbnNhY3Rpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

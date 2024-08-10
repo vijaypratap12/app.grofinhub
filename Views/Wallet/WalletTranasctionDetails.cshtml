@@ -1,0 +1,85 @@
+﻿
+<head>
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
+
+
+</head>
+
+
+@using System.Data
+@model DataTable
+@{
+    ViewData["Title"] = "WalletTranasctionDetails";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<h1>RequestedWallet</h1>*@
+
+<div class="app-main__inner">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="main-card mb-3 card">
+
+                <div class="col-lg-12">
+                    <div style="overflow-x:auto;">
+                        <table id="example3" class="my  table table-bordered table-hover" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th>Partner ID</th>
+                                    <th>Partner Name</th>                                  
+                                    <th>Transaction Amount</th>
+                                    <th>Debit/Credit</th>   
+                                    <th>Transaction Date</th>
+                                    <th>Settle</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Rows.Count > 0)
+                                {
+                                    int i = 1;
+                                    foreach (DataRow row in Model.Rows)
+                                    {
+                                        <tr>
+                                            <td id="tduserid_@row["Id"]">@row["UserID"]</td>
+                                            <td id="tdName_@row["Id"]">@row["Name"]</td>                                           
+                                            <td id="tdamount_@row["Id"]">@row["Amount"]</td>
+                                            <td id="tdtransactiontype_@row["Id"]">@row["TransactionType"]</td>
+                                            <td id="tddepositdate_@row["Id"]">@row["DDate"]</td>
+                                            <td id="tdtransactiontype_@row["Id"]">@row["TransactionType"]</td>
+                                            <td id="tdfilesrc_@row["Id"]" style="display:none;">
+                                                @row["images"]
+                                            </td>
+
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var js = jQuery.noConflict(true)
+    js(document).ready(function () {
+
+        js("#example3").DataTable();
+    })
+
+
+
+
+
+</script>
+

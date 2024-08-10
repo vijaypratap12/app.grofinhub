@@ -9,6 +9,7 @@ using System.Data;
 using System.Net.Http.Headers;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Nancy;
 
 namespace Grofinhub.Controllers
 {
@@ -37,6 +38,7 @@ namespace Grofinhub.Controllers
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Add("Token", sm.GetToken());
+                client.DefaultRequestHeaders.Add("Authorisedkey", DB.AuthorizationKey);
                 var response = await client.PostAsync(url, null);
                 string responseBody = await response.Content.ReadAsStringAsync();
                 RootAEPS data = Newtonsoft.Json.JsonConvert.DeserializeObject<RootAEPS>(responseBody);

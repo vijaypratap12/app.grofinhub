@@ -786,7 +786,6 @@ namespace SportsBattle.Models
     public class Transactioncls
     {
         public string Mobile { get; set; }
-
         public string Pipe { get; set; }
         public string accno { get; set; }
         public int Bankid { get; set; }
@@ -2396,7 +2395,7 @@ namespace SportsBattle.Models
         public string address { get; set; }
         public string dob { get; set; }
         public string gst_state { get; set; }
-        public int bene_id { get; set; }
+        public string bene_id { get; set; }
         public string txntype { get; set; }
         public string amount { get; set; }
     }

@@ -348,6 +348,55 @@ namespace SportsBattle.Controllers
         }
 
         [HttpPost]
+        [Route("api/GetBeneficiaryDetailsById")]
+        public IActionResult GetBeneficiaryDetailsById(ReqUserDetails p)
+        {
+            try
+            {
+                if (p.UserId != "")
+                {
+                    List<GetBeneficiaryDetails> res = new List<GetBeneficiaryDetails>();
+                    DataTable dt = db.GetBeneficiaryDetails(p.UserId);
+                    if (dt.Rows.Count > 0 && dt != null)
+                    {
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            res.Add(new GetBeneficiaryDetails
+                            {
+                                Bene_code = row["BenificaryCode"].ToString(),
+                                mobile = Convert.ToString(row["mobile"]),
+                                benename = row["benename"].ToString(),
+                                bankid = row["bankid"].ToString(),
+                                accno = row["accno"].ToString(),
+                                ifsccode = row["ifsccode"].ToString(),
+                                verified = row["verified"].ToString(),
+                                gst_state = row["gst_state"].ToString(),
+                                dob = row["dob"].ToString(),
+                                address = row["address"].ToString(),
+                                pincode = row["pincode"].ToString(),
+                                RegDate = row["EntryDate1"].ToString()
+                            });
+                        }
+                        return Ok(new { status = true, message = "success", response = res });
+                    }
+                    else
+                    {
+                        return Ok(new { status = false, message = "Record Not Found !!", response = (dynamic)null });
+                    }
+
+                }
+                else
+                {
+                    return Ok(new { status = false, message = "Enter Valid Mobile No.", response = (dynamic)null });
+                }
+            }
+            catch (Exception e)
+            {
+                return Ok(new { status = false, message = e.Message, response = (dynamic)null });
+            }
+        }
+
+        [HttpPost]
         [Route("api/GetRemitterDetails")]
         public IActionResult GetRemitterDetails(ReqUserDetails p)
         {

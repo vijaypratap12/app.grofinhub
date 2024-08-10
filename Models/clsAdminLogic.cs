@@ -98,6 +98,12 @@ namespace SportsBattle.Models
             dt = db.ExecProcDataSet("USP_PlayerDetails", parm);
             return dt;
         }
+
+        public int InsertError(string message)
+        {
+           int res  = db.InsertErrorDatabase(message);
+            return res;
+        }
         public DataTable GetDashbordDetails(string action)
         {
             DataTable dt = new DataTable();
