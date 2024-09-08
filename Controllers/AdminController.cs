@@ -3073,8 +3073,9 @@ namespace SportsBattle.Controllers
 		{
 			if (data != null)
 			{
-				// string body = CommonClasses.DecryptAESIn(data, CommonClasses.crypt_key, CommonClasses.IV);
-			}
+				//string body = CommonClasses.DecryptAESIn(data, CommonClasses.crypt_key, CommonClasses.IV);
+				//var result = CommonClasses.DecyptJWTData(data);
+            }
 			DataTable dt = db.KYCDetails(new KYCDetailsBody() { Action = "2" });
 			return View(dt);
 		}
@@ -3823,24 +3824,24 @@ namespace SportsBattle.Controllers
 			OnboardingBody req = new OnboardingBody();
 			req.mobile = Mobile;
 			req.email = "md@grofinhub.com";
-			req.callback = "https://app.grofinhub.com/Admin/MemberKYC";
-			//req.callback = "https://localhost:44317/Admin/MemberKYC";
+			//req.callback = "https://app.grofinhub.com/Admin/MemberKYC";
+			req.callback = "https://localhost:44317/Admin/MemberKYC";
 			req.firm = "GROFINHUB SERVICES PRIVATE LIMITED";
 			req.merchantcode = Merchantcode;
 			req.is_new = is_new;
 			try
 			{
 				string userid = HttpContext.Session.GetString("UserId");
-				var options = new RestClientOptions("https://api.paysprint.in")
+				var options = new RestClientOptions("https://sit.paysprint.in")
 				{
 					MaxTimeout = -1,
 				};
 				var client = new RestClient(options);
-				var request = new RestRequest("/api/v1/service/onboard/onboard/getonboardurl", Method.Post);
+				var request = new RestRequest("/service-api/api/v1/service/onboard/onboardnew/getonboardurl", Method.Post);
 				request.AddHeader("accept", "application/json");
-				string GetToken = sm.GetLiveToken();
+				string GetToken = sm.GetToken();
 				request.AddHeader("Token", GetToken);
-				//request.AddHeader("Authorisedkey", DB.AuthorizationKey);
+				request.AddHeader("Authorisedkey", DB.AuthorizationKey);
 				request.AddHeader("Content-Type", "application/json");
 				string body = JsonConvert.SerializeObject(req);
 				request.AddStringBody(body, DataFormat.Json);

@@ -10,6 +10,7 @@ using System.Net.Http.Headers;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Nancy;
+using System.Collections.Generic;
 
 namespace Grofinhub.Controllers
 {
@@ -56,6 +57,35 @@ namespace Grofinhub.Controllers
                 return View("~/Views/Admin/AEPS.cshtml");
             }
         }
+
+        [HttpGet]
+        public IActionResult Get2FAStatus()
+        {
+            string userId = HttpContext.Session.GetString("UserId");
+            DataTable dt = db.GetAePS2FADetails(userId);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                // Mask Aadhar number (e.g., XXXX-XXXX-1234)
+                string aadharNumber = dt.Rows[0]["AadharNumber"].ToString(); // Replace with actual column name
+                string maskedAadharNumber = "XXXX-XXXX-" + aadharNumber.Substring(aadharNumber.Length - 4);
+
+                var result = new
+                {
+                    MerchantStatus = dt.Rows[0]["MerchantStatus"].ToString(),  // Replace with actual column name
+                    AuthStatus = dt.Rows[0]["AuthStatus"].ToString(),          // Replace with actual column name
+                    MobileNumber = dt.Rows[0]["MobileNumber"].ToString(),      // Replace with actual column name
+                    AadharNumber = maskedAadharNumber                         // Return the masked Aadhar number
+                };
+
+                return Json(result);
+            }
+            else
+            {
+                return Json(new { error = "No data found" });
+            }
+        }
+
         public JsonResult Enquiry(AEPSEnqueriModel p)
         {
             try
@@ -74,7 +104,7 @@ namespace Grofinhub.Controllers
                 p.accessmodetype = "SITE";
                 p.ipaddress = sm.GetIPAddress();
                 p.referenceno = sm.GetReferencenceId("", userid, "AEPSENQUIRY");
-                var client = new RestClient("https://paysprint.in");
+                var client = new RestClient("https://sit.paysprint.in");
                 var request = new RestRequest("/service-api/api/v1/service/aeps/balanceenquiry/index", Method.Post);
                 request.AddHeader("accept", "application/json");
                 string body = JsonConvert.SerializeObject(p);

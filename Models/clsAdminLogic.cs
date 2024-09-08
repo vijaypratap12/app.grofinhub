@@ -2030,7 +2030,16 @@ namespace SportsBattle.Models
         #endregion
 
 
+        public DataTable GetAePS2FADetails(string userid)
+        {
+            DataTable dt = new DataTable();
+            SqlParameter[] parm = new SqlParameter[] {
+                 new SqlParameter("@userid",userid),
 
+            };
+            dt = db.ExecProcDataTable("sp_GetAePS2FADetails", parm);
+            return dt;
+        }
 
     }
 

@@ -9,415 +9,415 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Grofinhub
 build_property.RootNamespace = Grofinhub
-build_property.ProjectDir = C:\Project\Grofinhub_app\app.grofinhub\
+build_property.ProjectDir = C:\Project\app.grofinhub\app.grofinhub\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Project\Grofinhub_app\app.grofinhub
+build_property.MSBuildProjectDirectory = C:\Project\app.grofinhub\app.grofinhub
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Account/Dashboard.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Account/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxEYXNoYm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Account/Login.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Account/Logout.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Account/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/AdminCommissionReport.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/AdminCommissionReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW5Db21taXNzaW9uUmVwb3J0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/AdminDetails.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/AdminDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW5EZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/AEPS.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/AEPS.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQUVQUy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/BBPS.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/BBPS.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQkJQUy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/BeneficiaryReport.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/BeneficiaryReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQmVuZWZpY2lhcnlSZXBvcnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/Commission.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/Commission.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ29tbWlzc2lvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/complain.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/complain.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cY29tcGxhaW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/complainReport.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/complainReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cY29tcGxhaW5SZXBvcnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/Compliance.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/Compliance.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ29tcGxpYW5jZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/ComplianceAllDetails.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/ComplianceAllDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ29tcGxpYW5jZUFsbERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/CustomerLead.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/CustomerLead.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ3VzdG9tZXJMZWFkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/Dashboard.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/DoRecharge.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/DoRecharge.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRG9SZWNoYXJnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/DTH.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/DTH.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRFRILmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/DTHRecharge.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/DTHRecharge.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRFRIUmVjaGFyZ2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/DTHReport.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/DTHReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRFRIUmVwb3J0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/Electricity.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/Electricity.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWxlY3RyaWNpdHkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/EPFOKYC.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/EPFOKYC.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRVBGT0tZQy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/FASTAG.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/FASTAG.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRkFTVEFHLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/FetchBenificiary.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/FetchBenificiary.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRmV0Y2hCZW5pZmljaWFyeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/Finance.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/Finance.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRmluYW5jZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/GetMemberDocuments.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/GetMemberDocuments.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cR2V0TWVtYmVyRG9jdW1lbnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/GetUserMemberDocuments.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/GetUserMemberDocuments.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cR2V0VXNlck1lbWJlckRvY3VtZW50cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/Insurance.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/Insurance.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5zdXJhbmNlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/Investment.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/Investment.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW52ZXN0bWVudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/LeadReport.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/LeadReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTGVhZFJlcG9ydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/LIC.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/LIC.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTElDLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/LICBillInfo.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/LICBillInfo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTElDQmlsbEluZm8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/LICBillPay.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/LICBillPay.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTElDQmlsbFBheS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/LicPayReport.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/LicPayReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTGljUGF5UmVwb3J0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/LICReport.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/LICReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTElDUmVwb3J0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/LPG.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/LPG.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTFBHLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/MainDashboard.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/MainDashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTWFpbkRhc2hib2FyZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/Mainwallert.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/Mainwallert.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTWFpbndhbGxlcnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/MemberKYC.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/MemberKYC.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTWVtYmVyS1lDLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/MemberList.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/MemberList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTWVtYmVyTGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/OtherServic.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/OtherServic.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cT3RoZXJTZXJ2aWMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/Pan.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/Pan.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFuLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/PanReport.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/PanReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFuUmVwb3J0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/PANReportnew.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/PANReportnew.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUEFOUmVwb3J0bmV3LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/PartnerRegistration.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/PartnerRegistration.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydG5lclJlZ2lzdHJhdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/PartnerWallet.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/PartnerWallet.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydG5lcldhbGxldC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/PayBillReport.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/PayBillReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGF5QmlsbFJlcG9ydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/PayBillReportnew.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/PayBillReportnew.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGF5QmlsbFJlcG9ydG5ldy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/Payspintwallet.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/Payspintwallet.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGF5c3BpbnR3YWxsZXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/Profile.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUHJvZmlsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/QueryRemmiter.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/QueryRemmiter.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUXVlcnlSZW1taXRlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/Recharge.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/Recharge.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUmVjaGFyZ2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/RechargeReport.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/RechargeReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUmVjaGFyZ2VSZXBvcnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/RemitterReport.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/RemitterReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUmVtaXR0ZXJSZXBvcnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/SetMemberAccess.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/SetMemberAccess.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cU2V0TWVtYmVyQWNjZXNzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/TransactionReport.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/TransactionReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVHJhbnNhY3Rpb25SZXBvcnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/TransactionReportDashBoard.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/TransactionReportDashBoard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVHJhbnNhY3Rpb25SZXBvcnREYXNoQm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/TransactionStatus.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/TransactionStatus.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVHJhbnNhY3Rpb25TdGF0dXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/UserBeneficiaryReport.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/UserBeneficiaryReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlckJlbmVmaWNpYXJ5UmVwb3J0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/UserDTHReport.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/UserDTHReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlckRUSFJlcG9ydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/UserLeadReport.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/UserLeadReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlckxlYWRSZXBvcnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/UserLicPayReport.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/UserLicPayReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlckxpY1BheVJlcG9ydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/UserPANReport.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/UserPANReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlclBBTlJlcG9ydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/UserPayBillReport.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/UserPayBillReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlclBheUJpbGxSZXBvcnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/UserPermissIon.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/UserPermissIon.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlclBlcm1pc3NJb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/UserRechargeReport.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/UserRechargeReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlclJlY2hhcmdlUmVwb3J0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/UserTaransactionReport.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/UserTaransactionReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlclRhcmFuc2FjdGlvblJlcG9ydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/UserTransactionDashboard.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/UserTransactionDashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlclRyYW5zYWN0aW9uRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/Video.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/Video.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVmlkZW8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Admin/VideoLink.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Admin/VideoLink.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVmlkZW9MaW5rLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Home/Index.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Home/Privacy.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Manager/DashBoard.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Manager/DashBoard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlclxEYXNoQm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Manager/Finance_DashBoard.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Manager/Finance_DashBoard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlclxGaW5hbmNlX0Rhc2hCb2FyZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Manager/GetMemberDocuments.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Manager/GetMemberDocuments.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlclxHZXRNZW1iZXJEb2N1bWVudHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Manager/Insurance_DashBoard.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Manager/Insurance_DashBoard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlclxJbnN1cmFuY2VfRGFzaEJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Manager/Investment_DashBoard.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Manager/Investment_DashBoard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlclxJbnZlc3RtZW50X0Rhc2hCb2FyZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Player/CancelMatch.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Player/CancelMatch.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheWVyXENhbmNlbE1hdGNoLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Player/CompletedMatch.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Player/CompletedMatch.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheWVyXENvbXBsZXRlZE1hdGNoLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Player/PendingMatch.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Player/PendingMatch.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheWVyXFBlbmRpbmdNYXRjaC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Player/RunningMatch.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Player/RunningMatch.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheWVyXFJ1bm5pbmdNYXRjaC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Player/TableFullView.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Player/TableFullView.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheWVyXFRhYmxlRnVsbFZpZXcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Player/UserFullDetails.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Player/UserFullDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheWVyXFVzZXJGdWxsRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Player/VerifiedMatch.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Player/VerifiedMatch.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheWVyXFZlcmlmaWVkTWF0Y2guY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Player/WaitingTable.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Player/WaitingTable.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheWVyXFdhaXRpbmdUYWJsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Shared/Components/ArticleCarousel/Default.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Shared/Components/ArticleCarousel/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcQXJ0aWNsZUNhcm91c2VsXERlZmF1bHQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Shared/Components/Otherservice.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Shared/Components/Otherservice.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcT3RoZXJzZXJ2aWNlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Shared/Error.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Shared/PartialView.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Shared/PartialView.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFBhcnRpYWxWaWV3LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Shared/_AdminLayout.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Shared/_AdminLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Shared/_Layout.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Wallet/BlanceRequest.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Wallet/BlanceRequest.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FsbGV0XEJsYW5jZVJlcXVlc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Wallet/RequestedWallet.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Wallet/RequestedWallet.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FsbGV0XFJlcXVlc3RlZFdhbGxldC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Wallet/UserWalletHistory.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Wallet/UserWalletHistory.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FsbGV0XFVzZXJXYWxsZXRIaXN0b3J5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Wallet/WalletTranasctionDetails.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Wallet/WalletTranasctionDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FsbGV0XFdhbGxldFRyYW5hc2N0aW9uRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Withdraw/AllTransaction.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Withdraw/AllTransaction.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2l0aGRyYXdcQWxsVHJhbnNhY3Rpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Withdraw/ApproveWithdraw.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Withdraw/ApproveWithdraw.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2l0aGRyYXdcQXBwcm92ZVdpdGhkcmF3LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Withdraw/PendingWithdraw.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Withdraw/PendingWithdraw.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2l0aGRyYXdcUGVuZGluZ1dpdGhkcmF3LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/Withdraw/RejectWithdraw.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/Withdraw/RejectWithdraw.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2l0aGRyYXdcUmVqZWN0V2l0aGRyYXcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/_ViewImports.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Project/Grofinhub_app/app.grofinhub/Views/_ViewStart.cshtml]
+[C:/Project/app.grofinhub/app.grofinhub/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
