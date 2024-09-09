@@ -1129,6 +1129,20 @@ namespace SportsBattle.Models
         //public string message { get; set; }
     }
 
+    public class AEPS2FARagistrationModel
+    {
+        public string latitude { get; set; }
+        public string longitude { get; set; }
+        public string mobilenumber { get; set; }
+        public string referenceno { get; set; }
+        public string ipaddress { get; set; }
+        public string adhaarnumber { get; set; }
+        public string accessmodetype { get; set; }
+        public string data { get; set; }
+        public string timestamp { get; set; }
+        public string submerchantid { get; set; }
+    }
+
     public class MATMWithdrawStatusPara
     {
         public string reference { get; set; }

@@ -171,8 +171,6 @@
 
 <!--Tab-->
 
-
-
 <div id="2FADiv" class="container text-center mt-10">
     <div class="row justify-content-start">
         <div class="col-6">
@@ -209,11 +207,13 @@
                 </div>
                 <div class="form-group mb-3">
                     <label for="status" class="form-label">Status</label>
-                    <p id="status" class="status-text">Fetching status...</p>
+                    <p id="merchantStatus" class="status-text">Merchant Status: Fetching...</p> <!-- Added -->
+                    <p id="authStatus" class="status-text">Auth Status: Fetching...</p> <!-- Added -->
                 </div>
+
                 <!-- The "Capture Fingerprint" button will be shown only if the status is "Pending" -->
                 <div class="form-group mb-3 text-center">
-                    <button id="captureFingerprintBtn" class="btn btn-success" style="display:none;">CAPTURE FINGERPRINT</button>
+                    <button id="captureFingerprintBtn" class="btn btn-success" style="display:none;" onclick="captureFingerprint()">CAPTURE FINGERPRINT</button>
                 </div>
             </div>
         </div>
@@ -642,10 +642,29 @@
     // Function to toggle the visibility of authDiv
     function toggleAuthDiv() {
         var authDiv = document.getElementById('authDiv');
+        var authStatus = document.getElementById('authStatus');
+        var marchantStatus = document.getElementById('merchantStatus');
 
         // Check if the div is currently visible
         if (authDiv.style.display === 'none' || authDiv.style.display === '') {
             authDiv.style.display = 'block';  // Show the div
+            authStatus.style.display = 'none';
+            marchantStatus.style.display = 'block';
+        } else {
+            authDiv.style.display = 'none';  // Hide the div
+        }
+    }
+
+    function toggletodayAuthDiv() {
+        var authDiv = document.getElementById('authDiv');
+        var authStatus = document.getElementById('authStatus');
+        var marchantStatus = document.getElementById('merchantStatus');
+
+        // Check if the div is currently visible
+        if (authDiv.style.display === 'none' || authDiv.style.display === '') {
+            authDiv.style.display = 'block';  // Show the div
+            marchantStatus.style.display = 'none';
+            authStatus.style.display = 'block';
         } else {
             authDiv.style.display = 'none';  // Hide the div
         }
@@ -653,47 +672,7 @@
 
     // Add event listeners for both buttons
     document.getElementById('merchantBtn').addEventListener('click', toggleAuthDiv);
-    document.getElementById('todayAuthBtn').addEventListener('click', toggleAuthDiv);
-
-    // Function to simulate fetching user data (status, mobile, Aadhar)
-    // function fetchUserData() {
-    //     // Simulated data from the database
-    //     var mobileNumber = '9876543210';
-    //     var aadharNumber = '1234-5678-9123';
-    //     var status = 'Pending'; // Change to 'Success' to test success state
-
-    //     // Update the mobile and Aadhar fields
-    //     document.getElementById('mobileNumber').innerText = mobileNumber;
-    //     document.getElementById('aadharNumber').innerText = aadharNumber;
-
-    //     // Update the status field and apply the correct styling
-    //     var statusElement = document.getElementById('status');
-    //     var captureFingerprintBtn = document.getElementById('captureFingerprintBtn');
-
-    //     if (status === 'Pending') {
-    //         statusElement.innerText = 'Pending';
-    //         statusElement.classList.add('status-pending');
-    //         statusElement.classList.remove('status-success');
-
-    //         // Show the "Capture Fingerprint" button if status is "Pending"
-    //         captureFingerprintBtn.style.display = 'block';
-    //     } else if (status === 'Success') {
-    //         statusElement.innerText = 'Success';
-    //         statusElement.classList.add('status-success');
-    //         statusElement.classList.remove('status-pending');
-
-    //         // Hide the "Capture Fingerprint" button if status is "Success"
-    //         captureFingerprintBtn.style.display = 'none';
-    //     }
-
-    //     // Enable the "Next" button only if both statuses are "Success"
-    //     if (merchantStatus === 'Success' && authStatus === 'Success') {
-    //         openAepsButton.disabled = false;
-    //         openAepsButton.removeAttribute('title'); // Remove tooltip when button is enabled
-    //     } else {
-    //         openAepsButton.disabled = true;
-    //     }
-    // }
+    document.getElementById('todayAuthBtn').addEventListener('click', toggletodayAuthDiv);
 
     function fetchUserData() {
         // Perform AJAX call to fetch 2FA status from your controller
@@ -709,7 +688,8 @@
                 var openAepsButton = document.getElementById('openAepsbutton');
                 var mobileNumberElem = document.getElementById('mobileNumber');
                 var aadharNumberElem = document.getElementById('aadharNumber');
-                var statusElement = document.getElementById('status');
+                var merchantStatusElem = document.getElementById('merchantStatus');  // Separate status element for merchant
+                var authStatusElem = document.getElementById('authStatus');          // Separate status element for auth
                 var captureFingerprintBtn = document.getElementById('captureFingerprintBtn');
 
                 // Check if data is returned correctly
@@ -723,10 +703,16 @@
                         merchantBtn.classList.remove('btn-primary');
                         merchantBtn.classList.add('btn-success');
                         merchantBtn.innerHTML = 'Merchant Registration &#10003;'; // Tick sign
+                        merchantStatusElem.innerText = 'Success';
+                        merchantStatusElem.classList.add('status-success');
+                        merchantStatusElem.classList.remove('status-pending');
                     } else {
                         merchantBtn.classList.remove('btn-success');
                         merchantBtn.classList.add('btn-danger');
                         merchantBtn.innerHTML = 'Merchant Registration &#10060;'; // Cross sign
+                        merchantStatusElem.innerText = 'Pending';
+                        merchantStatusElem.classList.add('status-pending');
+                        merchantStatusElem.classList.remove('status-success');
                     }
 
                     // Update Today's Auth Status
@@ -734,44 +720,25 @@
                         todayAuthBtn.classList.remove('btn-secondary');
                         todayAuthBtn.classList.add('btn-success');
                         todayAuthBtn.innerHTML = 'Today\'s Auth &#10003;';
+                        authStatusElem.innerText = 'Success';
+                        authStatusElem.classList.add('status-success');
+                        authStatusElem.classList.remove('status-pending');
                     } else {
                         todayAuthBtn.classList.remove('btn-success');
                         todayAuthBtn.classList.add('btn-danger');
                         todayAuthBtn.innerHTML = 'Today\'s Auth &#10060;';
+                        authStatusElem.innerText = 'Pending';
+                        authStatusElem.classList.add('status-pending');
+                        authStatusElem.classList.remove('status-success');
                     }
 
-                    // Update Status and Capture Fingerprint button
-                    if (data.merchantStatus === 'Pending') {
-                        statusElement.innerText = 'Pending';
-                        statusElement.classList.add('status-pending');
-                        statusElement.classList.remove('status-success');
-
-                        // Show the "Capture Fingerprint" button if status is "Pending"
+                    // Update Capture Fingerprint button based on both statuses
+                    if (data.merchantStatus === 'Pending' || data.authStatus === 'Pending') {
                         captureFingerprintBtn.style.display = 'block';
-                    } else if (data.merchantStatus === 'Success') {
-                        statusElement.innerText = 'Success';
-                        statusElement.classList.add('status-success');
-                        statusElement.classList.remove('status-pending');
-
-                        // Hide the "Capture Fingerprint" button if status is "Success"
+                    } else {
                         captureFingerprintBtn.style.display = 'none';
                     }
 
-                    if (data.authStatus === 'Pending') {
-                        statusElement.innerText = 'Pending';
-                        statusElement.classList.add('status-pending');
-                        statusElement.classList.remove('status-success');
-
-                        // Show the "Capture Fingerprint" button if status is "Pending"
-                        captureFingerprintBtn.style.display = 'block';
-                    } else if (data.authStatus === 'Success') {
-                        statusElement.innerText = 'Success';
-                        statusElement.classList.add('status-success');
-                        statusElement.classList.remove('status-pending');
-
-                        // Hide the "Capture Fingerprint" button if status is "Success"
-                        captureFingerprintBtn.style.display = 'none';
-                    }
 
                     debugger;
                     // Enable the "Next" button only if both statuses are "Success"
@@ -794,6 +761,7 @@
     // Call the function to fetch user data when the page loads
     window.onload = fetchUserData;
 
+
     function openAepsServices() {
         // Hide the div with id "2FADiv"
         document.getElementById('2FADiv').style.display = 'none';
@@ -802,6 +770,69 @@
         document.getElementById('myTab').style.display = 'block';
     }
 
+    function captureFingerprint() {
+        $.ajax({
+            url: '/AEPS/CaptureFingerprintData',  // URL for the backend API
+            method: 'POST',
+            success: function (response) {
+                if (response.fingerprintData.startsWith("Error")) {
+                    alert("Failed to capture fingerprint: " + response.fingerprintData);
+                } else {
+                    // Success: You have the fingerprint data
+                    var fingerprintData = response.fingerprintData;
+
+                    // Assuming you have Aadhar and Mobile numbers already fetched
+                    var aadharNumber = document.getElementById('aadharNumber').innerText.replace(/[^0-9]/g, ''); // Unformatted Aadhar
+                    var mobileNumber = document.getElementById('mobileNumber').innerText;
+
+                    console.log(aadharNumber);
+                    console.log(mobileNumber);
+
+                    // Send the fingerprint data to the 2FA Registration method
+                    registerFingerprint(aadharNumber, mobileNumber, fingerprintData);
+                }
+            },
+            error: function (err) {
+                console.error("AJAX error:", err);
+                alert("Error in capturing fingerprint.");
+            }
+        });
+    }
+
+    function registerFingerprint(aadharNumber, mobileNumber, fingerprintData) {
+        // Prepare XML data to send to the registration API
+        var requestData = {
+            AadharNumber: aadharNumber,               // Aadhar number fetched from the frontend
+            MobileNumber: mobileNumber,               // Mobile number fetched from the frontend
+            FingerprintData: fingerprintData,         // Fingerprint data captured
+            Latitude: '22.44543',                     // Replace with actual latitude
+            Longitude: '77.434',                      // Replace with actual longitude
+            AccessModeType: 'SITE',                   // Mode of access (from your registration model)
+            IpAddress: '',                            // Use IP fetched from backend
+            ReferenceNo: '',                          // Generated from the backend
+        };
+        console.log(aadharNumber);
+        console.log(mobileNumber);
+
+        $.ajax({
+            url: '/AEPS/Registration2FA',  // Your 2FA Registration API
+            method: 'POST',
+            data: JSON.stringify(requestData),
+            contentType: 'application/xml',
+            success: function (response) {
+                if (response.includes("Something Went Wrong")) {
+                    alert("Error in registration: " + response);
+                } else {
+                    alert("Fingerprint captured and registered successfully!");
+                    // Update status or UI based on success
+                }
+            },
+            error: function (err) {
+                console.error("Error during AJAX call:", err);
+                alert("Failed to register fingerprint!");
+            }
+        });
+    }
 
     function validateAadhaarNumber() {
         const aadhaarInput = document.getElementById('enquiryadhaarno');
