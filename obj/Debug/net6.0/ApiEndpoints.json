@@ -20,6 +20,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Grofinhub.Controllers.MATMController",
+    "Method": "Index",
+    "RelativePath": "Admin/MATM",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Grofinhub.Controllers.DMTAPIController",
     "Method": "BenefiDel",
     "RelativePath": "api/deletebenefeciary",

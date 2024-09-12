@@ -1,0 +1,515 @@
+﻿@{
+    ViewData["Title"] = "MATM";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+
+
+    .card {
+        border-radius: 10px;
+        box-shadow: 0px 2px 5px 0px rgba(19, 23, 38, 0.05);
+        margin-bottom: 10px !important;
+    }
+
+    .wraperplan {
+        min-width: 120px;
+        max-height: 450px;
+        overflow-y: scroll;
+    }
+
+    body {
+        padding: 10px;
+    }
+
+    #exTab1 .tab-content {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    #exTab2 h3 {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    /* remove border radius for the tab */
+
+    #exTab1 .nav-pills > li > a {
+        border-radius: 0;
+    }
+
+    /* change border radius for the tab , apply corners on top*/
+
+    #exTab3 .nav-pills > li > a {
+        border-radius: 4px 4px 0 0;
+    }
+
+    #exTab3 .tab-content {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    ul#myTab {
+        display: flex;
+        width: 100%;
+    }
+
+    .tab-pane {
+        padding: 18px;
+    }
+
+    nav#myTab {
+        display: block;
+    }
+
+    .tab-content {
+        width: 100%;
+        background: #fff;
+    }
+
+    .yui .box {
+        margin: 0 !important;
+    }
+
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+    }
+
+
+    .box-header {
+        color: #172b4c;
+        display: block;
+        padding: 0.5rem 0rem !important;
+        position: relative;
+        border-bottom: 1px solid rgba(72, 94, 144, 0.16);
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-12 ">
+        <div class="box q1 bg-gradient-primary overflow-hidden pull-up">
+            <div class="box-body pr-0 pl-lg-50 pl-15 py-0">
+                <div class="row align-items-center">
+                    <div class="col-12 col-lg-8">
+                        <h3 class="font-size-25 text-white text-center">MATM</h3>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Tab-->
+
+
+<div id="DeviceConnectDiv" class="container text-center mt-10">
+    <div class="row justify-content-start">
+        <div class="col-6">
+            <div class="box q1 bg-gradient-primary overflow-hidden pull-up">
+                <div class="box-body pr-0 pl-lg-50 pl-15 py-0">
+                    <div class="row align-items-center">
+                        <div class="col-6 col-lg-10">
+ @*                            <h6 class="font-size-8 text-white text-left mt-3">Connect Device</h6> *@
+                            <!-- Add an ID for the Connect Device button -->
+                            <button id="connectDeviceBtn" class="btn btn-primary mt-3" onclick="handleConnectDevice()">Connect Device</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Status message will be shown here -->
+    <div id="deviceStatus" class="mt-3"></div>
+    <hr>
+</div>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="myTab" role="tablist">
+    <section>
+        <div class="box-header">
+            <ul class="nav nav-tabs customtab nav-justified" role="tablist">
+
+                <li class="nav-item">
+                    <button class="nav-link active disabled" id="status-tab" data-bs-toggle="tab" data-bs-target="#checkstatus" type="button" role="tab" aria-controls="Refund" aria-selected="false" disabled>Cash Withdraw</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link disabled" id="recharge-tab" data-bs-toggle="tab" data-bs-target="#recharge" type="button" role="tab" aria-controls="Benificiary" aria-selected="false" disabled>Balance Enquiry</button>
+                </li>
+
+                <li class="nav-item">
+                    <button class="nav-link disabled" id="adhaarpaytransaction-tab" data-bs-toggle="tab" data-bs-target="#adhaarpaytransaction" type="button" role="tab" aria-controls="adhaarpaytransaction" aria-selected="false" disabled>@*Adhaar Pay*@ Transaction Status Check</button>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <div class="tab-content" id="myTabContent">
+
+        <div class="tab-pane fade " id="recharge" role="tabpanel" aria-labelledby="home-tab">
+
+            <section class="content" id="dorechargedv">
+                <div class="container-fluid">
+                    <div class="col-md-12">
+
+                        <div id="enquerydv">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+
+                                    <div class="row">
+
+                                        <div class="col-4">
+                                            <span style="color:red"></span><label>Mobile Number :</label>
+                                            <input type="text" id="enquirymobileno" placeholder="Enter Mobile Number... " required name="mobilenumber" class="form-control" />
+
+                                        </div>
+
+                                        <div class="  col-4">
+                                            <br />
+                                            <input type="button" id="enquerybutton" style="width:100%;" value="ENQUERY" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="enquery()" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </section>
+
+        </div>
+        <div class="tab-pane fade show active" id="checkstatus" role="tabpanel" aria-labelledby="profile-tab">
+            <section class="content" id="checkstatusdv">
+                <div class="container-fluid">
+                    <div class="col-md-12">
+                        <div id="withdroldv">
+                            <div class="main-card mb-2 card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <!-- Mobile Number Input Field -->
+                                        <div class="row">
+                                            <span style="color:red"></span>
+                                            <label>Mobile Number :</label>
+                                            <input type="text" id="withdrowlmobileno" placeholder="Enter Mobile Number..." required name="mobilenumber" class="form-control" />
+                                        </div>
+
+                                        <!-- Amount Input Field -->
+                                        <div class="row">
+                                            <span style="color:red"></span>
+                                            <label>Amount :</label>
+                                            <input type="number" id="withdrowlamount" placeholder="Enter amount..." required name="is_iris" class="form-control" />
+
+                                         </div>
+                                         <div class="row">
+                                            <!-- Suggested Amounts Below -->
+                                            <div class="mt-1 d-flex flex-wrap gap-2">
+                                                <button type="button" class="btn btn-outline-primary btn-sm" onclick="setAmount(100)">100</button>
+                                                <button type="button" class="btn btn-outline-primary btn-sm" onclick="setAmount(500)">500</button>
+                                                <button type="button" class="btn btn-outline-primary btn-sm" onclick="setAmount(1000)">1000</button>
+                                                <button type="button" class="btn btn-outline-primary btn-sm" onclick="setAmount(1500)">1500</button>
+                                                <button type="button" class="btn btn-outline-primary btn-sm" onclick="setAmount(2000)">2000</button>
+                                                <button type="button" class="btn btn-outline-primary btn-sm" onclick="setAmount(2500)">2500</button>
+                                            </div>
+                                         </div>
+
+                                        <!-- Withdraw Button -->
+                                        <div class="col-4">
+                                            <br />
+                                            <input type="button" id="withdrowbtn" style="width:100%;" value="WITHDRAW" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="withdraw()" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+
+        <div class="tab-pane fade" id="adhaarpaytransaction" role="tabpanel" aria-labelledby="adhaarpay-tab">
+
+            <section class="content" id="adhaarpaytransactiondv">
+                <div class="container-fluid">
+
+                    <div class="col-md-12">
+
+                        <div id="withdroldv">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div style="display:none;">
+            <input type="text" id="txtcurrentlocation" placeholder="Location" />
+            <input type="text" id="lat" placeholder="lat" />
+            <input type="text" id="lon" placeholder="lon" />
+        </div>
+
+    </div>
+
+</nav>
+<!--Tab End-->
+
+<script>
+    async function checkBluetoothDeviceStatus() {
+        try {
+            // Request any Bluetooth device (this will show a prompt to the user)
+            const device = await navigator.bluetooth.requestDevice({
+                acceptAllDevices: true
+            });
+
+            if (device.gatt.connected) {
+                showDeviceStatus(true);
+            } else {
+                showDeviceStatus(false);
+            }
+        } catch (error) {
+            // If no device is connected or user cancels the request
+            showDeviceStatus(false);
+        }
+    }
+
+    function showDeviceStatus(isConnected) {
+        const statusElement = document.getElementById('deviceStatus');
+        const navTab = document.getElementById('myTab');
+        const navLinks = navTab.getElementsByClassName('nav-link');
+        var withdrawbtn = document.getElementById('withdrowbtn');
+
+        if (isConnected) {
+            statusElement.innerHTML = "Device is successfully connected";
+            statusElement.style.color = "green";
+
+            // Enable all nav links
+            for (let link of navLinks) {
+                link.disabled = false;
+                link.classList.remove('disabled');
+            }
+            withdrawbtn.disabled = false; 
+        } else {
+            statusElement.innerHTML = "Device is not connected";
+            statusElement.style.color = "red";
+
+            // Disable all nav links
+            for (let link of navLinks) {
+                link.disabled = true;
+                link.classList.add('disabled');
+            }
+            withdrawbtn.disabled = true;
+        }
+    }
+
+    // Handle Connect Device button click
+    async function handleConnectDevice() {
+        try {
+            // Check if Bluetooth is available on the browser
+            if (!navigator.bluetooth) {
+                alert('Bluetooth API is not available in this browser.');
+                return;
+            }
+
+            // Request to connect to the MATM device (this may show a browser prompt to select the device)
+            const device = await navigator.bluetooth.requestDevice({
+                filters: [{ services: ['battery_service'] }] // Replace with the actual service your MATM uses
+            });
+
+            const server = await device.gatt.connect();  // Connect to GATT server
+
+            // Handle successful connection
+            if (server.connected) {
+                alert("MATM Device connected successfully!");
+                showDeviceStatus(true);  // Update the UI to show connected status
+            }
+        } catch (error) {
+            console.error("Failed to connect to MATM device: ", error);
+            alert("Failed to connect to the MATM device.");
+        }
+    }
+
+    // Call the function when the page loads
+    window.onload = function () {
+        checkBluetoothDeviceStatus();
+    }
+
+    // Function to set the clicked suggested amount in the input field
+    function setAmount(amount) {
+        document.getElementById('withdrowlamount').value = amount;
+    }
+
+
+
+    $(document).ready(function () {
+        debugger;
+        var x = $("#txtcurrentlocation")
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.val("Geolocation is not supported by this browser.");
+        }
+        function showPosition(position) {
+            $("#lat").val(position.coords.latitude)
+            $("#lon").val(position.coords.longitude)
+        }
+
+    })
+
+    function enquery() {
+
+        if ($("#lat").val() == "" && $("#lon").val() == "") {
+            alert('Please On GPS !!');
+            return;
+        }
+        if ($("#enquirymobileno").val() == "") {
+            alert('Enter Mobile No !!');
+            $("#enquirymobileno").focus()
+            return;
+        }
+        if ($("#enquiryadhaarno").val() == "") {
+            alert('Enter Adhaar No !!');
+            $("#enquiryadhaarno").focus()
+            return;
+        }
+        if ($("#enquiryddlbankid").val() == "0") {
+            alert('Please Select Bank !!');
+            $("#enquiryddlbankid").focus()
+            return;
+        }
+        if ($("#enquiryremark").val() == "") {
+            alert('Please Enter Remark!!');
+            $("#enquiryremark").focus()
+            return;
+        }
+        var dataobj = new FormData;
+
+        dataobj.append("latitude", $("#lat").val());
+        dataobj.append("longitude", $("#lon").val());
+        dataobj.append("mobilenumber", $("#enquirymobileno").val());
+        dataobj.append("adhaarnumber", $("#enquiryadhaarno").val());
+        dataobj.append("nationalbankidentification", $("#enquiryddlbankid").val());
+        dataobj.append("requestremarks", $("#enquiryremark").val());
+        //dataobj.append("data", $("#txtrefid").val());
+        dataobj.append("is_iris", 'No');
+
+        $("#showSpinner").show();
+        $.ajax({
+            url: "/AEPS/Enquiry",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: dataobj,
+            success: function (r) {
+                r = jQuery.parseJSON(r)
+                console.log(r)
+                if (r.response_code == '1') {
+                    alert(r.message)
+                }
+                else if (r.response_code != 'undefined') {
+                    alert(r.message)
+                }
+                else {
+                    alert(r)
+                }
+                $("#showSpinner").hide();
+            },
+            error: function () {
+                alert("Error Occured !!!")
+                $("#showSpinner").hide();
+            }
+        })
+    }
+    function withdraw() {
+
+        if ($("#lat").val() == "" && $("#lon").val() == "") {
+            alert('Please On GPS !!');
+            return;
+        }
+        if ($("#withdrowlmobileno").val() == "") {
+            alert('Enter Mobile No !!');
+            $("#withdrowlmobileno").focus()
+            return;
+        }
+        if ($("#withdrowladhaarno").val() == "") {
+            alert('Enter Adhaar No !!');
+            $("#withdrowladhaarno").focus()
+            return;
+        }
+        if ($("#withdrowlamount").val() == "") {
+            alert('Please Enter Amount !!');
+            $("#withdrowlamount").focus()
+            return;
+        }
+        if ($("#withdrowlddlbankid").val() == "0") {
+            alert('Please Select Bank!!');
+            $("#withdrowlddlbankid").focus()
+            return;
+        }
+        if ($("#withdrowlremark").val() == "") {
+            alert('Please Enter Remark!!');
+            $("#withdrowlremark").focus()
+            return;
+        }
+        var dataobj = new FormData;
+
+        dataobj.append("latitude", $("#lat").val());
+        dataobj.append("longitude", $("#lon").val());
+        dataobj.append("mobilenumber", $("#withdrowlmobileno").val());
+        dataobj.append("adhaarnumber", $("#withdrowladhaarno").val());
+        dataobj.append("nationalbankidentification", $("#withdrowlddlbankid").val());
+        dataobj.append("requestremarks", $("#withdrowlremark").val());
+        dataobj.append("amount", $("#withdrowlamount").val());
+        //dataobj.append("data", $("#txtrefid").val());
+        dataobj.append("is_iris", 'No');
+
+        $("#showSpinner").show();
+        $.ajax({
+            url: "/AEPS/Withdraw",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: dataobj,
+            success: function (r) {
+                r = jQuery.parseJSON(r)
+                console.log(r)
+                if (r.response_code == '1') {
+                    alert(r.message)
+                }
+                else if (r.response_code != 'undefined') {
+                    alert(r.message)
+                }
+                else {
+                    alert(r)
+                }
+                $("#showSpinner").hide();
+            },
+            error: function () {
+                alert("Error Occured !!!")
+                $("#showSpinner").hide();
+            }
+        })
+    }
+
+    $(document).ready(function () {
+        $('select').select2();
+    });
+
+</script>
