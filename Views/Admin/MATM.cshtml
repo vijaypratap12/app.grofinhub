@@ -91,6 +91,28 @@
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
     }
+
+    #connectDeviceBtn {
+        background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 50px;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+        #connectDeviceBtn:hover {
+            background: linear-gradient(90deg, #182848 0%, #4b6cb7 100%);
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+    #deviceStatus {
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
 </style>
 
 <div class="row">
@@ -99,7 +121,7 @@
             <div class="box-body pr-0 pl-lg-50 pl-15 py-0">
                 <div class="row align-items-center">
                     <div class="col-12 col-lg-8">
-                        <h3 class="font-size-25 text-white text-center">MATM</h3>
+                        <h3 class="font-size-25 text-white text-center">M-ATM</h3>
 
                     </div>
 
@@ -111,23 +133,12 @@
 
 <!--Tab-->
 
+<div id="DeviceConnectDiv" class="container text-center mt-5">
+    <!-- Connect Device Button -->
+    <button id="connectDeviceBtn" class="btn btn-lg btn-gradient-primary mt-3" onclick="handleConnectDevice()">
+        Connect Device
+    </button>
 
-<div id="DeviceConnectDiv" class="container text-center mt-10">
-    <div class="row justify-content-start">
-        <div class="col-6">
-            <div class="box q1 bg-gradient-primary overflow-hidden pull-up">
-                <div class="box-body pr-0 pl-lg-50 pl-15 py-0">
-                    <div class="row align-items-center">
-                        <div class="col-6 col-lg-10">
- @*                            <h6 class="font-size-8 text-white text-left mt-3">Connect Device</h6> *@
-                            <!-- Add an ID for the Connect Device button -->
-                            <button id="connectDeviceBtn" class="btn btn-primary mt-3" onclick="handleConnectDevice()">Connect Device</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Status message will be shown here -->
     <div id="deviceStatus" class="mt-3"></div>
     <hr>
@@ -155,7 +166,6 @@
     <div class="tab-content" id="myTabContent">
 
         <div class="tab-pane fade " id="recharge" role="tabpanel" aria-labelledby="home-tab">
-
             <section class="content" id="dorechargedv">
                 <div class="container-fluid">
                     <div class="col-md-12">
@@ -174,7 +184,7 @@
 
                                         <div class="  col-4">
                                             <br />
-                                            <input type="button" id="enquerybutton" style="width:100%;" value="ENQUERY" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="enquery()" />
+                                            <input type="button" id="enquerybutton" style="width:100%;" value="Insert Card" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="enquery()" />
 
                                         </div>
                                     </div>
@@ -183,13 +193,10 @@
                             <br />
                         </div>
                     </div>
-
-
                 </div>
-
             </section>
-
         </div>
+
         <div class="tab-pane fade show active" id="checkstatus" role="tabpanel" aria-labelledby="profile-tab">
             <section class="content" id="checkstatusdv">
                 <div class="container-fluid">
@@ -227,7 +234,7 @@
                                         <!-- Withdraw Button -->
                                         <div class="col-4">
                                             <br />
-                                            <input type="button" id="withdrowbtn" style="width:100%;" value="WITHDRAW" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="withdraw()" />
+                                            <input type="button" id="withdrowbtn" style="width:100%;" value="Insert Card" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="withdraw()" />
                                         </div>
                                     </div>
                                 </div>
@@ -238,8 +245,6 @@
                 </div>
             </section>
         </div>
-
-
 
         <div class="tab-pane fade" id="adhaarpaytransaction" role="tabpanel" aria-labelledby="adhaarpay-tab">
 
@@ -356,8 +361,6 @@
         document.getElementById('withdrowlamount').value = amount;
     }
 
-
-
     $(document).ready(function () {
         debugger;
         var x = $("#txtcurrentlocation")
@@ -384,35 +387,16 @@
             $("#enquirymobileno").focus()
             return;
         }
-        if ($("#enquiryadhaarno").val() == "") {
-            alert('Enter Adhaar No !!');
-            $("#enquiryadhaarno").focus()
-            return;
-        }
-        if ($("#enquiryddlbankid").val() == "0") {
-            alert('Please Select Bank !!');
-            $("#enquiryddlbankid").focus()
-            return;
-        }
-        if ($("#enquiryremark").val() == "") {
-            alert('Please Enter Remark!!');
-            $("#enquiryremark").focus()
-            return;
-        }
+
         var dataobj = new FormData;
 
         dataobj.append("latitude", $("#lat").val());
         dataobj.append("longitude", $("#lon").val());
         dataobj.append("mobilenumber", $("#enquirymobileno").val());
-        dataobj.append("adhaarnumber", $("#enquiryadhaarno").val());
-        dataobj.append("nationalbankidentification", $("#enquiryddlbankid").val());
-        dataobj.append("requestremarks", $("#enquiryremark").val());
-        //dataobj.append("data", $("#txtrefid").val());
-        dataobj.append("is_iris", 'No');
 
         $("#showSpinner").show();
         $.ajax({
-            url: "/AEPS/Enquiry",
+            url: "/MATM/BalanceEnquiry",
             type: "POST",
             contentType: false,
             processData: false,
@@ -448,24 +432,9 @@
             $("#withdrowlmobileno").focus()
             return;
         }
-        if ($("#withdrowladhaarno").val() == "") {
-            alert('Enter Adhaar No !!');
-            $("#withdrowladhaarno").focus()
-            return;
-        }
         if ($("#withdrowlamount").val() == "") {
             alert('Please Enter Amount !!');
             $("#withdrowlamount").focus()
-            return;
-        }
-        if ($("#withdrowlddlbankid").val() == "0") {
-            alert('Please Select Bank!!');
-            $("#withdrowlddlbankid").focus()
-            return;
-        }
-        if ($("#withdrowlremark").val() == "") {
-            alert('Please Enter Remark!!');
-            $("#withdrowlremark").focus()
             return;
         }
         var dataobj = new FormData;
@@ -473,16 +442,11 @@
         dataobj.append("latitude", $("#lat").val());
         dataobj.append("longitude", $("#lon").val());
         dataobj.append("mobilenumber", $("#withdrowlmobileno").val());
-        dataobj.append("adhaarnumber", $("#withdrowladhaarno").val());
-        dataobj.append("nationalbankidentification", $("#withdrowlddlbankid").val());
-        dataobj.append("requestremarks", $("#withdrowlremark").val());
         dataobj.append("amount", $("#withdrowlamount").val());
-        //dataobj.append("data", $("#txtrefid").val());
-        dataobj.append("is_iris", 'No');
 
         $("#showSpinner").show();
         $.ajax({
-            url: "/AEPS/Withdraw",
+            url: "/MATM/CashWithdraw",
             type: "POST",
             contentType: false,
             processData: false,
