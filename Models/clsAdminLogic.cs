@@ -2041,6 +2041,19 @@ namespace SportsBattle.Models
             return dt;
         }
 
+        public int UpdateAeps2FARegistrationStatus(string userId, int status, string fingerprintData)
+        {
+            int result = 0;
+            SqlParameter[] parm = new SqlParameter[] {
+                 new SqlParameter("@userid",userId),
+                 new SqlParameter("@status", status),
+                 new SqlParameter("@fingerprintData", fingerprintData),
+                 new SqlParameter("@Type", "2FARegistration"),
+            };
+            result = db.ExecuteNonQueryProc("sp_updateAePS2FAStatus", parm);
+            return result;
+        }
+
     }
 
 }

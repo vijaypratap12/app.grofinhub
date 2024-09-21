@@ -77,7 +77,7 @@ namespace Grofinhub.Controllers
                     MerchantStatus = dt.Rows[0]["MerchantStatus"].ToString(),  // Replace with actual column name
                     AuthStatus = dt.Rows[0]["AuthStatus"].ToString(),          // Replace with actual column name
                     MobileNumber = dt.Rows[0]["MobileNumber"].ToString(),      // Replace with actual column name
-                    AadharNumber = maskedAadharNumber                         // Return the masked Aadhar number
+                    AadharNumber = aadharNumber                         // Return the masked Aadhar number
                 };
 
                 return Json(result);
@@ -103,7 +103,7 @@ namespace Grofinhub.Controllers
                 p.timestamp = DateTime.Now.ToString("yyyy-MM-dd");
                 p.accessmodetype = "SITE";
                 p.ipaddress = sm.GetIPAddress();
-                p.referenceno = sm.GetReferencenceId("", userid, "AEPSENQUIRY");
+                p.referenceno = sm.GetReferencenceId("", userid, "AEPS2FAREGISTRATION");
                 var client = new RestClient("https://sit.paysprint.in");
                 var request = new RestRequest("/service-api/api/v1/service/aeps/kyc/Twofactorkyc/registration", Method.Post);
                 request.AddHeader("accept", "application/json");
@@ -115,6 +115,11 @@ namespace Grofinhub.Controllers
                 request.AddHeader("Authorisedkey", DB.AuthorizationKey);
                 request.AddParameter("application/json", body, ParameterType.RequestBody);
                 RestResponse response = client.Execute(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    //save the status into the database
+                    var res = db.UpdateAeps2FARegistrationStatus(userid, 1, p.data);
+                }               
                 return Json(response.Content);
             }
             catch
@@ -138,24 +143,17 @@ namespace Grofinhub.Controllers
         {
             try
             {
-                string completeUrl = "http://localhost:11100/rd/capture";  // Mantra RD Service URL
+                string completeUrl = "https://127.0.0.1:11100/rd/capture";  // Mantra RD Service URL
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(completeUrl);
                 request.Method = "CAPTURE";  // Method to capture fingerprint
                 request.Credentials = CredentialCache.DefaultCredentials;
-
                 // The PidOptions string that specifies the capture options
-                string pidOptString = @"<PidOptions><Opts fCount=""1"" fType=""0"" iCount=""0"" 
-                                pCount=""0"" format=""0"" pidVer=""2.0"" timeout=""20000"" otp="""" 
-                                posh=""LEFT_INDEX"" env=""S"" wadh="""" /> 
-                                <Demo></Demo> <CustOpts> <Param name =""Param1"" value="""" /> 
-                                </CustOpts></PidOptions>";
-
+                string pidOptString = @"<?xml version=""1.0""?> <PidOptions ver=""1.0""> <Opts fCount=""1"" fType=""0"" iCount=""0"" pCount=""0"" pgCount=""2"" format=""0""   pidVer=""2.0"" timeout=""10000"" pTimeout=""20000"" posh=""UNKNOWN"" env=""P"" /> <CustOpts><Param name=""mantrakey"" value="""" /></CustOpts> </PidOptions>";
                 // Write the options to the request stream
                 using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
                 {
                     writer.WriteLine(pidOptString);
                 }
-
                 // Get response from the RD Service
                 WebResponse response = request.GetResponse();
                 using (StreamReader sr = new StreamReader(response.GetResponseStream()))

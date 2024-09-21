@@ -676,6 +676,7 @@
 
     function fetchUserData() {
         // Perform AJAX call to fetch 2FA status from your controller
+        $("#showSpinner").show();
         $.ajax({
             url: '/AEPS/Get2FAStatus', // URL of your controller action
             method: 'GET',
@@ -775,8 +776,20 @@
             url: '/AEPS/CaptureFingerprintData',  // URL for the backend API
             method: 'POST',
             success: function (response) {
-                if (response.fingerprintData.startsWith("Error")) {
-                    alert("Failed to capture fingerprint: " + response.fingerprintData);
+                // Parse the XML response
+                var parser = new DOMParser();
+                var xmlDoc = parser.parseFromString(response.fingerprintData, "text/xml");
+
+                // Extract the errCode from the XML
+                var errCode = xmlDoc.getElementsByTagName("Resp")[0].getAttribute("errCode");
+                var errInfo = xmlDoc.getElementsByTagName("Resp")[0].getAttribute("errInfo");
+
+                if (errCode !== "0") {
+                    // Error occurred, alert the user and retry fingerprint capture
+                    alert("Error reading fingerprint: " + errInfo);
+
+                    // Retry fingerprint capture after some delay (optional)
+                    setTimeout(captureFingerprint, 3000); // Retry after 3 seconds
                 } else {
                     // Success: You have the fingerprint data
                     var fingerprintData = response.fingerprintData;
@@ -785,46 +798,64 @@
                     var aadharNumber = document.getElementById('aadharNumber').innerText.replace(/[^0-9]/g, ''); // Unformatted Aadhar
                     var mobileNumber = document.getElementById('mobileNumber').innerText;
 
-                    console.log(aadharNumber);
-                    console.log(mobileNumber);
+                    //console.log(aadharNumber);
+                    //console.log(mobileNumber);
+                    //console.log(fingerprintData);
 
-                    // Send the fingerprint data to the 2FA Registration method
+                    // Call registerFingerprint function to send the data
                     registerFingerprint(aadharNumber, mobileNumber, fingerprintData);
                 }
             },
             error: function (err) {
                 console.error("AJAX error:", err);
                 alert("Error in capturing fingerprint.");
+                // Retry fingerprint capture after some delay (optional)
+                setTimeout(captureFingerprint, 3000); // Retry after 3 seconds
             }
         });
     }
 
     function registerFingerprint(aadharNumber, mobileNumber, fingerprintData) {
+
+        var dataobj = new FormData;
+
+        dataobj.append("mobilenumber", mobileNumber);
+        dataobj.append("aadharnumber", aadharNumber);
+        dataobj.append("data", fingerprintData);
+        dataobj.append("latitude", '22.44543');
+        dataobj.append("longitude", '77.434');
+        dataobj.append("accessmodeltype", 'SITE');
+        dataobj.append("ipaddress", '');
+        dataobj.append("referenceno", '');
+
         // Prepare XML data to send to the registration API
         var requestData = {
-            AadharNumber: aadharNumber,               // Aadhar number fetched from the frontend
-            MobileNumber: mobileNumber,               // Mobile number fetched from the frontend
-            FingerprintData: fingerprintData,         // Fingerprint data captured
-            Latitude: '22.44543',                     // Replace with actual latitude
-            Longitude: '77.434',                      // Replace with actual longitude
-            AccessModeType: 'SITE',                   // Mode of access (from your registration model)
-            IpAddress: '',                            // Use IP fetched from backend
-            ReferenceNo: '',                          // Generated from the backend
+            aadharnumber: aadharNumber,               // Aadhar number fetched from the frontend
+            mobilenumber: mobileNumber,               // Mobile number fetched from the frontend
+            data: fingerprintData,         // Fingerprint data captured
+            latitude: '22.44543',                     // Replace with actual latitude
+            longitude: '77.434',                      // Replace with actual longitude
+            accessmodetype: 'SITE',                   // Mode of access (from your registration model)
+            ipaddress: '',                            // Use IP fetched from backend
+            referenceno: '',                          // Generated from the backend
         };
-        console.log(aadharNumber);
-        console.log(mobileNumber);
+        //console.log(requestData);
+        //console.log(dataobj);
 
+        $("#showSpinner").show();
         $.ajax({
             url: '/AEPS/Registration2FA',  // Your 2FA Registration API
             method: 'POST',
-            data: JSON.stringify(requestData),
-            contentType: 'application/xml',
+            data: dataobj,
+            contentType: false,  // Set to application/json
+            processData: false,
             success: function (response) {
                 if (response.includes("Something Went Wrong")) {
                     alert("Error in registration: " + response);
                 } else {
                     alert("Fingerprint captured and registered successfully!");
                     // Update status or UI based on success
+                    fetchUserData();
                 }
             },
             error: function (err) {
@@ -1052,20 +1083,20 @@
             processData: false,
             data: dataobj,
             success: function (r) {
-        r=jQuery.parseJSON(r)
-    console.log(r)
-    if(r.response_code=='1')
-    {
-                    alert(r.message)
-    }
-    else if (r.response_code!='undefined')
-    {
-                    alert(r.message)
-    }
-    else
-    {
-        alert(r)
-    }
+             r=jQuery.parseJSON(r)
+             console.log(r)
+                if(r.response_code=='1')
+                {
+                                alert(r.message)
+                }
+                else if (r.response_code!='undefined')
+                {
+                                alert(r.message)
+                }
+                else
+                {
+                    alert(r)
+                }
                 $("#showSpinner").hide();
             },
             error: function () {

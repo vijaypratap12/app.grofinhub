@@ -1136,7 +1136,7 @@ namespace SportsBattle.Models
         public string mobilenumber { get; set; }
         public string referenceno { get; set; }
         public string ipaddress { get; set; }
-        public string adhaarnumber { get; set; }
+        public string aadharnumber { get; set; }
         public string accessmodetype { get; set; }
         public string data { get; set; }
         public string timestamp { get; set; }
