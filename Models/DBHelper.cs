@@ -56,20 +56,20 @@ namespace SportsBattle.Models
             try
             {
                 //string str1 = System.Configuration.ConfigurationManager.ConnectionStrings["conStr"].ToString();
-                using (SqlConnection conn = new SqlConnection(consString))
-                {
-                    using (SqlCommand cmd = new SqlCommand(cmdText, conn))
+                //using (SqlConnection conn = new SqlConnection(consString))
+                //{
+                    using (SqlCommand cmd = new SqlCommand(cmdText, con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Clear();
                         if (prms != null)
                         {
-                            foreach (SqlParameter p in prms)
+                            foreach (var p in prms)
                             {
                                 cmd.Parameters.Add(p);
                             }
                         }
-                        conn.Open();
+                        con.Open();
                         try
                         {
                             r = cmd.ExecuteNonQuery();
@@ -80,10 +80,10 @@ namespace SportsBattle.Models
                         }
                         finally
                         {
-                            conn.Close();
+                            con.Close();
                         }
                     }
-                }
+                //}
             }
             catch (Exception ex)
             {

@@ -637,7 +637,6 @@
 <!--Tab End-->
 
 <script>
-
         // JavaScript to handle button clicks and display the authentication div
     // Function to toggle the visibility of authDiv
     function toggleAuthDiv() {
@@ -772,6 +771,10 @@
     }
 
     function captureFingerprint() {
+
+        var authStatus = document.getElementById('authStatus').innerHTML;
+        var marchantStatus = document.getElementById('merchantStatus').innerHTML;
+
         $.ajax({
             url: '/AEPS/CaptureFingerprintData',  // URL for the backend API
             method: 'POST',
@@ -803,7 +806,12 @@
                     //console.log(fingerprintData);
 
                     // Call registerFingerprint function to send the data
-                    registerFingerprint(aadharNumber, mobileNumber, fingerprintData);
+                    if (marchantStatus === 'Pending') {
+                        registerFingerprint(aadharNumber, mobileNumber, fingerprintData);
+                    }
+                    else if(authStatus==='Pending'){
+                        dailyAuthentication(aadharNumber, mobileNumber, fingerprintData)
+                    }
                 }
             },
             error: function (err) {
@@ -848,6 +856,55 @@
             method: 'POST',
             data: dataobj,
             contentType: false,  // Set to application/json
+            processData: false,
+            success: function (response) {
+                if (response.includes("Something Went Wrong")) {
+                    alert("Error in registration: " + response);
+                } else {
+                    alert("Fingerprint captured and registered successfully!");
+                    // Update status or UI based on success
+                    fetchUserData();
+                }
+            },
+            error: function (err) {
+                console.error("Error during AJAX call:", err);
+                alert("Failed to register fingerprint!");
+            }
+        });
+    }
+
+    function dailyAuthentication(aadharNumber, mobileNumber, fingerprintData) {
+        var dataobj = new FormData;
+
+        dataobj.append("mobilenumber", mobileNumber);
+        dataobj.append("aadharnumber", aadharNumber);
+        dataobj.append("data", fingerprintData);
+        dataobj.append("latitude", '22.44543');
+        dataobj.append("longitude", '77.434');
+        dataobj.append("accessmodeltype", 'SITE');
+        dataobj.append("ipaddress", '');
+        dataobj.append("referenceno", '');
+
+        // Prepare XML data to send to the registration API
+        var requestData = {
+            aadharnumber: aadharNumber,               // Aadhar number fetched from the frontend
+            mobilenumber: mobileNumber,               // Mobile number fetched from the frontend
+            data: fingerprintData,         // Fingerprint data captured
+            latitude: '22.44543',                     // Replace with actual latitude
+            longitude: '77.434',                      // Replace with actual longitude
+            accessmodetype: 'SITE',                   // Mode of access (from your registration model)
+            ipaddress: '',                            // Use IP fetched from backend
+            referenceno: '',                          // Generated from the backend
+        };
+        //console.log(requestData);
+        //console.log(dataobj);
+
+        $("#showSpinner").show();
+        $.ajax({
+            url: '/AEPS/DailyAEPSAuth',  // Your daily auth API
+            method: 'POST',
+            data: dataobj,
+            contentType: false, 
             processData: false,
             success: function (response) {
                 if (response.includes("Something Went Wrong")) {
@@ -1072,7 +1129,6 @@
         dataobj.append("adhaarnumber", $("#ministatmentadhaarno").val());
         dataobj.append("nationalbankidentification", $("#ministatmentddlbackid").val());
         dataobj.append("requestremarks", $("#ministatmentremark").val());
-        //dataobj.append("data", $("#txtrefid").val());
         dataobj.append("is_iris", 'No');
 
         $("#showSpinner").show();
