@@ -3075,6 +3075,8 @@ namespace SportsBattle.Controllers
 			{
 				//string body = CommonClasses.DecryptAESIn(data, CommonClasses.crypt_key, CommonClasses.IV);
 				//var result = CommonClasses.DecyptJWTData(data);
+				var result = CommonClasses.DecryptOnboardingToken(data);
+                int res = db.SaveUserVenderOnboardin(result);
             }
 			DataTable dt = db.KYCDetails(new KYCDetailsBody() { Action = "2" });
 			return View(dt);
@@ -3084,54 +3086,54 @@ namespace SportsBattle.Controllers
 			string msg = "";
 			try
 			{
-				//if (obj.Aadharpicfront != null)
-				//{
-				//	string DefaultImagePath = "/Upload/ScreenShot/" + obj.Partnerid + "AdharFrontKYC_" + DateTime.Now.Ticks + ".jpg";
-				//	string DefaultImagePath1 = "wwwroot" + DefaultImagePath;
+				if (obj.Aadharpicfront != null)
+				{
+					string DefaultImagePath = "/Upload/ScreenShot/" + obj.Partnerid + "AdharFrontKYC_" + DateTime.Now.Ticks + ".jpg";
+					string DefaultImagePath1 = "wwwroot" + DefaultImagePath;
 
-				//	using (var stream = new FileStream(DefaultImagePath1, FileMode.Create))
-				//	{
-				//		obj.Aadharpicfront.CopyTo(stream);
-				//	}
-				//	//para.AdharPicFront.Save(DefaultImagePath1);
-				//	obj.Aadharpicfrontname = "http://grofinapi.sigmasoftwares.org/" + DefaultImagePath;
-				//}
-				//if (obj.Aadharpicback != null)
-				//{
-				//	string DefaultImagePath = "/Upload/ScreenShot/" + obj.Partnerid + "AdharBackKYC_" + DateTime.Now.Ticks + ".jpg";
-				//	string DefaultImagePath1 = "wwwroot" + DefaultImagePath;
+					using (var stream = new FileStream(DefaultImagePath1, FileMode.Create))
+					{
+						obj.Aadharpicfront.CopyTo(stream);
+					}
+					//para.AdharPicFront.Save(DefaultImagePath1);
+					obj.Aadharpicfrontname = "http://grofinapi.sigmasoftwares.org/" + DefaultImagePath;
+				}
+				if (obj.Aadharpicback != null)
+				{
+					string DefaultImagePath = "/Upload/ScreenShot/" + obj.Partnerid + "AdharBackKYC_" + DateTime.Now.Ticks + ".jpg";
+					string DefaultImagePath1 = "wwwroot" + DefaultImagePath;
 
-				//	using (var stream = new FileStream(DefaultImagePath1, FileMode.Create))
-				//	{
-				//		obj.Aadharpicback.CopyTo(stream);
-				//	}
-				//	//para.AdharPicFront.Save(DefaultImagePath1);
-				//	obj.Aadharpicbackname = "http://grofinapi.sigmasoftwares.org/" + DefaultImagePath;
-				//}
-				//if (obj.Panpicfront != null)
-				//{
-				//	string DefaultImagePath = "/Upload/ScreenShot/" + obj.Partnerid + "PanFrontKYC_" + DateTime.Now.Ticks + ".jpg";
-				//	string DefaultImagePath1 = "wwwroot" + DefaultImagePath;
+					using (var stream = new FileStream(DefaultImagePath1, FileMode.Create))
+					{
+						obj.Aadharpicback.CopyTo(stream);
+					}
+					//para.AdharPicFront.Save(DefaultImagePath1);
+					obj.Aadharpicbackname = "http://grofinapi.sigmasoftwares.org/" + DefaultImagePath;
+				}
+				if (obj.Panpicfront != null)
+				{
+					string DefaultImagePath = "/Upload/ScreenShot/" + obj.Partnerid + "PanFrontKYC_" + DateTime.Now.Ticks + ".jpg";
+					string DefaultImagePath1 = "wwwroot" + DefaultImagePath;
 
-				//	using (var stream = new FileStream(DefaultImagePath1, FileMode.Create))
-				//	{
-				//		obj.Panpicfront.CopyTo(stream);
-				//	}
-				//	//para.AdharPicFront.Save(DefaultImagePath1);
-				//	obj.Panpicfrontname = "http://grofinapi.sigmasoftwares.org/" + DefaultImagePath;
-				//}
-				//if (obj.Panpicback != null)
-				//{
-				//	string DefaultImagePath = "/Upload/ScreenShot/" + obj.Partnerid + "PanBackKYC_" + DateTime.Now.Ticks + ".jpg";
-				//	string DefaultImagePath1 = "wwwroot" + DefaultImagePath;
+					using (var stream = new FileStream(DefaultImagePath1, FileMode.Create))
+					{
+						obj.Panpicfront.CopyTo(stream);
+					}
+					//para.AdharPicFront.Save(DefaultImagePath1);
+					obj.Panpicfrontname = "http://grofinapi.sigmasoftwares.org/" + DefaultImagePath;
+				}
+				if (obj.Panpicback != null)
+				{
+					string DefaultImagePath = "/Upload/ScreenShot/" + obj.Partnerid + "PanBackKYC_" + DateTime.Now.Ticks + ".jpg";
+					string DefaultImagePath1 = "wwwroot" + DefaultImagePath;
 
-				//	using (var stream = new FileStream(DefaultImagePath1, FileMode.Create))
-				//	{
-				//		obj.Panpicback.CopyTo(stream);
-				//	}
-				//	//para.AdharPicFront.Save(DefaultImagePath1);
-				//	obj.Panpicbackname = "http://grofinapi.sigmasoftwares.org/" + DefaultImagePath;
-				//}
+					using (var stream = new FileStream(DefaultImagePath1, FileMode.Create))
+					{
+						obj.Panpicback.CopyTo(stream);
+					}
+					//para.AdharPicFront.Save(DefaultImagePath1);
+					obj.Panpicbackname = "http://grofinapi.sigmasoftwares.org/" + DefaultImagePath;
+				}
 				obj.Action = "1";
 
 				DataTable dt = db.KYCDetails(obj);

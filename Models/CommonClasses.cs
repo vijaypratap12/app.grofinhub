@@ -463,6 +463,32 @@ namespace SportsBattle.Models
             }
             return principal;
         }
+        public static OnboardingResponse DecryptOnboardingToken(string token)
+        {
+            OnboardingResponse onboardingResponse = new OnboardingResponse();
+            // Split the JWT token into parts
+            string[] parts = token.Split('.');
+
+            // Decode the header
+            string header = Base64UrlDecode(parts[0]);
+
+            // Decode the payload (claims)
+            string payload = Base64UrlDecode(parts[1]);
+            onboardingResponse = JsonConvert.DeserializeObject<OnboardingResponse>(payload);
+            return onboardingResponse;
+        }
+      
+        public static string Base64UrlDecode(string input)
+        {
+            string output = input.Replace('-', '+').Replace('_', '/');
+            switch (output.Length % 4)
+            {
+                case 2: output += "=="; break;
+                case 3: output += "="; break;
+            }
+            var converted = Convert.FromBase64String(output);
+            return Encoding.UTF8.GetString(converted);
+        }
         public static string EncryptTestWa(string plainText, string crypt_key, string init_Vector)
         {
             byte[] Key = Encoding.ASCII.GetBytes(crypt_key);

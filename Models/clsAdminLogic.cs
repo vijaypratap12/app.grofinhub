@@ -1487,6 +1487,29 @@ namespace SportsBattle.Models
             return dt;
         }
 
+        public int SaveUserVenderOnboardin(OnboardingResponse p)
+        {
+            int result = 0;
+            try
+            {
+                SqlParameter[] parm = new SqlParameter[] {
+                new SqlParameter("@onboard_pending", p.status),
+                 new SqlParameter("@refno",p.refno),
+                 new SqlParameter("@txnId",p.txnid),
+                 new SqlParameter("@statusbank2",p.statusbank2),
+                 new SqlParameter("@marchantcode",p.merchantcode),
+                 new SqlParameter("@mobile",p.mobile),
+                 new SqlParameter("@partenerid",p.partnerid)
+                  };
+                result = db.ExecuteNonQueryProc("SP_UpdateVenderOnboarding", parm);
+            }
+            catch
+            {
+                return 0; 
+            }
+            return result;
+        }
+
 
         #region AdminDashboard 2023/05/06
 
