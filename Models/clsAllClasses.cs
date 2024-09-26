@@ -1136,12 +1136,20 @@ namespace SportsBattle.Models
         public string mobilenumber { get; set; }
         public string referenceno { get; set; }
         public string ipaddress { get; set; }
-        public string aadharnumber { get; set; }
+        public string adhaarnumber { get; set; }
         public string accessmodetype { get; set; }
         public string data { get; set; }
         public string timestamp { get; set; }
         public string submerchantid { get; set; }
     }
+    public class AEPS2FARagistrationResponse
+    {
+        public int response_code { get; set; }
+        public bool status { get; set; }
+        public string message { get; set; }
+        public string errorcode { get; set; }
+    }
+
 
     public class MATMWithdrawStatusPara
     {

@@ -93,6 +93,7 @@ namespace Grofinhub.Controllers
         {
             try
             {
+                AEPS2FARagistrationResponse result = new AEPS2FARagistrationResponse();
                 if (Convert.ToString(HttpContext.Session.GetString("Role")) != "2")
                 {
                     return Json("YOU ARE NOT PARMITED USER !!");
@@ -103,7 +104,7 @@ namespace Grofinhub.Controllers
                 p.submerchantid = userid;
                 p.timestamp = DateTime.Now.ToString("yyyy-MM-dd");
                 p.accessmodetype = "SITE";
-                p.ipaddress = sm.GetIPAddress();
+                p.ipaddress = sm.GetIPAddressNew();
                 p.referenceno = sm.GetReferencenceId("", userid, "AEPS2FAREGISTRATION");
                 var client = new RestClient("https://sit.paysprint.in");
                 var request = new RestRequest("/service-api/api/v1/service/aeps/kyc/Twofactorkyc/registration", Method.Post);
@@ -115,12 +116,22 @@ namespace Grofinhub.Controllers
                 request.AddHeader("Token", sm.GetToken());
                 request.AddHeader("Authorisedkey", DB.AuthorizationKey);
                 request.AddParameter("application/json", body, ParameterType.RequestBody);
-                RestResponse response = client.Execute(request);
+                RestResponse response = client.Execute(request);            
                 if (response.IsSuccessStatusCode)
                 {
-                    //save the status into the database
-                    var res = db.UpdateAeps2FARegistrationStatus(userid, 1, p.data, "2FARegistration");
-                }               
+                     result = JsonConvert.DeserializeObject<AEPS2FARagistrationResponse>(response.Content);
+                    if (result.response_code == 1)
+                    {
+                        //save the status into the database
+                        var res = db.UpdateAeps2FARegistrationStatus(userid, 1, p.data, "2FARegistration");
+                        return Json(response.Content); 
+                    }
+                    else
+                    {
+                        // Return failure message with response data
+                        return Json(new { status = false, message = "2FA Registration failed: " + result.message, response = result });
+                    }
+                }
                 return Json(response.Content);
             }
             catch
@@ -143,7 +154,7 @@ namespace Grofinhub.Controllers
                 p.submerchantid = userid;
                 p.timestamp = DateTime.Now.ToString("yyyy-MM-dd");
                 p.accessmodetype = "SITE";
-                p.ipaddress = sm.GetIPAddress();
+                p.ipaddress = sm.GetIPAddressNew();
                 p.referenceno = sm.GetReferencenceId("", userid, "AEPSDAILYAUTH");
                 var client = new RestClient("https://sit.paysprint.in");
                 var request = new RestRequest("/service-api/api/v1/service/aeps/kyc/Twofactorkyc/authentication", Method.Post);

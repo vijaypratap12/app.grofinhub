@@ -828,7 +828,7 @@
         var dataobj = new FormData;
 
         dataobj.append("mobilenumber", mobileNumber);
-        dataobj.append("aadharnumber", aadharNumber);
+        dataobj.append("adhaarnumber", aadharNumber);
         dataobj.append("data", fingerprintData);
         dataobj.append("latitude", '22.44543');
         dataobj.append("longitude", '77.434');
@@ -857,14 +857,21 @@
             data: dataobj,
             contentType: false,  // Set to application/json
             processData: false,
-            success: function (response) {
-                if (response.includes("Something Went Wrong")) {
-                    alert("Error in registration: " + response);
-                } else {
-                    alert("Fingerprint captured and registered successfully!");
+            success: function (r) {
+                r = jQuery.parseJSON(r)
+                console.log(r)
+                if (r.response_code == '1') {
+                    alert(r.message)
                     // Update status or UI based on success
                     fetchUserData();
                 }
+                else if (r.response_code != 'undefined') {
+                    alert(r.message)
+                }
+                else {
+                    alert(r)
+                }
+                $("#showSpinner").hide();
             },
             error: function (err) {
                 console.error("Error during AJAX call:", err);
@@ -877,7 +884,7 @@
         var dataobj = new FormData;
 
         dataobj.append("mobilenumber", mobileNumber);
-        dataobj.append("aadharnumber", aadharNumber);
+        dataobj.append("adhaarnumber", aadharNumber);
         dataobj.append("data", fingerprintData);
         dataobj.append("latitude", '22.44543');
         dataobj.append("longitude", '77.434');
@@ -906,14 +913,21 @@
             data: dataobj,
             contentType: false, 
             processData: false,
-            success: function (response) {
-                if (response.includes("Something Went Wrong")) {
-                    alert("Error in registration: " + response);
-                } else {
-                    alert("Fingerprint captured and registered successfully!");
+            success: function (r) {
+                r = jQuery.parseJSON(r)
+                console.log(r)
+                if (r.response_code == '1') {
+                    alert(r.message)
                     // Update status or UI based on success
                     fetchUserData();
                 }
+                else if (r.response_code != 'undefined') {
+                    alert(r.message)
+                }
+                else {
+                    alert(r)
+                }
+                $("#showSpinner").hide();
             },
             error: function (err) {
                 console.error("Error during AJAX call:", err);

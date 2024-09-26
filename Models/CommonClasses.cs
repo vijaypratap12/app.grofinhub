@@ -724,6 +724,23 @@ namespace SportsBattle.Models
             string ipaddress = Dns.GetHostByName(hostName).AddressList[0].ToString();
             return ipaddress;
         }
+
+        public string GetIPAddressNew()
+        {
+            string hostName = Dns.GetHostName(); // Get the host name of the local machine
+            IPHostEntry hostEntry = Dns.GetHostEntry(hostName); // Get the IPHostEntry containing address information
+
+            foreach (IPAddress ip in hostEntry.AddressList)
+            {
+                // If you want to get only IPv4 addresses, skip IPv6
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+
+            return "";
+        }
     }
 
 }
