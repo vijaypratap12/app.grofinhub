@@ -10612,3 +10612,5 @@ C:\Project\app.grofinhub\app.grofinhub\obj\Debug\net6.0\refint\Grofinhub.dll
 C:\Project\app.grofinhub\app.grofinhub\obj\Debug\net6.0\Grofinhub.pdb
 C:\Project\app.grofinhub\app.grofinhub\obj\Debug\net6.0\Grofinhub.genruntimeconfig.cache
 C:\Project\app.grofinhub\app.grofinhub\obj\Debug\net6.0\ref\Grofinhub.dll
+C:\Project\app.grofinhub\app.grofinhub\bin\Debug\net6.0\BouncyCastle.Cryptography.dll
+C:\Project\app.grofinhub\app.grofinhub\bin\Debug\net6.0\itextsharp.dll

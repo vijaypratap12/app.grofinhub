@@ -13,6 +13,9 @@ using Nancy;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Drawing.Printing;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
 
 namespace Grofinhub.Controllers
 {
@@ -226,6 +229,7 @@ namespace Grofinhub.Controllers
         {
             try
             {
+                p.data = CaptureFingerprint();
                 if (Convert.ToString(HttpContext.Session.GetString("Role")) != "2")
                 {
                     return Json("YOU ARE NOT PARMITED USER !!");
@@ -238,7 +242,7 @@ namespace Grofinhub.Controllers
                 p.timestamp = DateTime.Now.ToString("yyyy-MM-dd");
                 p.pipe = "bank1";
                 p.accessmodetype = "SITE";
-                p.ipaddress = sm.GetIPAddress();
+                p.ipaddress = sm.GetIPAddressNew();
                 p.referenceno = sm.GetReferencenceId("", userid, "AEPSENQUIRY");
                 var client = new RestClient("https://sit.paysprint.in");
                 var request = new RestRequest("/service-api/api/v1/service/aeps/balanceenquiry/index", Method.Post);
@@ -262,6 +266,7 @@ namespace Grofinhub.Controllers
         {
             try
             {
+                p.data = CaptureFingerprint();
                 if (Convert.ToString(HttpContext.Session.GetString("Role")) != "2")
                 {
                     return Json("YOU ARE NOT PARMITED USER !!");
@@ -323,7 +328,7 @@ namespace Grofinhub.Controllers
                 p.timestamp = DateTime.Now.ToString("yyyy-MM-dd");
                 p.pipe = "bank1";
                 p.accessmodetype = "SITE";
-                p.ipaddress = sm.GetIPAddress();
+                p.ipaddress = sm.GetIPAddressNew();
                 p.referenceno = sm.GetReferencenceId("", userid, "AEPSMINISTATMENT");
                 var client = new RestClient("https://sit.paysprint.in");
                 var request = new RestRequest("/service-api/api/v1/service/aeps/ministatement/index", Method.Post);
@@ -377,8 +382,10 @@ namespace Grofinhub.Controllers
 
         public JsonResult AdharPay(AEPSWithdraw p)
         {
+            Transactionstatus obj = new Transactionstatus();
             try
             {
+                p.data = CaptureFingerprint();
                 if (Convert.ToString(HttpContext.Session.GetString("Role")) != "2")
                 {
                     return Json("YOU ARE NOT PARMITED USER !!");
@@ -391,9 +398,9 @@ namespace Grofinhub.Controllers
                 p.timestamp = DateTime.Now.ToString("yyyy-MM-dd");
                 p.pipe = "bank1";
                 p.accessmodetype = "SITE";
-                p.ipaddress = sm.GetIPAddress();
+                p.ipaddress = sm.GetIPAddressNew();
                 p.referenceno = sm.GetReferencenceId(p.amount.ToString(), userid, "AEPSWITHDRAWL");
-                var client = new RestClient("https://paysprint.in");
+                var client = new RestClient("https://sit.paysprint.in");
                 var request = new RestRequest("/service-api/api/v1/service/aadharpay/aadharpay/index", Method.Post);
                 request.AddHeader("accept", "application/json");
                 string body = JsonConvert.SerializeObject(p);
@@ -405,16 +412,18 @@ namespace Grofinhub.Controllers
                 request.AddParameter("application/json", body, ParameterType.RequestBody);
                 RestResponse response = client.Execute(request);
                 AEPSWithdrowlRes resdata = new JavaScriptSerializer().Deserialize<AEPSWithdrowlRes>(response.Content);
-                AEPSTreeWay treeWay = new AEPSTreeWay() { reference = p.referenceno };
+                //AEPSTreeWay treeWay = new AEPSTreeWay() { reference = p.referenceno };
                 if (resdata.status == true && resdata.response_code == 1)
                 {
-                    treeWay.status = "success";
+                    obj.referenceid = p.referenceno;
+                    var result = AEPSAdharPayTansactionStatus(obj);
+                    //treeWay.status = "success";
                 }
-                else
-                {
-                    treeWay.status = "failed";
-                }
-                sm.WithdrawThreeway(treeWay);
+                //else
+                //{
+                //    treeWay.status = "failed";
+                //}
+                //sm.WithdrawThreeway(treeWay);
                 return Json(response.Content);
             }
             catch
@@ -423,20 +432,20 @@ namespace Grofinhub.Controllers
             }
         }
 
-        public JsonResult AEPSAdharPayTansactionStatus(MATMWithdrawStatusPara P)
+        public JsonResult AEPSAdharPayTansactionStatus(Transactionstatus refrenceId)
         {
             try
             {
-                P.reference = "fdtg435445r23fedvs";
+                //P.reference = "fdtg435445r23fedvs";
                 if (Convert.ToString(HttpContext.Session.GetString("Role")) != "2")
                 {
                     return Json("YOU ARE NOT PARMITED USER !!");
                 }
                 string userid = Convert.ToString(HttpContext.Session.GetString("UserId"));
-                var client = new RestClient("https://paysprint.in");
+                var client = new RestClient("https://sit.paysprint.in");
                 var request = new RestRequest("/service-api/api/v1/service/aadharpay/aadharpayquery/query", Method.Post);
                 request.AddHeader("accept", "application/json");
-                string body = JsonConvert.SerializeObject(P);
+                string body = JsonConvert.SerializeObject(refrenceId);
                 body = CommonClasses.CryptAESIn(body, CommonClasses.crypt_key, CommonClasses.IV);
                 RootAEPSinpt data = new RootAEPSinpt() { body = body };
                 body = JsonConvert.SerializeObject(data);
@@ -451,6 +460,46 @@ namespace Grofinhub.Controllers
                 return Json("Something Went Wrong !!");
             }
 
+        }
+
+        [HttpPost]
+        public IActionResult GeneratePDF(PDFData data)
+        {
+            if (data == null)
+            {
+                return BadRequest("Invalid data.");
+            }
+
+            // Create a memory stream to store the PDF
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                // Create a new PDF document
+                Document pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, memoryStream);
+                pdfDoc.Open();
+
+                // Add content to the PDF
+                pdfDoc.Add(new Paragraph($"Name: {data.Name}"));
+                pdfDoc.Add(new Paragraph($"Description: {data.Description}"));
+                pdfDoc.Add(new Paragraph($"Status: {data.Status}"));
+                pdfDoc.Add(new Paragraph($"Message: {data.Message}"));
+                pdfDoc.Add(new Paragraph($"Acknowledgement No: {data.AcknowledgementNo}"));
+                pdfDoc.Add(new Paragraph($"Amount: {data.Amount}"));
+                pdfDoc.Add(new Paragraph($"Balance Amount: {data.BalanceAmount}"));
+                pdfDoc.Add(new Paragraph($"Bank RRN: {data.BankRRN}"));
+                pdfDoc.Add(new Paragraph($"Bank IIN: {data.BankIIN}"));
+                pdfDoc.Add(new Paragraph($"Response Code: {data.ResponseCode}"));
+                pdfDoc.Add(new Paragraph($"Error Code: {data.ErrorCode}"));
+                pdfDoc.Add(new Paragraph($"Client Ref No: {data.ClientRefNo}"));
+                pdfDoc.Add(new Paragraph($"Date & Time: {data.DateTime}")); // For mini statement
+
+                // Close the document
+                pdfDoc.Close();
+
+                // Return the PDF file as a byte array
+                byte[] bytes = memoryStream.ToArray();
+                return File(bytes, "application/pdf", "GeneratedReport.pdf");
+            }
         }
 
     }

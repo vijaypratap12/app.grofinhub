@@ -1149,6 +1149,24 @@ namespace SportsBattle.Models
         public string message { get; set; }
         public string errorcode { get; set; }
     }
+    public class PDFData
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Status { get; set; }
+        public string Message { get; set; }
+        public string AcknowledgementNo { get; set; }
+        public string Amount { get; set; }
+        public string BalanceAmount { get; set; }
+        public string BankRRN { get; set; }
+        public string BankIIN { get; set; }
+        public string ResponseCode { get; set; }
+        public string ErrorCode { get; set; }
+        public string ClientRefNo { get; set; }
+        public string DateTime { get; set; }
+        public string MiniBalanceAmount { get; set; }
+        public string MiniErrorCode { get; set; }
+    }
 
 
     public class MATMWithdrawStatusPara

@@ -151,6 +151,10 @@
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
+
+    #balanceEnquiryResponse {
+        display: none; /* Initially hidden */
+    }
 </style>
 
 <div class="row">
@@ -247,17 +251,17 @@
             <li class="nav-item">
                 <button class="nav-link" id="ministatement-tab" data-bs-toggle="tab" data-bs-target="#ministatement" type="button" role="tab" aria-controls="mimistatement" aria-selected="false">MiniStatement</button>
             </li>
-                <li class="nav-item">
+@*                 <li class="nav-item">
                     <button class="nav-link" id="transaction-tab" data-bs-toggle="tab" data-bs-target="#transaction" type="button" role="tab" aria-controls="transaction" aria-selected="false">Withdrawl Status</button>
-                </li>
+                </li> *@
 
                 <li class="nav-item">
                     <button class="nav-link" id="adhaarpay-tab" data-bs-toggle="tab" data-bs-target="#adhaarpay" type="button" role="tab" aria-controls="adhaarpay" aria-selected="false">Adhaar Pay</button>
                 </li>
 
-                <li class="nav-item">
-                    <button class="nav-link" id="adhaarpaytransaction-tab" data-bs-toggle="tab" data-bs-target="#adhaarpaytransaction" type="button" role="tab" aria-controls="adhaarpaytransaction" aria-selected="false">@*Adhaar Pay*@ Transaction Status</button>
-                </li>
+@*                 <li class="nav-item">
+                    <button class="nav-link" id="adhaarpaytransaction-tab" data-bs-toggle="tab" data-bs-target="#adhaarpaytransaction" type="button" role="tab" aria-controls="adhaarpaytransaction" aria-selected="false">Transaction Status</button>
+                </li> *@
         </ul> 
     </div>
 
@@ -634,7 +638,83 @@
 
 
 </nav>
+
 <!--Tab End-->
+
+<div id="balanceEnquiryResponse" style="display: none;">
+    <h3>Balance Enquiry Result</h3>
+    <div class="card">
+        <div class="card-body">
+            <p><strong>Status:</strong> <span id="status">Fetching...</span></p>
+            <p><strong>Message:</strong> <span id="message">Fetching...</span></p>
+            <p><strong>Acknowledgement No:</strong> <span id="ackno">Fetching...</span></p>
+            <p><strong>Amount:</strong> <span id="amount">Fetching...</span></p>
+            <p><strong>Balance Amount:</strong> <span id="balanceamount">Fetching...</span></p>
+            <p><strong>Bank RRN:</strong> <span id="bankrrn">Fetching...</span></p>
+            <p><strong>Bank IIN:</strong> <span id="bankiin">Fetching...</span></p>
+            <p><strong>Response Code:</strong> <span id="response_code">Fetching...</span></p>
+            <p><strong>Error Code:</strong> <span id="errorcode">Fetching...</span></p>
+            <p><strong>Client Ref No:</strong> <span id="clientrefno">Fetching...</span></p>
+
+            <!-- Save as PDF button -->
+            <input type="button" style="width:100%;" value="PRINT SLIP" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="saveAsPDF('balanceEnquiry')" />
+            <input type="button" id="backButton" style="width:50%;" value="BACK" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="goBack()" />
+        </div>
+    </div>
+</div>
+
+<div id="miniStatementSection" style="display: none;">
+    <h3>Mini Statement Result</h3>
+    <div class="card">
+        <div class="card-body">
+            <p><strong>Status:</strong> <span id="miniStatus">Fetching...</span></p>
+            <p><strong>Acknowledgement No:</strong> <span id="miniAckno">Fetching...</span></p>
+            <p><strong>Date & Time:</strong> <span id="miniDateTime">Fetching...</span></p>
+            <p><strong>Balance Amount:</strong> <span id="miniBalanceAmount">Fetching...</span></p>
+            <p><strong>Bank RRN:</strong> <span id="miniBankRRN">Fetching...</span></p>
+            <p><strong>Bank IIN:</strong> <span id="miniBankIIN">Fetching...</span></p>
+            <p><strong>Message:</strong> <span id="miniMessage">Fetching...</span></p>
+            <p><strong>Error Code:</strong> <span id="miniErrorCode">Fetching...</span></p>
+
+            <h4>Transactions</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Txn Type</th>
+                        <th>Amount</th>
+                        <th>Narration</th>
+                    </tr>
+                </thead>
+                <tbody id="miniStatementTable">
+                    <!-- Transactions will be dynamically added here -->
+                </tbody>
+            </table>
+            <input type="button" style="width:100%;" value="PRINT SLIP" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="saveAsPDF('miniStatement')" />
+            <input type="button" id="backButton" style="width:50%;" value="BACK" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="goBack()" />
+        </div>
+    </div>
+</div>
+<div id="adharPayResponse" style="display: none;">
+    <h3>Aadhaar Pay Result</h3>
+    <div class="card">
+        <div class="card-body">
+            <p><strong>Status:</strong> <span id="adharPayStatus">Fetching...</span></p>
+            <p><strong>Message:</strong> <span id="adharPayMessage">Fetching...</span></p>
+            <p><strong>Acknowledgement No:</strong> <span id="adharPayAckno">Fetching...</span></p>
+            <p><strong>Amount:</strong> <span id="adharPayAmount">Fetching...</span></p>
+            <p><strong>Balance Amount:</strong> <span id="adharPayBalanceAmount">Fetching...</span></p>
+            <p><strong>Bank RRN:</strong> <span id="adharPayBankRRN">Fetching...</span></p>
+            <p><strong>Bank IIN:</strong> <span id="adharPayBankIIN">Fetching...</span></p>
+            <p><strong>Response Code:</strong> <span id="adharPayResponseCode">Fetching...</span></p>
+            <p><strong>Error Code:</strong> <span id="adharPayErrorCode">Fetching...</span></p>
+
+            <!-- Add the Save as PDF button here -->
+            <input type="button" id="saveAsAdharPayPdf" style="width:100%;" value="PRINT SLIP" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="saveAsPDF('adharPay')" />
+            <input type="button" id="backAdharPayButton" style="width:50%;" value="BACK" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="goBack()" />
+        </div>
+    </div>
+</div>
 
 <script>
         // JavaScript to handle button clicks and display the authentication div
@@ -1019,7 +1099,10 @@
     if(r.response_code=='1')
     {
                     alert(r.message)
-    }
+                    bindEnquiryDataToUI(r);
+                    $("#myTab").hide();  // Hide the navigation tab
+                    $("#balanceEnquiryResponse").show();
+                }
     else if (r.response_code!='undefined')
     {
                     alert(r.message)
@@ -1036,6 +1119,90 @@
             }
         })
     }
+
+    function bindEnquiryDataToUI(data) {
+        if (!data) {
+            alert("Invalid response data");
+            return;
+        }
+
+        $("#status").text(data.status ? "Success" : "Failed");
+        $("#message").text(data.message || "No message available");
+        $("#ackno").text(data.ackno || "N/A");
+        $("#amount").text(data.amount || "N/A");
+        $("#balanceamount").text(data.balanceamount || "N/A");
+        $("#bankrrn").text(data.bankrrn || "N/A");
+        $("#bankiin").text(data.bankiin || "N/A");
+        $("#response_code").text(data.response_code || "N/A");
+        $("#errorcode").text(data.errorcode || "N/A");
+        $("#clientrefno").text(data.clientrefno || "N/A");
+    }
+
+    function saveAsPDF(section) {
+        let formData = new FormData();
+
+        // Append the relevant data to FormData based on the section
+        if (section === 'balanceEnquiry') {
+            formData.append("Name", document.getElementById("clientrefno").innerText);
+            formData.append("Status", document.getElementById("status").innerText);
+            formData.append("Message", document.getElementById("message").innerText);
+            formData.append("AcknowledgementNo", document.getElementById("ackno").innerText);
+            formData.append("Amount", document.getElementById("amount").innerText);
+            formData.append("BalanceAmount", document.getElementById("balanceamount").innerText);
+            formData.append("BankRRN", document.getElementById("bankrrn").innerText);
+            formData.append("BankIIN", document.getElementById("bankiin").innerText);
+            formData.append("ResponseCode", document.getElementById("response_code").innerText);
+            formData.append("ErrorCode", document.getElementById("errorcode").innerText);
+            formData.append("ClientRefNo", document.getElementById("clientrefno").innerText); // Assuming it's same as Name
+        } else if (section === 'miniStatement') {
+            formData.append("Name", document.getElementById("miniAckno").innerText);
+            formData.append("Status", document.getElementById("miniStatus").innerText);
+            formData.append("Message", document.getElementById("miniMessage").innerText);
+            formData.append("AcknowledgementNo", document.getElementById("miniAckno").innerText);
+            formData.append("BalanceAmount", document.getElementById("miniBalanceAmount").innerText);
+            formData.append("BankRRN", document.getElementById("miniBankRRN").innerText);
+            formData.append("BankIIN", document.getElementById("miniBankIIN").innerText);
+            formData.append("ResponseCode", ""); // Assume this is not needed for Mini Statement
+            formData.append("ErrorCode", document.getElementById("miniErrorCode").innerText);
+            formData.append("ClientRefNo", ""); // Assume this is not needed for Mini Statement
+            formData.append("DateTime", document.getElementById("miniDateTime").innerText);
+            formData.append("MiniBalanceAmount", document.getElementById("miniBalanceAmount").innerText);
+            formData.append("MiniErrorCode", document.getElementById("miniErrorCode").innerText);
+        }
+        $("#showSpinner").show();
+        // Call the C# method via AJAX
+        $.ajax({
+            url: '/AEPS/GeneratePDF', // Update to your actual controller route
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            data: formData,
+            xhr: function () {
+                var xhr = new window.XMLHttpRequest();
+                // Set up a function to run when the request is complete
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        // Create a blob from the PDF response
+                        var blob = new Blob([xhr.response], { type: 'application/pdf' });
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = 'GeneratedReport.pdf';
+                        link.click();
+                    } else {
+                        alert("An error occurred while generating the PDF. Please try again.");
+                    }
+                };
+                // Set the response type to 'blob'
+                xhr.responseType = 'blob';
+                return xhr;
+            },
+            error: function (xhr, status, error) {
+                console.error("Error generating PDF:", error);
+                alert("An error occurred while generating the PDF. Please try again.");
+            }
+        });
+    }
+
     function withdraw() {
         
         if ($("#lat").val() == "" && $("#lon").val() == "") {
@@ -1158,6 +1325,7 @@
                 if(r.response_code=='1')
                 {
                                 alert(r.message)
+                    bindMiniStatementData(r); // Call function to bind data to UI
                 }
                 else if (r.response_code!='undefined')
                 {
@@ -1174,6 +1342,43 @@
                 $("#showSpinner").hide();
             }
         })
+    }
+    function bindMiniStatementData(data) {
+        // Show the mini statement section
+        $("#miniStatementSection").show();
+
+        // Bind data to the mini statement result fields
+        $("#miniStatus").text(data.status ? "Success" : "Failed");
+        $("#miniAckno").text(data.ackno);
+        $("#miniDateTime").text(data.datetime);
+        $("#miniBalanceAmount").text(data.balanceamount);
+        $("#miniBankRRN").text(data.bankrrn);
+        $("#miniBankIIN").text(data.bankiin);
+        $("#miniMessage").text(data.message);
+        $("#miniErrorCode").text(data.errorcode);
+
+        // Clear the previous mini-statement transactions
+        $("#miniStatementTable").empty();
+
+        // Loop through the mini-statement array and add each transaction to the table
+        if (data.ministatement && data.ministatement.length > 0) {
+            data.ministatement.forEach(function (txn) {
+                var row = "<tr>" +
+                    "<td>" + txn.date + "</td>" +
+                    "<td>" + txn.txnType + "</td>" +
+                    "<td>" + txn.amount + "</td>" +
+                    "<td>" + txn.narration + "</td>" +
+                    "</tr>";
+                $("#miniStatementTable").append(row);
+            });
+        } else {
+            // If no transactions found, show a message in the table
+            var row = "<tr><td colspan='4' class='text-center'>No transactions found</td></tr>";
+            $("#miniStatementTable").append(row);
+        }
+
+        // Hide the myTab div
+        $("#myTab").hide();
     }
 
     function adhaarPay() {
@@ -1231,6 +1436,20 @@
                 console.log(r)
                 if (r.response_code == '1') {
                     alert(r.message)
+                    // Populate the new section with the response data
+                    $("#adharPayResponse").show(); // Show the response section
+                    $("#adharPayStatus").text("Success");
+                    $("#adharPayMessage").text(r.message);
+                    $("#adharPayAckno").text(r.ackno);
+                    $("#adharPayAmount").text(r.amount);
+                    $("#adharPayBalanceAmount").text(r.balanceamount);
+                    $("#adharPayBankRRN").text(r.bankrrn);
+                    $("#adharPayBankIIN").text(r.bankiin);
+                    $("#adharPayResponseCode").text(r.response_code);
+                    $("#adharPayErrorCode").text(r.errorcode || "N/A");
+
+                    $("#myTab").hide();  // Hide the navigation tab
+                    $("#adharPayResponse").show();
                 }
                 else if (r.response_code != 'undefined') {
                     alert(r.message)
@@ -1249,5 +1468,9 @@
     $(document).ready(function () {
         $('select').select2();
     });
+
+    function goBack() {
+        window.location.href = "https://localhost:44317/Admin/AEPS";  // Redirect to the desired URL
+    }
 
 </script>
