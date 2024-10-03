@@ -279,9 +279,9 @@ namespace Grofinhub.Controllers
                 p.timestamp = DateTime.Now.ToString("yyyy-MM-dd");
                 p.pipe = "bank1";
                 p.accessmodetype = "SITE";
-                p.ipaddress = sm.GetIPAddress();
+                p.ipaddress = sm.GetIPAddressNew();
                 p.referenceno = sm.GetReferencenceId(p.amount.ToString(), userid, "AEPSWITHDRAWL");
-                var client = new RestClient("https://paysprint.in");
+                var client = new RestClient("https://sit.paysprint.in");
                 var request = new RestRequest("/service-api/api/v1/service/aeps/cashwithdraw/index", Method.Post);
                 request.AddHeader("accept", "application/json");
                 string body = JsonConvert.SerializeObject(p);
@@ -382,7 +382,7 @@ namespace Grofinhub.Controllers
 
         public JsonResult AdharPay(AEPSWithdraw p)
         {
-            Transactionstatus obj = new Transactionstatus();
+            MATMWithdrawStatusPara obj = new MATMWithdrawStatusPara();
             try
             {
                 p.data = CaptureFingerprint();
@@ -415,8 +415,19 @@ namespace Grofinhub.Controllers
                 //AEPSTreeWay treeWay = new AEPSTreeWay() { reference = p.referenceno };
                 if (resdata.status == true && resdata.response_code == 1)
                 {
-                    obj.referenceid = p.referenceno;
+                    obj.reference = p.referenceno;
                     var result = AEPSAdharPayTansactionStatus(obj);
+                    var jsonResult = result as JsonResult;
+                    var jsonData = JsonConvert.SerializeObject(jsonResult.Value);
+
+                    if (resdata.status==true)
+                    {
+                        return Json(response.Content);
+                    }
+                    else
+                    {
+                        return Json("Something Went Wrong !! Please try again later");
+                    }
                     //treeWay.status = "success";
                 }
                 //else
@@ -432,7 +443,7 @@ namespace Grofinhub.Controllers
             }
         }
 
-        public JsonResult AEPSAdharPayTansactionStatus(Transactionstatus refrenceId)
+        public JsonResult AEPSAdharPayTansactionStatus(MATMWithdrawStatusPara p)
         {
             try
             {
@@ -445,7 +456,7 @@ namespace Grofinhub.Controllers
                 var client = new RestClient("https://sit.paysprint.in");
                 var request = new RestRequest("/service-api/api/v1/service/aadharpay/aadharpayquery/query", Method.Post);
                 request.AddHeader("accept", "application/json");
-                string body = JsonConvert.SerializeObject(refrenceId);
+                string body = JsonConvert.SerializeObject(p);
                 body = CommonClasses.CryptAESIn(body, CommonClasses.crypt_key, CommonClasses.IV);
                 RootAEPSinpt data = new RootAEPSinpt() { body = body };
                 body = JsonConvert.SerializeObject(data);

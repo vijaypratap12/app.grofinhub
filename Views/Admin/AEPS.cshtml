@@ -715,6 +715,24 @@
         </div>
     </div>
 </div>
+<div id="withdrawResponse" style="display: none;">
+    <h3>Withdraw Result</h3>
+    <div class="card">
+        <div class="card-body">
+            <p><strong>Transaction Status:</strong> <span id="withdrawTxnStatus">Fetching...</span></p>
+            <p><strong>Message:</strong> <span id="withdrawMessage">Fetching...</span></p>
+            <p><strong>Acknowledgement No:</strong> <span id="withdrawAckno">Fetching...</span></p>
+            <p><strong>Amount:</strong> <span id="withdrawAmount">Fetching...</span></p>
+            <p><strong>Bank RRN:</strong> <span id="withdrawBankRRN">Fetching...</span></p>
+            <p><strong>Response Code:</strong> <span id="withdrawResponseCode">Fetching...</span></p>
+
+            <!-- Add the Save as PDF button here -->
+            <input type="button" id="saveAsWithdrawPdfBtn" style="width:100%;" value="PRINT SLIP" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="saveAsPDF('withdraw')" />
+            <input type="button" id="backWithdrawButton" style="width:50%;" value="BACK" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="goBack()" />
+        </div>
+    </div>
+</div>
+
 
 <script>
         // JavaScript to handle button clicks and display the authentication div
@@ -1169,6 +1187,14 @@
             formData.append("MiniBalanceAmount", document.getElementById("miniBalanceAmount").innerText);
             formData.append("MiniErrorCode", document.getElementById("miniErrorCode").innerText);
         }
+         else if (section === 'withdraw') {
+            formData.append("TransactionStatus", $("#withdrawTxnStatus").text());
+            formData.append("Message", $("#withdrawMessage").text());
+            formData.append("AcknowledgementNo", $("#withdrawAckno").text());
+            formData.append("Amount", $("#withdrawAmount").text());
+            formData.append("BankRRN", $("#withdrawBankRRN").text());
+            formData.append("ResponseCode", $("#withdrawResponseCode").text());
+        }
         $("#showSpinner").show();
         // Call the C# method via AJAX
         $.ajax({
@@ -1259,6 +1285,16 @@
     if(r.response_code=='1')
     {
                     alert(r.message)
+                    $("#withdrawResponse").show(); // Show the response section
+                    $("#withdrawTxnStatus").text(r.txnstatus);
+                    $("#withdrawMessage").text(r.message);
+                    $("#withdrawAckno").text(r.ackno);
+                    $("#withdrawAmount").text(r.amount);
+                    $("#withdrawBankRRN").text(r.bankrrn);
+                    $("#withdrawResponseCode").text(r.response_code);
+
+                    $("#myTab").hide();  // Hide the navigation tab
+                    $("#withdrawResponse").show();
     }
     else if (r.response_code!='undefined')
     {
@@ -1470,7 +1506,7 @@
     });
 
     function goBack() {
-        window.location.href = "https://localhost:44317/Admin/AEPS";  // Redirect to the desired URL
+        window.location.href = "https://app.grofinhub.com/Admin/AEPS";  // Redirect to the desired URL
     }
 
 </script>

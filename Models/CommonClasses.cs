@@ -681,7 +681,7 @@ namespace SportsBattle.Models
         {
             try
             {
-                var client = new RestClient("https://paysprint.in");
+                var client = new RestClient("https://sit.paysprint.in");
                 var request = new RestRequest("/service-api/api/v1/service/aeps/threeway/threeway", Method.Post);
                 request.AddHeader("accept", "application/json");
                 string body = JsonConvert.SerializeObject(obj);
