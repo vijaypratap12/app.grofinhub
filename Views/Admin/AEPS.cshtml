@@ -63,7 +63,6 @@
     }
 
     nav#myTab {
-        
         display: none;
     }
 
@@ -142,15 +141,15 @@
     }
 
 
-   .box-header {
-    color: #172b4c;
-    display: block;
-    padding: 0.5rem 0rem !important;
-    position: relative;
-    border-bottom: 1px solid rgba(72, 94, 144, 0.16);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
+    .box-header {
+        color: #172b4c;
+        display: block;
+        padding: 0.5rem 0rem !important;
+        position: relative;
+        border-bottom: 1px solid rgba(72, 94, 144, 0.16);
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
 
     #balanceEnquiryResponse {
         display: none; /* Initially hidden */
@@ -166,7 +165,7 @@
                         <h3 class="font-size-25 text-white text-center">AEPS</h3>
 
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -237,33 +236,26 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light" id="myTab" role="tablist">
     <section>
-    <div class="box-header">
-        <ul class="nav nav-tabs customtab nav-justified" role="tablist">
+        <div class="box-header">
+            <ul class="nav nav-tabs customtab nav-justified" role="tablist">
 
                 <li class="nav-item">
                     <button class="nav-link active" id="status-tab" data-bs-toggle="tab" data-bs-target="#checkstatus" type="button" role="tab" aria-controls="Refund" aria-selected="false">Withdraw</button>
                 </li>
-            <li class="nav-item">
-                <button class="nav-link " id="recharge-tab" data-bs-toggle="tab" data-bs-target="#recharge" type="button" role="tab" aria-controls="Benificiary" aria-selected="false"> Enquiry</button>
-            </li>
+                <li class="nav-item">
+                    <button class="nav-link " id="recharge-tab" data-bs-toggle="tab" data-bs-target="#recharge" type="button" role="tab" aria-controls="Benificiary" aria-selected="false"> Enquiry</button>
+                </li>
 
-           
-            <li class="nav-item">
-                <button class="nav-link" id="ministatement-tab" data-bs-toggle="tab" data-bs-target="#ministatement" type="button" role="tab" aria-controls="mimistatement" aria-selected="false">MiniStatement</button>
-            </li>
-@*                 <li class="nav-item">
-                    <button class="nav-link" id="transaction-tab" data-bs-toggle="tab" data-bs-target="#transaction" type="button" role="tab" aria-controls="transaction" aria-selected="false">Withdrawl Status</button>
-                </li> *@
+
+                <li class="nav-item">
+                    <button class="nav-link" id="ministatement-tab" data-bs-toggle="tab" data-bs-target="#ministatement" type="button" role="tab" aria-controls="mimistatement" aria-selected="false">MiniStatement</button>
+                </li>
 
                 <li class="nav-item">
                     <button class="nav-link" id="adhaarpay-tab" data-bs-toggle="tab" data-bs-target="#adhaarpay" type="button" role="tab" aria-controls="adhaarpay" aria-selected="false">Adhaar Pay</button>
                 </li>
-
-@*                 <li class="nav-item">
-                    <button class="nav-link" id="adhaarpaytransaction-tab" data-bs-toggle="tab" data-bs-target="#adhaarpaytransaction" type="button" role="tab" aria-controls="adhaarpaytransaction" aria-selected="false">Transaction Status</button>
-                </li> *@
-        </ul> 
-    </div>
+            </ul>
+        </div>
 
     </section>
     <div class="tab-content" id="myTabContent">
@@ -281,19 +273,20 @@
                                     <div class="row">
 
                                         <div class="col-4">
-                                            <span style="color:red"></span><label>Mobile Number :</label>
-                                            <input type="text" id="enquirymobileno" placeholder="Enter Mobile Number... " required name="mobilenumber"  class="form-control" />
-
+                                            <label>Mobile Number:</label>
+                                            <input type="text" id="enquirymobileno" name="mobilenumber" placeholder="Enter Mobile Number..." required class="form-control" oninput="validateMobileNumber(this)" />
+                                            <span id="enquirymobileno-error" style="color:red"></span> <!-- Error span for mobile -->
                                         </div>
-                                        
+
                                         <div class="col-4">
-                                            <span style="color:red"></span><label>Adhaar Number :</label>
-                                            <input type="number" id="enquiryadhaarno" placeholder="Enter Adhaar Number... " required name="adhaarnumber" class="form-control" oninput="validateAadhaarNumber()" />
-
+                                            <label>Aadhaar Number:</label>
+                                            <input type="text" id="enquiryadhaarno" name="adhaarnumber" placeholder="Enter Aadhaar Number..." required class="form-control" oninput="validateAadhaarNumber(this)" />
+                                            <span id="enquiryadhaarno-error" style="color:red"></span> <!-- Error span for Aadhaar -->
                                         </div>
+
                                         <div class="col-4">
                                             <span style="color:red"></span><label>Bank :</label>
-                                           <select class="form-control" id="enquiryddlbankid">
+                                            <select class="form-control" id="enquiryddlbankid">
                                                 <option value="0">Select Bank</option>
                                                 @foreach (DatumAEPS item in Model.banklist.data)
                                                 {
@@ -309,21 +302,21 @@
 
                                         </div>
                                         <div class="  col-4">
-                                            <br/>
+                                            <br />
                                             <input type="button" id="enquerybutton" style="width:100%;" value="ENQUERY" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="enquery()" />
 
                                         </div>
+                                    </div>
+
+
+
+
                                 </div>
-
-
 
 
                             </div>
 
-                             
-                        </div>
 
-                        
                             <br />
 
 
@@ -350,24 +343,24 @@
                                     <div class="row">
 
                                         <div class="col-4">
-                                            <span style="color:red"></span><label>Mobile Number :</label>
-                                            <input type="text" id="withdrowlmobileno" placeholder="Enter Mobile Number... " required name="mobilenumber" class="form-control" />
-
+                                            <label>Mobile Number:</label>
+                                            <input type="text" id="withdrowlmobileno" name="mobilenumber" placeholder="Enter Mobile Number..." required class="form-control" oninput="validateMobileNumber(this)" />
+                                            <span id="withdrowlmobileno-error" style="color:red"></span> <!-- Error span for mobile -->
                                         </div>
 
                                         <div class="col-4">
-                                            <span style="color:red"></span><label>Adhaar Number :</label>
-                                            <input type="text" id="withdrowladhaarno" placeholder="Enter Adhaar Number... " required name="adhaarnumber" class="form-control" />
-
+                                            <label>Aadhaar Number:</label>
+                                            <input type="text" id="withdrowladhaarno" name="adhaarnumber" placeholder="Enter Aadhaar Number..." required class="form-control" oninput="validateAadhaarNumber(this)" />
+                                            <span id="withdrowladhaarno-error" style="color:red"></span> <!-- Error span for Aadhaar -->
                                         </div>
                                         <div class="col-4">
                                             <span style="color:red"></span><label>amount :</label>
                                             <input type="number" id="withdrowlamount" placeholder="Enter amount... " required name="is_iris" class="form-control" />
-
                                         </div>
+
                                         <div class="col-4">
                                             <span style="color:red"></span><label>Bank :</label>
-                                           
+
                                             <select class="form-control" id="withdrowlddlbankid">
                                                 <option>Select Bank</option>
                                                 @foreach (DatumAEPS item in Model.banklist.data)
@@ -384,7 +377,7 @@
                                         </div>
 
                                         <div class="col-4">
-                                            <br/>
+                                            <br />
                                             <input type="button" id="withdrowbtn" style="width:100%;" value="WITHDROW" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="withdraw()" />
 
                                         </div>
@@ -395,7 +388,7 @@
 
                                 </div>
 
-                                 
+
                             </div>
 
 
@@ -414,7 +407,7 @@
 
             <section class="content" id="ministatementdv">
                 <div class="container-fluid">
-                     <div class="col-md-12">
+                    <div class="col-md-12">
 
                         <div id="statementdv">
                             <div class="main-card mb-3 card">
@@ -423,19 +416,20 @@
                                     <div class="row">
 
                                         <div class="col-4">
-                                            <span style="color:red"></span><label>Mobile Number :</label>
-                                            <input type="text" id="ministatmetnmobileno" placeholder="Enter Mobile Number... " required name="mobilenumber" class="form-control" />
-
+                                            <label>Mobile Number:</label>
+                                            <input type="text" id="ministatmetnmobileno" name="mobilenumber" placeholder="Enter Mobile Number..." required class="form-control" oninput="validateMobileNumber(this)" />
+                                            <span id="ministatmetnmobileno-error" style="color:red"></span> <!-- Error span for mobile -->
                                         </div>
-                                        
+
                                         <div class="col-4">
-                                            <span style="color:red"></span><label>Adhaar Number :</label>
-                                            <input type="text" id="ministatmentadhaarno" placeholder="Enter Adhaar Number... " required name="adhaarnumber" class="form-control" />
-
+                                            <label>Aadhaar Number:</label>
+                                            <input type="text" id="ministatmentadhaarno" name="adhaarnumber" placeholder="Enter Aadhaar Number..." required class="form-control" oninput="validateAadhaarNumber(this)" />
+                                            <span id="ministatmentadhaarno-error" style="color:red"></span> <!-- Error span for Aadhaar -->
                                         </div>
+
                                         <div class="col-4">
                                             <span style="color:red"></span><label>Bank :</label>
-                                           
+
                                             <select class="form-control" id="ministatmentddlbackid">
                                                 <option>Select Bank</option>
                                                 @foreach (DatumAEPS item in Model.banklist.data)
@@ -452,80 +446,26 @@
                                         </div>
 
                                         <div class="col-4">
-                                            <br/>
+                                            <br />
                                             <input type="button" id="ministatmentbtn" style="width:100%;" value="STATEMENT" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="miniStatement()" />
 
                                         </div>
+                                    </div>
                                 </div>
-
-
-
-
                             </div>
 
-
-
-                            @*<div class=" col-12">
-                                    <input type="button" id="ministatmentbtn" style="width:100%;" value="STATEMENT" class="btn button mt-2 fs-5 center-elem bg-gradient-primary" onclick="miniStatement()" />
-
-                            </div>*@
-                        </div>
-
-                        
                             <br />
-
-
-
                         </div>
                     </div>
-
-
                 </div>
             </section>
         </div>
 
-        <div class="tab-pane fade" id="transaction" role="tabpanel" aria-labelledby="profile-tab">
-
-            <section class="content" id="transactiondv">
-                <div class="container-fluid">
-                     <div class="col-md-12">
-
-                        <div id="statementdv">
-                            <div class="main-card mb-3 card">
-                                <div class="card-body">
-
-                                    <div class="row">
-
-                                    
-                                </div>
-
-
-
-
-                            </div>
-
-
-                             
-                        </div>
-
-                        
-                            <br />
-
-
-
-                        </div>
-                    </div>
-
-
-                </div>
-            </section>
-        </div>
-   
-          <div class="tab-pane fade" id="adhaarpay" role="tabpanel" aria-labelledby="adhaarpay-tab">
+        <div class="tab-pane fade" id="adhaarpay" role="tabpanel" aria-labelledby="adhaarpay-tab">
 
             <section class="content" id="adhaarpaydv">
                 <div class="container-fluid">
-                     
+
                     <div class="col-md-12">
 
                         <div id="withdroldv">
@@ -536,19 +476,18 @@
 
                                         <div class="col-4">
                                             <span style="color:red"></span><label>Mobile Number :</label>
-                                            <input type="text" id="adhaarpaymobileno" placeholder="Enter Mobile Number... " required name="mobilenumber" class="form-control" />
-
+                                            <input type="text" id="adhaarpaymobileno" placeholder="Enter Mobile Number... " required name="mobilenumber" class="form-control" oninput="validateMobileNumber(this)" />
+                                            <span id="adhaarpaymobileno-error" style="color:red"></span>
                                         </div>
 
                                         <div class="col-4">
                                             <span style="color:red"></span><label>Adhaar Number :</label>
-                                            <input type="text" id="adhaarpayadhaarno" placeholder="Enter Adhaar Number... " required name="adhaarnumber" class="form-control" />
-
+                                            <input type="text" id="adhaarpayadhaarno" placeholder="Enter Adhaar Number... " required name="adhaarnumber" class="form-control" oninput="validateAadhaarNumber(this)" />
+                                            <span id="adhaarpayadhaarno-error" style="color:red"></span>
                                         </div>
                                         <div class="col-4">
                                             <span style="color:red"></span><label>amount :</label>
                                             <input type="number" id="adhaarpayamount" placeholder="Enter amount... " required name="is_iris" class="form-control" />
-
                                         </div>
                                         <div class="col-4">
                                             <span style="color:red"></span><label>Bank :</label>
@@ -594,45 +533,14 @@
                 </div>
             </section>
         </div>
-   
-        <div class="tab-pane fade" id="adhaarpaytransaction" role="tabpanel" aria-labelledby="adhaarpay-tab">
 
-            <section class="content" id="adhaarpaytransactiondv">
-                <div class="container-fluid">
-
-                    <div class="col-md-12">
-
-                        <div id="withdroldv">
-                            <div class="main-card mb-3 card">
-                                <div class="card-body">
-
-
-
-                                </div>
-
-
-                            </div>
-
-
-                            <br />
-
-
-
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-        </div>
-        
         <div style="display:none;">
-                                            <input type="text" id="txtcurrentlocation" placeholder="Location" />
-                                            <input type="text" id="lat" placeholder="lat" />
-                                            <input type="text" id="lon" placeholder="lon" />
-                                        </div>
+            <input type="text" id="txtcurrentlocation" placeholder="Location" />
+            <input type="text" id="lat" placeholder="lat" />
+            <input type="text" id="lon" placeholder="lon" />
+        </div>
 
     </div>
-    @*</section>*@
 
 
 
@@ -735,7 +643,7 @@
 
 
 <script>
-        // JavaScript to handle button clicks and display the authentication div
+    // JavaScript to handle button clicks and display the authentication div
     // Function to toggle the visibility of authDiv
     function toggleAuthDiv() {
         var authDiv = document.getElementById('authDiv');
@@ -907,7 +815,7 @@
                     if (marchantStatus === 'Pending') {
                         registerFingerprint(aadharNumber, mobileNumber, fingerprintData);
                     }
-                    else if(authStatus==='Pending'){
+                    else if (authStatus === 'Pending') {
                         dailyAuthentication(aadharNumber, mobileNumber, fingerprintData)
                     }
                 }
@@ -1009,7 +917,7 @@
             url: '/AEPS/DailyAEPSAuth',  // Your daily auth API
             method: 'POST',
             data: dataobj,
-            contentType: false, 
+            contentType: false,
             processData: false,
             success: function (r) {
                 r = jQuery.parseJSON(r)
@@ -1034,22 +942,42 @@
         });
     }
 
-    function validateAadhaarNumber() {
-        const aadhaarInput = document.getElementById('enquiryadhaarno');
-        const errorSpan = document.getElementById('aadhaar-error');
-        const aadhaarNumber = aadhaarInput.value;
-
-        // Regular expression to check if Aadhaar is 12 digits long and doesn't start with 0 or 1
-        const aadhaarRegex = /^[2-9]{1}[0-9]{11}$/;
+    // Aadhaar Validation Function
+    function validateAadhaarNumber(inputElement) {
+        const aadhaarNumber = inputElement.value;
+        const aadhaarRegex = /^[2-9]{1}[0-9]{11}$/; // Aadhaar number validation: must be 12 digits and not start with 0 or 1
+        const errorSpanId = inputElement.id + "-error";
+        const errorSpan = document.getElementById(errorSpanId);
 
         if (!aadhaarRegex.test(aadhaarNumber)) {
             errorSpan.textContent = "Aadhaar number must be 12 digits long and cannot start with 0 or 1.";
-            aadhaarInput.setCustomValidity("Invalid Aadhaar Number");
+            inputElement.setCustomValidity("Invalid Aadhaar Number");
+            return false; // Aadhaar validation failed
         } else {
             errorSpan.textContent = "";
-            aadhaarInput.setCustomValidity("");
+            inputElement.setCustomValidity("");
+            return true; // Aadhaar validation passed
         }
     }
+
+    // Mobile Number Validation Function
+    function validateMobileNumber(inputElement) {
+        const mobileNumber = inputElement.value;
+        const mobileRegex = /^[6-9]{1}[0-9]{9}$/; // Mobile number validation: must be 10 digits and start with 6-9
+        const errorSpanId = inputElement.id + "-error";
+        const errorSpan = document.getElementById(errorSpanId);
+
+        if (!mobileRegex.test(mobileNumber)) {
+            errorSpan.textContent = "Mobile number must be 10 digits long and start with 6-9.";
+            inputElement.setCustomValidity("Invalid Mobile Number");
+            return false; // Mobile validation failed
+        } else {
+            errorSpan.textContent = "";
+            inputElement.setCustomValidity("");
+            return true; // Mobile validation passed
+        }
+    }
+
 
     $(document).ready(function () {
         debugger;
@@ -1063,13 +991,12 @@
             $("#lat").val(position.coords.latitude)
             $("#lon").val(position.coords.longitude)
         }
-         
+
     })
 
     function enquery() {
-        
-        if ($("#lat").val() == "" && $("#lon").val()=="")
-        {
+
+        if ($("#lat").val() == "" && $("#lon").val() == "") {
             alert('Please On GPS !!');
             return;
         }
@@ -1101,7 +1028,7 @@
         dataobj.append("adhaarnumber", $("#enquiryadhaarno").val());
         dataobj.append("nationalbankidentification", $("#enquiryddlbankid").val());
         dataobj.append("requestremarks", $("#enquiryremark").val());
-        //dataobj.append("data", $("#txtrefid").val()); 
+        //dataobj.append("data", $("#txtrefid").val());
         dataobj.append("is_iris", 'No');
 
         $("#showSpinner").show();
@@ -1112,23 +1039,20 @@
             processData: false,
             data: dataobj,
             success: function (r) {
-                r=jQuery.parseJSON(r)
-    console.log(r)
-    if(r.response_code=='1')
-    {
+                r = jQuery.parseJSON(r)
+                console.log(r)
+                if (r.response_code == '1') {
                     alert(r.message)
                     bindEnquiryDataToUI(r);
                     $("#myTab").hide();  // Hide the navigation tab
                     $("#balanceEnquiryResponse").show();
                 }
-    else if (r.response_code!='undefined')
-    {
+                else if (r.response_code != 'undefined') {
                     alert(r.message)
-    }
-    else
-    {
-        alert(r)
-    }
+                }
+                else {
+                    alert(r)
+                }
                 $("#showSpinner").hide();
             },
             error: function () {
@@ -1187,7 +1111,7 @@
             formData.append("MiniBalanceAmount", document.getElementById("miniBalanceAmount").innerText);
             formData.append("MiniErrorCode", document.getElementById("miniErrorCode").innerText);
         }
-         else if (section === 'withdraw') {
+        else if (section === 'withdraw') {
             formData.append("TransactionStatus", $("#withdrawTxnStatus").text());
             formData.append("Message", $("#withdrawMessage").text());
             formData.append("AcknowledgementNo", $("#withdrawAckno").text());
@@ -1230,7 +1154,7 @@
     }
 
     function withdraw() {
-        
+
         if ($("#lat").val() == "" && $("#lon").val() == "") {
             alert('Please On GPS !!');
             return;
@@ -1280,10 +1204,9 @@
             processData: false,
             data: dataobj,
             success: function (r) {
-               r=jQuery.parseJSON(r)
-    console.log(r)
-    if(r.response_code=='1')
-    {
+                r = jQuery.parseJSON(r)
+                console.log(r)
+                if (r.response_code == '1') {
                     alert(r.message)
                     $("#withdrawResponse").show(); // Show the response section
                     $("#withdrawTxnStatus").text(r.txnstatus);
@@ -1295,15 +1218,13 @@
 
                     $("#myTab").hide();  // Hide the navigation tab
                     $("#withdrawResponse").show();
-    }
-    else if (r.response_code!='undefined')
-    {
+                }
+                else if (r.response_code != 'undefined') {
                     alert(r.message)
-    }
-    else
-    {
-        alert(r)
-    }
+                }
+                else {
+                    alert(r)
+                }
                 $("#showSpinner").hide();
             },
             error: function () {
@@ -1356,19 +1277,16 @@
             processData: false,
             data: dataobj,
             success: function (r) {
-             r=jQuery.parseJSON(r)
-             console.log(r)
-                if(r.response_code=='1')
-                {
-                                alert(r.message)
+                r = jQuery.parseJSON(r)
+                console.log(r)
+                if (r.response_code == '1') {
+                    alert(r.message)
                     bindMiniStatementData(r); // Call function to bind data to UI
                 }
-                else if (r.response_code!='undefined')
-                {
-                                alert(r.message)
+                else if (r.response_code != 'undefined') {
+                    alert(r.message)
                 }
-                else
-                {
+                else {
                     alert(r)
                 }
                 $("#showSpinner").hide();
