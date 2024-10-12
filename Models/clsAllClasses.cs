@@ -1647,6 +1647,7 @@ namespace SportsBattle.Models
         public string gender { get; set; }
         public string redirect_url { get; set; }
         public string email { get; set; }
+        public string merchant_code { get; set; }
 
 
     }
@@ -1680,6 +1681,9 @@ namespace SportsBattle.Models
 
     public class RootBodyLic
     {
+        public int id { get; set; }
+        public string Operator { get; set; }
+        public string category { get; set; }
         public string canumber { get; set; }
         public string mode { get; set; }
         public string amount { get; set; }

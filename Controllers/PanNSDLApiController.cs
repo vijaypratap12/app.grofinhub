@@ -22,6 +22,7 @@ namespace Grofinhub.Controllers
         { 
             try
             {
+                p.merchant_code= Convert.ToString(HttpContext.Session.GetString("UserId"));
                 string body = JsonConvert.SerializeObject(p);
                 var options = new RestClientOptions("https://api.paysprint.in")
                     {

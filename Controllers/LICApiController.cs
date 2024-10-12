@@ -42,7 +42,10 @@ namespace Grofinhub.Controllers
         public IActionResult SaveLicBillPayDetails(RootBodyLic p)
         {  
             try
-            {   
+            {
+                p.id = 241;  //this id will be same for UAT and production.
+                p.Operator = "Life Insurance Corporation of India";
+                p.category = "Insurance";
                 string body = JsonConvert.SerializeObject(p);
                     var options = new RestClientOptions("https://api.paysprint.in")
                     {
