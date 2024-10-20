@@ -99,7 +99,7 @@ namespace Grofinhub.Models
             CashWalletResponce res = new CashWalletResponce();
             try
             {
-                var options = new RestClientOptions("https://api.paysprint.in")
+                var options = new RestClientOptions("https://sit.paysprint.in")
                 {
                     MaxTimeout = -1,
                 };
@@ -107,8 +107,8 @@ namespace Grofinhub.Models
                 var request = new RestRequest("/service-api/api/v1/service/balance/balance/cashbalance", Method.Post);
                 request.AddHeader("accept", "application/json");
 
-                request.AddHeader("Token", sm.GetLiveToken());
-                //request.AddHeader("Authorisedkey", DB.AuthorizationKey);
+                request.AddHeader("Token", sm.GetToken());
+                request.AddHeader("Authorisedkey", DB.AuthorizationKey);
                 request.AddHeader("Content-Type", "application/json");
 
                 //string body = JsonConvert.SerializeObject(body1);
