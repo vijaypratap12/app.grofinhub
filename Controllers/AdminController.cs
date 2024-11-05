@@ -1,40 +1,22 @@
-﻿using GoogleMaps.LocationServices;
-using Grofinhub.Models;
+﻿using Grofinhub.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
 using Nancy.Json;
-//using Microsoft.VisualStudio.Web.CodeGeneration;
 using Newtonsoft.Json;
 using RestSharp;
 using SportsBattle.Models;
 using System;
-
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-
 using System.IO;
 using System.Linq;
 using System.Net;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Data;
-using System.Linq;
-using System.Device.Location;
-using System.Threading;
-using System.Reflection;
-using System.Security.Cryptography.Xml;
-using Nancy;
-using static SportsBattle.Controllers.HomeController;
-using System.ComponentModel;
-using static GoogleMaps.LocationServices.Constants;
-using Microsoft.SqlServer.Server;
 
 namespace SportsBattle.Controllers
 {
-	[Sessioncheck]
+    [Sessioncheck]
 	public class AdminController : Controller
 	{
 
@@ -2903,10 +2885,18 @@ namespace SportsBattle.Controllers
 			string msg = db.ServiecsCommission(pbody).Rows[0][0].ToString();
 			return Json(msg);
 		}
-		#endregion
-		#region 28/03/2023 PayBil Report
 
-		public IActionResult PayBillReport()
+		public IActionResult Commissionuserdetails(CommissionDetailsModel pbody)
+		{
+			pbody.Action = "2";
+			pbody.EntryBy = Convert.ToString(HttpContext.Session.GetString("UserId"));
+            string msg = db.SaveCommissionDetail(pbody).Rows[0][0].ToString();
+			return Json(msg);
+		}
+        #endregion
+        #region 28/03/2023 PayBil Report
+
+        public IActionResult PayBillReport()
 		{
 			DataTable dt = new DataTable();
 			dt = db.BillPayReport("", "");

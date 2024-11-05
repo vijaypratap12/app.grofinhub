@@ -2298,8 +2298,170 @@ namespace SportsBattle.Models
         public string Hotel { get; set; }
         public string Holidaysbooking { get; set; }
     }
+
+    public class CommissionDetailsModel
+    {
+        public string UserId { get; set; }
+        public string Id { get; set; }
+        public string Action { get; set; }
+        public string EntryBy { get; set; }
+
+        // DMT Section
+        public string DMT { get; set; }
+        public string DMTTFrom1 { get; set; }
+        public string DMTTTo1 { get; set; }
+        public string DMTTypeOfCommission1 { get; set; }
+        public string DMTFees1 { get; set; }
+        public string DMTTFrom2 { get; set; }
+        public string DMTTTo2 { get; set; }
+        public string DMTTypeOfCommission2 { get; set; }
+        public string DMTFees2 { get; set; }
+        public string DMTTFrom3 { get; set; }
+        public string DMTTTo3 { get; set; }
+        public string DMTTypeOfCommission3 { get; set; }
+        public string DMTFees3 { get; set; }
+        public string DMTTypeOfCommission12 { get; set; }
+        public string DMTFees12 { get; set; }
+        public string DMTTypeOfCommission22 { get; set; }
+        public string DMTFees22 { get; set; }
+        public string DMTTypeOfCommission33 { get; set; }
+        public string DMTFees33 { get; set; }
+
+        // AEPS Section
+        public string AEPS { get; set; }
+        public string AEPSTFrom1 { get; set; }
+        public string AEPSTTo1 { get; set; }
+        public string AEPSTypeOfCommission1 { get; set; }
+        public string AEPSFees1 { get; set; }
+        public string AEPSTFrom2 { get; set; }
+        public string AEPSTTo2 { get; set; }
+        public string AEPSTypeOfCommission2 { get; set; }
+        public string AEPSFees2 { get; set; }
+        public string AEPSTFrom3 { get; set; }
+        public string AEPSTTo3 { get; set; }
+        public string AEPSTypeOfCommission3 { get; set; }
+        public string AEPSFees3 { get; set; }
+        public string AEPSTFrom4 { get; set; }
+        public string AEPSTTo4 { get; set; }
+        public string AEPSTypeOfCommission4 { get; set; }
+        public string AEPSFees4 { get; set; }
+
+        // MATM Section
+        public string MATM { get; set; }
+        public string MATMTFrom1 { get; set; }
+        public string MATMTTo1 { get; set; }
+        public string MATMTypeOfCommission1 { get; set; }
+        public string MATMFees1 { get; set; }
+        public string MATMTFrom2 { get; set; }
+        public string MATMTTo2 { get; set; }
+        public string MATMTypeOfCommission2 { get; set; }
+        public string MATMFees2 { get; set; }
+        public string MATMTFrom3 { get; set; }
+        public string MATMTTo3 { get; set; }
+        public string MATMTypeOfCommission3 { get; set; }
+        public string MATMFees3 { get; set; }
+        public string MATMTFrom4 { get; set; }
+        public string MATMTTo4 { get; set; }
+        public string MATMTypeOfCommission4 { get; set; }
+        public string MATMFees4 { get; set; }
+
+        // BBPS Section
+        public string BBPS { get; set; }
+        public string FromFixed { get; set; }
+        public string ToFixed { get; set; }
+        public string Recharge { get; set; }
+        public string BBPSTypeOfCommission { get; set; }
+        public string BBPSTypeOfCommissionFees { get; set; }
+
+        // Mobile Recharge and DTH Providers
+        public string Airtel { get; set; }
+        public string AirtelOneOrMore { get; set; }
+        public string AirtelTransactionAmount { get; set; }
+        public string AirtelTypeOfCommission { get; set; }
+        public string AirtelFees { get; set; }
+
+        public string BSNL { get; set; }
+        public string BSNLOneOrMore { get; set; }
+        public string BSNLTransactionAmount { get; set; }
+        public string BSNLTypeOfCommission { get; set; }
+        public string BSNLFees { get; set; }
+
+        public string JIO { get; set; }
+        public string JIOOneOrMore { get; set; }
+        public string JIOTransactionAmount { get; set; }
+        public string JIOTypeOfCommission { get; set; }
+        public string JIOFees { get; set; }
+
+        public string VodafoneIdea { get; set; }
+        public string VodafoneIdeaOneOrMore { get; set; }
+        public string VodafoneIdeaTransactionAmount { get; set; }
+        public string VodafoneIdeaTypeOfCommission { get; set; }
+        public string VodafoneIdeaFees { get; set; }
+
+        public string DTH { get; set; }
+        public string AIRTELDTH { get; set; }
+        public string AIRTELDTHOneOrMore { get; set; }
+        public string AIRTELDTHTransactionAmount { get; set; }
+        public string AIRTELDTHTypeOfCommission { get; set; }
+        public string AIRTELDTHFees { get; set; }
+
+        public string DISHTV { get; set; }
+        public string DISHTVOneOrMore { get; set; }
+        public string DISHTVTransactionAmount { get; set; }
+        public string DISHTVTypeOfCommission { get; set; }
+        public string DISHTVFees { get; set; }
+
+        public string SUNTV { get; set; }
+        public string SUNTVOneOrMore { get; set; }
+        public string SUNTVTransactionAmount { get; set; }
+        public string SUNTVTypeOfCommission { get; set; }
+        public string SUNTVFees { get; set; }
+
+        public string TATASKY { get; set; }
+        public string TATASKYOneOrMore { get; set; }
+        public string TATASKYTransactionAmount { get; set; }
+        public string TATASKYTypeOfCommission { get; set; }
+        public string TATASKYFees { get; set; }
+
+        public string VIDEOCONDTH { get; set; }
+        public string VIDEOCONDTHOneOrMore { get; set; }
+        public string VIDEOCONDTHTransactionAmount { get; set; }
+        public string VIDEOCONDTHTypeOfCommission { get; set; }
+        public string VIDEOCONDTHFees { get; set; }
+
+        // FASTAG Section
+        public string FASTAG { get; set; }
+        public string FASTAGOneOrMore { get; set; }
+        public string FASTAGTransactionAmount { get; set; }
+        public string FASTAGTypeOfCommission { get; set; }
+        public string FASTAGFees { get; set; }
+
+        // PAN Section
+        public string PAN { get; set; }
+        public string PANOneOrMore { get; set; }
+        public string PANTransactionAmount { get; set; }
+        public string PANTypeOfCommission { get; set; }
+        public string PANFees { get; set; }
+
+        // EPFO Section
+        public string EPFO { get; set; }
+        public string EPFOOneOrMore { get; set; }
+        public string EPFOTransactionAmount { get; set; }
+        public string EPFOTypeOfCommission { get; set; }
+        public string EPFOTypeOfCommission12 { get; set; }
+        public string EPFOFees { get; set; }
+        public string EPFOFees1 { get; set; }
+
+        // LIC Section
+        public string LIC { get; set; }
+        public string LICOneOrMore { get; set; }
+        public string LICTransactionAmount { get; set; }
+        public string LICTypeOfCommission { get; set; }
+        public string LICFees { get; set; }
+    }
+
     #endregion
-     
+
     public class usercomplain
     {
 

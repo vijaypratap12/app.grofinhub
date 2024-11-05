@@ -4,9 +4,7 @@
     ViewData["Title"] = "Commission";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-@*
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="~/js/commission.js"></script>*@
+
 
 <style>
     .txtinpt {
@@ -72,12 +70,343 @@
         .slider.round:before {
             border-radius: 50%;
         }
-        #tblwraper {
-    overflow-y: scroll;
-    max-height: 400px;
-    overflow-x:scroll;
-}
+
+    #tblwraper {
+        overflow-y: scroll;
+        max-height: 400px;
+        overflow-x: scroll;
+    }
 </style>
+<script>
+
+    // function SaveCommission(id) {
+    //     debugger;
+    //     if ($("#txtComPer").val()==''){
+    //        alert("Please enter commssion !");
+    //        $("#txtComPer").focus();
+    //        return;
+    //     }
+    //     debugger;
+    //     var objdata = {
+    //         Id: id,
+    //         Dmt: $("#dmt_" + id).val(),
+    //         Aeps: $("#aeps_" + id).val(),
+    //         Matm: $("#matm_" + id).val(),
+    //         Bbps: $("#bbps_" + id).val(),
+    //         Recharge: $("#recharge_" + id).val(),
+    //         Dth: $("#dth_" + id).val(),
+    //         Electricity: $("#electricity_" + id).val(),
+    //         Fastag: $("#fastag_" + id).val(),
+    //         Waterbill: $("#waterbill_" + id).val(),
+    //         Muncipality: $("#muncipality_" + id).val(),
+    //         Lic: $("#lic_" + id).val(),
+    //         Pan: $("#pan_" + id).val(),
+    //         Epfo: $("#epfo_" + id).val(),
+    //         Lpg: $("#lpg_" + id).val(),
+    //         Irctc: $("#irctc_" + id).val(),
+    //         Flight: $("#flight_" + id).val(),
+    //         Bus: $("#bus_" + id).val(),
+    //         Hotel: $("#hotel_" + id).val(),
+    //         Holidaysbooking: $("#holidaysbooking_" + id).val()
+    //     };
+    //     $.ajax({
+    //         url: "/Admin/SaveUserCommission",
+    //         type: "POST",
+    //         data: objdata,
+
+    //         success: function (r) {
+    //             debugger;
+    //             if (r != null) {
+    //                 alert(r);
+    //                 location.reload(true);
+    //             }
+    //         },
+    //         error: function (XMLHttpRequest, textStatus, errorThrown) {
+    //             alert('Please Check values Entered by you !!!');
+    //             $("#showSpinner").hide();
+    //         }
+    //     })
+    // }
+
+
+    // function btnsaveamount(id) {
+    //     debugger;
+    //     $("#txtuserid").text(id)
+    // }
+
+    function SaveCommissionDetailed() {
+        var userid = $('#txtuserid').text();
+        debugger;
+        var objdata = {
+            Id = id,
+            userid: $('#txtuserid').text(),
+            dmt: $('#dmt').text(),
+            dmttfrom1: $('#dmttfrom1').text(),
+            dmttto1: $('#dmttto1').text(),
+            dmtTypeOfCommission1: $('#dmtTypeOfCommission1').val(),
+            dmtfees1: $('#dmtfees1').val(),
+            dmttfrom2: $('#dmttfrom2').text(),
+            dmttto2: $('#dmttto2').text(),
+            dmtTypeOfCommission2: $('#dmtTypeOfCommission2').val(),
+            dmtfees2: $('#dmtfees2').val(),
+            dmttfrom3: $('#dmttfrom3').text(),
+            dmttto3: $('#dmttto3').text(),
+            dmtfees3: $('#dmtfees3').val(),
+            dmtTypeOfCommission3: $('#dmtTypeOfCommission3').val(),
+            AEPS: $('#AEPS').text(),
+            AEPStfrom1: $('#AEPStfrom1').text(),
+            AEPStto1: $('#AEPStto1').text(),
+            AEPSTTypeOfCommission1: $('#AEPSTTypeOfCommission1').val(),
+            AEPSfees1: $('#AEPSfees1').val(),
+            AEPtfrom2: $('#AEPtfrom2').text(),
+            AEPStto2: $('#AEPStto2').text(),
+            AEPSTTypeOfCommission2: $('#AEPSTTypeOfCommission2').val(),
+            AEPSfees2: $('#AEPSfees2').val(),
+            AEPtfrom3: $('#AEPtfrom3').text(),
+            AEPStto3: $('#AEPStto3').text(),
+            AEPSTTypeOfCommission3: $('#AEPSTTypeOfCommission3').val(),
+            AEPSfees3: $('#AEPSfees3').val(),
+            AEPtfrom4: $('#AEPtfrom4').text(),
+            AEPStto4: $('#AEPStto4').text(),
+            AEPSTTypeOfCommission4: $('#AEPSTTypeOfCommission4').val(),
+            AEPSfees4: $('#AEPSfees4').val(),
+            MATM: $('#MATM').text(),
+            MATMtfrom1: $('#MATMtfrom1').text(),
+            MATMtto1: $('#MATMtto1').text(),
+            MATMypeOfCommission1: $('#MATMypeOfCommission1').val(),
+            MATMfees1: $('#MATMfees1').val(),
+            MATMtfrom2: $('#MATMtfrom2').text(),
+            MATMtto2: $('#MATMtto2').text(),
+            MATMypeOfCommission2: $('#MATMypeOfCommission2').val(),
+            MATMfees2: $('#MATMfees2').val(),
+            MATMtfrom3: $('#MATMtfrom3').text(),
+            MATMtto3: $('#MATMtto3').text(),
+            MATMypeOfCommission3: $('#MATMypeOfCommission3').val(),
+            MATMfees3: $('#MATMfees3').val(),
+            MATMtfrom4: $('#MATMtfrom4').text(),
+            MATMtto4: $('#MATMtto4').text(),
+            MATMypeOfCommission4: $('#MATMypeOfCommission4').val(),
+            MATMfees4: $('#MATMfees4').val(),
+            dmtTypeOfCommission12: $('#dmtTypeOfCommission12').val(),
+            dmtfees12: $('#dmtfees12').val(),
+            dmtTypeOfCommission22: $('#dmtTypeOfCommission22').val(),
+            dmtfees22: $('#dmtfees22').val(),
+            dmtTypeOfCommission33: $('#dmtTypeOfCommission33').val(),
+            dmtfees33: $('#dmtfees33').val(),
+
+
+
+            BBPS: $('#BBPS').text(),
+            FromFixed: $('#FromFixed').text(),
+            ToFixed: '0.75',
+            Recharge: $('#Recharge').text(),
+            Airtel: $('#Airtel').text(),
+            Airteloneormore: $('#Airteloneormore').text(),
+            AirteltransactionAmount: $('#AirteltransactionAmount').text(),
+            AirtelypeOfCommission: $('#AirtelypeOfCommission').val(),
+            Airtelfees: $('#Airtelfees').val(),
+            BSNL: $('#BSNL').text(),
+            BSNLoneormore: $('#BSNLoneormore').text(),
+            BSNLtransactionAmount: $('#BSNLtransactionAmount').text(),
+            BSNLypeOfCommission: $('#BSNLypeOfCommission').val(),
+            BSNLfees: $('#BSNLfees').val(),
+            JIO: $('#JIO').text(),
+            JIOoneormore: $('#JIOoneormore').text(),
+            JIOtransactionAmount: $('#JIOtransactionAmount').text(),
+            JIOypeOfCommission: $('#JIOypeOfCommission').val(),
+            JIOfees: $('#JIOfees').val(),
+            VodafoneIdea: $('#VodafoneIdea').text(),
+            VodafoneIdeaoneormore: $('#VodafoneIdeaoneormore').text(),
+            VodafoneIdeatransactionAmount: $('#VodafoneIdeatransactionAmount').text(),
+            VodafoneIdeaypeOfCommission: $('#VodafoneIdeaypeOfCommission').val(),
+            VodafoneIdeafees: $('#VodafoneIdeafees').val(),
+            DTH: $('#DTH').text(),
+            AIRTELDTH: $('#AIRTELDTH').text(),
+            AIRTELDTHoneormore: $('#AIRTELDTHoneormore').text(),
+            AIRTELDTHtransactionAmount: $('#AIRTELDTHtransactionAmount').text(),
+            AIRTELDTHtypeOfCommission: $('#AIRTELDTHtypeOfCommission').val(),
+            AIRTELDTHfees: $('#AIRTELDTHfees').val(),
+            DISHTV: $('#DISHTV').text(),
+            DISHTVoneormore: $('#DISHTVoneormore').text(),
+            DISHTVtransactionAmount: $('#DISHTVtransactionAmount').text(),
+            DISHTVtypeOfCommission: $('#DISHTVtypeOfCommission').val(),
+            DISHTVfees: $('#DISHTVfees').val(),
+            SUNTV: $('#SUNTV').text(),
+            SUNTVoneormore: $('#SUNTVoneormore').text(),
+            SUNTVtransactionAmount: $('#SUNTVtransactionAmount').text(),
+            SUNTVtypeOfCommission: $('#SUNTVtypeOfCommission').val(),
+            SUNTVfees: $('#SUNTVfees').val(),
+            TATASKY: $('#TATASKY').text(),
+            TATASKYoneormore: $('#TATASKYoneormore').text(),
+            TATASKYtransactionAmount: $('#TATASKYtransactionAmount').text(),
+            TATASKYtypeOfCommission: $('#TATASKYtypeOfCommission').val(),
+            TATASKYfees: $('#TATASKYfees').val(),
+            VIDEOCONDTH: $('#VIDEOCONDTH').text(),
+            VIDEOCONDTHoneormore: $('#VIDEOCONDTHoneormore').text(),
+            VIDEOCONDTHtransactionAmount: $('#VIDEOCONDTHtransactionAmount').text(),
+            VIDEOCONDTHtypeOfCommission: $('#VIDEOCONDTHtypeOfCommission').val(),
+            VIDEOCONDTHfees: $('#VIDEOCONDTHfees').val(),
+            FASTAG: $('#FASTAG').text(),
+            FASTAGoneormore: $('#FASTAGoneormore').text(),
+            FASTAGtransactionAmount: $('#FASTAGtransactionAmount').text(),
+
+            FASTAGtypeOfCommission: $('#FASTAGtypeOfCommission').val(),
+            //Add by ASHISH
+            // For PAN
+            PAN: $('#PAN').text(),
+            PANoneormore: $('#PANoneormore').text(),
+            PANtransactionAmount: $('#PANtransactionAmount').text(),
+            PANtypeOfCommission: $('#PANtypeOfCommission').val(),
+            PANfees: $('#PANfees').val(),
+            //For EPFO
+            EPFO: $('#EPFO').text(),
+            EPFOoneormore: $('#EPFOoneormore').text(),
+            EPFOtransactionAmount: $('#EPFOtransactionAmount').text(),
+            EPFOtypeOfCommission: $('#EPFOtypeOfCommission').val(),
+            EPFOTypeOfCommission12: $('#EPFOTypeOfCommission12').val(),
+            EPFOfees: $('#EPFOfees').val(),
+            EPFOfees1: $('#EPFOfees1').val(),
+            //For LIC
+            LIC: $('#LIC').text(),
+            LIConeormore: $('#LIConeormore').text(),
+            LICtransactionAmount: $('#LICtransactionAmount').text(),
+            LICtypeOfCommission: $('#LICtypeOfCommission').val(),
+            LICfees: $('#LICfees').val(),
+            //
+
+            BBPSypeOfCommission: $('#BBPSypeOfCommission').val(),
+
+            BBPSypeOfCommissionfees: $('#BBPSypeOfCommissionfees').val(),
+
+            FASTAGfees: $('#FASTAGfees').val(),
+
+        };
+        $.ajax({
+            url: "/Admin/Commissionuserdetails",
+            type: "POST",
+            data: objdata,
+
+            success: function (r) {
+
+                if (r != null) {
+
+                    alert(r.msg);
+                    location.reload(true);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Please Check values Entered by you !!!');
+                $("#showSpinner").hide();
+            }
+        })
+    }
+    // $('.txtinpt').keyup(function () {
+    //     this.value = this.value.replace(/[^0-9\.]/g, '');
+    // });
+    // $('.txtinpt').keyup(function () {
+    //     this.value = this.value.replace(/[^0-9\.]/g, '');
+    // });
+
+
+    function btnsaveamount(id) {
+        debugger;
+        $("#txtuserid").text(id);
+        var srno = id
+
+
+        var dataobject = {
+            userid: srno,
+            Action: "2"
+        };
+        $.ajax({
+            url: "/Admin/GetNewsEventsEdit",
+            type: "POST",
+            data: dataobject,
+
+            success: function (obj) {
+                if (obj != null) {
+                    $("#dmtTypeOfCommission1").val(obj.dmtTypeOfCommission1);
+                    $("#dmtTypeOfCommission2").val(obj.dmtTypeOfCommission2);
+                    $("#dmtTypeOfCommission3").val(obj.dmtTypeOfCommission3);
+                    $("#dmtfees1").val(obj.dmtfees1);
+                    $("#dmtfees2").val(obj.dmtfees2);
+                    $("#dmtfees3").val(obj.dmtfees3);
+                    $("#dmtTypeOfCommission12").val(obj.dmtTypeOfCommission12);
+                    $("#dmtfees12").val(obj.dmtfees12);
+                    $("#dmtTypeOfCommission22").val(obj.dmtTypeOfCommission22);
+                    $("#dmtfees22").val(obj.dmtfees22);
+                    $("#dmtTypeOfCommission33").val(obj.dmtTypeOfCommission33);
+                    $("#dmtfees33").val(obj.dmtfees33);
+                    /////////////////////  AEPST
+
+                    $("#AEPSTTypeOfCommission1").val(obj.aepstTypeOfCommission1);
+                    $("#AEPSTTypeOfCommission2").val(obj.aepstTypeOfCommission2);
+                    $("#AEPSTTypeOfCommission3").val(obj.aepstTypeOfCommission3);
+                    $("#AEPSTTypeOfCommission4").val(obj.aepstTypeOfCommission4);
+                    $("#AEPSfees1").val(obj.aepSfees1);
+                    $("#AEPSfees2").val(obj.aepSfees2);
+                    $("#AEPSfees3").val(obj.aepSfees3);
+                    $("#AEPSfees4").val(obj.aepSfees4);
+
+                    ///////////////////
+                    $("#MATMfees1").val(obj.matMfees1);
+                    $("#MATMfees2").val(obj.matMfees2);
+                    $("#MATMfees3").val(obj.matMfees3);
+                    $("#MATMfees4").val(obj.matMfees4);
+                    $("#MATMypeOfCommission1").val(obj.matMypeOfCommission1);
+                    $("#MATMypeOfCommission2").val(obj.matMypeOfCommission2);
+                    $("#MATMypeOfCommission3").val(obj.matMypeOfCommission3);
+                    $("#MATMypeOfCommission4").val(obj.matMypeOfCommission4);
+
+
+                    $("#AirtelypeOfCommission").val(obj.airtelypeOfCommission);
+                    $("#Airtelfees").val(obj.airtelfees);
+                    $("#BSNLypeOfCommission").val(obj.bsnLypeOfCommission);
+                    $("#BSNLfees").val(obj.bsnLfees);
+                    $("#JIOypeOfCommission").val(obj.jiOypeOfCommission);
+                    $("#JIOfees").val(obj.jiOfees);
+                    $("#VodafoneIdeaypeOfCommission").val(obj.vodafoneIdeaypeOfCommission);
+                    $("#VodafoneIdeafees").val(obj.vodafoneIdeafees);
+                    $("#AIRTELDTHtypeOfCommission").val(obj.airteldtHtypeOfCommission);
+                    $("#AIRTELDTHfees").val(obj.airteldtHfees);
+                    $("#DISHTVtypeOfCommission").val(obj.dishtVtypeOfCommission);
+                    $("#DISHTVfees").val(obj.dishtVfees);
+                    $("#SUNTVtypeOfCommission").val(obj.suntVtypeOfCommission);
+                    $("#SUNTVfees").val(obj.suntVfees);
+                    $("#TATASKYtypeOfCommission").val(obj.tataskYtypeOfCommission);
+                    $("#TATASKYfees").val(obj.tataskYfees);
+                    $("#VIDEOCONDTHtypeOfCommission").val(obj.videocondtHtypeOfCommission);
+                    $("#VIDEOCONDTHfees").val(obj.videocondtHfees);
+
+                    $("#LICtypeOfCommission").val(obj.liCtypeOfCommission);
+                    $("#LICfees").val(obj.liCfees);
+
+                    $("#EPFOtypeOfCommission").val(obj.epfOtypeOfCommission);
+                    $("#EPFOTypeOfCommission12").val(obj.EPFOTypeOfCommission12);
+
+                    $("#EPFOfees").val(obj.epfOfees);
+                    $("#EPFOfees1").val(obj.epfOfees1);
+
+                    $("#PANtypeOfCommission").val(obj.paNtypeOfCommission);
+                    $("#PANfees").val(obj.paNfees);
+
+
+                    $("#FASTAGtypeOfCommission").val(obj.fastaGtypeOfCommission);
+                    $("#BBPSypeOfCommission").val(obj.bbpSypeOfCommission);
+                    $("#BBPSypeOfCommissionfees").val(obj.bbpSypeOfCommissionfees);
+                    $("#FASTAGfees").val(obj.fastaGfees);
+
+
+                }
+            },
+
+            error: function () {
+
+            }
+        });
+    }
+</script>
+
 
 <div class="app-main__inner">
 
@@ -91,7 +420,6 @@
                         <h4 class="card-title new-title">Commission</h4>
                     </div>
                     <div class="card card-warning">
-                      
                     </div>
                 </div>
 
@@ -392,345 +720,9 @@
                         </table>
                     </div>
                 </div>
-                <input type="submit" value="Submit" onclick="SaveCommission()" class="btn btn-primary">
+                <button id="submitBtn" class="btn btn-primary" onclick="SaveCommissionDetailed()">Submit</button>
             </div>
         </div>
     </div>
 </div>
 
-<script>
-
-    function SaveCommission(id) {
-        // debugger;
-        //if ($("#txtComPer").val()==''){
-        //    alert("Please enter commssion !");
-        //    $("#txtComPer").focus();
-        //    return;
-        //}
-        //debugger;
-        var objdata = {
-            Id: id,
-            Dmt: $("#dmt_" + id).val(),
-            Aeps: $("#aeps_" + id).val(),
-            Matm: $("#matm_" + id).val(),
-            Bbps: $("#bbps_" + id).val(),
-            Recharge: $("#recharge_" + id).val(),
-            Dth: $("#dth_" + id).val(),
-            Electricity: $("#electricity_" + id).val(),
-            Fastag: $("#fastag_" + id).val(),
-            Waterbill: $("#waterbill_" + id).val(),
-            Muncipality: $("#muncipality_" + id).val(),
-            Lic: $("#lic_" + id).val(),
-            Pan: $("#pan_" + id).val(),
-            Epfo: $("#epfo_" + id).val(),
-            Lpg: $("#lpg_" + id).val(),
-            Irctc: $("#irctc_" + id).val(),
-            Flight: $("#flight_" + id).val(),
-            Bus: $("#bus_" + id).val(),
-            Hotel: $("#hotel_" + id).val(),
-            Holidaysbooking: $("#holidaysbooking_" + id).val()
-        };
-        $.ajax({
-            url: "/Admin/SaveUserCommission",
-            type: "POST",
-            data: objdata,
-
-            success: function (r) {
-                debugger;
-                if (r != null) {
-                    alert(r);
-                    location.reload(true);
-                }
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert('Please Check values Entered by you !!!');
-                $("#showSpinner").hide();
-            }
-        })
-    }
-    $('.txtinpt').keyup(function () {
-        this.value = this.value.replace(/[^0-9\.]/g, '');
-    });
-
-    //function setlbl() {
-    //    $(".setlbl").text($("#ddlservice").val())
-    //}
-
-    function btnsaveamount(id) {
-        debugger;
-        $("#txtuserid").text(id)
-    }
-
-    function SaveCommission() {
-        var userid = $('#txtuserid').text();
-        debugger;
-        var objdata = {
-            userid: $('#txtuserid').text(),
-            dmt: $('#dmt').text(),
-            dmttfrom1: $('#dmttfrom1').text(),
-            dmttto1: $('#dmttto1').text(),
-            dmtTypeOfCommission1: $('#dmtTypeOfCommission1').val(),
-            dmtfees1: $('#dmtfees1').val(),
-            dmttfrom2: $('#dmttfrom2').text(),
-            dmttto2: $('#dmttto2').text(),
-            dmtTypeOfCommission2: $('#dmtTypeOfCommission2').val(),
-            dmtfees2: $('#dmtfees2').val(),
-            dmttfrom3: $('#dmttfrom3').text(),
-            dmttto3: $('#dmttto3').text(),
-            dmtfees3: $('#dmtfees3').val(),
-            dmtTypeOfCommission3: $('#dmtTypeOfCommission3').val(),
-            AEPS: $('#AEPS').text(),
-            AEPStfrom1: $('#AEPStfrom1').text(),
-            AEPStto1: $('#AEPStto1').text(),
-            AEPSTTypeOfCommission1: $('#AEPSTTypeOfCommission1').val(),
-            AEPSfees1: $('#AEPSfees1').val(),
-            AEPtfrom2: $('#AEPtfrom2').text(),
-            AEPStto2: $('#AEPStto2').text(),
-            AEPSTTypeOfCommission2: $('#AEPSTTypeOfCommission2').val(),
-            AEPSfees2: $('#AEPSfees2').val(),
-            AEPtfrom3: $('#AEPtfrom3').text(),
-            AEPStto3: $('#AEPStto3').text(),
-            AEPSTTypeOfCommission3: $('#AEPSTTypeOfCommission3').val(),
-            AEPSfees3: $('#AEPSfees3').val(),
-            AEPtfrom4: $('#AEPtfrom4').text(),
-            AEPStto4: $('#AEPStto4').text(),
-            AEPSTTypeOfCommission4: $('#AEPSTTypeOfCommission4').val(),
-            AEPSfees4: $('#AEPSfees4').val(),
-            MATM: $('#MATM').text(),
-            MATMtfrom1: $('#MATMtfrom1').text(),
-            MATMtto1: $('#MATMtto1').text(),
-            MATMypeOfCommission1: $('#MATMypeOfCommission1').val(),
-            MATMfees1: $('#MATMfees1').val(),
-            MATMtfrom2: $('#MATMtfrom2').text(),
-            MATMtto2: $('#MATMtto2').text(),
-            MATMypeOfCommission2: $('#MATMypeOfCommission2').val(),
-            MATMfees2: $('#MATMfees2').val(),
-            MATMtfrom3: $('#MATMtfrom3').text(),
-            MATMtto3: $('#MATMtto3').text(),
-            MATMypeOfCommission3: $('#MATMypeOfCommission3').val(),
-            MATMfees3: $('#MATMfees3').val(),
-            MATMtfrom4: $('#MATMtfrom4').text(),
-            MATMtto4: $('#MATMtto4').text(),
-            MATMypeOfCommission4: $('#MATMypeOfCommission4').val(),
-            MATMfees4: $('#MATMfees4').val(),
-            dmtTypeOfCommission12: $('#dmtTypeOfCommission12').val(),
-            dmtfees12: $('#dmtfees12').val(),
-            dmtTypeOfCommission22: $('#dmtTypeOfCommission22').val(),
-            dmtfees22: $('#dmtfees22').val(),
-            dmtTypeOfCommission33: $('#dmtTypeOfCommission33').val(),
-            dmtfees33: $('#dmtfees33').val(),
-
-
-
-            BBPS: $('#BBPS').text(),
-            FromFixed: $('#FromFixed').text(),
-            ToFixed: '0.75',
-            Recharge: $('#Recharge').text(),
-            Airtel: $('#Airtel').text(),
-            Airteloneormore: $('#Airteloneormore').text(),
-            AirteltransactionAmount: $('#AirteltransactionAmount').text(),
-            AirtelypeOfCommission: $('#AirtelypeOfCommission').val(),
-            Airtelfees: $('#Airtelfees').val(),
-            BSNL: $('#BSNL').text(),
-            BSNLoneormore: $('#BSNLoneormore').text(),
-            BSNLtransactionAmount: $('#BSNLtransactionAmount').text(),
-            BSNLypeOfCommission: $('#BSNLypeOfCommission').val(),
-            BSNLfees: $('#BSNLfees').val(),
-            JIO: $('#JIO').text(),
-            JIOoneormore: $('#JIOoneormore').text(),
-            JIOtransactionAmount: $('#JIOtransactionAmount').text(),
-            JIOypeOfCommission: $('#JIOypeOfCommission').val(),
-            JIOfees: $('#JIOfees').val(),
-            VodafoneIdea: $('#VodafoneIdea').text(),
-            VodafoneIdeaoneormore: $('#VodafoneIdeaoneormore').text(),
-            VodafoneIdeatransactionAmount: $('#VodafoneIdeatransactionAmount').text(),
-            VodafoneIdeaypeOfCommission: $('#VodafoneIdeaypeOfCommission').val(),
-            VodafoneIdeafees: $('#VodafoneIdeafees').val(),
-            DTH: $('#DTH').text(),
-            AIRTELDTH: $('#AIRTELDTH').text(),
-            AIRTELDTHoneormore: $('#AIRTELDTHoneormore').text(),
-            AIRTELDTHtransactionAmount: $('#AIRTELDTHtransactionAmount').text(),
-            AIRTELDTHtypeOfCommission: $('#AIRTELDTHtypeOfCommission').val(),
-            AIRTELDTHfees: $('#AIRTELDTHfees').val(),
-            DISHTV: $('#DISHTV').text(),
-            DISHTVoneormore: $('#DISHTVoneormore').text(),
-            DISHTVtransactionAmount: $('#DISHTVtransactionAmount').text(),
-            DISHTVtypeOfCommission: $('#DISHTVtypeOfCommission').val(),
-            DISHTVfees: $('#DISHTVfees').val(),
-            SUNTV: $('#SUNTV').text(),
-            SUNTVoneormore: $('#SUNTVoneormore').text(),
-            SUNTVtransactionAmount: $('#SUNTVtransactionAmount').text(),
-            SUNTVtypeOfCommission: $('#SUNTVtypeOfCommission').val(),
-            SUNTVfees: $('#SUNTVfees').val(),
-            TATASKY: $('#TATASKY').text(),
-            TATASKYoneormore: $('#TATASKYoneormore').text(),
-            TATASKYtransactionAmount: $('#TATASKYtransactionAmount').text(),
-            TATASKYtypeOfCommission: $('#TATASKYtypeOfCommission').val(),
-            TATASKYfees: $('#TATASKYfees').val(),
-            VIDEOCONDTH: $('#VIDEOCONDTH').text(),
-            VIDEOCONDTHoneormore: $('#VIDEOCONDTHoneormore').text(),
-            VIDEOCONDTHtransactionAmount: $('#VIDEOCONDTHtransactionAmount').text(),
-            VIDEOCONDTHtypeOfCommission: $('#VIDEOCONDTHtypeOfCommission').val(),
-            VIDEOCONDTHfees: $('#VIDEOCONDTHfees').val(),
-            FASTAG: $('#FASTAG').text(),
-            FASTAGoneormore: $('#FASTAGoneormore').text(),
-            FASTAGtransactionAmount: $('#FASTAGtransactionAmount').text(),
-
-            FASTAGtypeOfCommission: $('#FASTAGtypeOfCommission').val(),
-            //Add by ASHISH
-            // For PAN
-            PAN: $('#PAN').text(),
-            PANoneormore: $('#PANoneormore').text(),
-            PANtransactionAmount: $('#PANtransactionAmount').text(),
-            PANtypeOfCommission: $('#PANtypeOfCommission').val(),
-            PANfees: $('#PANfees').val(),
-            //For EPFO
-            EPFO: $('#EPFO').text(),
-            EPFOoneormore: $('#EPFOoneormore').text(),
-            EPFOtransactionAmount: $('#EPFOtransactionAmount').text(),
-            EPFOtypeOfCommission: $('#EPFOtypeOfCommission').val(),
-            EPFOTypeOfCommission12: $('#EPFOTypeOfCommission12').val(),
-            EPFOfees: $('#EPFOfees').val(),
-            EPFOfees1: $('#EPFOfees1').val(),
-            //For LIC
-            LIC: $('#LIC').text(),
-            LIConeormore: $('#LIConeormore').text(),
-            LICtransactionAmount: $('#LICtransactionAmount').text(),
-            LICtypeOfCommission: $('#LICtypeOfCommission').val(),
-            LICfees: $('#LICfees').val(),
-            //
-
-            BBPSypeOfCommission: $('#BBPSypeOfCommission').val(),
-
-            BBPSypeOfCommissionfees: $('#BBPSypeOfCommissionfees').val(),
-
-            FASTAGfees: $('#FASTAGfees').val(),
-
-        };
-        $.ajax({
-            url: "../Admin/Commissionuserdetails",
-            type: "POST",
-            data: objdata,
-
-            success: function (r) {
-
-                if (r != null) {
-
-                    alert(r.msg);
-                    location.reload(true);
-                }
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert('Please Check values Entered by you !!!');
-                $("#showSpinner").hide();
-            }
-        })
-    }
-    $('.txtinpt').keyup(function () {
-        this.value = this.value.replace(/[^0-9\.]/g, '');
-    });
-
-    //function setlbl() {
-    //    $(".setlbl").text($("#ddlservice").val())
-    //}
-
-    function btnsaveamount(id) {
-        debugger;
-        $("#txtuserid").text(id);
-        var srno = id
-
-
-        var dataobject = {
-            userid: srno,
-            Action: "2"
-        };
-        $.ajax({
-            url: "../Admin/GetNewsEventsEdit",
-            type: "POST",
-            data: dataobject,
-
-            success: function (obj) {
-                if (obj != null) {
-
-
-                    $("#dmtTypeOfCommission1").val(obj.dmtTypeOfCommission1);
-                    $("#dmtTypeOfCommission2").val(obj.dmtTypeOfCommission2);
-                    $("#dmtTypeOfCommission3").val(obj.dmtTypeOfCommission3);
-                    $("#dmtfees1").val(obj.dmtfees1);
-                    $("#dmtfees2").val(obj.dmtfees2);
-                    $("#dmtfees3").val(obj.dmtfees3);
-                    $("#dmtTypeOfCommission12").val(obj.dmtTypeOfCommission12);
-                    $("#dmtfees12").val(obj.dmtfees12);
-                    $("#dmtTypeOfCommission22").val(obj.dmtTypeOfCommission22);
-                    $("#dmtfees22").val(obj.dmtfees22);
-                    $("#dmtTypeOfCommission33").val(obj.dmtTypeOfCommission33);
-                    $("#dmtfees33").val(obj.dmtfees33);
-                    /////////////////////  AEPST
-
-                    $("#AEPSTTypeOfCommission1").val(obj.aepstTypeOfCommission1);
-                    $("#AEPSTTypeOfCommission2").val(obj.aepstTypeOfCommission2);
-                    $("#AEPSTTypeOfCommission3").val(obj.aepstTypeOfCommission3);
-                    $("#AEPSTTypeOfCommission4").val(obj.aepstTypeOfCommission4);
-                    $("#AEPSfees1").val(obj.aepSfees1);
-                    $("#AEPSfees2").val(obj.aepSfees2);
-                    $("#AEPSfees3").val(obj.aepSfees3);
-                    $("#AEPSfees4").val(obj.aepSfees4);
-
-                    ///////////////////
-                    $("#MATMfees1").val(obj.matMfees1);
-                    $("#MATMfees2").val(obj.matMfees2);
-                    $("#MATMfees3").val(obj.matMfees3);
-                    $("#MATMfees4").val(obj.matMfees4);
-                    $("#MATMypeOfCommission1").val(obj.matMypeOfCommission1);
-                    $("#MATMypeOfCommission2").val(obj.matMypeOfCommission2);
-                    $("#MATMypeOfCommission3").val(obj.matMypeOfCommission3);
-                    $("#MATMypeOfCommission4").val(obj.matMypeOfCommission4);
-
-
-                    $("#AirtelypeOfCommission").val(obj.airtelypeOfCommission);
-                    $("#Airtelfees").val(obj.airtelfees);
-                    $("#BSNLypeOfCommission").val(obj.bsnLypeOfCommission);
-                    $("#BSNLfees").val(obj.bsnLfees);
-                    $("#JIOypeOfCommission").val(obj.jiOypeOfCommission);
-                    $("#JIOfees").val(obj.jiOfees);
-                    $("#VodafoneIdeaypeOfCommission").val(obj.vodafoneIdeaypeOfCommission);
-                    $("#VodafoneIdeafees").val(obj.vodafoneIdeafees);
-                    $("#AIRTELDTHtypeOfCommission").val(obj.airteldtHtypeOfCommission);
-                    $("#AIRTELDTHfees").val(obj.airteldtHfees);
-                    $("#DISHTVtypeOfCommission").val(obj.dishtVtypeOfCommission);
-                    $("#DISHTVfees").val(obj.dishtVfees);
-                    $("#SUNTVtypeOfCommission").val(obj.suntVtypeOfCommission);
-                    $("#SUNTVfees").val(obj.suntVfees);
-                    $("#TATASKYtypeOfCommission").val(obj.tataskYtypeOfCommission);
-                    $("#TATASKYfees").val(obj.tataskYfees);
-                    $("#VIDEOCONDTHtypeOfCommission").val(obj.videocondtHtypeOfCommission);
-                    $("#VIDEOCONDTHfees").val(obj.videocondtHfees);
-
-                    $("#LICtypeOfCommission").val(obj.liCtypeOfCommission);
-                    $("#LICfees").val(obj.liCfees);
-
-                    $("#EPFOtypeOfCommission").val(obj.epfOtypeOfCommission);
-                    $("#EPFOTypeOfCommission12").val(obj.EPFOTypeOfCommission12);
-
-                    $("#EPFOfees").val(obj.epfOfees);
-                    $("#EPFOfees1").val(obj.epfOfees1);
-
-                    $("#PANtypeOfCommission").val(obj.paNtypeOfCommission);
-                    $("#PANfees").val(obj.paNfees);
-
-
-                    $("#FASTAGtypeOfCommission").val(obj.fastaGtypeOfCommission);
-                    $("#BBPSypeOfCommission").val(obj.bbpSypeOfCommission);
-                    $("#BBPSypeOfCommissionfees").val(obj.bbpSypeOfCommissionfees);
-                    $("#FASTAGfees").val(obj.fastaGfees);
-
-
-                }
-            },
-
-            error: function () {
-
-            }
-        });
-    }
-</script>

@@ -16,6 +16,9 @@ using System.Net;
 using System.Drawing.Printing;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
+using System.Reflection;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace Grofinhub.Controllers
 {
@@ -24,6 +27,9 @@ namespace Grofinhub.Controllers
         DBHelper DB = new DBHelper();
         CommonClasses sm = new CommonClasses();
         clsAdminLogic db;
+        private const string BaseUrl = "http://127.0.0.1:";
+        private string MethodCapture;
+        private string MethodInfo;
         public AEPSController()
         {
             db = new clsAdminLogic();
@@ -187,42 +193,206 @@ namespace Grofinhub.Controllers
         public JsonResult CaptureFingerprintData()
         {
             // Call the CaptureFingerprint method to get the fingerprint data
-            string fingerprintData = CaptureFingerprint();
+            string fingerprintData = CaptureFingerprintProcess();
 
             // Return the fingerprint data to the frontend as JSON
             return Json(new { fingerprintData });
         }
 
 
+        //public string CaptureFingerprint()
+        //{
+        //    try
+        //    {
+        //        string completeUrl = "https://127.0.0.1:11100/rd/capture";  // Mantra RD Service URL
+        //        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(completeUrl);
+        //        request.Method = "CAPTURE";  // Method to capture fingerprint
+        //        request.Credentials = CredentialCache.DefaultCredentials;
+        //        // The PidOptions string that specifies the capture options
+        //        string pidOptString = @"<?xml version=""1.0""?> <PidOptions ver=""1.0""> <Opts fCount=""1"" fType=""0"" iCount=""0"" pCount=""0"" pgCount=""2"" format=""0""   pidVer=""2.0"" timeout=""10000"" pTimeout=""20000"" posh=""UNKNOWN"" env=""P"" /> <CustOpts><Param name=""mantrakey"" value="""" /></CustOpts> </PidOptions>";
+        //        // Write the options to the request stream
+        //        using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
+        //        {
+        //            writer.WriteLine(pidOptString);
+        //        }
+        //        // Get response from the RD Service
+        //        WebResponse response = request.GetResponse();
+        //        using (StreamReader sr = new StreamReader(response.GetResponseStream()))
+        //        {
+        //            string fingerprintData = sr.ReadToEnd();  // Capture fingerprint data
+        //            return fingerprintData;  // Return the captured fingerprint data
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Handle errors appropriately
+        //        return $"Error: {ex.Message}";
+        //    }
+        //}
+
+        // Main method to run the capture process
+        public string CaptureFingerprintProcess()
+        {
+            // Step 1: Discover the RD Service
+            string deviceInfo = DiscoverAvdm();
+            if (deviceInfo.Contains("Error"))
+            {
+                return "Error: RD Service not found on any port.";
+            }
+
+            //Step 2: Fetch Device Info
+            string rdServiceUrl = DiscoverDeviceInfo();
+            if (rdServiceUrl == null)
+            {
+                return "Error: Unable to retrieve device information.";
+            }
+
+            // Step 3: Capture Fingerprint
+            string captureResponse = CaptureFingerprint();
+            if (captureResponse.Contains("Error"))
+            {
+                return "Error: Fingerprint capture failed.";
+            }
+
+            return captureResponse; // Return capture data or success message
+        }
+
+        // Discover the first available RD service port and set URLs for device info and capture
+        public string DiscoverDeviceInfo()
+        {
+            string rdServiceUrl = null;
+
+            for (int port = 11100; port <= 11120; port++)
+            {
+                rdServiceUrl = $"{BaseUrl}{port}";
+
+                string discoverUrl = $"{rdServiceUrl}/rd/info";
+                try
+                {
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(discoverUrl);
+                    request.Method = "DEVICEINFO";
+                    request.ContentType = "text/xml";
+
+                    using (WebResponse response = request.GetResponse())
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        string responseXml = reader.ReadToEnd();
+
+                        if (responseXml.ToLower().Contains("mantra"))
+                        {
+                            var doc = System.Xml.Linq.XElement.Parse(responseXml);
+
+                            // Parse the response XML
+                            doc = XElement.Parse(responseXml);
+
+                            // Extract relevant information
+                            var deviceType = doc.Attribute("device_type")?.Value;
+                            var modalityType = doc.Descendants("Param")
+                                .FirstOrDefault(param => param.Attribute("name")?.Value == "modality_type")?.Attribute("value")?.Value;
+                            var serialNumber = doc.Descendants("Param")
+                                .FirstOrDefault(param => param.Attribute("name")?.Value == "srno")?.Attribute("value")?.Value;
+
+                            // Log or use extracted information as needed
+                            Console.WriteLine($"Device Type: {deviceType}");
+                            Console.WriteLine($"Modality Type: {modalityType}");
+                            Console.WriteLine($"Serial Number: {serialNumber}");
+
+                            return rdServiceUrl; // RD Service is discovered
+                        }
+                    }
+                }
+                catch (WebException)
+                {
+                    continue;
+                }
+            }
+
+            return null; // No RD service found on specified ports
+        }
+
+        // Fetch device information by calling the RD service /info endpoint
+        public string DiscoverAvdm()
+        {
+            string rdServiceUrl = null;
+
+            for (int port = 11100; port <= 11120; port++)
+            {
+                rdServiceUrl = $"{BaseUrl}{port}";
+
+                string discoverUrl = $"{rdServiceUrl}";
+                try
+                {
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(discoverUrl);
+                    request.Method = "RDSERVICE";
+                    request.ContentType = "text/xml";
+
+                    using (WebResponse response = request.GetResponse())
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        string responseXml = reader.ReadToEnd();
+
+                        if (responseXml.ToLower().Contains("ready"))
+                        {
+                            var doc = System.Xml.Linq.XElement.Parse(responseXml);
+
+                            // Parse the response XML
+                            doc = XElement.Parse(responseXml);
+
+                            return rdServiceUrl; // RD Service is discovered
+                        }
+                    }
+                }
+                catch (WebException)
+                {
+                    continue;
+                }
+            }
+
+            return null; // No RD service found on specified ports
+        }
+
+        // Capture the fingerprint data
         public string CaptureFingerprint()
         {
+            string rdServiceUrl = DiscoverAvdm();
+            if (rdServiceUrl == null)
+            {
+                return "Error: RD Service not found on any port.";
+            }
+
             try
             {
-                string completeUrl = "https://127.0.0.1:11100/rd/capture";  // Mantra RD Service URL
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(completeUrl);
-                request.Method = "CAPTURE";  // Method to capture fingerprint
-                request.Credentials = CredentialCache.DefaultCredentials;
-                // The PidOptions string that specifies the capture options
-                string pidOptString = @"<?xml version=""1.0""?> <PidOptions ver=""1.0""> <Opts fCount=""1"" fType=""0"" iCount=""0"" pCount=""0"" pgCount=""2"" format=""0""   pidVer=""2.0"" timeout=""10000"" pTimeout=""20000"" posh=""UNKNOWN"" env=""P"" /> <CustOpts><Param name=""mantrakey"" value="""" /></CustOpts> </PidOptions>";
-                // Write the options to the request stream
+                string captureUrl = $"{rdServiceUrl}/rd/capture";
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(captureUrl);
+                request.Method = "CAPTURE";
+                request.ContentType = "text/xml";
+
+                string pidOptString = @"<?xml version=""1.0""?> 
+            <PidOptions ver=""1.0""> 
+              <Opts fCount=""1"" fType=""0"" iCount=""0"" pCount=""0"" format=""0"" pidVer=""2.0"" timeout=""10000"" posh=""UNKNOWN"" env=""P"" /> 
+              <CustOpts>
+                <Param name=""mantrakey"" value="""" />
+              </CustOpts> 
+            </PidOptions>";
+
                 using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
                 {
                     writer.WriteLine(pidOptString);
                 }
-                // Get response from the RD Service
-                WebResponse response = request.GetResponse();
-                using (StreamReader sr = new StreamReader(response.GetResponseStream()))
+
+                using (WebResponse response = request.GetResponse())
+                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                 {
-                    string fingerprintData = sr.ReadToEnd();  // Capture fingerprint data
-                    return fingerprintData;  // Return the captured fingerprint data
+                    return reader.ReadToEnd();
                 }
             }
             catch (Exception ex)
             {
-                // Handle errors appropriately
                 return $"Error: {ex.Message}";
             }
         }
+
+
 
 
         public JsonResult Enquiry(AEPSEnqueriModel p)
