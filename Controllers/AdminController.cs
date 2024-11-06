@@ -3362,7 +3362,10 @@ namespace SportsBattle.Controllers
 		{
 			RootLicBillPayRes d = new RootLicBillPayRes();
 			string type = "LIC";
-			accreq.bill_fetch = bill_fetch;
+            accreq.id = 241;  //this id will be same for UAT and production.
+            accreq.Operator = "Life Insurance Corporation of India";
+            accreq.category = "Insurance";
+            accreq.bill_fetch = bill_fetch;
 			//accreq.latitude = "26.8500992";
 			//accreq.longitude = "80.9992192";
 			string userid = Convert.ToString(HttpContext.Session.GetString("UserId"));

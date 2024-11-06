@@ -195,15 +195,14 @@
                                         </div>
 
 
-@*
+
                                         <div class="col-sm-4">
-
                                             <div class="form-group">
-                                                <label> Additional Parameter 2:	 </label>
-                                                <input type="text" class="form-control" placeholder="Enter Ad2.." id="txtad2F" />
-
+                                                <label for="txtad2F">DOB</label>
+                                                <input type="date" class="form-control" id="txtad2F" onblur="formatDOB()" />
                                             </div>
                                         </div>
+@*
                                         <div class="col-sm-4">
 
                                             <div class="form-group">
@@ -1884,9 +1883,17 @@
 
 
 
+    function formatDOB() {
+        const dobInput = document.getElementById("txtad2F");
+        const dobValue = dobInput.value;
 
-
-
+        if (dobValue) {
+            // Extract year, month, and day
+            const [year, month, day] = dobValue.split("-");
+            // Set the date in DD/MM/YYYY format
+            dobInput.value = `${day}/${month}/${year}`;
+        }
+    }
 
     //function QueryDTHRechargecheck() {
 
