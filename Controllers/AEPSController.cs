@@ -193,8 +193,8 @@ namespace Grofinhub.Controllers
         public JsonResult CaptureFingerprintData()
         {
             // Call the CaptureFingerprint method to get the fingerprint data
-            string fingerprintData = CaptureFingerprintProcess();
-
+            //string fingerprintData = CaptureFingerprintProcess();
+            string fingerprintData = CaptureFingerprint();
             // Return the fingerprint data to the frontend as JSON
             return Json(new { fingerprintData });
         }
@@ -231,7 +231,7 @@ namespace Grofinhub.Controllers
         //}
 
         // Main method to run the capture process
-        public string CaptureFingerprintProcess()
+        public string CaptureFingerprint()
         {
             // Step 1: Discover the RD Service
             string deviceInfo = DiscoverAvdm();
@@ -248,7 +248,7 @@ namespace Grofinhub.Controllers
             }
 
             // Step 3: Capture Fingerprint
-            string captureResponse = CaptureFingerprint();
+            string captureResponse = CaptureFingerprintProcess();
             if (captureResponse.Contains("Error"))
             {
                 return "Error: Fingerprint capture failed.";
@@ -352,7 +352,7 @@ namespace Grofinhub.Controllers
         }
 
         // Capture the fingerprint data
-        public string CaptureFingerprint()
+        public string CaptureFingerprintProcess()
         {
             string rdServiceUrl = DiscoverAvdm();
             if (rdServiceUrl == null)

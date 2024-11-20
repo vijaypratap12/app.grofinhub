@@ -20,7 +20,7 @@
                         <thead class="bg-primary">
                             <tr>
                                 <th>SN.</th>
-                                <th style="display:none">ALLOTMENT</th>
+                                <th>ALLOTMENT</th>
                                 <th>PARTNER ID</th>
                                 <th>NAME</th>
                                 <th>MOBILE</th>
@@ -42,18 +42,18 @@
                                 {
                                     <tr>
                                         <td>@(i++)</td>
-                                        <td style="display:none">
+                                        <td>
                                             <select class="form-control" id="ddl_@row["Agentid"]" onchange="savePermission('@row["Agentid"]')">
-                                                <option value="0" disabled selected>Select</option>
+                                                <option value="0" selected>Select</option>
                                                 @foreach (DataRow item in Model.Tables[1].Rows)
                                                 {
                                                     if (row["role"].ToString() == row["PrevRole"].ToString())
                                                     {
-                                                        <option disabled selected value="@row["role"]">@item["RoleName"]</option>
+                                                        <option selected value="@row["role"]">@item["RoleName"]</option>
                                                     }
                                                     else
                                                     {
-                                                        <option value="@row["ID"]">@item["RoleName"]</option>
+                                                        <option value="@item["ID"]">@item["RoleName"]</option>
                                                     }
                                                 }
                                             </select>
