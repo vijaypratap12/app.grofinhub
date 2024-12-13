@@ -899,6 +899,12 @@ namespace SportsBattle.Models
         new SqlParameter("@MATMtto4", details.MATMTTo4 ?? (object)DBNull.Value),
         new SqlParameter("@MATMypeOfCommission4", details.MATMTypeOfCommission4 ?? (object)DBNull.Value),
         new SqlParameter("@MATMfees4", details.MATMFees4 ?? (object)DBNull.Value),
+        new SqlParameter("@dmtTypeOfCommission12", details.DMTTypeOfCommission12 ?? (object)DBNull.Value),
+        new SqlParameter("@dmtfees12", details.dmtfees12 ?? (object)DBNull.Value),
+        new SqlParameter("dmtTypeOfCommission22", details.dmtTypeOfCommission22 ?? (object)DBNull.Value),
+        new SqlParameter("dmtfees22", details.dmtfees22 ?? (object)DBNull.Value),
+        new SqlParameter("dmtTypeOfCommission33", details.dmtTypeOfCommission33 ?? (object)DBNull.Value),
+        new SqlParameter("dmtfees33", details.dmtfees33 ?? (object)DBNull.Value),
         new SqlParameter("@BBPS", details.BBPS ?? (object)DBNull.Value),
         new SqlParameter("@FromFixed", details.FromFixed ?? (object)DBNull.Value),
         new SqlParameter("@ToFixed", details.ToFixed ?? (object)DBNull.Value),
@@ -953,8 +959,8 @@ namespace SportsBattle.Models
         new SqlParameter("@FASTAGoneormore", details.FASTAGOneOrMore ?? (object)DBNull.Value),
         new SqlParameter("@FASTAGtransactionAmount", details.FASTAGTransactionAmount ?? (object)DBNull.Value),
         new SqlParameter("@FASTAGtypeOfCommission", details.FASTAGTypeOfCommission ?? (object)DBNull.Value),
-        new SqlParameter("@BBPStypeOfCommission", details.BBPSTypeOfCommission ?? (object)DBNull.Value),
-        new SqlParameter("@BBPStypeOfCommissionFees", details.BBPSTypeOfCommissionFees ?? (object)DBNull.Value),
+        new SqlParameter("@BBPSypeOfCommission", details.BBPSTypeOfCommission ?? (object)DBNull.Value),
+        new SqlParameter("@BBPSypeOfCommissionFees", details.BBPSTypeOfCommissionFees ?? (object)DBNull.Value),
         new SqlParameter("@FASTAGfees", details.FASTAGFees ?? (object)DBNull.Value),
         new SqlParameter("@LIC", details.LIC ?? (object)DBNull.Value),
         new SqlParameter("@LIConeormore", details.LICOneOrMore ?? (object)DBNull.Value),
@@ -975,7 +981,7 @@ namespace SportsBattle.Models
         new SqlParameter("@EPFOfees1", details.EPFOFees1 ?? (object)DBNull.Value)
             };
 
-            dt = db.ExecProcDataTable("SPCommissionDetails", parm);
+            dt = db.ExecProcDataTable("sp_commission_details", parm);
             return dt;
         }
 

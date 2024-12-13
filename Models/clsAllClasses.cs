@@ -2364,6 +2364,11 @@ namespace SportsBattle.Models
         public string MATMTTo4 { get; set; }
         public string MATMTypeOfCommission4 { get; set; }
         public string MATMFees4 { get; set; }
+        public string dmtfees12 { get; set; }
+        public string dmtTypeOfCommission22 { get; set; }
+        public string dmtfees22 { get; set; }
+        public string dmtTypeOfCommission33 { get; set; }
+        public string dmtfees33 { get; set; }
 
         // BBPS Section
         public string BBPS { get; set; }

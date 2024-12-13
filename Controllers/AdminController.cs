@@ -2888,11 +2888,29 @@ namespace SportsBattle.Controllers
 
 		public IActionResult Commissionuserdetails(CommissionDetailsModel pbody)
 		{
-			pbody.Action = "2";
+			//pbody.Action = "1";
 			pbody.EntryBy = Convert.ToString(HttpContext.Session.GetString("UserId"));
-            string msg = db.SaveCommissionDetail(pbody).Rows[0][0].ToString();
-			return Json(msg);
-		}
+			if (pbody.Action == "1")
+			{
+                string msg = db.SaveCommissionDetail(pbody).Rows[0][1].ToString();
+                return Json(msg);
+            }
+            else if (pbody.Action == "2")
+            {
+                DataTable result = db.SaveCommissionDetail(pbody);
+
+                // Convert DataTable to a list of objects for JSON serialization
+                var jsonResult = result.AsEnumerable().Select(row => result.Columns
+                    .Cast<DataColumn>()
+                    .ToDictionary(col => col.ColumnName, col => row[col]));
+
+                return Json(new { success = true, data = jsonResult });
+            }
+            else
+            {
+                return Json(new { success = false, message = "Invalid action type." });
+            }
+        }
         #endregion
         #region 28/03/2023 PayBil Report
 
@@ -3819,8 +3837,8 @@ namespace SportsBattle.Controllers
 			OnboardingBody req = new OnboardingBody();
 			req.mobile = Mobile;
 			req.email = "md@grofinhub.com";
-			//req.callback = "https://app.grofinhub.com/Admin/MemberKYC";
-			req.callback = "https://localhost:44317/Admin/MemberKYC";
+			req.callback = "https://app.grofinhub.com/Admin/MemberKYC";
+			//req.callback = "https://localhost:44317/Admin/MemberKYC";
 			req.firm = "GROFINHUB SERVICES PRIVATE LIMITED";
 			req.merchantcode = Merchantcode;
 			req.is_new = is_new;
@@ -3835,6 +3853,7 @@ namespace SportsBattle.Controllers
 				var request = new RestRequest("/service-api/api/v1/service/onboard/onboardnew/getonboardurl", Method.Post);
 				request.AddHeader("accept", "application/json");
 				string GetToken = sm.GetToken();
+				//string GetToken = sm.GetLiveToken();
 				request.AddHeader("Token", GetToken);
 				request.AddHeader("Authorisedkey", DB.AuthorizationKey);
 				request.AddHeader("Content-Type", "application/json");

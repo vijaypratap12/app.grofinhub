@@ -172,7 +172,12 @@
             if (res.status == "true" && res.response_code == "1") {
                 //$("#onboarding_modal_form").attr("action", res.redirecturl)
                 //$("#open_redirect_url_onboarding_btn").show();
-                window.location.href = res.redirecturl;
+                if (res.message == "Merchant already onboarded on Pipe.") {
+                    alert(res.message)
+                }
+                else {
+                    window.location.href = res.redirecturl;
+                }
             }
             else {
                 alert(res.message)
@@ -304,52 +309,52 @@
                                         int i = 1;
                                         foreach (DataRow item in Model.Rows)
                                         {
-                                            <tr>
-                                                <td>@i</td>
+                                                <tr>
+                                                    <td>@i</td>
 
-                                                <td>@item["Agentid"]</td>
-                                                <td>@item["Name"]</td>
+                                                    <td>@item["Agentid"]</td>
+                                                    <td>@item["Name"]</td>
 
-                                                <td>@item["Mobile"]</td>
+                                                    <td>@item["Mobile"]</td>
 
 
-                                                @if (item["PartnerId"].ToString() != null && item["PartnerId"].ToString() != "")
+                                                    @if (item["PartnerId"].ToString() != null && item["PartnerId"].ToString() != "")
                                                 {
-                                                    <td>
-                                                        @* <span class="fw-bold text-success">KYC Complete</span></td> *@
-                                                        @*<i class="btn btn-success">KYC Complete</i>*@
-                                                        <i class="btn btn-success" data-toggle="modal" data-target="#exampleModalvj" onclick="Getagentdetails('@item["Agentid"]')">EDIT</i>
-                                                        <i class="btn btn-danger" onclick="deleteagentdetail('@item["Agentid"]')">DELETE</i>
-                                                    </td>
+                                                        <td>
+                                                            @* <span class="fw-bold text-success">KYC Complete</span></td> *@
+                                                            @*<i class="btn btn-success">KYC Complete</i>*@
+                                                            <i class="btn btn-success" data-toggle="modal" data-target="#exampleModalvj" onclick="Getagentdetails('@item["Agentid"]')">EDIT</i>
+                                                            <i class="btn btn-danger" onclick="deleteagentdetail('@item["Agentid"]')">DELETE</i>
+                                                        </td>
                                                 }
 
                                                 else
                                                 {
                                                 //<td><span class="fw-bold text-danger">Not Complete</span></td>
-                                                    <td><i class="btn  btn-success fs-6 p-2" data-toggle="modal" data-target="#exampleModal" onclick="setParterId('@item["Agentid"]')">Update KYC</i></td>
+                                                        <td><i class="btn  btn-success fs-6 p-2" data-toggle="modal" data-target="#exampleModal" onclick="setParterId('@item["Agentid"]')">Update KYC</i></td>
                                                 }
-                                                <td><span class="btn btn-primary" onclick="userOnboarding('@item["Agentid"]','@item["Mobile"]')">Onboard </span></td>
+                                                    <td><span class="btn btn-primary" onclick="userOnboarding('@item["Agentid"]','@item["Mobile"]')">Onboard </span></td>
 
 
 
 
-                                                <td>@item["StateName"]</td>
-                                                <td>@item["DistrictName"]</td>
-                                                <td>@item["BlockName"]</td>
-                                                <td>@item["Address"]</td>
-                                                <td>@item["AadhaarNo"]</td>
-                                                <td>@item["PanNo"]</td>
+                                                    <td>@item["StateName"]</td>
+                                                    <td>@item["DistrictName"]</td>
+                                                    <td>@item["BlockName"]</td>
+                                                    <td>@item["Address"]</td>
+                                                    <td>@item["AadhaarNo"]</td>
+                                                    <td>@item["PanNo"]</td>
 
-                                                <td>@item["dobdate"]</td>
-                                                <td>@item["edate"]</td>
+                                                    <td>@item["dobdate"]</td>
+                                                    <td>@item["edate"]</td>
 
-                                                <td>@item["BankHolderName"]</td>
-                                                <td>@item["BankAccountNo"]</td>
-                                                <td>@item["IFSCCode"]</td>
-                                                <td>@item["BankName"]</td>
+                                                    <td>@item["BankHolderName"]</td>
+                                                    <td>@item["BankAccountNo"]</td>
+                                                    <td>@item["IFSCCode"]</td>
+                                                    <td>@item["BankName"]</td>
 
 
-                                                @*@if (item["Aadharpicfront"].ToString().ToUpper() != "N/A")
+                                                    @*@if (item["Aadharpicfront"].ToString().ToUpper() != "N/A")
                                 {
                                 <td><a href='@item["Aadharpicfront"]' target="_blank">Show</a></td>
                                 }
@@ -388,12 +393,12 @@
 
 
 
-                                                @* <td>
+                                                    @* <td>
                                 <a href="#" onclick="GetDetailsForEdit('@item["RecruitmentID"]')"><span class="badge bg-success">Edit</span></a>
                                 </td>
                                 *@
 
-                                            </tr>
+                                                </tr>
                                             i++;
                                         }
                                     }

@@ -228,7 +228,7 @@
             <input type="button" id="openAepsbutton" style="width:100%;"
                    value="Next" class="btn button mt-2 fs-5 right-elem bg-gradient-primary"
                    onclick="openAepsServices()"
-                   disabled title="Authentication required for Registration and Today's Auth" />
+                   title="Authentication required for Registration and Today's Auth" />
         </div>
     </div>
 </div>
@@ -749,7 +749,7 @@
                     debugger;
                     // Enable the "Next" button only if both statuses are "Success"
                     if (data.merchantStatus === 'Success' && data.authStatus === 'Success') {
-                        openAepsButton.disabled = false;
+                        openAepsButton.disabled = true;
                         openAepsButton.removeAttribute('title');  // Remove tooltip when button is enabled
                     } else {
                         openAepsButton.disabled = true;
